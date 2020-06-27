@@ -1,0 +1,17 @@
+<html>
+<head>
+    <title><?php echo $this->view_data["title"]?></title>
+    <?php
+    if(isset($this->view_data["scripts"])) {
+        foreach ($this->view_data["scripts"] as $script) {
+            echo "<script src='js/" . $script . "'></script>";
+        }
+    }
+    if(isset($this->view_data["stylesheets"])) {
+        foreach ($this->view_data["stylesheets"] as $stylesheet) {
+            echo "<link href='css/" . $stylesheet . "' rel='stylesheet'>";
+        }
+    }
+    ?>
+</head>
+

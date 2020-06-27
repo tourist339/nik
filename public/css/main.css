@@ -1,0 +1,135 @@
+/******** GlobalClasses *******/
+@font-face{
+    font-family:regbold;
+    src:url(../fonts/SpaceMono-Bold.ttf);
+}
+@font-face{
+    font-family:reg;
+    src:url(../fonts/SpaceMono-Regular.ttf);
+}
+
+html{
+}
+
+.largesize{
+    font-size: 3.8vw;
+}
+.heading{
+    font-size: 2.8vw;
+    font-family: regbold;
+}
+.midsize{
+    font-size: 1.8vw;
+    font-family: reg;
+    
+}
+.parasize{
+    font-size: 1.1vw;
+    font-family: reg;
+    
+}
+.smparasize{
+    font-size: 0.9vw;
+    font-family: reg;
+    
+}
+.notypelist{
+    list-style-type: none;
+}
+/********                  *********/
+input[type="submit"]{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+.navbar{
+    padding: 0.7vw 0;
+    background-color:#f4f4f4;
+    display: flex;
+}
+.navbar div{
+        display: flex;
+}
+.navbar div:first-child{
+            flex: 1.3 1 0px;
+            display: flex;
+    flex-direction: row;
+}
+.navbar div:nth-child(2){
+            flex: 1 1 0px;
+    
+}
+
+.headline{
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0vw;
+}
+.headline:before{
+    content: "";
+    width: 6vw;
+    height: 0.4vw;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: gray;
+}
+.afterline{
+    position: relative;
+}
+.afterline:after{
+    content: "";
+    width: 80%;
+    height: 1px;
+    position: absolute;
+    margin-top:25px;
+    background: #717171;
+}
+.navbar a{
+        font-size: 1.1vw;
+        text-align: center;
+        margin: 0 8px;
+        padding: 8px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-family: reg;
+        color: #315B73;
+
+    text-decoration: none;
+}
+
+.navbar a:hover{
+    background-color: rgba(0,0,0,0.1);
+    cursor: pointer;
+}
+#logoicon{
+    text-align:left;
+    flex: 0 0 0px;
+    width: 5vw;
+}
+footer{
+    width: 100%;
+    height: 20vw;
+    background-color: azure;
+}
+/*flex classes*/
+.rowflex{
+    display: flex;
+    flex-direction: row;
+}
+.colflex{
+    display: flex;
+    flex-direction: column;
+}
+/*Margin bottom to 0*/
+.nomb{
+    margin-bottom: 0 !important;
+}
+.sticky{
+    position: fixed;
+}
+
+.rel{
+    position: relative;
+}

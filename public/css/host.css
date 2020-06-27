@@ -1,0 +1,164 @@
+@font-face{
+    font-family:regbold;
+    src:url(../fonts/eczar-bold-webfont.woff);
+}
+@font-face{
+    font-family:reg;
+    src:url(../fonts/SpaceMono-Regular.ttf);
+}
+#host-box{
+    background: url(../imgs/img4v.jpeg);
+    background-size: cover;
+    width: 100vw;
+    height: 41vw;
+    position: relative;
+}
+#host-box h1{
+    font-size: 2.2vw;
+    margin: 0;
+}
+#host-box h4{
+    font-size: 1.1vw;
+    
+    margin-top: 0.5em;
+    margin-bottom: 0;
+}
+#hb-input-box{
+    width: 25vw;
+    padding: 2vw;
+    position: absolute;
+    right: 10vw;
+    top:8vw;
+    background-color: rgba(255,255,255,0.8);
+    border-radius: 8px;
+}
+
+.hb-inputs{
+    font-size: 1.2vw;
+    padding: 0.3em;
+    margin: 0.3em 0;
+}
+
+.horizontal-inputs{
+    display: flex;
+    flex-direction: row;
+}
+#host-place{
+    width: 100%;
+}
+#host-type{
+    width: 0;
+    flex: 2 1 auto;
+    margin-right: 0.3em;
+}
+#host-num{
+    width: 0;    
+    flex:  1 1 auto;
+    margin-left: 0.3em;
+}
+
+#hb-input-box input[type="submit"]{
+    font-size: 1.0vw;
+    padding: 0.8em;
+    background-color:rgba(255,0,0,0.5);
+    width: 25vw;
+    margin: 1em 0 0 0;
+    
+}
+#host-benefits{
+    display: flex;
+    flex-direction: row;
+    margin: 2vw 10vw;
+}
+
+.hb-reasons{
+    width: 35vw;
+    
+}
+.hb-reasons h1{
+    font-weight: 100;
+    font-family: regbold;
+    font-size: 2.2vw;
+}
+.hb-reasons p{
+    font-family: reg;
+    
+}
+#hb-why{
+    
+    margin-right: 5vw;
+}
+#hb-back{
+    margin-left: 5vw;
+}
+
+#host-explain{
+    
+    margin: 8vw 10vw;
+}
+#he-heading{
+    width: 15vw;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin:0vw 8vw;
+}
+#he-heading h1{
+    font-size: 5vw;
+    font-weight: 100;
+    margin: 0.1rem;
+    
+}
+#he-steps{
+    margin:0vw 8vw;
+    
+}
+
+#he-steps ul li img{
+    width: 3vw;
+    height: 3vw;
+    vertical-align:bottom;
+    font-family: regbold;
+}
+#he-steps ul li span{
+    font-size: 2.2vw;
+    font-family: regbold;
+    
+    margin-left: 1vw;
+}
+#he-steps ul li p{
+    font-family: reg;
+}
+
+#host-priority{
+    margin: 2vw;
+}
+
+#hp-box{
+    margin: 0vw 11vw;
+}
+#hp-box div{
+    width: 38vw;
+}
+#hpb-left{
+    margin-right: 2vw;
+}
+#hpb-right{
+    margin-left: 2vw;
+}
+#hpb-right ul li:before{
+    content: "\2714";
+    margin-right: 1vw;
+}
+
+#host-reviews{
+    margin: 5vw 20vw;
+}
+#hrf-img img{
+    width: 20vw;
+}
+
+#host-about{
+    margin: 2vw 10vw;
+}

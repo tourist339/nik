@@ -1,0 +1,265 @@
+html{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-flow: column;
+    min-height: 100%;
+}
+.hidden{
+/*    //display: none !important;*/
+/*   // opacity: 0;*/
+    display: none !important;
+    opacity: 0;
+}
+
+.fortrans{
+        transition: all ease 1s;
+
+}
+#setup-container{
+    background: url(../imgs/img9.jpg);
+    opacity: 0.9;
+    width: 100vw;
+    background-size: cover;
+    justify-content: center;
+    min-height: 100%;
+    height: calc(100vh - 2.9vw - 13px);
+    margin-bottom: 0em;
+
+}
+
+/*For active boxes*/
+.activePhase{
+    display: flex !important;
+    flex-direction: column;
+    opacity: 1 !important;
+    
+}
+#setup-box{
+    padding: 1vw 3vw 0vw 3vw;
+    border: solid 4px lightblue;
+    border-top: 0px;
+    background-color: rgba(244,244,244,0.96);
+    width: 33vw;
+    min-width: 25vw;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    
+}
+#setup-box-content{
+    overflow-y: scroll;
+    position: relative;
+}
+.setup-footer{
+    margin-top: auto;
+}
+.setup-fader{
+   display: none;
+    opacity: 0;
+    width: 100%;
+}
+
+/*General style for top headings on each phase page*/
+.setup-fader h1{
+    margin: 0 0 2.5vw 0;
+    text-align: center;
+    color: #5297BF;
+    font-weight: bold;
+}
+
+/*General style for p texts in the phase boxes*/
+.phase-text{
+    font-size: 1.4vw;
+    color: #315B73;
+}
+.phase-text-inline{
+    font-size: 1.6vw;
+    margin-right: 1vw;
+    color: #315B73;
+    padding: 0.4em;
+    padding-left: 0;
+
+}
+.phase-text-label{
+    font-size: 1.4vw;
+    margin-bottom: 5px;
+    color: #5297BF;
+    font-weight: bold;
+}
+
+
+
+/*General style for inputs in the phase boxes*/
+#setup-box input,select{
+    display: block;
+    margin: 1.3vw 0vw;
+    font-size: 1.4vw;
+    font-family: reg;
+    padding: 0.4em;
+    border: solid 1.8px lightblue;
+    border-radius: 10px;
+}
+
+
+.rowflex>input{
+    max-width: 16vw;
+}
+
+
+.rowflex>input:first-child{
+    margin-right: 1vw !important;
+}
+
+
+/*Style for title phase*/
+#setup-box textarea{
+    margin: 1vw 0;
+}
+#ta-title{
+    font-size: 2.3vw;
+    width: 100%;
+    text-align: center;
+    resize: none;
+    
+}
+#ta-desc{
+    width: 100%;
+    font-size: 1.2vw;
+    
+    resize: vertical;
+}
+
+
+
+
+.next {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+#setup-box-next{
+    border-radius: 10px !important;
+    background-color: lightgray;
+    background-color: #315B73;
+    border-color: #315B73;
+    margin: 0;
+    color: white;
+    outline: none;
+    margin-left: auto !important;
+}
+
+#setup-box-next:hover{
+    cursor: pointer;
+    background-color: #315B73;
+    font-size: 1.44vw;
+    border-color: #315B73;
+    
+}
+
+.switch-btns{
+    border-radius: 50% !important;
+    padding: 0 1vw !important;
+    outline: none;
+    margin-right: 1vw !important;
+    transition: all ease 0.5s;
+
+}
+
+.switch-btns:hover{
+      cursor: pointer;
+    background-color: #315B73 !important;
+        border-color: #315B73 !important;
+    color: white;
+    font-size: 1.44vw !important;
+}
+
+.inplabels{
+    font-size: 1.4vw;
+    padding: 0.4em;
+    white-space: nowrap;
+}
+
+.numinp{
+    width: 5vw;
+}
+
+
+#getLocation{
+    width: 15vw;
+    font-size: 1.20vw;
+    padding: 0.3em;
+    border-radius: 10px;
+    background-color: lightgray;
+    background-color: #315B73;
+    border-color: black;
+    color: white;
+    outline: none;
+}
+#getLocation:hover{
+    cursor: pointer;
+    background-color: #315B73;
+    font-size: 1.22vw;
+    border-color: #315B73;
+    
+    
+}
+#map{
+    display: none;
+    min-height: 30vw;
+    width: 100%;
+}
+
+
+
+
+
+/*Style for amenity phase*/
+input[type=checkbox]{
+    display: inline-block !important;
+    margin-right: 0.5vw !important;
+    width: 1vw;
+    height: 1vw;
+}
+.amenity input:hover{
+    cursor: pointer;
+}
+label{
+    font-size: 1.4vw;
+}
+#add-amenity{
+    width: 5vw;
+    outline: none;
+}
+#add-amenity:hover{
+    cursor:pointer;
+    background-color: #315B73;
+    border-color: #315B73;
+    color: white;
+    font-size: 1.44vw;
+}
+.rules-btns{
+    border-radius: 50% !important;
+    padding: 0 0.6vw !important;
+    outline: none;
+    font-size: 1.4vw !important;
+}
+.notopmargin{
+    margin-top: 0 !important;
+}
+.rules-btns:hover{
+    cursor:pointer;
+    background-color: #315B73;
+    border-color: #315B73 !important;
+    color: white;
+    font-size: 1.44vw !important;
+}
+.activeBtn{
+    background-color: #315B73;
+    border-color: #315B73 !important;
+    color: white;
+    font-size: 1.44vw !important;
+}
