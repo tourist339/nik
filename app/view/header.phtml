@@ -1,17 +1,36 @@
+<?php $vdata=$this->view_data; ?>
 <html>
 <head>
-    <title><?php echo $this->view_data["title"]?></title>
+    <title><?php echo $vdata["title"]?></title>
     <?php
-    if(isset($this->view_data["scripts"])) {
-        foreach ($this->view_data["scripts"] as $script) {
-            echo "<script src='js/" . $script . "'></script>";
+    if(isset($vdata["scripts"])) {
+        foreach ($vdata["scripts"] as $script) {
+            if(file_exists("js" .DIRECTORY_SEPARATOR. $script )) {
+                echo "<script src='/js" . DIRECTORY_SEPARATOR . $script . "'></script>";
+            }
         }
     }
-    if(isset($this->view_data["stylesheets"])) {
-        foreach ($this->view_data["stylesheets"] as $stylesheet) {
-            echo "<link href='css/" . $stylesheet . "' rel='stylesheet'>";
+    if(isset($vdata["stylesheets"])) {
+        foreach ($vdata["stylesheets"] as $stylesheet) {
+            if(file_exists("css" .DIRECTORY_SEPARATOR. $stylesheet )) {
+                echo "<link href='/css" . DIRECTORY_SEPARATOR . $stylesheet . "' rel='stylesheet'>";
+            }
         }
     }
     ?>
 </head>
+<body>
+<?php
+if(isset($vdata["navbar"])){
+    $navpath=TEMPLATE."navbars".DIRECTORY_SEPARATOR;
+    if(file_exists($navpath.$vdata["navbar"])){
+        include $navpath.$vdata["navbar"];
+    }else{
+        include $navpath.'navbar.html';
+
+    }
+}
+
+?>
+
 

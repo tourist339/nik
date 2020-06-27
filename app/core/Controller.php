@@ -4,7 +4,7 @@
 class Controller
 {
     private $view;
-    public function updateView($viewPath,$viewData=[]){
+    public function createView($viewPath,$viewData=[]){
         $this->view=new View($viewPath,$viewData);
         return $this->view;
     }
