@@ -4,7 +4,7 @@
 class Application
 {
 //    Default controller,method and prams
-    protected $controller="homeController";
+    protected $controller="home_controller";
     protected $method="index";
     protected $prams=[];
 
@@ -25,7 +25,7 @@ class Application
         $url=trim($_SERVER['REQUEST_URI'],'/');
         $url=explode('/',$url);
 
-        $this->controller=!empty($url[0])?$url[0]."Controller":$this->controller;
+        $this->controller=!empty($url[0])?$url[0]."_controller":$this->controller;
         $this->method=isset($url[1])?$url[1]:$this->method;
         unset($url[0],$url[1]);
         $this->prams=$url;

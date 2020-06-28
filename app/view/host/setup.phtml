@@ -1,0 +1,453 @@
+
+<form id="setup-container" class="rowflex" method="post" action="propsave.php">
+
+    <div id="setup-box" >
+        <!--        A wrapper to put everything in middle-->
+        <div class="rowflex" id="setup-box-content" style="justify-content:center;">
+
+
+            <!--        First page box for listers info-->
+            <div class="fortrans setup-fader activePhase" id="phase1">
+                <h1 class="midsize">Lister's information</h1>
+                <div class="rowflex">
+                    <input type=text placeholder="First Name" name="ownerfName" id="">
+                    <input type=text placeholder="Last Name"name="ownerlName" id="">
+                </div>
+                <input type=text placeholder="Phone Number" name="ownerpNum" id="">
+                <input type=text placeholder="Ownership" name="ownerType" id="">
+
+                <input type=text placeholder="Street Address" name="ownerAddress" id="">
+                <div class="rowflex">
+
+                    <input type=text placeholder="City" name="ownerCity" id="">
+                    <input type=text placeholder="State" name="ownerState" id="">
+                </div>
+            </div>
+
+
+            <!--        Second page box For props information-->
+            <div class=" fortrans setup-fader" id="phase2" >
+                <h1 class="midsize">Property's information</h1>
+
+                <input type=text placeholder="Property Type" name="pType" id="">
+                <div class="rowflex">
+                    <input list="sharingtype"  placeholder="Sharing Type" name="pSharingType" id="sharingtypeinp">
+                    <datalist id="sharingtype">
+                        <option  value="Entire Place" selected>Entire Place</option>
+                        <option value="Private Room">Private Room</option>
+                        <option value="Shared Room">Shared Room</option>
+                    </datalist>
+                    <p class="inplabels">No. Of Guests</p>
+                    <input type=number class="numinp"  id="noguests" placeholder="" name="pNoGuests" id="" >
+                </div>
+
+                <div class="rowflex ">
+                    <p class="inplabels" >No. Of Beds:</p>
+                    <input type=number class="numinp" name="pNoBeds" id="" >
+                    <p class="inplabels">No. Of Bathrooms:</p>
+                    <input type=number class="numinp" name="pNoBathrooms" id="" >
+                </div>
+                <!--            prdiv is shown only when room is private or shared-->
+                <div class="rowflex prdiv" style="display:none;">
+                    <p class="inplabels">Are all bathrooms shared?</p>
+                    <input list="yesno" class="numinp" name="pBathroomShared" id="">
+                </div>
+                <div class="rowflex">
+                    <p class="inplabels">Is kitchen available?</p>
+                    <input list="yesno" class="numinp" name="pKitchenAvailable" id="">
+                </div>
+            </div>
+            <!--        Third page box-->
+            <div class="setup-fader" id="phase3" >
+                <textarea id="ta-title"rows="2" maxlength="50" name="pTitle" placeholder="Title"></textarea>
+                <textarea id="ta-desc"  maxlength="2000" name="pDesc" placeholder="Description"></textarea>
+
+            </div>
+
+
+            <!--        Fourth Page box-->
+            <div class="setup-fader nomap" id="phase4" >
+                <h1 class="midsize">Property Address</h1>
+                <button id="getLocation">Use current location </button>
+
+                <input type=text placeholder="Street Address" name="pAddress" id="prop-straddr" class="required" required/>
+                <input type=text placeholder="Apt. Number (Optional)" name="pApt" id="prop-aptno">
+
+                <div class="rowflex">
+                    <input type=text placeholder="City" name="pCity" id="prop-city">
+                    <input type=text placeholder="State" name="pState" id="prop-state">
+                </div>
+                <p class="phase-text" style="display:none;">You can adjust the marker</p>
+                <div id="map"></div>
+
+            </div>
+
+
+            <!--        Fifth Page box-->
+            <div class="setup-fader" id="phase5" >
+                <h1 class="midsize" style="margin-bottom:0vw;text-align:start;">What amenities do you offer?</h1>
+                <p class="phase-text" >You can select from the list or add your own</p>
+                <!--            Items are loaded via javascript-->
+                <div id="amenity-box"></div>
+                <div class="rowflex">
+                    <input type=text autocomplete='nope' placeholder="Laundry? Pool?" name="" id="prop-city">
+                    <input type="button" value="Add" id="add-amenity">
+                </div>
+            </div>
+
+
+            <!--        Sixth Page box-->
+            <div class="setup-fader" id="phase6" >
+                <h1 class="midsize" style="text-align:start;">Setup house rules</h1>
+                <div id="hrules-box">
+                    <div class="rowflex">
+                        <p class="phase-text" >Only for girls</p>
+                        <input type="button" name="pGirls" class="rules-btns rb1" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
+                        <input type="button" class="rules-btns rb1" value="X">
+                    </div>
+                    <div class="rowflex">
+                        <p class="phase-text">Smoking Allowed</p>
+                        <input type="button" class="rules-btns rb2" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
+                        <input type="button" class="rules-btns rb2" value="X">
+                    </div>
+                    <div class="rowflex">
+                        <p class="phase-text">Parties allowed</p>
+                        <input type="button" class="rules-btns rb3" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
+                        <input type="button" class="rules-btns rb3" value="X">
+                    </div>
+                    <div class="rowflex">
+                        <p class="phase-text">Pet Friendly</p>
+                        <input type="button" class="rules-btns rb4" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
+                        <input type="button" class="rules-btns rb4" value="X">
+                    </div>
+                    <div class="rowflex">
+                        <p class="phase-text">Only for girls</p>
+                        <input type="button" class="rules-btns rb5" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
+                        <input type="button" class="rules-btns rb5" value="X">
+                    </div>
+                    <p class="phase-text-label">Additional Rules</p>
+                    <div class="rowflex" class="notopmargin">
+                        <input type=text autocomplete="nope" placeholder="Setup Queit hours? " style="max-width:100%;flex:1 1 auto;"  class="notopmargin" id="prop-city">
+                        <input type="button" value="Add" class="notopmargin" id="add-amenity">
+                    </div>
+                </div>
+                <h1 class="midsize" style="text-align:start;margin-top:1vw;">Upload images of the property</h1>
+                <input type="file" id="imgInp" name="files" accept="image/* " class="notopmargin" multiple><br><br>
+                <img id="blah" src="#" alt="your image" />
+
+            </div>
+
+            <!--            SEVENTH PAGE BOX-->
+            <div class="setup-fader" id="phase7">
+                <h1 class="midsize" >Rent Information</h1>
+                <input type=text placeholder="Rent in Rs." style="width:16vw;" name="pRent" id="prop-rent" />
+                <p class="phase-text" style="font-size:1.6vw;">What does the rent include?</p>
+                <div>
+                    <input type="checkbox" value="Electricity" class="rent-utils" id="electricity">
+                    <label for="electricity" class="phase-text">Electricity</label>
+                </div>
+                <div>
+                    <input type="checkbox" value="Water" class="rent-utils" id="water">
+                    <label for="water" class="phase-text">Water</label>
+                </div>
+                <div class="rowflex" id="agr-div">
+                    <p class="phase-text-inline" >Agreement Type</p>
+                    <select id="agreement-type">
+                        <option value="monthly">Monthly</option>
+                        <option value="halfyear">6 months</option>
+                        <option value="yearly">1 year</option>
+                        <option value="custom">Custom</option>
+                    </select>
+                    <input type=text  style='max-width:10vw' id="custom-agrtype" placeholder='2 months?' class="hidden">
+                </div>
+            </div>
+
+        </div>
+
+
+        <!--      Footer div containing next and page switch buttons  -->
+        <div class="rowflex setup-footer">
+            <input type="button" for="phase1" class="switch-btns activeBtn" value="1" id="p1-switch">
+            <input type="button" for="phase2" class="switch-btns hidden" value="2" id="p2-switch">
+            <input type="button" for="phase3" class="switch-btns hidden" value="3" id="p3-switch">
+            <input type="button" for="phase4" class="switch-btns hidden" value="4" id="p4-switch">
+            <input type="button" for="phase5" class="switch-btns hidden" value="5" id="p5-switch">
+            <input type="button" for="phase6" class="switch-btns hidden" value="6" id="p6-switch">
+            <input type="button" for="phase7" class="switch-btns hidden" value="7" id="p7-switch">
+
+            <input type="button" value="Next" id="setup-box-next">
+            <input type="submit" value="Submit" id="submitForm">
+
+        </div>
+    </div>
+</form>
+
+<!--    Yes no option list-->
+<datalist id="yesno">
+    <option  value="Yes" selected>Yes</option>
+    <option value="No">No</option>
+</datalist>
+
+</body>
+
+<!--    Map loading scripts-->
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDTWvYehAfHTElUe6NyRq0KVAuZVoI4RQM&ver=3.exp"></script>
+<script>
+    var x = document.getElementById("demo");
+    function getLocation() {
+        $(".activePhase").removeClass("nomap");
+        if (navigator.geolocation) {
+
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+            $("#map").innerHTML = "Geolocation is not supported by this browser.";
+        }
+    }
+
+
+
+    function showPosition(position) {
+//    get latitute and longitude
+
+
+        var lat= position.coords.latitude ;
+        var lng= position.coords.longitude;
+        latitude=lat;
+        longitude=lng;
+
+        var google_map_position = new google.maps.LatLng( lat, lng );
+        var google_maps_geocoder = new google.maps.Geocoder();
+        google_maps_geocoder.geocode(
+            { 'latLng': google_map_position},
+            function( results, status ) {
+//        results contain all the address related info
+                var k=results[0].address_components;
+                $("#prop-straddr").val(k[0].long_name+" "+ k[1].long_name);
+                $("#prop-city").val( k[3].long_name);
+                $("#prop-state").val( k[5].long_name);
+                initMap(lat,lng);
+            }
+        );
+
+    }
+
+    function initMap(latitude,longitude) {
+        $("#map").css("display","block");
+        $(".phase-text").css("display","block");
+//            Scroll to map bottom
+        $("#setup-box-content").animate({ scrollTop: $('#setup-box-content').prop("scrollHeight")}, 1500);
+        // The location of Uluru
+        var uluru = {lat: latitude, lng: longitude};
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 18,
+                center: uluru});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: uluru,
+            draggable:true,
+            animation:google.maps.Animation.DROP,
+            map: map});
+        google.maps.event.addListener(marker, 'dragend', function(evt){
+            document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
+        });
+    }
+
+    function displayMap(){
+        var geocoder = new google.maps.Geocoder();
+        var address = $("#prop-straddr").val()+" , "+$("#prop-city").val()+" , "+$("#prop-state").val();
+        geocoder.geocode( { 'address': address}, function(results, status) {
+
+            if (status == google.maps.GeocoderStatus.OK) {
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+
+
+                initMap(latitude,longitude);
+
+            }
+        });
+    }
+</script>
+<!--    Amenities loading script-->
+<script>
+    var  amList=["Wifi","Heat","Air Conditioning","TV","Refrigerator","Breakfast or    Coffee/tea","Lunch","Dinner"];
+    for (var amenity of amList){
+        $("#amenity-box").append("<div class='amenity'>"+
+            "<input type='checkbox'  id='"+amenity+"' name='amenities[]' value='"+amenity+"'>"+
+            "<label for='"+amenity+"' class='phase-text'>"+amenity+"</label><br>"+
+            "</div>");
+    }
+</script>
+
+
+<!--    Main event functions script-->
+<script>
+    // checking validity dynamically
+
+
+    $("#getLocation").click(function(){
+        getLocation();
+    });
+    //        House rules button event
+    $(".rules-btns").click(function(){
+        if($(this).hasClass("activeBtn")){
+            $(this).removeClass("activeBtn");
+        }else{
+            var sClass=$(this).attr("class").split(' ')[1];
+            if(!$("."+sClass).hasClass("activeBtn")){
+                $(this).addClass("activeBtn");
+            }
+        }
+    });
+
+    $("#setup-container").submit(function(e){
+        e.preventDefault();
+        var form=$(this);
+        var url=form.attr("action");
+        var data=form.serializeArray();
+        var amenities=["ka","fdsafs","Fsd"];
+        data.push({name: 'amenities', value: amenities},{name: 'vw', value: amenities});
+        console.log(data);
+        $.post(url,data,function(data){
+            alert(data);
+        });
+    });
+
+    //        Agreement dropdown change event
+    $("#agreement-type").change(function(){
+        if($(this).val()=="custom"){
+            $("#custom-agrtype").removeClass("hidden");
+        }else{
+            if(!$("#custom-agrtype").hasClass("hidden")){
+                $("#custom-agrtype").addClass("hidden");
+
+            }
+        }
+    });
+
+    //    Bottom next phase button events
+    $("#setup-box-next").click(function(){
+
+            var k=$(".activePhase");
+            var id=k.attr("id");
+            if(id=="phase4" && k.hasClass("nomap")){
+                //Display the map when users enters address and press next button
+                console.log("true");
+
+                displayMap();
+                k.removeClass("nomap");
+            }else if(id=="phase7"){
+            }
+            else{
+                var nextid=parseInt(id.substr(-1))+1;
+                if(nextid==7){
+                    $("#setup-box-next").val("Submit");
+
+                }
+                var currSwitchBtn=$("input[for='"+id+"']");
+                var nextSwitchBtn=$("input[for='phase"+nextid+"']");
+
+                currSwitchBtn.removeClass("activeBtn");
+                nextSwitchBtn.removeClass("hidden");
+                nextSwitchBtn.addClass("activeBtn");
+                k.removeClass("activePhase",1000,"linear");
+                $("#phase"+nextid).addClass("activePhase");
+            }
+
+
+        }
+    );
+
+
+    //    Bottom switch phase button events
+
+    $(".switch-btns").click(function(){
+        $(".activePhase").removeClass("activePhase");
+        $(".switch-btns").removeClass("activeBtn");
+        $(this).addClass("activeBtn");
+        var switchto=$(this).attr("for");
+        if(switchto=="phase7"){
+            $("#setup-box-next").attr("type","submit");
+
+            $("#setup-box-next").val("Submit");
+
+        }else{
+            $("#setup-box-next").val("Next");
+
+        }
+        $("#"+switchto).addClass("activePhase");
+    });
+
+
+
+    //    Sharing type event handler of phase2
+    $("#sharingtypeinp").change(function(){
+        var value=$("#sharingtypeinp").val();
+        if(value.localeCompare("Entire Place")!=0){
+            alert("Fsdfs");
+            $(".prdiv").css("display","flex");
+        }
+    });
+
+
+    //    Images loading functions
+    //    function readURL(input) {
+    //  if (input.files && input.files[0]) {
+    //    var reader = new FileReader();
+    //
+    //    reader.onload = function(e) {
+    //      $('#blah').attr('src', e.target.result);
+    //    }
+    //
+    //    reader.readAsDataURL(input.files[0]); // convert to base64 string
+    //  }
+    //}
+    //
+    //$("#imgInp").change(function() {
+    //    console.log("32432");
+    //  readURL(this);
+    //});
+</script>
+
+
+
+
+
+<!--
+
+*PROPERTY ADDRESS
+*TITLE
+#Introduction
+*DESCRIPTION
+*NO OF GUESTS
+# GUESTS ALREADY PRESENT
+*ENTIRE PLACE/PRIVATE/SHARED
+*PROPERTY TYPE
+*OWNERSHIP
+*NO OF BEDS GUEST CAN USE
+#SLEEPING ARRANGEMENTS
+*BATHROOMS
+*BEDROOMS
+#VACANT
+*FIRSTNAME
+*LASTNAME
+*PHONE NUMBER/OTP
+*YOUR ADDRESS
+*CITY
+*STATE
+*Rent
+amenities
+Images
+HOUSE RULES
+
+AMenities->
+Wifi
+Heat
+Air Conditioning
+TV
+Refrigerator
+Breakfast or Coffee/tea
+Lunch
+Dinner
+
+-->

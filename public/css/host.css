@@ -7,9 +7,8 @@
     src:url(../fonts/SpaceMono-Regular.ttf);
 }
 #host-box{
-    background: url(../imgs/img4v.jpeg);
+    background: url(../imgs/img4.jpeg);
     background-size: cover;
-    width: 100vw;
     height: 41vw;
     position: relative;
 }

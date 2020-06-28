@@ -1,7 +1,7 @@
 <?php
 
 
-class e404Controller
+class e404_controller
 {
     public function __construct()
     {
