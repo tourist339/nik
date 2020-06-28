@@ -1,11 +1,17 @@
 <?php
 class Database extends PDO {
-    protected $host='localhost';
-    protected $username='root';
-    protected $password='';
+    protected $host="localhost";
+    protected $username="root";
+    protected $password="root";
     public function __construct($dbname)
     {
-        parent::__construct("mysql:host='".$this->host.";dbname=".$dbname,$this->username,$this->password);
+        try {
+            parent::__construct("mysql:dbname=" . $dbname . ";host=" . $this->host, $this->username, $this->password);
+            $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        }catch (PDOException $e){
+            echo "Error".$e;
+        }
     }
 
 }
