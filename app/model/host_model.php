@@ -9,10 +9,10 @@ class host_model extends Model
         parent::__construct("system_d");
     }
 
-    public function create(){
+    public function createPropRow(){
         $db=$this->getDb();
         $query=$db->prepare("SELECT * FROM properties");
-        $query->exec();
+        $query->execute();
         var_dump($query->fetchAll(PDO::FETCH_ASSOC));
         //var_dump($db->);
     }
