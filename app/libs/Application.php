@@ -17,18 +17,19 @@ class Application
                 call_user_func_array([$currC,$this->method],$this->prams);
             }
         }else{
-            new e404Controller();
+            new e404_controller();
 
         }
     }
     function set_controller(){
-        $url=trim($_SERVER['REQUEST_URI'],'/');
-        $url=explode('/',$url);
-
-        $this->controller=!empty($url[0])?$url[0]."_controller":$this->controller;
-        $this->method=isset($url[1])?$url[1]:$this->method;
-        unset($url[0],$url[1]);
-        $this->prams=$url;
+        if(isset($_GET['url'])) {
+            $url = trim($_GET['url'], '/');
+            $url = explode('/', $url);
+            $this->controller = !empty($url[0]) ? $url[0] . "_controller" : $this->controller;
+            $this->method = isset($url[1]) ? $url[1] : $this->method;
+            unset($url[0], $url[1]);
+            $this->prams = $url;
+        }
     }
 
 }
