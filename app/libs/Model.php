@@ -7,7 +7,6 @@ private $db;
 public function __construct($dbname){
     $this->db=new Database($dbname);
     $this->dbname=$dbname;
-    echo"SHoutout";
     //$this->db
 }
 
@@ -18,5 +17,11 @@ public function __construct($dbname){
     {
         return $this->db;
     }
+    public function closeDb()
+    {
+        $this->db=null;
+    }
+
+
 
 }

@@ -9,11 +9,25 @@ class host_model extends Model
         parent::__construct("system_d");
     }
 
-    public function createPropRow(){
+    public function createPropRow($data){
         $db=$this->getDb();
-        $query=$db->prepare("SELECT * FROM properties");
-        $query->execute();
-        var_dump($query->fetchAll(PDO::FETCH_ASSOC));
-        //var_dump($db->);
+        if(isset($db) && isset($data)){
+            //left ownerid and utilities to insert, will do that later
+
+            try{
+                echo "hey".$data[":pNoGuests"]."there";
+                $query=$db->prepare("INSERT INTO Properties( title, description, city, state,aptno,
+                                                                    proptype, sharingtype, guests, bedrooms, bathrooms,
+                                                                    kitchen, bathroomshared, address, rent, amenities) VALUES
+                                                                (:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
+                                                                :pNoBathrooms,:pKitchenAvailable,:pBathroomShared,:pAddress,
+                                                                :pRent,:amenities)"
+                                                                                        );
+                $query->execute($data);
+
+            }catch (PDOException $e){
+                echo "Error".$e; // For debugging
+            }
+        }
     }
 }
