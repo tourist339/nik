@@ -26,7 +26,7 @@ class prop_model extends Model
             $selectors.=" AND ";
         }
         $selectors=substr($selectors,0,-4);
-    print_r($selectors);
+
        $q="SELECT ".$columns." FROM Properties WHERE ".$selectors;
         try {
             $stmt = $db->prepare($q);

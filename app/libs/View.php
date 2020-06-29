@@ -10,7 +10,6 @@ class View
     {
         $this->view_path=$view_path;
         $this->view_data=$view_data;
-
     }
     public function render($inc_header=true,$inc_footer=true){
         if($inc_header)

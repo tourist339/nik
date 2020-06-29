@@ -1,0 +1,10 @@
+<?php
+$allprops=$this->view_data["data"];
+
+foreach ($allprops as $prop){
+    $prop_title=str_replace(' ','-',$prop["title"]);
+    echo "<a href='/prop/v/".$prop_title ."/".$prop["id"]."'>".$prop["title"]."</a><br>";
+}
+
+?>
+
