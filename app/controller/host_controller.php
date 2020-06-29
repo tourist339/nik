@@ -6,9 +6,11 @@ class host_controller extends Controller
     public function index()
     {
         $cView = $this->createView('/host/overview', ["title" => "Hosting OverView",
-            "scripts" => ["jquery-3.5.1.js"],
-            "stylesheets" => ["host.css", "main.css"],
-            "navbar" => "navbar.html"]);
+                "scripts" => [MAIN_SCRIPTS],
+                "stylesheets" => [MAIN_CSS,"host.css"],
+                "navbar" => MAIN_NAVBAR]
+
+        );
         $cView->render();
     }
 
@@ -39,9 +41,10 @@ class host_controller extends Controller
 
         }else {
             $cView = $this->createView('/host/setup', ["title" => "Hosting OverView",
-                "scripts" => ["jquery-3.5.1.js"],
-                "stylesheets" => ["setup.css", "main.css", "homepage.css"],
-                "navbar" => "navbar.html"]);
+                    "scripts" => [MAIN_SCRIPTS],
+                    "stylesheets" => [MAIN_CSS,"host.css"],
+                    "navbar" => MAIN_NAVBAR]
+            );
             $cView->render(true, false);
         }
 
