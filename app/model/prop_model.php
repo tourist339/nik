@@ -9,19 +9,24 @@ class prop_model extends Model
 
     }
 
-    public function getData($cols,$loc,$prop=false,$name="",$id=""){
+    public function getData($cols,$params){
         $db=$this->getDb();
         if(!empty($cols)){
            $columns=implode(",",$cols);
         }else{
             $columns="*";
         }
-        if($prop){
-            $selectors="(id= '".$id. "' AND "."name= '".$name."') AND (city='".$loc."' OR state='".$loc."')";
-        }else{
-            $selectors="(city='".$loc."' OR state='".$loc."')";
+        $selectors="";
+        foreach ($params as $key=>$value){
+            if($key=="location"){
+                $selectors.="(city='".$value."' OR state='".$value."')";
+            }else{
+                $selectors.="(".$key."= '".$value. "')";
+            }
+            $selectors.=" AND ";
         }
-
+        $selectors=substr($selectors,0,-4);
+    print_r($selectors);
        $q="SELECT ".$columns." FROM Properties WHERE ".$selectors;
         try {
             $stmt = $db->prepare($q);

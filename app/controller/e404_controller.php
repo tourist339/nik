@@ -3,8 +3,9 @@
 
 class e404_controller
 {
-    public function __construct()
+    public function __construct($errormsg="File Not Found")
     {
-        echo "File Not Found";
+        echo $errormsg;
+        exit();
     }
 }

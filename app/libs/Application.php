@@ -31,12 +31,9 @@ class Application
             $url = explode('/', $url);
             $this->controller = !empty($url[0]) ? $url[0] . "_controller" : $this->controller;
 
-            if($this->controller!="prop_controller") {
                 $this->method = isset($url[1]) ? $url[1] : $this->method;
                 unset($url[0], $url[1]);
-            }else{
-                unset($url[0]);
-            }
+
             $url=array_map(function ($u){return trim($u);},$url);
 
             $this->prams = $url;

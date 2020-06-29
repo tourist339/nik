@@ -3,26 +3,36 @@
 
 class prop_controller extends Controller
 {
-    public function index($location="",$propname="",$id="")
+    public function l($location)
     {
-        $this->model=new prop_model("system_d");
-        if (!(empty($location))&&(empty($propname)&&empty($id))) {
-            $data=$this->model->getData(["title","description","rent","address"],$location);
+        $this->model = new prop_model("system_d");
+
+            $data = $this->model->getData(["title", "description", "rent", "address"], ["location"=>$location]);
             print_r($data);
-            $cView = $this->createView('prop/showprops', ["title" => "LyfLy",
-                "scripts" => ["jquery-3.5.1.js"],
-                "stylesheets" => ["homepage.css", "main.css"],
-                "navbar" => "navbar.html"]);
-            $cView->render();
-        }elseif(!(empty($location))&&(!empty($propname)&&!empty($id))) {
-            $this->model->getData([],$location,true,$propname,$id);
+            if ($data == null) {
+                new e404_controller("No Property Found in this city");
+            } else {
+                $this->createView('prop/showprops', ["title" => "LyfLy",
+                    "scripts" => ["jquery-3.5.1.js"],
+                    "stylesheets" => ["homepage.css", "main.css"],
+                    "navbar" => "navbar.html"])->render();
+            }
 
-        }else{
-
-            new e404_controller();
         }
-        $this->model->closeDb();
+
+
+    public function v($propname, $id)
+    {
+            $data = $this->model->getData([], ["title"=>$propname, "id"=>$id]);
+            print_r($data);
+            $this->model->closeDb();
+
     }
+
+
+
+
+
 
 
 }

@@ -26,9 +26,9 @@ class host_model extends Model
                 $query->execute($data);
 
             }catch (PDOException $e){
+                if(DEBUG_MODE=="ON"){
                 echo "Error".$e; // For debugging
-            } finally {
-                header("Location: http://localhost:8888/home/index" );
+                    }
             }
         }
     }
