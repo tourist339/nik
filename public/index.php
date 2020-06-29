@@ -10,7 +10,7 @@ define('SCRIPT',ROOT.'public'.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR);
 
 define('TEMPLATE',ROOT.'public'.DIRECTORY_SEPARATOR.'templates'.DIRECTORY_SEPARATOR);
 
-$paths=[ROOT,CORE,CONTROLLER];
+$paths=[ROOT,CORE,CONTROLLER,MODEL];
 
 set_include_path(get_include_path().implode(PATH_SEPARATOR,$paths));
 spl_autoload_register();
