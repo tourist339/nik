@@ -4,9 +4,9 @@
 class host_model extends Model
 {
 
-    public function __construct()
+    public function __construct($dbname)
     {
-        parent::__construct("system_d");
+        parent::__construct($dbname);
     }
 
     public function createPropRow($data){
@@ -26,7 +26,9 @@ class host_model extends Model
                 $query->execute($data);
 
             }catch (PDOException $e){
+                if(DEBUG_MODE=="ON"){
                 echo "Error".$e; // For debugging
+                    }
             }
         }
     }
