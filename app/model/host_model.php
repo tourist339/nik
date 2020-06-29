@@ -4,9 +4,9 @@
 class host_model extends Model
 {
 
-    public function __construct()
+    public function __construct($dbname)
     {
-        parent::__construct("system_d");
+        parent::__construct($dbname);
     }
 
     public function createPropRow($data){
@@ -27,6 +27,8 @@ class host_model extends Model
 
             }catch (PDOException $e){
                 echo "Error".$e; // For debugging
+            } finally {
+                header("Location: http://localhost:8888/home/index" );
             }
         }
     }

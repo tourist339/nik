@@ -14,7 +14,11 @@ class Application
         if(file_exists(CONTROLLER.$this->controller.".php")){
             $currC=new $this->controller;
             if(method_exists($currC,$this->method)){
-                call_user_func_array([$currC,$this->method],$this->prams);
+                try {
+                    call_user_func_array([$currC, $this->method], $this->prams);
+                }catch (ArgumentCountError $e){
+                    new e404_controller();
+                }
             }
         }else{
             new e404_controller();
@@ -26,8 +30,13 @@ class Application
             $url = trim($_GET['url'], '/');
             $url = explode('/', $url);
             $this->controller = !empty($url[0]) ? $url[0] . "_controller" : $this->controller;
-            $this->method = isset($url[1]) ? $url[1] : $this->method;
-            unset($url[0], $url[1]);
+
+            if($this->controller!="prop_controller") {
+                $this->method = isset($url[1]) ? $url[1] : $this->method;
+                unset($url[0], $url[1]);
+            }else{
+                unset($url[0]);
+            }
             $this->prams = $url;
         }
     }

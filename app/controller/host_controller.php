@@ -31,7 +31,7 @@ class host_controller extends Controller
 ;                }
                 $data=array_combine($keys,$values);
                 print_r($data);
-                $this->model=new host_model();
+                $this->model=new host_model("system_d");
                 $this->model->createPropRow($data);
                 $this->model->closeDb();
 
