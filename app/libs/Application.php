@@ -19,6 +19,8 @@ class Application
                 }catch (ArgumentCountError $e){
                     new e404_controller();
                 }
+            }else{
+                new e404_controller();
             }
         }else{
             new e404_controller();
