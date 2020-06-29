@@ -37,9 +37,13 @@ class Application
             }else{
                 unset($url[0]);
             }
+            $url=array_map(function ($u){return trim($u);},$url);
+
             $this->prams = $url;
         }
+
     }
+
 
 }
 
