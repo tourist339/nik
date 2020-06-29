@@ -98,7 +98,7 @@ body{
     height: 20vw;
     margin-bottom: 1vw;
     border-radius: 10px;
-    /*(100vw - (body padding *2))/3.5 -4 can include the left right props margin too*/
+    /*(100vw - (body padding *2))/3.5 -4 can include the left right prop margin too*/
 }
 .sticky{
     top: 10px;

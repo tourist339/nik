@@ -1,5 +1,5 @@
 
-<form id="setup-container" class="rowflex" method="post" action="propsave.php">
+<form id="setup-container" class="rowflex" method="post" action="setup">
 
     <div id="setup-box" >
         <!--        A wrapper to put everything in middle-->
@@ -68,9 +68,9 @@
             <!--        Fourth Page box-->
             <div class="setup-fader nomap" id="phase4" >
                 <h1 class="midsize">Property Address</h1>
-                <button id="getLocation">Use current location </button>
+                <button type="button" id="getLocation">Use current location </button>
 
-                <input type=text placeholder="Street Address" name="pAddress" id="prop-straddr" class="required" required/>
+                <input type=text placeholder="Street Address" name="pAddress" id="prop-straddr" class="required" />
                 <input type=text placeholder="Apt. Number (Optional)" name="pApt" id="prop-aptno">
 
                 <div class="rowflex">
@@ -305,8 +305,8 @@
         var form=$(this);
         var url=form.attr("action");
         var data=form.serializeArray();
-        var amenities=["ka","fdsafs","Fsd"];
-        data.push({name: 'amenities', value: amenities},{name: 'vw', value: amenities});
+        // var amenities=["ka","fdsafs","Fsd"];
+        // data.push({name: 'amenities', value: amenities},{name: 'vw', value: amenities});
         console.log(data);
         $.post(url,data,function(data){
             alert(data);

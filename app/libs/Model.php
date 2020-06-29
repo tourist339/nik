@@ -1,10 +1,27 @@
 <?php
 
 
-class Model extends PDO
+class Model
 {
-public function __construct($dsn, $username = null, $passwd = null, $options = null)
-{
-    parent::__construct($dsn, $username, $passwd, $options);
+private $db;
+public function __construct($dbname){
+    $this->db=new Database($dbname);
+    $this->dbname=$dbname;
+    //$this->db
 }
+
+    /**
+     * @return Database
+     */
+    public function getDb()
+    {
+        return $this->db;
+    }
+    public function closeDb()
+    {
+        $this->db=null;
+    }
+
+
+
 }
