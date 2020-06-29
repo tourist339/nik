@@ -16,10 +16,11 @@ class prop_controller extends Controller
                 new e404_controller("No Property Found in this city");
             } else {
                 $this->createView('prop/listprops', ["title" => "LyfLy",
-                    "scripts" => ["jquery-3.5.1.js"],
-                    "stylesheets" => ["homepage.css", "main.css"],
-                    "navbar" => "navbar.html",
-                    "data" => $data])->render();
+                                                            "scripts" => [MAIN_SCRIPTS],
+                                                            "stylesheets" => [MAIN_CSS,"homepage.css"],
+                                                            "navbar" => MAIN_NAVBAR,
+                                                            "data" => $data]
+                                    )->render();
             }
             $this->model->closeDb();
 
@@ -34,9 +35,10 @@ class prop_controller extends Controller
             new e404_controller();
         } else {
             $this->createView('prop/singleprop', ["title" => "LyfLy",
-                "scripts" => ["jquery-3.5.1.js"],
-                "stylesheets" => ["homepage.css", "main.css"],
-                "navbar" => "navbar.html"])->render();
+                    "scripts" => [MAIN_SCRIPTS],
+                    "stylesheets" => [MAIN_CSS,"homepage.css"],
+                    "navbar" => MAIN_NAVBAR]
+            )->render();
         }
             $this->model->closeDb();
 
