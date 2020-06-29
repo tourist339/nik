@@ -1,0 +1,57 @@
+.container{
+    content: "";
+    width: 25rem;
+    height: 33rem;
+    border: 1px solid gray;
+    border-radius: 0.4rem;
+    line-height: 1.5rem;
+    box-shadow: 0.625rem 0.625rem 1.25rem rgba(0,0,0,0.19), 0.4rem 0.375rem 0.375rem rgba(0,0,0,0.23);
+    position: relative;
+}
+.container:hover {
+    transform: scale(1.1);
+}
+
+figure {
+    margin: 0;
+    width: 100%;
+}
+
+.container img {
+    width: 100%;
+    height: auto;
+    border-top-left-radius: 0.35rem;
+    border-top-right-radius: 0.35rem;
+}
+
+.container figcaption {
+    margin: 0.7rem 0 1rem 0.55rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.container span {
+    font-weight: normal;
+    font-size: 1rem;
+}
+
+#description {
+    max-width: 95%;
+    max-height: 26.6%;
+    overflow: hidden;
+}
+
+#heartbutton {
+    content: "";
+    filter: grayscale(100%);
+    width: 2rem;
+    height: auto;
+    position: absolute;
+    left: 22rem;
+    top: 15.75rem;
+}
+
+#heartbutton:hover {
+    filter: none;
+    transform: scale(1.3);
+}
