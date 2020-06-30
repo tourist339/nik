@@ -1,0 +1,247 @@
+
+<h1 class="heading">Title</h1>
+
+<div id="images-box">
+    <div class="rowflex rel">
+        <div id="first-img" class="imgs nomb"></div>
+        <div class="colflex">
+            <div class="rowflex">
+                <div id="second-img" class="imgs"></div>
+                <div id="third-img" class="imgs"></div>
+            </div>
+            <div class="rowflex">
+                <div id="fourth-img" class="imgs nomb"></div>
+                <div id="fifth-img" class="imgs nomb"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <input type="button" id="imgs-showall" value="Show All">
+</div>
+
+<div class="rowflex" id="prop-content">
+
+
+    <div id="left-prop-content">
+        <!--            Sharing type heading-->
+        <div class="afterline">
+            <p class="midsize headprop" id="sharingType">Entire place</p>
+            <p class="parasize" id="roomsInfo">4 bedrooms 2 bathrooms 1 kitchen</p>
+        </div>
+
+
+
+        <!--            Description box-->
+        <div class="afterline rel" >
+            <p class="midsize headprop" >Description</p>
+            <p class="parasize" id="propDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed eros vitae lorem tincidunt dapibus non quis libero. Donec ut efficitur mauris. Integer elementum sem magna. Aliquam eget nisi et neque vulputate fermentum in a ante. Morbi vitae urna porta purus ultrices tempor eget et nibh. Pellentesque a lorem id urna convallis imperdiet non dapibus nunc. Vestibulum at velit tempus, euismod nunc vel, laoreet libero. Aenean fermentum varius purus vitae rhoncus. In faucibus, eros eu fermentum fermentum, felis erat ullamcorper ex, quis ultricies ante lorem a nisi.
+
+                Aliquam erat odio, lacinia id erat eget, volutpat blandit purus. In dapibus arcu massa, eget lobortis dui semper a. Pellentesque dolor sem, dictum maximus faucibus et, volutpat nec sapien. Nam porttitor vestibulum massa, et tempor mauris dapibus eget. Suspendisse pulvinar ipsum scelerisque vestibulum interdum. In varius felis in suscipit aliquet. Quisque sollicitudin dolor ut dolor dictum, at accumsan elit mattis. Morbi nec facilisis dui. In interdum elit eget tellus facilisis, vitae lacinia dolor iaculis. Sed elit dui, rhoncus vitae justo non, placerat pulvinar felis. Sed mauris nisl, auctor molestie vestibulum sed, interdum quis libero. In hac habitasse platea dictumst. Vivamus cursus porttitor rutrum. Phasellus pretium risus eget ex pretium luctus.</p>
+            <div class="rowflex" id="showDesc"><input type="button" value="Continue" onclick="showFull()"></div>
+        </div>
+
+
+
+        <!--                Amenities and other info box-->
+        <div class="rowflex" id="prop-info-box">
+            <div id="prop-overview" class="prop-info">
+                <div class="afterline"><p class="prop-heading midsize">Overview</p></div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">&#127968;</span>
+                    <div>
+                        <p class="parasize">Propery Type</p>
+                        <p class="smparasize"> Apartment</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">🛏️</span>
+                    <div>
+                        <p class="parasize">Bedrooms</p>
+                        <p class="smparasize"> 1</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">🛀</span>
+                    <div>
+                        <p class="parasize">Bathrooms</p>
+                        <p class="smparasize"> 1</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">&#127859;</span>
+                    <div>
+                        <p class="parasize">Kitchen</p>
+                        <p class="smparasize"> Yes</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">&#128467;</span>
+                    <div>
+                        <p class="parasize">Agreement Period</p>
+                        <p class="smparasize"> 1 year</p>
+                    </div>
+                </div>
+
+            </div>
+            <div id="prop-rules" class="prop-info">
+                <div class="afterline"><p class="prop-heading midsize">Unit</p></div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">&#127968;</span>
+                    <div>
+                        <p class="parasize">Pet Friendly</p>
+                        <p class="smparasize"> No</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">🛏️</span>
+                    <div>
+                        <p class="parasize">Parties Allowed</p>
+                        <p class="smparasize"> Yes</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">🛀</span>
+                    <div>
+                        <p class="parasize">Smoking allowed</p>
+                        <p class="smparasize"> No</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">&#127859;</span>
+                    <div>
+                        <p class="parasize">Air Conditioner</p>
+                        <p class="smparasize"> Yes</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">&#128467;</span>
+                    <div>
+                        <p class="parasize">WIFI</p>
+                        <p class="smparasize"> Yes</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">&#128467;</span>
+                    <div>
+                        <p class="parasize">TV</p>
+                        <p class="smparasize"> Yes</p>
+                    </div>
+                </div>
+            </div>
+            <div id="prop-amenities" class="prop-info">
+                <div class="afterline"><p class="prop-heading midsize">Building</p></div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">&#127968;</span>
+                    <div>
+                        <p class="parasize">Propery Type</p>
+                        <p class="smparasize"> Apartment</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">🛏️</span>
+                    <div>
+                        <p class="parasize">Bedrooms</p>
+                        <p class="smparasize"> 1</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">🛀</span>
+                    <div>
+                        <p class="parasize">Bathrooms</p>
+                        <p class="smparasize"> 1</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">&#127859;</span>
+                    <div>
+                        <p class="parasize">Kitchen</p>
+                        <p class="smparasize"> Yes</p>
+                    </div>
+                </div>
+                <div class="prop-unit rowflex">
+                    <span class="prop-icon">&#128467;</span>
+                    <div>
+                        <p class="parasize">Agreement Period</p>
+                        <p class="smparasize"> 1 year</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="right-prop-content">
+        <div id="map"></div>
+        <div id="contact-box">Contact info</div>
+    </div>
+
+</div>
+
+
+
+
+
+<!--Map Loading Scripts-->
+<script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDTWvYehAfHTElUe6NyRq0KVAuZVoI4RQM&ver=3.exp"></script>
+<script>
+
+    displayMap();
+    function initMap(latitude,longitude) {
+
+        var uluru = {lat: latitude, lng: longitude};
+
+        var map = new google.maps.Map(
+            document.getElementById('map'), {zoom: 18,
+                center: uluru});
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({position: uluru,
+            draggable:true,
+            animation:google.maps.Animation.DROP,
+            map: map});
+    }
+
+    function displayMap(){
+        var geocoder = new google.maps.Geocoder();
+//        address to be changed later
+        var address = "29 Clark Crescent , Saskatoon";
+        geocoder.geocode( { 'address': address}, function(results, status) {
+
+            if (status == google.maps.GeocoderStatus.OK) {
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+
+
+                initMap(latitude,longitude);
+
+            }
+        });
+    }
+
+</script>
+
+
+<!--Styling Scripts-->
+<script>
+    //Sticky Contact Info
+    $(document).ready(function(){
+        var contactTop=$("#contact-box").offset().top;
+        $(window).scroll(function(){
+            var windowTop =$(window).scrollTop();
+            if(windowTop+10>=contactTop){
+                $("#contact-box").addClass("sticky");
+                $("#contact-box").width($("#right-prop-content").width());
+            }else{
+                $("#contact-box").removeClass("sticky");
+                $("#contact-box").width("100%");
+
+            }
+        })});
+
+    function showFull(){
+        $("#propDesc").css("height","auto");
+        $("#showDesc").css("display","none");
+    }
+</script>

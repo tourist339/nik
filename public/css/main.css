@@ -1,4 +1,10 @@
 /******** GlobalClasses *******/
+html{
+    font-size: 1vw;
+}
+body{
+    padding: 0 5vw;
+}
 @font-face{
     font-family:regbold;
     src:url(../fonts/SpaceMono-Bold.ttf);
@@ -8,8 +14,6 @@
     src:url(../fonts/SpaceMono-Regular.ttf);
 }
 
-html{
-}
 
 .largesize{
     font-size: 3.8vw;
@@ -46,6 +50,7 @@ nav{
     padding: 0.7vw 0;
     background-color:#f4f4f4;
     display: flex;
+    border-radius: 1rem;
 }
 nav div{
         display: flex;
@@ -132,4 +137,7 @@ footer{
 
 .rel{
     position: relative;
+}
+.gridbox{
+    display: grid;
 }
