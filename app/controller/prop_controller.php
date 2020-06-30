@@ -17,7 +17,7 @@ class prop_controller extends Controller
             } else {
                 $this->createView('prop/listprops', ["title" => "LyfLy",
                                                             "scripts" => [MAIN_SCRIPTS],
-                                                            "stylesheets" => [MAIN_CSS,"homepage.css"],
+                                                            "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css"],
                                                             "navbar" => MAIN_NAVBAR,
                                                             "data" => $data]
                                     )->render();
