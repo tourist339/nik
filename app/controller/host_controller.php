@@ -42,7 +42,7 @@ class host_controller extends Controller
         }else {
             $cView = $this->createView('/host/setup', ["title" => "Hosting OverView",
                     "scripts" => [MAIN_SCRIPTS],
-                    "stylesheets" => [MAIN_CSS,"host.css"],
+                    "stylesheets" => [MAIN_CSS,"host.css","setup.css"],
                     "navbar" => MAIN_NAVBAR]
             );
             $cView->render(true, false);

@@ -37,7 +37,8 @@ class prop_controller extends Controller
             $this->createView('prop/singleprop', ["title" => "LyfLy",
                     "scripts" => [MAIN_SCRIPTS],
                     "stylesheets" => [MAIN_CSS,"homepage.css","prop.css"],
-                    "navbar" => MAIN_NAVBAR]
+                    "navbar" => MAIN_NAVBAR,
+                    "data" => $data]
             )->render();
         }
             $this->model->closeDb();

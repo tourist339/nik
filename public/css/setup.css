@@ -4,7 +4,7 @@ html{
 body{
     display: flex;
     flex-flow: column;
-    min-height: 100%;
+    max-height: 100vh;
 }
 .hidden{
 /*    //display: none !important;*/
@@ -18,14 +18,16 @@ body{
 
 }
 #setup-container{
-    background:url("../imgs/img4.jpeg");
     opacity: 0.9;
-    width: 100vw;
     background-size: cover;
+    background-color: rgb(22,195,155,0.5);
+   // border:3px solid orange;
+    border-radius: 1rem;
     justify-content: center;
     min-height: 100%;
     height: calc(100vh - 2.9vw - 13px);
-    margin-bottom: 0em;
+    margin-bottom: 0.5vw;
+    margin-top: 0.5vw;
 
 }
 
@@ -38,10 +40,13 @@ body{
 }
 #setup-box{
     padding: 1vw 3vw 0vw 3vw;
-    border: solid 4px lightblue;
-    border-top: 0px;
-    background-color: rgba(244,244,244,0.96);
+    //border: solid 3px orange;
+    //border-top: 0px;
+    //border-bottom: 0px;
     width: 33vw;
+    background-color: white;
+    border-radius: 1rem;
+   // margin-top: 8px;
     min-width: 25vw;
     position: relative;
     display: flex;
@@ -59,7 +64,7 @@ body{
 .setup-fader{
    display: none;
     opacity: 0;
-    width: 100%;
+    max-width: 100%;
 }
 
 /*General style for top headings on each phase page*/
@@ -105,7 +110,7 @@ body{
 
 
 .rowflex>input{
-    max-width: 16vw;
+    max-width: 40%;
 }
 
 
