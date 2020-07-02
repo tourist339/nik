@@ -1,9 +1,9 @@
 
-<form id="setup-container" class="rowflex" method="post" action="setup">
+<form id="setup-container"  method="post" action="setup">
 
     <div id="setup-box" >
         <!--        A wrapper to put everything in middle-->
-        <div class="rowflex" id="setup-box-content" style="justify-content:center;">
+        <div  id="setup-box-content" style="justify-content:center;">
 
 
             <!--        First page box for listers info-->
@@ -29,39 +29,53 @@
             <!--        Second page box For props information-->
             <div class=" fortrans setup-fader" id="phase2" >
                 <h1 class="midsize">Property's information</h1>
-                <label for="pType">Property Type</label>
-                <input type=text placeholder="" name="pType" id="pType">
-                <div class="rowflex">
-                    <div>
+                <div class="gridbox setup-gridbox">
+                    <div class="input-item">
+                        <label for="pType">Property Type</label>
+                        <input type=text placeholder="" name="pType" id="pType">
+                    </div>
+
+                    <div class="input-item">
                     <label for="pSharingType">Sharing Type</label>
                     <input list="sharingtype"  placeholder="Sharing Type" name="pSharingType" id="pSharingType">
                     </div>
+
                     <datalist id="sharingtype">
                         <option  value="Entire Place" selected>Entire Place</option>
                         <option value="Private Room">Private Room</option>
                         <option value="Shared Room">Shared Room</option>
                     </datalist>
+
+                    <div class="input-item">
                     <label for="pNoGuests" >No. Of Guests</label>
-                    <input type=number class="required-input"  placeholder="" name="pNoGuests" id="pNoGuests" >
+                    <input type=number class="required-input numinp"  placeholder="" name="pNoGuests" id="pNoGuests" >
                     </div>
+
+
+
+                <div class="input-item ">
+                    <label for="pNoBeds" >No. Of Beds:</label>
+                    <input type=number class="numinp required-input" name="pNoBeds" id="" >
                 </div>
 
-                <div class="rowflex ">
-                    <p class="inplabels" >No. Of Beds:</p>
-                    <input type=number class="numinp required-input" name="pNoBeds" id="" >
-                    <p class="inplabels">No. Of Bathrooms:</p>
-                    <input type=number class="numinp required-input" name="pNoBathrooms"  id="" >
+                <div class="input-item">
+                    <label for="pNoBathrooms">No. Of Bathrooms:</label>
+                    <input type=number class="numinp required-input" name="pNoBathrooms"  id="pNoBathrooms" >
                 </div>
+
                 <!--            prdiv is shown only when room is private or shared-->
-                <div class="rowflex prdiv" style="display:none;">
-                    <p class="inplabels">Are all bathrooms shared?</p>
-                    <input list="yesno" class="numinp" name="pBathroomShared" id="">
+                <div class="prdiv input-item" style="display:none;">
+                    <label for="pBathroomShared">Are all bathrooms shared?</label>
+                    <input list="yesno" class="numinp" name="pBathroomShared" id="pBathroomShared">
                 </div>
-                <div class="rowflex">
-                    <p class="inplabels">Is kitchen available?</p>
-                    <input list="yesno" class="numinp required-input"  name="pKitchenAvailable" id="">
+
+                <div class="input-item">
+                    <label for="pKitchenAvailables">Is kitchen available?</label>
+                    <input list="yesno" class="numinp required-input"  name="pKitchenAvailable" id="pKitchenAvailable">
+                </div>
                 </div>
             </div>
+
             <!--        Third page box-->
             <div class="setup-fader" id="phase3" >
                 <textarea id="ta-title"rows="2" maxlength="50" name="pTitle" class="required-input" placeholder="Title"></textarea>
@@ -95,7 +109,7 @@
                 <!--            Items are loaded via javascript-->
                 <div id="amenity-box"></div>
                 <div class="rowflex">
-                    <input type=text autocomplete='nope' placeholder="Laundry? Pool?" name="" id="prop-city">
+                    <input type=text autocomplete='nope' placeholder="Pool?" name="" id="prop-city">
                     <input type="button" value="Add" id="add-amenity">
                 </div>
             </div>
@@ -172,13 +186,13 @@
 
         <!--      Footer div containing next and page switch buttons  -->
         <div class="rowflex setup-footer">
-            <input type="button" for="phase1" class="switch-btns activeBtn" value="1" id="p1-switch">
-            <input type="button" for="phase2" class="switch-btns hidden" value="2" id="p2-switch">
-            <input type="button" for="phase3" class="switch-btns hidden" value="3" id="p3-switch">
-            <input type="button" for="phase4" class="switch-btns hidden" value="4" id="p4-switch">
-            <input type="button" for="phase5" class="switch-btns hidden" value="5" id="p5-switch">
-            <input type="button" for="phase6" class="switch-btns hidden" value="6" id="p6-switch">
-            <input type="button" for="phase7" class="switch-btns hidden" value="7" id="p7-switch">
+            <input type="button" for="phase1" class="switch-btns activeBtn" value="" id="p1-switch"></input>
+            <input type="button" for="phase2" class="switch-btns hidden" value="" id="p2-switch">
+            <input type="button" for="phase3" class="switch-btns hidden" value="" id="p3-switch">
+            <input type="button" for="phase4" class="switch-btns hidden" value="" id="p4-switch">
+            <input type="button" for="phase5" class="switch-btns hidden" value="" id="p5-switch">
+            <input type="button" for="phase6" class="switch-btns hidden" value="" id="p6-switch">
+            <input type="button" for="phase7" class="switch-btns hidden" value="" id="p7-switch">
 
             <input type="button" value="Next" class="" id="setup-box-next">
             <input type="submit" value="Submit" id="submitForm">
@@ -202,8 +216,8 @@
     function getLocation() {
         $(".activePhase").removeClass("nomap");
         if (navigator.geolocation) {
-
             navigator.geolocation.getCurrentPosition(showPosition);
+            $("#setup-box-next").prop("disabled",true);
         } else {
             $("#map").innerHTML = "Geolocation is not supported by this browser.";
         }
@@ -255,6 +269,8 @@
         google.maps.event.addListener(marker, 'dragend', function(evt){
             document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
         });
+
+        $("#setup-box-next").prop("disabled",false);
     }
 
     function displayMap(){
@@ -265,7 +281,7 @@
             if (status == google.maps.GeocoderStatus.OK) {
                 var latitude = results[0].geometry.location.lat();
                 var longitude = results[0].geometry.location.lng();
-
+                $("#setup-box-next").prop("disabled",true);
 
                 initMap(latitude,longitude);
 
@@ -275,7 +291,7 @@
 </script>
 <!--    Amenities loading script-->
 <script>
-    var  amList=["Wifi","Heat","Air Conditioning","TV","Refrigerator","Breakfast or    Coffee/tea","Lunch","Dinner"];
+    var  amList=["Wifi","Laundry","Air Conditioning","TV","Refrigerator","Breakfast or    Coffee/tea","Lunch","Dinner"];
     for (var amenity of amList){
         $("#amenity-box").append("<div class='amenity'>"+
             "<input type='checkbox'  id='"+amenity+"' name='amenities[]' value='"+amenity+"'>"+
@@ -308,17 +324,16 @@
 
     $("#setup-container").submit(function(e){
         e.preventDefault();
-        //
-        // var form=$(this);
-        // var url=form.attr("action");
-        // var data=form.serializeArray();
-        // // var amenities=["ka","fdsafs","Fsd"];
-        // // data.push({name: 'amenities', value: amenities},{name: 'vw', value: amenities});
-        // console.log(data);
-        // $.post(url,data,function(data){
-        //     alert(data);
-        //     window.location.replace("/home/");
-        // });
+        var form=$(this);
+        var url=form.attr("action");
+        var data=form.serializeArray();
+        // var amenities=["ka","fdsafs","Fsd"];
+        // data.push({name: 'amenities', value: amenities},{name: 'vw', value: amenities});
+        console.log(data);
+        $.post(url,data,function(data){
+            alert(data);
+            window.location.replace("/home/");
+        });
     });
 
     //        Agreement dropdown change event
@@ -367,6 +382,7 @@
                     displayMap();
                     k.removeClass("nomap");
                 } else if (id == "phase7") {
+                    $("#setup-container").submit();
                 } else {
                     var nextid = parseInt(id.substr(-1)) + 1;
                     if (nextid == 7) {

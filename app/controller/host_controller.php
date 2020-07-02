@@ -27,7 +27,7 @@ class host_controller extends Controller
                     if(!isset($_POST[ltrim($key,":")]) || empty($_POST[ltrim($key,":")]))
                         $val=null;
                     else
-                        $val=$_POST[ltrim($key,":")];
+                        $val=trim($_POST[ltrim($key,":")]);
                     array_push($values,$val);
 
 ;                }

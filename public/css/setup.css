@@ -23,7 +23,6 @@ body{
     background-color: rgb(22,195,155,0.5);
    // border:3px solid orange;
     border-radius: 1rem;
-    justify-content: center;
     min-height: 100%;
     height: calc(100vh - 2.9vw - 13px);
     margin-bottom: 0.5vw;
@@ -40,13 +39,12 @@ body{
 }
 #setup-box{
     padding: 1vw 3vw 0vw 3vw;
-    //border: solid 3px orange;
-    //border-top: 0px;
-    //border-bottom: 0px;
-    width: 33vw;
+
+    width: 38%;
+    margin: auto;
+    height: 100%;
     background-color: white;
     border-radius: 1rem;
-   // margin-top: 8px;
     min-width: 25vw;
     position: relative;
     display: flex;
@@ -102,15 +100,17 @@ body{
     display: block;
     margin: 1.3vw 0vw;
     font-size: 1.4vw;
+    max-width: 100%;
     font-family: reg;
     padding: 0.4em;
     border: solid 1.8px lightblue;
     border-radius: 10px;
+    min-width: 0;
 }
 
 
 .rowflex>input{
-    max-width: 40%;
+    max-width: 50% !important;
 }
 
 
@@ -167,10 +167,12 @@ body{
 
 .switch-btns{
     border-radius: 50% !important;
-    padding: 0 1vw !important;
     outline: none;
-    margin-right: 1vw !important;
-    transition: all ease 0.5s;
+    padding: 0.5rem !important;
+    height: 0.5rem;
+    margin: auto 1vw auto 0 !important;
+
+    transition: all ease 0.15s;
 
 }
 
@@ -178,7 +180,9 @@ body{
       cursor: pointer;
     background-color: #315B73 !important;
         border-color: #315B73 !important;
-    color: white;
+    padding: 1.2rem !important;
+    height: 1.2rem;
+
     font-size: 1.44vw !important;
 }
 
@@ -189,7 +193,7 @@ body{
 }
 
 .numinp{
-    width: 5vw;
+    width: 50%;
 }
 
 
@@ -267,4 +271,14 @@ label{
     border-color: #315B73 !important;
     color: white;
     font-size: 1.44vw !important;
+}
+
+.setup-gridbox{
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    grid-gap:4rem 1rem;
+    padding: 1rem;
+
+}
+.input-item{
+
 }

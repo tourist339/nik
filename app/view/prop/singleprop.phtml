@@ -1,7 +1,7 @@
 <?php
 $prop=$this->view_data["data"][0];
 ?>
-<h1 class="heading"><?php echo $prop["title"];?></h1>
+<h1 class="prop-title"><?php echo ucfirst($prop["title"]);?></h1>
 
 <div id="images-box">
     <div class="rowflex rel">
@@ -29,7 +29,11 @@ $prop=$this->view_data["data"][0];
         <!--            Sharing type heading-->
         <div class="afterline">
             <p class="midsize headprop" id="sharingType">Entire place</p>
-            <p class="parasize" id="roomsInfo">4 bedrooms 2 bathrooms 1 kitchen</p>
+            <div class="parasize rowflex" id="roomsInfo">
+                <span class="prop-icon">🛏️</span><p>bedrooms: <?php echo $prop["bedrooms"] ?>  |&nbsp;</p>
+                    <span class="prop-icon">🛀</span> <p>bathrooms: <?php echo $prop["bathrooms"] ?></p>
+
+            </div>
         </div>
 
 
@@ -37,9 +41,8 @@ $prop=$this->view_data["data"][0];
         <!--            Description box-->
         <div class="afterline rel" >
             <p class="midsize headprop" >Description</p>
-            <p class="parasize" id="propDesc">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sed eros vitae lorem tincidunt dapibus non quis libero. Donec ut efficitur mauris. Integer elementum sem magna. Aliquam eget nisi et neque vulputate fermentum in a ante. Morbi vitae urna porta purus ultrices tempor eget et nibh. Pellentesque a lorem id urna convallis imperdiet non dapibus nunc. Vestibulum at velit tempus, euismod nunc vel, laoreet libero. Aenean fermentum varius purus vitae rhoncus. In faucibus, eros eu fermentum fermentum, felis erat ullamcorper ex, quis ultricies ante lorem a nisi.
-
-                Aliquam erat odio, lacinia id erat eget, volutpat blandit purus. In dapibus arcu massa, eget lobortis dui semper a. Pellentesque dolor sem, dictum maximus faucibus et, volutpat nec sapien. Nam porttitor vestibulum massa, et tempor mauris dapibus eget. Suspendisse pulvinar ipsum scelerisque vestibulum interdum. In varius felis in suscipit aliquet. Quisque sollicitudin dolor ut dolor dictum, at accumsan elit mattis. Morbi nec facilisis dui. In interdum elit eget tellus facilisis, vitae lacinia dolor iaculis. Sed elit dui, rhoncus vitae justo non, placerat pulvinar felis. Sed mauris nisl, auctor molestie vestibulum sed, interdum quis libero. In hac habitasse platea dictumst. Vivamus cursus porttitor rutrum. Phasellus pretium risus eget ex pretium luctus.</p>
+            <p class="parasize" id="propDesc"><?php echo   $prop["description"] ?>
+            </p>
             <div class="rowflex" id="showDesc"><input type="button" value="Continue" onclick="showFull()"></div>
         </div>
 
@@ -176,7 +179,8 @@ $prop=$this->view_data["data"][0];
 
 
     <div id="right-prop-content">
-        <div id="map"></div>
+        <div id="address-box"><div id="map"></div><p><?php
+                echo getProperAddress($prop["address"],$prop["city"],$prop["state"]) ?></p></div>
         <div id="contact-box">Contact info</div>
     </div>
 
@@ -208,7 +212,9 @@ $prop=$this->view_data["data"][0];
     function displayMap(){
         var geocoder = new google.maps.Geocoder();
 //        address to be changed later
-        var address = "29 Clark Crescent , Saskatoon";
+        var address = "<?php
+            echo getProperAddress($prop["address"],$prop["city"],$prop["state"]);
+            ?>";
         geocoder.geocode( { 'address': address}, function(results, status) {
 
             if (status == google.maps.GeocoderStatus.OK) {
@@ -229,6 +235,12 @@ $prop=$this->view_data["data"][0];
 <script>
     //Sticky Contact Info
     $(document).ready(function(){
+        if($("#propDesc")[0].clientHeight < $("#propDesc")[0].scrollHeight){
+
+        }else{
+            $("#showDesc").css("display","none");
+
+        }
         var contactTop=$("#contact-box").offset().top;
         $(window).scroll(function(){
             var windowTop =$(window).scrollTop();
