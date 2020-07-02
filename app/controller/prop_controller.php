@@ -17,7 +17,7 @@ class prop_controller extends Controller
             } else {
                 $this->createView('prop/listprops', ["title" => "LyfLy",
                                                             "scripts" => [MAIN_SCRIPTS],
-                                                            "stylesheets" => [MAIN_CSS,"homepage.css"],
+                                                            "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css","listprops.css"],
                                                             "navbar" => MAIN_NAVBAR,
                                                             "data" => $data]
                                     )->render();
@@ -36,8 +36,9 @@ class prop_controller extends Controller
         } else {
             $this->createView('prop/singleprop', ["title" => "LyfLy",
                     "scripts" => [MAIN_SCRIPTS],
-                    "stylesheets" => [MAIN_CSS,"homepage.css"],
-                    "navbar" => MAIN_NAVBAR]
+                    "stylesheets" => [MAIN_CSS,"homepage.css","prop.css"],
+                    "navbar" => MAIN_NAVBAR,
+                    "data" => $data]
             )->render();
         }
             $this->model->closeDb();

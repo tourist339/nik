@@ -1,17 +1,17 @@
 
-<form id="setup-container" class="rowflex" method="post" action="setup">
+<form id="setup-container"  method="post" action="setup">
 
     <div id="setup-box" >
         <!--        A wrapper to put everything in middle-->
-        <div class="rowflex" id="setup-box-content" style="justify-content:center;">
+        <div  id="setup-box-content" style="justify-content:center;">
 
 
             <!--        First page box for listers info-->
             <div class="fortrans setup-fader activePhase" id="phase1">
                 <h1 class="midsize">Lister's information</h1>
                 <div class="rowflex">
-                    <input type=text placeholder="First Name" name="ownerfName" id="">
-                    <input type=text placeholder="Last Name"name="ownerlName" id="">
+                    <input type=text placeholder="First Name"  name="ownerfName" id="fName">
+                    <input type=text placeholder="Last Name"  name="ownerlName" id="">
                 </div>
                 <input type=text placeholder="Phone Number" name="ownerpNum" id="">
                 <input type=text placeholder="Ownership" name="ownerType" id="">
@@ -22,45 +22,64 @@
                     <input type=text placeholder="City" name="ownerCity" id="">
                     <input type=text placeholder="State" name="ownerState" id="">
                 </div>
+<!--                <input type="submit" value="submit">-->
             </div>
 
 
             <!--        Second page box For props information-->
             <div class=" fortrans setup-fader" id="phase2" >
                 <h1 class="midsize">Property's information</h1>
+                <div class="gridbox setup-gridbox">
+                    <div class="input-item">
+                        <label for="pType">Property Type</label>
+                        <input type=text placeholder="" name="pType" id="pType">
+                    </div>
 
-                <input type=text placeholder="Property Type" name="pType" id="">
-                <div class="rowflex">
-                    <input list="sharingtype"  placeholder="Sharing Type" name="pSharingType" id="sharingtypeinp">
+                    <div class="input-item">
+                    <label for="pSharingType">Sharing Type</label>
+                    <input list="sharingtype"  placeholder="Sharing Type" name="pSharingType" id="pSharingType">
+                    </div>
+
                     <datalist id="sharingtype">
                         <option  value="Entire Place" selected>Entire Place</option>
                         <option value="Private Room">Private Room</option>
                         <option value="Shared Room">Shared Room</option>
                     </datalist>
-                    <p class="inplabels">No. Of Guests</p>
-                    <input type=number class="numinp"  id="noguests" placeholder="" name="pNoGuests" id="" >
+
+                    <div class="input-item">
+                    <label for="pNoGuests" >No. Of Guests</label>
+                    <input type=number class="required-input numinp"  placeholder="" name="pNoGuests" id="pNoGuests" >
+                    </div>
+
+
+
+                <div class="input-item ">
+                    <label for="pNoBeds" >No. Of Beds:</label>
+                    <input type=number class="numinp required-input" name="pNoBeds" id="" >
                 </div>
 
-                <div class="rowflex ">
-                    <p class="inplabels" >No. Of Beds:</p>
-                    <input type=number class="numinp" name="pNoBeds" id="" >
-                    <p class="inplabels">No. Of Bathrooms:</p>
-                    <input type=number class="numinp" name="pNoBathrooms" id="" >
+                <div class="input-item">
+                    <label for="pNoBathrooms">No. Of Bathrooms:</label>
+                    <input type=number class="numinp required-input" name="pNoBathrooms"  id="pNoBathrooms" >
                 </div>
+
                 <!--            prdiv is shown only when room is private or shared-->
-                <div class="rowflex prdiv" style="display:none;">
-                    <p class="inplabels">Are all bathrooms shared?</p>
-                    <input list="yesno" class="numinp" name="pBathroomShared" id="">
+                <div class="prdiv input-item" style="display:none;">
+                    <label for="pBathroomShared">Are all bathrooms shared?</label>
+                    <input list="yesno" class="numinp" name="pBathroomShared" id="pBathroomShared">
                 </div>
-                <div class="rowflex">
-                    <p class="inplabels">Is kitchen available?</p>
-                    <input list="yesno" class="numinp" name="pKitchenAvailable" id="">
+
+                <div class="input-item">
+                    <label for="pKitchenAvailables">Is kitchen available?</label>
+                    <input list="yesno" class="numinp required-input"  name="pKitchenAvailable" id="pKitchenAvailable">
+                </div>
                 </div>
             </div>
+
             <!--        Third page box-->
             <div class="setup-fader" id="phase3" >
-                <textarea id="ta-title"rows="2" maxlength="50" name="pTitle" placeholder="Title"></textarea>
-                <textarea id="ta-desc"  maxlength="2000" name="pDesc" placeholder="Description"></textarea>
+                <textarea id="ta-title"rows="2" maxlength="50" name="pTitle" class="required-input" placeholder="Title"></textarea>
+                <textarea id="ta-desc"  maxlength="2000" name="pDesc" class="required-input" placeholder="Description"></textarea>
 
             </div>
 
@@ -70,12 +89,12 @@
                 <h1 class="midsize">Property Address</h1>
                 <button type="button" id="getLocation">Use current location </button>
 
-                <input type=text placeholder="Street Address" name="pAddress" id="prop-straddr" class="required" />
+                <input type=text placeholder="Street Address" class="required-input" name="pAddress" id="prop-straddr"" />
                 <input type=text placeholder="Apt. Number (Optional)" name="pApt" id="prop-aptno">
 
                 <div class="rowflex">
-                    <input type=text placeholder="City" name="pCity" id="prop-city">
-                    <input type=text placeholder="State" name="pState" id="prop-state">
+                    <input type=text placeholder="City" class="required-input" name="pCity" id="prop-city">
+                    <input type=text placeholder="State" class="required-input" name="pState" id="prop-state">
                 </div>
                 <p class="phase-text" style="display:none;">You can adjust the marker</p>
                 <div id="map"></div>
@@ -90,7 +109,7 @@
                 <!--            Items are loaded via javascript-->
                 <div id="amenity-box"></div>
                 <div class="rowflex">
-                    <input type=text autocomplete='nope' placeholder="Laundry? Pool?" name="" id="prop-city">
+                    <input type=text autocomplete='nope' placeholder="Pool?" name="" id="prop-city">
                     <input type="button" value="Add" id="add-amenity">
                 </div>
             </div>
@@ -167,15 +186,15 @@
 
         <!--      Footer div containing next and page switch buttons  -->
         <div class="rowflex setup-footer">
-            <input type="button" for="phase1" class="switch-btns activeBtn" value="1" id="p1-switch">
-            <input type="button" for="phase2" class="switch-btns hidden" value="2" id="p2-switch">
-            <input type="button" for="phase3" class="switch-btns hidden" value="3" id="p3-switch">
-            <input type="button" for="phase4" class="switch-btns hidden" value="4" id="p4-switch">
-            <input type="button" for="phase5" class="switch-btns hidden" value="5" id="p5-switch">
-            <input type="button" for="phase6" class="switch-btns hidden" value="6" id="p6-switch">
-            <input type="button" for="phase7" class="switch-btns hidden" value="7" id="p7-switch">
+            <input type="button" for="phase1" class="switch-btns activeBtn" value="" id="p1-switch"></input>
+            <input type="button" for="phase2" class="switch-btns hidden" value="" id="p2-switch">
+            <input type="button" for="phase3" class="switch-btns hidden" value="" id="p3-switch">
+            <input type="button" for="phase4" class="switch-btns hidden" value="" id="p4-switch">
+            <input type="button" for="phase5" class="switch-btns hidden" value="" id="p5-switch">
+            <input type="button" for="phase6" class="switch-btns hidden" value="" id="p6-switch">
+            <input type="button" for="phase7" class="switch-btns hidden" value="" id="p7-switch">
 
-            <input type="button" value="Next" id="setup-box-next">
+            <input type="button" value="Next" class="" id="setup-box-next">
             <input type="submit" value="Submit" id="submitForm">
 
         </div>
@@ -197,8 +216,8 @@
     function getLocation() {
         $(".activePhase").removeClass("nomap");
         if (navigator.geolocation) {
-
             navigator.geolocation.getCurrentPosition(showPosition);
+            $("#setup-box-next").prop("disabled",true);
         } else {
             $("#map").innerHTML = "Geolocation is not supported by this browser.";
         }
@@ -250,6 +269,8 @@
         google.maps.event.addListener(marker, 'dragend', function(evt){
             document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat().toFixed(3) + ' Current Lng: ' + evt.latLng.lng().toFixed(3) + '</p>';
         });
+
+        $("#setup-box-next").prop("disabled",false);
     }
 
     function displayMap(){
@@ -260,7 +281,7 @@
             if (status == google.maps.GeocoderStatus.OK) {
                 var latitude = results[0].geometry.location.lat();
                 var longitude = results[0].geometry.location.lng();
-
+                $("#setup-box-next").prop("disabled",true);
 
                 initMap(latitude,longitude);
 
@@ -270,7 +291,7 @@
 </script>
 <!--    Amenities loading script-->
 <script>
-    var  amList=["Wifi","Heat","Air Conditioning","TV","Refrigerator","Breakfast or    Coffee/tea","Lunch","Dinner"];
+    var  amList=["Wifi","Laundry","Air Conditioning","TV","Refrigerator","Breakfast or    Coffee/tea","Lunch","Dinner"];
     for (var amenity of amList){
         $("#amenity-box").append("<div class='amenity'>"+
             "<input type='checkbox'  id='"+amenity+"' name='amenities[]' value='"+amenity+"'>"+
@@ -283,8 +304,9 @@
 <!--    Main event functions script-->
 <script>
     // checking validity dynamically
-
-
+    <?php if(SETUP_MODE=="OFF"):?>
+    $(".required-input").prop("required",true);
+    <?php endif; ?>
     $("#getLocation").click(function(){
         getLocation();
     });
@@ -327,35 +349,58 @@
     });
 
     //    Bottom next phase button events
-    $("#setup-box-next").click(function(){
+    $("#setup-box-next").click(function() {
+        var gonext=true;
 
-            var k=$(".activePhase");
-            var id=k.attr("id");
-            if(id=="phase4" && k.hasClass("nomap")){
-                //Display the map when users enters address and press next button
-                console.log("true");
 
-                displayMap();
-                k.removeClass("nomap");
-            }else if(id=="phase7"){
-            }
-            else{
-                var nextid=parseInt(id.substr(-1))+1;
-                if(nextid==7){
-                    $("#setup-box-next").val("Submit");
-
+            var k = $(".activePhase");
+            var id = k.attr("id");
+            $("#" + id + " .required-input").each(function () {
+                if (!$(this)[0].checkValidity()) {
+                 //   alert($(this).attr("name"));
+                    gonext = false;
+                    $(this).addClass("shakeinp");
+                    //s$(this).focus();
                 }
-                var currSwitchBtn=$("input[for='"+id+"']");
-                var nextSwitchBtn=$("input[for='phase"+nextid+"']");
+            });
 
-                currSwitchBtn.removeClass("activeBtn");
-                nextSwitchBtn.removeClass("hidden");
-                nextSwitchBtn.addClass("activeBtn");
-                k.removeClass("activePhase",1000,"linear");
-                $("#phase"+nextid).addClass("activePhase");
+            setTimeout(function () {
+                $("#" + id + " .required-input").each(function () {
+                    $(this).removeClass("shakeinp");
+
+                });
+            }, 500);
+
+            if (gonext) {
+
+
+
+                if (id == "phase4" && k.hasClass("nomap")) {
+                    //Display the map when users enters address and press next button
+                    console.log("true");
+
+                    displayMap();
+                    k.removeClass("nomap");
+                } else if (id == "phase7") {
+                    $("#setup-container").submit();
+                } else {
+                    var nextid = parseInt(id.substr(-1)) + 1;
+                    if (nextid == 7) {
+                        $("#setup-box-next").val("Submit");
+
+                    }
+                    var currSwitchBtn = $("input[for='" + id + "']");
+                    var nextSwitchBtn = $("input[for='phase" + nextid + "']");
+
+                    currSwitchBtn.removeClass("activeBtn");
+                    nextSwitchBtn.removeClass("hidden");
+                    nextSwitchBtn.addClass("activeBtn");
+                    k.removeClass("activePhase", 1000, "linear");
+                    $("#phase" + nextid).addClass("activePhase");
+                }
+
+
             }
-
-
         }
     );
 
@@ -385,7 +430,6 @@
     $("#sharingtypeinp").change(function(){
         var value=$("#sharingtypeinp").val();
         if(value.localeCompare("Entire Place")!=0){
-            alert("Fsdfs");
             $(".prdiv").css("display","flex");
         }
     });

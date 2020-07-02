@@ -5,6 +5,10 @@ body{
     padding: 0 10vw;
     background-color: white;
 }
+.prop-title{
+    font-size: 2.5rem;
+    font-family: reg;
+}
 #images-box{
     position: relative;
 }
@@ -93,19 +97,14 @@ body{
     flex: 1 1 0px;  
 }
 
-#map{
-    width: 100%;
-    height: 20vw;
-    margin-bottom: 1vw;
-    border-radius: 10px;
-    /*(100vw - (body padding *2))/3.5 -4 can include the left right prop margin too*/
-}
+
 .sticky{
     top: 10px;
     
 }
 #propDesc{
-    height: 20vw;
+    height: auto;
+    max-height: 20vw;
     overflow: hidden;
     position: relative;
     z-index: 0;
@@ -176,6 +175,22 @@ body{
     width: 60%;
 }
 
+#map{
+    width: 100%;
+    height: 17vw;
+    border-radius: 10px;
+    /*(100vw - (body padding *2))/3.5 -4 can include the left right prop margin too*/
+}
+
+#address-box p{
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 0.9rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    margin-top: 3px;
+    font-size: 1.2rem;
+}
 #contact-box{
     
     width: 100%;

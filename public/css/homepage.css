@@ -7,15 +7,14 @@
     src:url(../fonts/SpaceMono-Regular.ttf);
 }
 body{
-    background-color: whitesmoke;
     margin: 0;
-    padding: 0;
 }
 
 
 .search-box{
     background: url(../imgs/img2.jpeg);
     background-size: cover;
+    border-radius: 1rem;
     height: 39vw;
     display: flex;
     flex-direction: column;
@@ -35,10 +34,7 @@ body{
     padding: 5px;
     font-family: reg;
 }
-#searchInputNavbar{
-    font-size: 1.2vw;
-    display: none;
-}
+
 .search-box h1{
     color: #f4f4f4; 
     font-family: regbold;
@@ -82,11 +78,7 @@ body{
     
   margin:1vw 1vw 1vw 1vw; 
 }
-.featured-props-cont .card{
-    width: 29vw;
-    height: 29vw;
-  overflow: scroll;
-}
+
 
 .card:hover {
   box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
