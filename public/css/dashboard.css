@@ -1,0 +1,95 @@
+html, body {
+    height: 100vh;
+    margin: 0;
+    background-color: rgb(240,240,240);
+}
+
+body {
+    display: grid;
+    grid-template-columns: 17rem 1fr;
+    grid-template-rows: 5rem 1fr;
+    grid-template-areas: "side top"
+                         "side content";
+    font-size: 1.1rem;
+}
+
+/* side-bar section starts here */
+.side-bar {
+    grid-area: side;
+    width: 100%;  
+    border-right: 0.1rem solid rgb(230,230,230);
+    background-color: white;
+}
+
+nav {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-bar img {
+    width: 5rem;
+    height: auto;
+    align-self: center;
+    margin-bottom: 1.5rem;
+}
+
+.side-bar li {
+    list-style: none;
+    margin-bottom: 1rem;
+}
+
+.side-bar a {
+    content: "";
+    text-decoration: none;
+    color: black;
+}
+
+.side-bar a:hover {
+    color: orange;
+}
+
+.side-bar a:focus {
+    color: orange;
+}
+
+.fas, .far {
+    margin-right: 1rem;
+    width: 1rem;
+}
+/* side-bar section ends here */
+
+/* top-bar section starts here */
+.top-bar {
+    grid-area: top;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    border-bottom: 0.1rem solid rgb(230,230,230);
+    border-left: 0.1rem solid rgb(230,230,230);
+}
+
+.top-bar p {
+    font-size: 1.35rem;
+    margin: 0;
+    margin-left: 2rem;
+}
+
+.top-bar .far {
+    font-size: 1.75rem;
+    margin-right: 2.5rem;
+}
+/* top-bar section ends here */
+
+/* content section starts here */
+.content {
+    grid-area: content;
+    margin: 3.5rem 3.5rem 0 3.5rem;
+    padding: 1.1rem 2.2rem 0 2.2rem;
+    border: 0.1rem solid rgb(230,230,230);
+    border-bottom: none;
+    background-color: white;
+    overflow: scroll;
+}
+/* content section ends here */
