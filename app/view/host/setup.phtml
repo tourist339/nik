@@ -48,19 +48,19 @@
 
                     <div class="input-item">
                     <label for="pNoGuests" >No. Of Guests</label>
-                    <input type=number class="required-input numinp"  placeholder="" name="pNoGuests" id="pNoGuests" >
+                    <input type=number class="required-input numinp" min="0" placeholder="" name="pNoGuests" id="pNoGuests" >
                     </div>
 
 
 
                 <div class="input-item ">
                     <label for="pNoBeds" >No. Of Beds:</label>
-                    <input type=number class="numinp required-input" name="pNoBeds" id="" >
+                    <input type=number class="numinp required-input" min="0" name="pNoBeds" id="" >
                 </div>
 
                 <div class="input-item">
                     <label for="pNoBathrooms">No. Of Bathrooms:</label>
-                    <input type=number class="numinp required-input" name="pNoBathrooms"  id="pNoBathrooms" >
+                    <input type=number class="numinp required-input" min="0" name="pNoBathrooms"  id="pNoBathrooms" >
                 </div>
 
                 <!--            prdiv is shown only when room is private or shared-->
@@ -71,7 +71,10 @@
 
                 <div class="input-item">
                     <label for="pKitchenAvailables">Is kitchen available?</label>
-                    <input list="yesno" class="numinp required-input"  name="pKitchenAvailable" id="pKitchenAvailable">
+                    <select  class="numinp required-input"  name="pKitchenAvailable" id="pKitchenAvailable">
+                        <option value="1">Yes</option>
+                        <option selected value="0">No</option>
+                    </select>
                 </div>
                 </div>
             </div>
@@ -150,7 +153,8 @@
                         <input type="button" value="Add" class="notopmargin" id="add-amenity">
                     </div>
                 </div>
-                <h1 class="midsize" style="text-align:start;margin-top:1vw;">Upload images of the property</h1>
+
+                <h1 class="midsize" style="text-align:start;margin-top:1vw;">Upload images of the property(Not working yet)</h1>
                 <input type="file" id="imgInp" name="files" accept="image/* " class="notopmargin" multiple><br><br>
                 <img id="blah" src="#" alt="your image" />
 
@@ -304,7 +308,7 @@
 <!--    Main event functions script-->
 <script>
     // checking validity dynamically
-    <?php if(SETUP_MODE=="OFF"):?>
+    <?php if(SETUP_DEBUG_MODE): ?>
     $(".required-input").prop("required",true);
     <?php endif; ?>
     $("#getLocation").click(function(){

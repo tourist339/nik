@@ -26,7 +26,7 @@ class host_model extends Model
                 $query->execute($data);
 
             }catch (PDOException $e){
-                if(DEBUG_MODE=="ON"){
+                if(ERROR_DEBUG_MODE){
                 echo "Error".$e; // For debugging
                     }
             }

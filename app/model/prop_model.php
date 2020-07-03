@@ -33,7 +33,7 @@ class prop_model extends Model
             $stmt->execute();
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
-            if(DEBUG_MODE=="ON"){
+            if(ERROR_DEBUG_MODE){
                 print "ERROR  ".$e;
             }
             return null;
