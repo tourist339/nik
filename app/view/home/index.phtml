@@ -1,2 +1,10 @@
 
 <div id="mainContent"><?php include TEMPLATE.DIRECTORY_SEPARATOR.'homepage.html'?></div>
+<script>
+$("#searchInput").keyup(function (e) {
+    if(e.keyCode==13) {
+        window.location.href = "/prop/l/"+$(this).val();
+    }
+});
+
+</script>

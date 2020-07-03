@@ -1,0 +1,7 @@
+.listprops-grid{
+    display: grid;
+    flex: 80 1 0px;
+    grid-template-columns: repeat(3,minmax(200px,1fr));
+    padding: 1rem;
+    grid-gap: 1rem;
+}

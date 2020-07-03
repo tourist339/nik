@@ -17,7 +17,7 @@ $paths=[ROOT,CORE,CONTROLLER,MODEL,CONFIG];
 set_include_path(get_include_path().implode(PATH_SEPARATOR,$paths));
 spl_autoload_register();
 require CONFIG.'config.php';
-require CORE.'Application.php';
+require CONFIG.'sql.php';
 new Application();
 
 ?>

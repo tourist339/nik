@@ -1,8 +1,8 @@
 <?php
 class Database extends PDO {
-    protected $host="localhost";
-    protected $username="root";
-    protected $password="root";
+    private $host="localhost";
+    private $username="root";
+    private $password="root";
     public function __construct($dbname)
     {
         try {
