@@ -2,6 +2,9 @@
 <html>
 <head>
     <title><?php echo $vdata["title"]?></title>
+    <meta name="google-signin-client_id" content="316686701656-1cs0k0pc8kpfihuirpetvltlrlp0nb9j.apps.googleusercontent.com">
+
+    <script src="https://apis.google.com/js/client:platform.js" async defer></script>
     <?php
     if(isset($vdata["scripts"])) {
         foreach ($vdata["scripts"] as $script) {
@@ -18,6 +21,17 @@
         }
     }
     ?>
+<!--    <script>-->
+<!--        function start() {-->
+<!--            gapi.load('auth2', function() {-->
+<!--                auth2 = gapi.auth2.init({-->
+<!--                    client_id: '316686701656-1cs0k0pc8kpfihuirpetvltlrlp0nb9j.apps.googleusercontent.com',-->
+<!--                    // Scopes to request in addition to 'profile' and 'email'-->
+<!--                    //scope: 'additional_scope'-->
+<!--                });-->
+<!--            });-->
+<!--        }-->
+<!--    </script>-->
 </head>
 <body>
 <?php
@@ -27,7 +41,6 @@ if(isset($vdata["navbar"])){
         include $navpath.$vdata["navbar"];
     }else{
         include $navpath.'navbar.html';
-
     }
 }
 
