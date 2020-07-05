@@ -5,27 +5,28 @@
     var login_type=null;
     <?php if(isset($_SESSION["email"])): ?>
      signed=true;
-
+    login_type="<?php echo $_SESSION["login_type"]?>";
     <?php endif ?>
 
 
     $(document).ready(function(){
         if(signed==true){
-            $("#nav-signin").hide();
             $("#nav-signout").show();
-            if(login_type=="google"){
 
-            }
         }else{
-
+            $("#nav-signin").show();
         }
     });
     $("#nav-signout").on("click",function () {
-       // if(login_type=="google"){
-            var auth2=gapi.auth2.getAuthInstance();
-            alert(auth2.isSignedIn.get());
-        //}
-    })
+       if(login_type=="google") {
+           var auth2 = gapi.auth2.getAuthInstance();
+           auth2.signOut().then(function () {
+           });
+       }
+       $.post("/login/logout",function(data){
+           window.location.reload(true);
+       });
+    });
 
 </script>
 </html>

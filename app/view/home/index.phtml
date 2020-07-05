@@ -1,18 +1,30 @@
+<?php
+print_r($_SESSION);
+?>
 
 <div id="mainContent"><?php include TEMPLATE.DIRECTORY_SEPARATOR.'homepage.html'?></div>
-<script>
-   function onSignIn(googleUser) {
-        var idToken=googleUser.getAuthResponse().id_token;
-        $.post("/google_login/verify_id_token",{"id_token":idToken},function(data){
-            console.log(data);
-       });
-   }
-</script>
+
 <script>
 $("#searchInput").keyup(function (e) {
     if(e.keyCode==13) {
         window.location.href = "/prop/l/"+$(this).val();
     }
+});
+$("#status-button").on("click",function () {
+    var auth2=gapi.auth2.getAuthInstance();
+    alert(auth2.isSignedIn.get());
+});
+$("#signin-button").on("click",function () {
+    auth2.signIn({
+        prompt:"consent",
+    }).then(function() {
+        var googleUser=auth2.currentUser.get();
+        var idToken=googleUser.getAuthResponse().id_token;
+        $.post("/login/google_post",{"id_token":idToken},function(data){
+            console.log("my ass"+data);
+            window.location.reload(true);
+            });
+    });
 });
 
 </script>

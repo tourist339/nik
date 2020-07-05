@@ -15,10 +15,8 @@ class login_controller extends Controller
             echo $payload["email"];
             session_start();
             $_SESSION["email"]=$payload["email"];
-            $_SESSION["id"]=$payload["id"];
             $_SESSION["login_type"]="google";
-
-            print_r($_SESSION);
+            print_r($payload);
             // If request specified a G Suite domain:
             //$domain = $payload['hd'];
         } else {
@@ -28,5 +26,15 @@ class login_controller extends Controller
 
     public function custom_post(){
 
+    }
+    public function loginmodal(){
+        $cView=$this->createView('login/loginmodal',[],"template");
+        $cView->render();
+    }
+
+    public function logout(){
+        session_start();
+        session_destroy();
+        header("Location: /");
     }
 }
