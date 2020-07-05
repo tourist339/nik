@@ -1,8 +1,5 @@
 
 <div id="mainContent"><?php include TEMPLATE.DIRECTORY_SEPARATOR.'homepage.html'?></div>
-<div class="g-signin2" data-onsuccess="onSignIn"></div>
-
-
 <script>
    function onSignIn(googleUser) {
         var idToken=googleUser.getAuthResponse().id_token;

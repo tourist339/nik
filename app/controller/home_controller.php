@@ -18,6 +18,10 @@ class home_controller extends Controller
         $cView->render();
 
     }
+    public function loginmodal(){
+        $cView=$this->createView('login/loginmodal',[],"template");
+        $cView->render();
+    }
     private function getDefaultData(){
 
     }

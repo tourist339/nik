@@ -1,10 +1,14 @@
-<?php $vdata=$this->view_data; ?>
+<?php
+session_start();
+$vdata=$this->view_data;
+echo "YO there".$_SESSION["login_type"];
+
+?>
 <html>
 <head>
     <title><?php echo $vdata["title"]?></title>
-    <meta name="google-signin-client_id" content="316686701656-1cs0k0pc8kpfihuirpetvltlrlp0nb9j.apps.googleusercontent.com">
 
-    <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+
     <?php
     if(isset($vdata["scripts"])) {
         foreach ($vdata["scripts"] as $script) {
@@ -20,18 +24,22 @@
             }
         }
     }
+
     ?>
-<!--    <script>-->
-<!--        function start() {-->
-<!--            gapi.load('auth2', function() {-->
-<!--                auth2 = gapi.auth2.init({-->
-<!--                    client_id: '316686701656-1cs0k0pc8kpfihuirpetvltlrlp0nb9j.apps.googleusercontent.com',-->
-<!--                    // Scopes to request in addition to 'profile' and 'email'-->
-<!--                    //scope: 'additional_scope'-->
-<!--                });-->
-<!--            });-->
-<!--        }-->
-<!--    </script>-->
+    <meta name="google-signin-client_id" content="316686701656-1cs0k0pc8kpfihuirpetvltlrlp0nb9j.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/client:platform.js" async defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
+    <script>
+        function start() {
+            gapi.load('auth2', function() {
+                auth2 = gapi.auth2.init({
+                    client_id: '316686701656-1cs0k0pc8kpfihuirpetvltlrlp0nb9j.apps.googleusercontent.com',
+
+                });
+            });
+        }
+    </script>
 </head>
 <body>
 <?php

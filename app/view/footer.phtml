@@ -1,3 +1,31 @@
 <footer></footer>
 </body>
+<script>
+    var signed=false;
+    var login_type=null;
+    <?php if(isset($_SESSION["email"])): ?>
+     signed=true;
+
+    <?php endif ?>
+
+
+    $(document).ready(function(){
+        if(signed==true){
+            $("#nav-signin").hide();
+            $("#nav-signout").show();
+            if(login_type=="google"){
+
+            }
+        }else{
+
+        }
+    });
+    $("#nav-signout").on("click",function () {
+       // if(login_type=="google"){
+            var auth2=gapi.auth2.getAuthInstance();
+            alert(auth2.isSignedIn.get());
+        //}
+    })
+
+</script>
 </html>

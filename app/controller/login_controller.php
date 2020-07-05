@@ -1,9 +1,9 @@
 <?php
 
 
-class google_login_controller extends Controller
+class login_controller extends Controller
 {
-    public function verify_id_token(){
+    public function google_post(){
         require_once VENDOR.'autoload.php';
 
         $id_token=$_POST["id_token"];
@@ -12,11 +12,21 @@ class google_login_controller extends Controller
         $payload = $client->verifyIdToken($id_token);
         if ($payload) {
             $userid = $payload['sub'];
-            print_r($payload);
+            echo $payload["email"];
+            session_start();
+            $_SESSION["email"]=$payload["email"];
+            $_SESSION["id"]=$payload["id"];
+            $_SESSION["login_type"]="google";
+
+            print_r($_SESSION);
             // If request specified a G Suite domain:
             //$domain = $payload['hd'];
         } else {
             // Invalid ID token
         }
+    }
+
+    public function custom_post(){
+
     }
 }
