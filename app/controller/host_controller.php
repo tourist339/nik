@@ -23,29 +23,49 @@ class host_controller extends Controller
             $values=array();
             if(isset($_POST)){
                 foreach($keys as $key){
-
-                    if(!isset($_POST[ltrim($key,":")]) || empty($_POST[ltrim($key,":")]))
-                        $val=null;
-                    else
-                        $val=trim($_POST[ltrim($key,":")]);
+                    if(!isset($_POST[ltrim($key,":")]) || empty($_POST[ltrim($key,":")])) {
+                        $val = null;
+                    }
+                    else {
+                        $posted_data=$_POST[ltrim($key,":")];
+                        if(is_array($posted_data)){
+                          for($i=0;$i<count($posted_data);$i++){
+                              $posted_data[$i]=$this->removeSPandTrim($posted_data[$i]);
+                          }
+                          $val=implode(",",$posted_data);
+                       }else {
+                           $val = $this->removeSPandTrim($posted_data);
+                       }
+                    }
                     array_push($values,$val);
 
 ;                }
-                $data=array_combine($keys,$values);
-                print_r($data);
-                $this->model=new host_model("system_d");
-                $this->model->createPropRow($data);
-                $this->model->closeDb();
+                session_start();
+                if(isset($_SESSION["id"])){
+                    array_push($keys, ":ownerid");
+                    array_push($values,$_SESSION["id"]);
+                    $data = array_combine($keys, $values);
+                    print_r($data);
+                    $hostmodel = new host_model();
+                    $hostmodel->createPropRow($data);
+                    $hostmodel->closeDb();
+                }else{
+                    new e404_controller("Not logged in");
+                }
 
             }
 
         }else {
-            $cView = $this->createView('/host/setup', ["title" => "Hosting OverView",
-                    "scripts" => [MAIN_SCRIPTS],
-                    "stylesheets" => [MAIN_CSS,"host.css","setup.css"],
-                    "navbar" => MAIN_NAVBAR]
-            );
-            $cView->render(true, false);
+            if(isset($_SESSION["id"])) {
+                $cView = $this->createView('/host/setup', ["title" => "Hosting OverView",
+                        "scripts" => [MAIN_SCRIPTS],
+                        "stylesheets" => [MAIN_CSS, "host.css", "setup.css"],
+                        "navbar" => MAIN_NAVBAR]
+                );
+                $cView->render(true, false);
+            }else{
+                echo "login";
+            }
         }
 
     }

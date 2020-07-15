@@ -1,0 +1,39 @@
+
+<section class="side-bar">
+    <div class="nav">
+
+        <a href="/home"><img src="/imgs/PngItem_2477379.png" onclick="go" alt="house logo"></a>
+        <ul>
+            <li><a class="side-bar-links" goto="/user/dashboard"><i class="fas fa-tachometer-alt"></i>Dashboard</a></li>
+            <li><a class="side-bar-links" goto="/user/wallet"><i class="fas fa-wallet"></i>Wallet</a></li>
+            <li><a class="side-bar-links" goto="/user/properties"><i class="far fa-calendar-alt"></i>Properties</a></li>
+            <li><a class="side-bar-links" goto="/user/favourites"><i class="far fa-heart"></i>My Favourite</a></li>
+            <li><a class="side-bar-links" goto="/user/booking"><i class="far fa-calendar-check"></i>My Bookings</a></li>
+        </ul>
+    </div>
+</section>
+
+<section class="top-bar">
+    <p>Dashboard</p>
+    <div>
+        <i class="far fa-bell"></i>
+        <i class="far fa-user-circle"></i>
+    </div>
+</section>
+
+
+<section class="content">
+
+</section>
+<script>
+    $(".content").load("/user/dashboard");
+
+    $(".side-bar-links").on("click",function(){
+
+       $(".content").load($(this).attr("goto"));
+
+    });
+
+</script>
+</body>
+</html>

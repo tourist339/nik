@@ -12,5 +12,9 @@ class Controller
         return $this->view;
     }
 
+    public function removeSPandTrim($string){
+        return trim(preg_replace("/[^a-zA-Z0-9\s]/", "", $string));
+    }
+
 
 }

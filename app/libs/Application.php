@@ -29,7 +29,7 @@ class Application
     }
     function set_controller(){
         if(isset($_GET['url'])) {
-            $url = trim($_GET['url'], '/');
+            $url = htmlspecialchars(trim($_GET['url'], '/'));
             $url = explode('/', $url);
             $this->controller = !empty($url[0]) ? $url[0] . "_controller" : $this->controller;
 

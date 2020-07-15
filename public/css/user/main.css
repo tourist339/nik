@@ -16,12 +16,12 @@ body {
 /* side-bar section starts here */
 .side-bar {
     grid-area: side;
-    width: 100%;  
+    width: 100%;
     border-right: 0.1rem solid rgb(230,230,230);
     background-color: white;
 }
 
-nav {
+.nav{
     margin-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -33,20 +33,23 @@ nav {
     align-self: center;
     margin-bottom: 1.5rem;
 }
-
+.nav>a{
+    margin: auto;
+}
 .side-bar li {
     list-style: none;
     margin-bottom: 1rem;
 }
 
-.side-bar a {
+.side-bar-links {
     content: "";
     text-decoration: none;
     color: black;
 }
 
-.side-bar a:hover {
+.side-bar-links:hover {
     color: orange;
+    cursor: pointer;
 }
 
 .side-bar a:focus {
@@ -92,4 +95,8 @@ nav {
     background-color: white;
     overflow: scroll;
 }
+
+/* Dashboard section starts here */
+
+
 /* content section ends here */

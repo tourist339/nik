@@ -14,6 +14,8 @@ $vdata=$this->view_data;
         foreach ($vdata["scripts"] as $script) {
             if(file_exists("js" .DIRECTORY_SEPARATOR. $script )) {
                 echo "<script src='/js" . DIRECTORY_SEPARATOR . $script . "'></script>";
+            }else{
+                echo "<script src='".$script."'></script>";
             }
         }
     }
@@ -21,7 +23,11 @@ $vdata=$this->view_data;
         foreach ($vdata["stylesheets"] as $stylesheet) {
             if(file_exists("css" .DIRECTORY_SEPARATOR. $stylesheet )) {
                 echo "<link href='/css" . DIRECTORY_SEPARATOR . $stylesheet . "' rel='stylesheet'>";
+            }else{
+                echo "<link href='" . $stylesheet . "' rel='stylesheet'>";
+
             }
+
         }
     }
 
@@ -36,11 +42,24 @@ $vdata=$this->view_data;
                     client_id: '316686701656-1cs0k0pc8kpfihuirpetvltlrlp0nb9j.apps.googleusercontent.com',
                 });
             });
+            gapi.signin2.render("signin-button",{
+                'longtitle': true,
+                'theme': 'dark'
+            });
 
         }
     </script>
 </head>
 <body>
+<?php
+var_dump($_SESSION);
+?>
+<div id="login-modal" style="display: none" class="modal">
+    <?php include TEMPLATE.DIRECTORY_SEPARATOR.'login'.DIRECTORY_SEPARATOR."loginmodal.html";?>
+</div>
+<div id="login-info-modal" style="display: none" class="modal">
+    <?php include TEMPLATE.DIRECTORY_SEPARATOR.'login'.DIRECTORY_SEPARATOR."logininfomodal.html";?>
+</div>
 <?php
 if(isset($vdata["navbar"])){
     $navpath=TEMPLATE."navbars".DIRECTORY_SEPARATOR;
@@ -52,5 +71,6 @@ if(isset($vdata["navbar"])){
 }
 
 ?>
+
 
 

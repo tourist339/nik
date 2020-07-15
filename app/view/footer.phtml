@@ -1,32 +1,7 @@
 <footer></footer>
+<abc></abc>
 </body>
-<script>
-    var signed=false;
-    var login_type=null;
-    <?php if(isset($_SESSION["email"])): ?>
-     signed=true;
-    login_type="<?php echo $_SESSION["login_type"]?>";
-    <?php endif ?>
+<abc></abc>
 
-
-    $(document).ready(function(){
-        if(signed==true){
-            $("#nav-signout").show();
-
-        }else{
-            $("#nav-signin").show();
-        }
-    });
-    $("#nav-signout").on("click",function () {
-       if(login_type=="google") {
-           var auth2 = gapi.auth2.getAuthInstance();
-           auth2.signOut().then(function () {
-           });
-       }
-       $.post("/login/logout",function(data){
-           window.location.reload(true);
-       });
-    });
-
-</script>
+<script src="/js/login_sys.js"></script>
 </html>

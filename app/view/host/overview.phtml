@@ -96,3 +96,15 @@
 
     </div>
 </div>
+
+<script>
+    $("hb-input-box").submit(function(e){
+        e.preventDefault();
+        $.post($(this).attr("action"),$(this).serialize(),function(data){
+            alert(data);
+            if(data!=null){
+                alert(data);
+            }
+        });
+    });
+</script>
