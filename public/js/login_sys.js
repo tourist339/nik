@@ -3,6 +3,9 @@ function openLogin(){
       fadeDuration:120
    });
 }
+var login_params={
+    signed:false
+};
 $(document).ready(function() {
     $("#signin-button").on("click", function () {
         auth2.signIn({
@@ -13,7 +16,6 @@ $(document).ready(function() {
             $.post("/login/google_post", {"id_token": idToken}, function (data) {
                 console.log(data);
                 data = JSON.parse(data);
-                // alert(data);
                 if (data["statusCode"] == "ASK_INFO") {
                     $("#login-info-modal").modal({
                         fadeDuration: 120,
@@ -37,22 +39,23 @@ $(document).ready(function() {
     var signed = false;
     var login_type = null;
     $.get("/login/getSigned", function (data) {
-        console.log(data);
         if (data.localeCompare("notset") != 0) { //data!= "notset"( meaning data is set) , so signed should be true
-            signed = true;
+            login_params.signed = true;
             login_type = data;
         }
-        if (signed == true) {
+        if (login_params.signed == true) {
             $("#nav-signout").show();
         } else {
 
             $("#nav-signin").show();
         }
+        console.log(data+" "+login_params.signed);
+
     });
 
 
     $("#nav-signout").on("click", function () {
-        if (signed) {
+        if (login_params.signed) {
             if (login_type == "google") {
                 var auth2 = gapi.auth2.getAuthInstance();
                 auth2.signOut().then(function () {
@@ -61,6 +64,7 @@ $(document).ready(function() {
             $.post("/login/logout", function (data) {
                 window.location.reload(true);
             });
+            signed=false;
         }
     });
 });

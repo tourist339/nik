@@ -8,7 +8,7 @@ $vdata=$this->view_data;
 <html>
 <head>
 
-    <!--    <title>--><?php //echo $vdata["title"]?><!--</title>-->
+<!--    <title>--><?php //echo $vdata["title"]?><!--</title>-->
 
 
     <?php
@@ -17,7 +17,7 @@ $vdata=$this->view_data;
             if(is_array($script)){
                 foreach ($script as $sc){
                     if(file_exists("js" .DIRECTORY_SEPARATOR. $sc )) {
-                        echo "<script type='text/javascript' src='/js" . DIRECTORY_SEPARATOR . $sc . "'></script>";
+                        echo "<script src='/js" . DIRECTORY_SEPARATOR . $sc . "'></script>";
                     }else{
                         echo "<script src='".$sc."'></script>";
                     }
@@ -41,13 +41,13 @@ $vdata=$this->view_data;
                     }
                 }
             }else{
-                if (file_exists("css" . DIRECTORY_SEPARATOR . $stylesheet)) {
-                    echo "<link href='/css" . DIRECTORY_SEPARATOR . $stylesheet . "' rel='stylesheet'>";
-                } else {
-                    echo "<link href='" . $stylesheet . "' rel='stylesheet'>";
+                    if (file_exists("css" . DIRECTORY_SEPARATOR . $stylesheet)) {
+                        echo "<link href='/css" . DIRECTORY_SEPARATOR . $stylesheet . "' rel='stylesheet'>";
+                    } else {
+                        echo "<link href='" . $stylesheet . "' rel='stylesheet'>";
 
+                    }
                 }
-            }
 
         }
     }
