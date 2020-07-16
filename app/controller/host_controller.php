@@ -15,6 +15,7 @@ class host_controller extends Controller
     }
 
     public function setup(){
+        session_start();
         if(isset($_SESSION["id"])) {
             $cView = $this->createView('/host/setup', ["title" => "Hosting OverView",
                     "scripts" => [MAIN_SCRIPTS],
