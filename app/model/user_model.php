@@ -109,6 +109,8 @@ class user_model extends Model
             $current_properties=$stmt->fetchColumn();
             if (!empty(trim($current_properties)))
                 $current_properties.=(",".$propid); //add a comma seperated prop id to list of properties
+            else
+                $current_properties=$propid;
             $this->updateUser("properties",$current_properties,$id);
         }catch (PDOException $e){
             if(ERROR_DEBUG_MODE){
