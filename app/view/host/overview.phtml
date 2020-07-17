@@ -96,3 +96,13 @@
 
     </div>
 </div>
+
+<script>
+
+    $("#hb-input-box").submit(function(e){
+        if(!login_params.signed){
+            openLogin();
+            e.preventDefault();
+        }
+    });
+</script>

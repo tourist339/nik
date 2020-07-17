@@ -4,9 +4,9 @@
 class host_model extends Model
 {
 
-    public function __construct($dbname)
+    public function __construct()
     {
-        parent::__construct($dbname);
+        parent::__construct();
     }
 
     public function createPropRow($data){
@@ -15,11 +15,10 @@ class host_model extends Model
             //left ownerid and utilities to insert, will do that later
 
             try{
-                echo "hey".$data[":pNoGuests"]."there";
-                $query=$db->prepare("INSERT INTO Properties( title, description, city, state,aptno,
+                $query=$db->prepare("INSERT INTO Properties( ownerid,title, description, city, state,aptno,
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
                                                                     kitchen, bathroomshared, address, rent, amenities) VALUES
-                                                                (:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
+                                                                (:ownerid,:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
                                                                 :pNoBathrooms,:pKitchenAvailable,:pBathroomShared,:pAddress,
                                                                 :pRent,:amenities)"
                                                                                         );

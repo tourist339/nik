@@ -7,6 +7,7 @@ class Database extends PDO {
     {
         try {
             parent::__construct("mysql:dbname=" . $dbname . ";host=" . $this->host, $this->username, $this->password);
+            $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         }catch (PDOException $e){

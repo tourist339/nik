@@ -18,6 +18,7 @@ class home_controller extends Controller
         $cView->render();
 
     }
+
     private function getDefaultData(){
 
     }

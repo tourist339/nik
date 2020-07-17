@@ -1,33 +1,12 @@
 
-<form id="setup-container"  method="post" action="setup">
+<form id="setup-container"  method="post" action="/host/add_property">
 
     <div id="setup-box" >
         <!--        A wrapper to put everything in middle-->
         <div  id="setup-box-content" style="justify-content:center;">
 
-
-            <!--        First page box for listers info-->
-            <div class="fortrans setup-fader activePhase" id="phase1">
-                <h1 class="midsize">Lister's information</h1>
-                <div class="rowflex">
-                    <input type=text placeholder="First Name"  name="ownerfName" id="fName">
-                    <input type=text placeholder="Last Name"  name="ownerlName" id="">
-                </div>
-                <input type=text placeholder="Phone Number" name="ownerpNum" id="">
-                <input type=text placeholder="Ownership" name="ownerType" id="">
-
-                <input type=text placeholder="Street Address" name="ownerAddress" id="">
-                <div class="rowflex">
-
-                    <input type=text placeholder="City" name="ownerCity" id="">
-                    <input type=text placeholder="State" name="ownerState" id="">
-                </div>
-<!--                <input type="submit" value="submit">-->
-            </div>
-
-
-            <!--        Second page box For props information-->
-            <div class=" fortrans setup-fader" id="phase2" >
+            <!--        First page box For props information-->
+            <div class=" fortrans setup-fader activePhase" id="phase1" >
                 <h1 class="midsize">Property's information</h1>
                 <div class="gridbox setup-gridbox">
                     <div class="input-item">
@@ -79,16 +58,16 @@
                 </div>
             </div>
 
-            <!--        Third page box-->
-            <div class="setup-fader" id="phase3" >
+            <!--        Second page box-->
+            <div class="setup-fader" id="phase2" >
                 <textarea id="ta-title"rows="2" maxlength="50" name="pTitle" class="required-input" placeholder="Title"></textarea>
                 <textarea id="ta-desc"  maxlength="2000" name="pDesc" class="required-input" placeholder="Description"></textarea>
 
             </div>
 
 
-            <!--        Fourth Page box-->
-            <div class="setup-fader nomap" id="phase4" >
+            <!--        Third Page box (MAP)-->
+            <div class="setup-fader nomap" id="phase3" >
                 <h1 class="midsize">Property Address</h1>
                 <button type="button" id="getLocation">Use current location </button>
 
@@ -105,21 +84,21 @@
             </div>
 
 
-            <!--        Fifth Page box-->
-            <div class="setup-fader" id="phase5" >
+            <!--        Fourth Page box (AMENITIES)-->
+            <div class="setup-fader" id="phase4" >
                 <h1 class="midsize" style="margin-bottom:0vw;text-align:start;">What amenities do you offer?</h1>
                 <p class="phase-text" >You can select from the list or add your own</p>
                 <!--            Items are loaded via javascript-->
                 <div id="amenity-box"></div>
                 <div class="rowflex">
-                    <input type=text autocomplete='nope' placeholder="Pool?" name="" id="prop-city">
+                    <input type=text autocomplete='nope' placeholder="Pool?" name="" id="prop-add-amenity">
                     <input type="button" value="Add" id="add-amenity">
                 </div>
             </div>
 
 
-            <!--        Sixth Page box-->
-            <div class="setup-fader" id="phase6" >
+            <!--        FIfth Page box-->
+            <div class="setup-fader" id="phase5" >
                 <h1 class="midsize" style="text-align:start;">Setup house rules</h1>
                 <div id="hrules-box">
                     <div class="rowflex">
@@ -150,7 +129,7 @@
                     <p class="phase-text-label">Additional Rules</p>
                     <div class="rowflex" class="notopmargin">
                         <input type=text autocomplete="nope" placeholder="Setup Queit hours? " style="max-width:100%;flex:1 1 auto;"  class="notopmargin" id="prop-city">
-                        <input type="button" value="Add" class="notopmargin" id="add-amenity">
+                        <input type="button" value="Add" class="notopmargin" id="add-rules">
                     </div>
                 </div>
 
@@ -160,8 +139,8 @@
 
             </div>
 
-            <!--            SEVENTH PAGE BOX-->
-            <div class="setup-fader" id="phase7">
+            <!--            Sixth PAGE BOX-->
+            <div class="setup-fader" id="phase6">
                 <h1 class="midsize" >Rent Information</h1>
                 <input type=text placeholder="Rent in Rs." style="width:16vw;" name="pRent" id="prop-rent" />
                 <p class="phase-text" style="font-size:1.6vw;">What does the rent include?</p>
@@ -297,6 +276,9 @@
 <script>
     var  amList=["Wifi","Laundry","Air Conditioning","TV","Refrigerator","Breakfast or    Coffee/tea","Lunch","Dinner"];
     for (var amenity of amList){
+        addAmenity(amenity);
+    }
+    function addAmenity(amenity){
         $("#amenity-box").append("<div class='amenity'>"+
             "<input type='checkbox'  id='"+amenity+"' name='amenities[]' value='"+amenity+"'>"+
             "<label for='"+amenity+"' class='phase-text'>"+amenity+"</label><br>"+
@@ -324,6 +306,13 @@
                 $(this).addClass("activeBtn");
             }
         }
+    });
+
+    $("#add-amenity").on("click",function () {
+        var amenity=$("#prop-add-amenity").val();
+        addAmenity(amenity);
+        $("#prop-add-amenity").val("");
+
     });
 
     $("#setup-container").submit(function(e){
@@ -379,17 +368,17 @@
 
 
 
-                if (id == "phase4" && k.hasClass("nomap")) {
+                if (id == "phase3" && k.hasClass("nomap")) {
                     //Display the map when users enters address and press next button
                     console.log("true");
 
                     displayMap();
                     k.removeClass("nomap");
-                } else if (id == "phase7") {
+                } else if (id == "phase6") {
                     $("#setup-container").submit();
                 } else {
                     var nextid = parseInt(id.substr(-1)) + 1;
-                    if (nextid == 7) {
+                    if (nextid == 6) {
                         $("#setup-box-next").val("Submit");
 
                     }
@@ -488,7 +477,6 @@
 amenities
 Images
 HOUSE RULES
-
 AMenities->
 Wifi
 Heat

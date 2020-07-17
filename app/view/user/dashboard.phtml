@@ -1,0 +1,19 @@
+<?php
+$user_email=$_SESSION["email"];
+$login_type=$_SESSION["login_type"];
+$userInfo=$this->view_data["data"][0];
+?>
+<head>
+    <link href="/css/user/dashboard.css" rel="stylesheet">
+</head>
+<div>
+
+    <input type="text" id="user-fName" name="fName" value="<?php echo $userInfo["first_name"] ?>"><br>
+    <input type="text" id="user-lName" name="lName" value="<?php echo $userInfo["last_name"]  ?>"><br>
+    <input type="email" id="email" value="<?php echo $user_email ?>" disabled><br>
+    <input type="text" pattern="0-9" placeholder="Phone Number" id="user-pNum" name="pNum"><br>
+    <input type="text" id="user-address" placeholder="Address" name="address"><br>
+    <input type="text" id="user-city" placeholder="City" name="city"><br>
+    <input type="text" id="user-state" placeholder="State" name="state"><br>
+
+</div>

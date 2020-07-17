@@ -4,9 +4,8 @@
 class Model
 {
 private $db;
-public function __construct($dbname){
+public function __construct($dbname=DB_NAME){
     $this->db=new Database($dbname);
-    $this->dbname=$dbname;
     //$this->db
 }
 
