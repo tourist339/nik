@@ -40,7 +40,7 @@ class host_controller extends Controller
             $keys = [":pType", ":pSharingType", ":pNoGuests", ":pNoBeds", ":pNoBathrooms", ":pBathroomShared", ":pKitchenAvailable", ":pTitle"
                 , ":pDesc", ":pAddress", ":pApt", ":pCity", ":pState", ":pRent", ":amenities"];
             $required = ["pNoGuests", "pNoBathrooms", "pBathroomShared", "pAddress", "pCity", "pState", "pRent"];
-            if (ERROR_SETUP_MODE) {
+            if (SETUP_DEBUG_MODE) {
                 foreach ($required as $req) {
                     if (!isset($_POST[$req]))
                         new e404_controller("Invalid Data");
@@ -71,7 +71,10 @@ class host_controller extends Controller
                     $data = array_combine($keys, $values);
                     print_r($data);
                     $hostmodel = new host_model();
-                    $hostmodel->createPropRow($data);
+                    $prop_id=$hostmodel->createPropRow($data);
+                    $usermodel=new user_model();
+                    $usermodel->updateProperty($prop_id,$_SESSION["id"]);
+                    $usermodel->closeDb();
                     $hostmodel->closeDb();
                 } else {
                     new e404_controller("Not logged in");
