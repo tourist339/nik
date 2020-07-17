@@ -7,26 +7,40 @@ class user_controller extends Controller
 
         $currView= $this->createView("user/index", ["title" => "User",
             "scripts" => [MAIN_SCRIPTS,"https://kit.fontawesome.com/43ac8e0dfc.js"],
-            "stylesheets" => [MAIN_CSS,"user/main.css"]     ]
+            "stylesheets" => [MAIN_CSS,"user/main.css","single-listing.css","listprops.css"]     ]
         );
         $currView->render(true,false);
     }
 
     public function dashboard(){
-        $model=new user_model(DB_NAME);
+        $model=new user_model();
         $p=["first_name","last_name","address","city","state","phone_num","pic"];
         session_start();
-        $email=$_SESSION["email"];
-        $login_type=$_SESSION["login_type"];
-        $userInfo=$model->getUserData($p,$email,$login_type);
+        $id=$_SESSION["id"];
+        $userInfo=$model->getUserDataByID($p,$id);
         $currView= $this->createView("user/dashboard",["data"=>$userInfo]);
         $currView->render(false,false);
+        $model->closeDb();
     }
     public function events(){
 
     }
     public function properties(){
-        $currView= $this->createView("user/properties");
+        $usermodel=new user_model();
+        $propmodel=new prop_model();
+        session_start();
+        $id=$_SESSION["id"];
+        $props_array=$usermodel->getUserDataByID(["properties"],$id);
+        $props=[];
+        if($props_array[0]["properties"]!=null) {
+            $props_id = explode(",", $props_array[0]["properties"]);
+            var_dump($props_id);
+            foreach ($props_id as $p_id) {
+                $propdata = $propmodel->getData(["id", "title", "description", "rent", "address"], ["id" => $p_id]);
+                array_push($props, $propdata);
+            }
+        }
+        $currView= $this->createView("user/properties",["data"=>$props]);
         $currView->render(false,false);
     }
 }

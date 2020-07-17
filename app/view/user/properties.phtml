@@ -1,4 +1,34 @@
 <?php
-echo "properties";
-
+$properties=$this->view_data["data"];
 ?>
+
+<div class="listprops-grid">
+    <?php foreach ($properties as $prop):
+
+        $prop=$prop[0];
+        $prop_title="/prop/v/".str_replace(' ','-',$prop["title"])."/".$prop["id"] ?>
+        <!--            echo "<a href='/prop/v/".$prop_title ."/".$prop["id"]."'>".$prop["title"]."</a><br>";-->
+        <div class="listprops-item" src=<?php echo $prop_title; ?>>
+            <figure>
+                <div>
+                    <img src="/imgs/img1.jpeg" alt="Photo of a room"></div>
+                <figcaption><?php echo $prop["title"];?><br><span><?php echo $prop["address"];?></span><br></figcaption>
+                <figcaption id="description">Description<br><span>
+                    <?php echo $prop["description"];?></span></figcaption>
+                <figcaption>Rent start at<br><span><?php echo $prop["rent"];?> /month</span></figcaption>
+            </figure>
+
+
+        </div>
+    <?php endforeach;?>
+
+</div>
+<script>
+    $(document).ready(function() {
+        console.log("Read");
+        $(".listprops-item").click(function () {
+                window.location.href=$(this).attr("src");
+            }
+        );
+    });
+</script>

@@ -1,7 +1,9 @@
 <?php
-$prop=$this->view_data["data"][0];
+$propdata=$this->view_data["data"][0];
+$ownerdata=$this->view_data["ownerdata"][0];
+
 ?>
-<h1 class="prop-title"><?php echo ucfirst($prop["title"]);?></h1>
+<h1 class="prop-title"><?php echo ucfirst($propdata["title"]);?></h1>
 
 <div id="images-box">
     <div class="rowflex rel">
@@ -30,8 +32,8 @@ $prop=$this->view_data["data"][0];
         <div class="afterline">
             <p class="midsize headprop" id="sharingType">Entire place</p>
             <div class="parasize rowflex" id="roomsInfo">
-                <span class="prop-icon">🛏️</span><p>bedrooms: <?php echo $prop["bedrooms"] ?>  |&nbsp;</p>
-                    <span class="prop-icon">🛀</span> <p>bathrooms: <?php echo $prop["bathrooms"] ?></p>
+                <span class="prop-icon">🛏️</span><p>bedrooms: <?php echo $propdata["bedrooms"] ?>  |&nbsp;</p>
+                    <span class="prop-icon">🛀</span> <p>bathrooms: <?php echo $propdata["bathrooms"] ?></p>
 
             </div>
         </div>
@@ -41,7 +43,7 @@ $prop=$this->view_data["data"][0];
         <!--            Description box-->
         <div class="afterline rel" >
             <p class="midsize headprop" >Description</p>
-            <p class="parasize" id="propDesc"><?php echo   $prop["description"] ?>
+            <p class="parasize" id="propDesc"><?php echo   $propdata["description"] ?>
             </p>
             <div class="rowflex" id="showDesc"><input type="button" value="Continue" onclick="showFull()"></div>
         </div>
@@ -180,8 +182,16 @@ $prop=$this->view_data["data"][0];
 
     <div id="right-prop-content">
         <div id="address-box"><div id="map"></div><p><?php
-                echo getProperAddress($prop["address"],$prop["city"],$prop["state"]) ?></p></div>
-        <div id="contact-box">Contact info</div>
+                echo getProperAddress($propdata["address"],$propdata["city"],$propdata["state"]) ?></p></div>
+        <div id="contact-box">
+           <p> <?php echo $ownerdata["first_name"]." ".$ownerdata["last_name"]?>
+            <br>
+            <?php echo $ownerdata["phone_num"]?>
+            <br>
+            <?php echo $ownerdata["email"]?>
+           </p>
+
+        </div>
     </div>
 
 </div>
@@ -213,7 +223,7 @@ $prop=$this->view_data["data"][0];
         var geocoder = new google.maps.Geocoder();
 //        address to be changed later
         var address = "<?php
-            echo getProperAddress($prop["address"],$prop["city"],$prop["state"]);
+            echo getProperAddress($propdata["address"],$propdata["city"],$propdata["state"]);
             ?>";
         geocoder.geocode( { 'address': address}, function(results, status) {
 

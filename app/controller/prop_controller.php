@@ -35,6 +35,9 @@ class prop_controller extends Controller
         $propname=$this->removeSPandTrim($propname);
         $id=$this->removeSPandTrim($id);
         $data = $this->model->getData([], ["title"=>$propname, "id"=>$id]);
+        $usermodel=new user_model();
+        $ownerdata=$usermodel->getUserDataByID(["first_name","last_name","email","phone_num"],$data[0]["ownerid"]);
+
         if ($data == null) {
             new e404_controller();
         } else {
@@ -42,7 +45,8 @@ class prop_controller extends Controller
                     "scripts" => [MAIN_SCRIPTS],
                     "stylesheets" => [MAIN_CSS,"homepage.css","prop.css"],
                     "navbar" => MAIN_NAVBAR,
-                    "data" => $data]
+                    "data" => $data,
+                "ownerdata"=>$ownerdata]
             )->render();
         }
             $this->model->closeDb();
