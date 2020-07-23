@@ -1,0 +1,199 @@
+$afterline_margin:2rem;
+.afterline:after{
+    margin-top: $afterline_margin;
+}
+#images-box{
+    width: 100%;
+}
+
+#left-prop-content>div{
+    margin-top: $afterline_margin + 2rem;
+}
+body{
+    padding: 0 10vw;
+    background-color: white;
+}
+nav{
+   // width: 80% !important;
+    background-color: white;
+    position: relative;
+    top: 0;
+}
+#prop-main-box{
+    /*/margin-top: 5vw;*/
+}
+.prop-title{
+    font-size: 2.5rem;
+    font-family: reg;
+    margin: 0;
+}
+
+#images-box{
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(2,15vw);
+    grid-gap: 0.3rem;
+
+    div:nth-child(1){
+        grid-column: 1 / span 2;
+        grid-row: 1 / span 2;
+    }
+    div:nth-child(2){
+        grid-column-start: 3;
+    }
+    img{
+        width: 100%;
+        height: 100%;
+        border-radius: 1rem;
+
+    }
+}
+
+.imgs{
+    margin: 0.2vw;
+    background-color: whitesmoke;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border-radius: 10px;
+    width: 100%;
+    flex: 1 1 0px;
+}
+
+#imgs-showall{
+    position: absolute;
+    right: 3vw;
+    bottom: 2vw;
+    font-size: 1.3vw;
+    margin: 1vw;
+    border-radius: 10px;
+    background-color: orange;
+    border-color: orange;
+    padding: 7px;
+    color: white;
+    outline: none;
+}
+
+#imgs-showall:hover{
+    cursor: pointer;
+    background-color: #FF8C00;
+    outline: none;
+    
+}
+
+#first-img{
+}
+#second-img{
+}
+
+#third-img{
+
+}
+#fourth-img{
+
+}
+#fifth-img{
+
+}
+
+#prop-content{
+    margin: 3vw 0;
+    position: relative;
+
+}
+
+#left-prop-content{
+    margin: 0vw 0.5vw 0vw 0.2vw;
+    flex: 2.5 1 0px;
+    height: 100vw;
+}
+#left-prop-content>div:first-child{
+    margin: 0vw 0 3vw 0;
+}
+#left-prop-content>div:first-child p{
+  margin: 0;
+}
+#right-prop-content{
+    margin: 0vw 0.2vw 0vw 0.5vw;
+    position: relative;
+    flex: 1 1 0px;  
+}
+
+
+.sticky{
+    top: 10px;
+    
+}
+#propDesc{
+    height: auto;
+    max-height: 20vw;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    margin-bottom: 0;
+    /* can use some break word property here */
+}
+#showDesc{
+    position: absolute;
+    bottom: calc( -2.3vw - 12px);
+    width: 100%;
+    justify-content: center;
+    background-color: rgba(255,255,255,0.7);
+    z-index: 100;
+}
+#showDesc input{
+    margin: 1vw;
+    font-size: 1.3vw;
+    border-radius: 10px;
+    background-color: orange;
+    border-color: orange;
+    padding: 6px;
+    color: white;
+    outline: none;
+}
+#showDesc input:hover{
+    cursor: pointer;
+    background-color: #FF8C00;
+    outline: none;
+    
+}
+
+#amenities-box{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+
+}
+
+
+//RIGHT SIDE CONTENT STARTING HERE
+
+#map{
+    width: 100%;
+    height: 17vw;
+    border-radius: 10px;
+    /*(100vw - (body padding *2))/3.5 -4 can include the left right prop margin too*/
+}
+
+#address-box p{
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 0.9rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    margin-top: 3px;
+    font-size: 1.2rem;
+}
+#contact-box{
+    
+    max-width: 100%;
+    max-height: 20vw;
+    border-radius: 10px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 1.4vw;
+    background-color: lightblue;
+}
+#contact-box p{
+    padding: 2vw;
+}

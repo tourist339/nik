@@ -17,11 +17,11 @@ class host_model extends Model
             try{
                 $query=$db->prepare("INSERT INTO Properties( ownerid,title, description, city, state,aptno,
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
-                                                                    kitchen, bathroomshared, address, rent, amenities)
+                                                                    kitchen, bathroomshared, address, rent, amenities,images)
                                                                      VALUES
                                                                 (:ownerid,:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
                                                                 :pNoBathrooms,:pKitchenAvailable,:pBathroomShared,:pAddress,
-                                                                :pRent,:amenities)"
+                                                                :pRent,:amenities,:images)"
                                                                                         );
                 $query->execute($data);
                 return $db->lastInsertId();

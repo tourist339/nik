@@ -6,7 +6,7 @@ class user_controller extends Controller
     public function index(){
 
         $currView= $this->createView("user/index", ["title" => "User",
-            "scripts" => [MAIN_SCRIPTS,"https://kit.fontawesome.com/43ac8e0dfc.js"],
+            "scripts" => [MAIN_SCRIPTS],
             "stylesheets" => [MAIN_CSS,"user/main.css","single-listing.css","listprops.css"]
             ]
         );

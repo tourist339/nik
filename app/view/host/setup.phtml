@@ -1,12 +1,12 @@
 
-<form id="setup-container"  method="post" action="/host/add_property">
+<form id="setup-container"  method="post" action="/host/add_property" enctype="multipart/form-data">
 
     <div id="setup-box" >
         <!--        A wrapper to put everything in middle-->
         <div  id="setup-box-content" style="justify-content:center;">
 
             <!--        First page box For props information-->
-            <div class=" fortrans setup-fader activePhase" id="phase1" >
+            <div class="fortrans setup-fader activePhase" id="phase1" >
                 <h1 class="midsize">Property's information</h1>
                 <div class="gridbox setup-gridbox">
                     <div class="input-item">
@@ -97,7 +97,7 @@
             </div>
 
 
-            <!--        FIfth Page box-->
+            <!--        FIfth Page box (HOUSE RULES AND IMAGES)-->
             <div class="setup-fader" id="phase5" >
                 <h1 class="midsize" style="text-align:start;">Setup house rules</h1>
                 <div id="hrules-box">
@@ -134,7 +134,7 @@
                 </div>
 
                 <h1 class="midsize" style="text-align:start;margin-top:1vw;">Upload images of the property(Not working yet)</h1>
-                <input type="file" id="imgInp" name="files" accept="image/* " class="notopmargin" multiple><br><br>
+                <input type="file" id="imgInp" name="images[]" accept="image/* " class="notopmargin" multiple><br><br>
                 <img id="blah" src="#" alt="your image" />
 
             </div>
@@ -181,6 +181,10 @@
             <input type="submit" value="Submit" id="submitForm">
 
         </div>
+    </div>
+    <div id="image-preview-box">
+    </div>
+
     </div>
 </form>
 
@@ -322,11 +326,21 @@
         var data=form.serializeArray();
         // var amenities=["ka","fdsafs","Fsd"];
         // data.push({name: 'amenities', value: amenities},{name: 'vw', value: amenities});
-        console.log(data);
-        $.post(url,data,function(data){
-            alert(data);
-            window.location.replace("/home/");
+
+        var formData = new FormData(this);
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                $("#image-preview-box").append(data);
+            },
+            cache: false,
+            contentType: false,
+            processData: false
         });
+
     });
 
     //        Agreement dropdown change event
@@ -428,23 +442,26 @@
     });
 
 
-    //    Images loading functions
+    //   // Images loading functions
     //    function readURL(input) {
     //  if (input.files && input.files[0]) {
-    //    var reader = new FileReader();
     //
-    //    reader.onload = function(e) {
-    //      $('#blah').attr('src', e.target.result);
+    //
+    //    for(var i =0;i<input.files.length;i++) {
+    //        var reader = new FileReader();
+    //
+    //        reader.onload = function(e) {
+    //            $("#image-preview-box").append("<div class='preview-img''></div>")
+    //        }
+    //        reader.readAsDataURL(input.files[i]); // convert to base64 string
     //    }
-    //
-    //    reader.readAsDataURL(input.files[0]); // convert to base64 string
     //  }
-    //}
-    //
-    //$("#imgInp").change(function() {
+    // }
+
+    // $("#imgInp").change(function() {
     //    console.log("32432");
     //  readURL(this);
-    //});
+    // });
 </script>
 
 

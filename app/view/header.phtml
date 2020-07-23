@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <?php
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -8,9 +9,10 @@ $vdata=$this->view_data;
 <html>
 <head>
 
-<!--    <title>--><?php //echo $vdata["title"]?><!--</title>-->
-
-
+    <title><?php echo $vdata["title"]?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     <?php
     if(isset($vdata["scripts"])) {
         foreach ($vdata["scripts"] as $script) {
