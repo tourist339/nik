@@ -1,35 +1,60 @@
 <?php
 
 
-class host_controller extends Controller
+class admin_controller extends Controller
 {
-    public function index()
+
+    public function __construct()
     {
-        $cView = $this->createView('/host/overview', ["title" => "Hosting OverView",
-                "scripts" => [MAIN_SCRIPTS,"homepage/homepage.js"],
-                "stylesheets" => [MAIN_CSS,"host.css"],
-                "navbar" => MAIN_NAVBAR]
-
-        );
-        $cView->render();
+        $this->model=new admin_model();
     }
 
-    public function setup(){
+    public function login()
+    {
         session_start();
-        if(isset($_SESSION["id"])) {
-            $cView = $this->createView('/host/setup', ["title" => "Setup",
-                    "scripts" => [MAIN_SCRIPTS],
-                    "stylesheets" => [MAIN_CSS, "host.css", "setup.css"],
-                    "navbar" => MAIN_NAVBAR]
-            );
-            $cView->render(true, false);
-        }else{
-            echo 'Not logged in';
-
+        if(isset($_SESSION["admin"])){
+            header("Location:/".ADMIN_URL."/panel");
+        }else {
+            $cview = $this->createView('/admin/login');
+            $cview->render(false, false);
         }
+    }
+    public function loginUser(){
+        if(isset($_POST["admin_username"]) && isset($_POST["admin_password"])){
+            if($this->model->checkCredentials($_POST["admin_username"],$_POST["admin_password"])){
+                session_start();
+                session_regenerate_id(true);
+                $_SESSION["admin"]=$_POST["admin_username"];
+                header("Location: /admin/panel");
+            }else{
+                header("Location: /admin/login");
+            }
+            $this->model->closeDb();
+        }
+    }
 
+    public function panel(){
+        session_start();
+        if(isset($_SESSION["admin"])) {
+            $cview = $this->createView('/admin/panel'
+            );
+            $cview->render(false, false);
+        }else{
+            header("Location: /admin/login");
+        }
+    }
+    public function logout(){
+        session_start();
+        session_unset();
+        session_destroy();
+        header("Location: /admin/login");
+    }
+
+    public function getuser(){
+        $usermodel=new user_model();
 
     }
+
 
     public function add_property(){
         //handling ajax request from setup.phtml page for creating property\
@@ -77,7 +102,7 @@ class host_controller extends Controller
                 if (isset($_SESSION["id"])) {
                     $imgs=$this->upload_images($_FILES["images"],$_SESSION["id"]);
                     $imgs_string=implode(",",$imgs);
-                   // var_dump($imgs_string);
+                    // var_dump($imgs_string);
                     array_push($keys, ":images");
                     array_push($values, $imgs_string);
 
@@ -85,18 +110,20 @@ class host_controller extends Controller
                     array_push($values, $_SESSION["id"]);
                     $data = array_combine($keys, $values);
                     print_r($data);
-                    $hostmodel = new host_model();
-                    $prop_id=$hostmodel->createPropRow($data);
+                    $adminmodel = new host_model();
+                    $prop_id=$adminmodel->createPropRow($data);
                     $usermodel=new user_model();
                     $usermodel->updateProperty($prop_id,$_SESSION["id"]);
                     $usermodel->closeDb();
-                    $hostmodel->closeDb();
+                    $adminmodel->closeDb();
                 } else {
                     new e404_controller("Not logged in");
                 }
 
             }
         }
+
+
 
     }
 
@@ -130,4 +157,18 @@ class host_controller extends Controller
         }
         return $imgs;
     }
+
+    public function showUnapprovedProps(){
+        session_start();
+        $cityname="";
+        if(isset($_SESSION["admin"])){
+            if(isset($_POST["loc_name"])){
+                $cityname=$_POST["loc_name"];
+            }
+            $props=$this->model->getUnapproveProps($cityname);
+            var_dump($props);
+            $this->model->closeDb();;
+        }
+    }
+
 }

@@ -15,39 +15,6 @@
   letter-spacing: 0.1rem;
   font-size: 25px;
 }
-.search-box div .searchInp, .search-box div button {
-  font-family: "Alegreya", serif;
-  font-size: 20px;
-  letter-spacing: 0.2rem;
-  border-width: 0;
-  border-color: black;
-  border-top-width: 2px;
-  border-bottom-width: 2px;
-  outline: none;
-  width: 80%;
-  padding: 0.5rem;
-  float: left;
-}
-.search-box div button {
-  width: 10%;
-  background-color: white;
-  transition: all 0.1s ease-in;
-}
-.search-box div button:hover {
-  cursor: pointer;
-  color: white;
-  background-color: black;
-}
-.search-box div #search-go-btn {
-  border-right-width: 2px;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-}
-.search-box div #search-location-btn {
-  border-left-width: 2px;
-  border-top-left-radius: 12px;
-  border-bottom-left-radius: 12px;
-}
 
 #searchInpDiv {
   display: flex;

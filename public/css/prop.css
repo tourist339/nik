@@ -1,3 +1,11 @@
+.midsize {
+  font-size: 1.8rem;
+}
+
+.bodysize {
+  font-size: 1.2rem;
+}
+
 .afterline:after {
   margin-top: 2rem;
 }
@@ -25,10 +33,51 @@ nav {
   /*/margin-top: 5vw;*/
 }
 
-.prop-title {
-  font-size: 2.5rem;
-  font-family: reg;
-  margin: 0;
+#prop-heading {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+#prop-heading h1 {
+  font-size: 2.4rem;
+}
+#prop-heading button {
+  margin-left: auto;
+  font-size: 2.4rem;
+  background-color: rgba(1, 1, 1, 0);
+  border: none;
+  outline: 0;
+}
+#prop-heading button[wishlist=true] i {
+  color: red;
+  text-shadow: 0 0 5px white;
+}
+#prop-heading button[wishlist=true] i:hover {
+  color: white;
+  cursor: pointer;
+  text-shadow: 0 0 5px red;
+}
+#prop-heading button[wishlist=false] i {
+  color: white;
+  text-shadow: 0 0 5px red;
+}
+#prop-heading button[wishlist=false] i:hover {
+  color: red;
+  cursor: pointer;
+}
+
+.visit-time, #images-box #imgs-showall {
+  font-size: 1.3vw;
+  border-radius: 10px;
+  background-color: orange;
+  border-color: orange;
+  padding: 7px;
+  color: white;
+  outline: none;
+}
+.visit-time:hover, #images-box #imgs-showall:hover {
+  cursor: pointer;
+  background-color: #FF8C00;
+  outline: none;
 }
 
 #images-box {
@@ -50,6 +99,12 @@ nav {
   height: 100%;
   border-radius: 1rem;
 }
+#images-box #imgs-showall {
+  position: absolute;
+  right: 3vw;
+  bottom: 2vw;
+  margin: 1vw;
+}
 
 .imgs {
   margin: 0.2vw;
@@ -60,26 +115,6 @@ nav {
   border-radius: 10px;
   width: 100%;
   flex: 1 1 0px;
-}
-
-#imgs-showall {
-  position: absolute;
-  right: 3vw;
-  bottom: 2vw;
-  font-size: 1.3vw;
-  margin: 1vw;
-  border-radius: 10px;
-  background-color: orange;
-  border-color: orange;
-  padding: 7px;
-  color: white;
-  outline: none;
-}
-
-#imgs-showall:hover {
-  cursor: pointer;
-  background-color: #FF8C00;
-  outline: none;
 }
 
 #prop-content {
@@ -149,7 +184,13 @@ nav {
 
 #amenities-box {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-gap: 0.4rem;
+}
+#amenities-box p {
+  background-color: lightgray;
+  font-size: 1.5rem;
+  border-radius: 0.3em;
 }
 
 #map {
@@ -178,9 +219,18 @@ nav {
   font-size: 1.4vw;
   background-color: lightblue;
 }
-
 #contact-box p {
   padding: 2vw;
+}
+.visit-time {
+  background-color: white;
+  color: black;
+  border-color: white;
+  padding: 0.4em;
+  margin: 0.4em;
+}
+.visit-time:hover {
+  background-color: lightgray;
 }
 
 /*# sourceMappingURL=prop.css.map */

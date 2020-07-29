@@ -3,76 +3,78 @@ $propdata=$this->view_data["data"][0];
 $ownerdata=$this->view_data["ownerdata"][0];
 $images=explode(",",$propdata["images"]);
 $amenities=explode(",",$propdata["amenities"]);
-
+$wishlisted=$this->view_data["wishlisted"];
 ?>
 <div id="prop-main-box">
-<h1 class="prop-title"><?php echo ucfirst($propdata["title"]);?></h1>
+    <div id="prop-heading" class="rowflex">
+        <h1 class="prop-title"><?php echo ucfirst($propdata["title"]);?></h1>
+        <button class="add-to-wishlist-btn" wishlist="<?php echo $wishlisted ?>" for="<?php echo $propdata['id'];?>"><i class="fa fa-heart"></i> </button>
+    </div>
+    <div id="images-box">
+        <div class="first-img"><img src='<?php echo "/uploads/".$images[0] ?>'></div>
+        <div class="second-img"><img src='<?php echo "/uploads/".$images[1] ?>'></div>
+        <div class="third-img"><img src='<?php echo "/uploads/".$images[2] ?>'></div>
+        <div class="fourth-img"><img src='<?php echo "/uploads/".$images[3] ?>'></div>
+        <div class="fifth-img"><img src='<?php echo "/uploads/".$images[4] ?>'></div>
+        <input type="button" id="imgs-showall" value="Show All">
+    </div>
 
-<div id="images-box">
-    <div class="first-img"><img src='<?php echo "/uploads/".$images[0] ?>'></div>
-    <div class="second-img"><img src='<?php echo "/uploads/".$images[1] ?>'></div>
-    <div class="third-img"><img src='<?php echo "/uploads/".$images[2] ?>'></div>
-    <div class="fourth-img"><img src='<?php echo "/uploads/".$images[3] ?>'></div>
-    <div class="fifth-img"><img src='<?php echo "/uploads/".$images[4] ?>'></div>
-    <input type="button" id="imgs-showall" value="Show All">
-</div>
+    <div class="rowflex" id="prop-content">
 
-<div class="rowflex" id="prop-content">
+        <div id="left-prop-content">
+            <!--            Sharing type heading-->
+            <div class="afterline">
+                <p class="midsize headprop" id="sharingType">Entire place</p>
+                <div class="parasize rowflex" id="roomsInfo">
+                    <span class="prop-icon">🛏️</span><p>bedrooms: <?php echo $propdata["bedrooms"] ?>  |&nbsp;</p>
+                        <span class="prop-icon">🛀</span> <p>bathrooms: <?php echo $propdata["bathrooms"] ?></p>
 
-    <div id="left-prop-content">
-        <!--            Sharing type heading-->
-        <div class="afterline">
-            <p class="midsize headprop" id="sharingType">Entire place</p>
-            <div class="parasize rowflex" id="roomsInfo">
-                <span class="prop-icon">🛏️</span><p>bedrooms: <?php echo $propdata["bedrooms"] ?>  |&nbsp;</p>
-                    <span class="prop-icon">🛀</span> <p>bathrooms: <?php echo $propdata["bathrooms"] ?></p>
+                </div>
+            </div>
 
+
+
+            <!--            Description box-->
+            <div class="afterline rel" >
+                <p class="midsize headprop" >Description</p>
+                <p class="parasize" id="propDesc"><?php echo   $propdata["description"] ?>
+                </p>
+                <div class="rowflex" id="showDesc"><input type="button" value="Continue" onclick="showFull()"></div>
+            </div>
+
+            <div>
+                <p class="midsize headprop">Amenities</p>
+                <div class="" id="amenities-box">
+                    <?php foreach ($amenities as $amenity): ?>
+                    <p><?php echo $amenity?></p>
+                    <?php endforeach ?>
+                </div>
+            </div>
+
+
+
+        </div>
+
+
+
+        <div id="right-prop-content">
+            <div id="address-box"><div id="map"></div><p><?php
+                    echo getProperAddress($propdata["address"],$propdata["city"],$propdata["state"]) ?></p></div>
+            <div id="contact-box">
+               <p> <?php echo $ownerdata["first_name"]." ".$ownerdata["last_name"]?>
+                <br>
+                <?php echo $ownerdata["phone_num"]?>
+                <br>
+                <?php echo $ownerdata["email"]?>
+               </p>
+                <input type="button" id="book-now-btn" value="Book Now">
             </div>
         </div>
 
-
-
-        <!--            Description box-->
-        <div class="afterline rel" >
-            <p class="midsize headprop" >Description</p>
-            <p class="parasize" id="propDesc"><?php echo   $propdata["description"] ?>
-            </p>
-            <div class="rowflex" id="showDesc"><input type="button" value="Continue" onclick="showFull()"></div>
-        </div>
-
-        <div>
-            <p class="midsize headprop">Amenities</p>
-            <div class="" id="amenities-box">
-                <?php foreach ($amenities as $amenity): ?>
-                <p><?php echo $amenity?></p>
-                <?php endforeach ?>
-            </div>
-        </div>
-
-
-
     </div>
-
-
-
-    <div id="right-prop-content">
-        <div id="address-box"><div id="map"></div><p><?php
-                echo getProperAddress($propdata["address"],$propdata["city"],$propdata["state"]) ?></p></div>
-        <div id="contact-box">
-           <p> <?php echo $ownerdata["first_name"]." ".$ownerdata["last_name"]?>
-            <br>
-            <?php echo $ownerdata["phone_num"]?>
-            <br>
-            <?php echo $ownerdata["email"]?>
-           </p>
-
-        </div>
-    </div>
-
-</div>
 </div>
 
-
+<?php include TEMPLATE."prop".DIRECTORY_SEPARATOR."booking_modal.html" ?>
 
 
 <!--Map Loading Scripts-->
@@ -143,6 +145,23 @@ $amenities=explode(",",$propdata["amenities"]);
         $("#propDesc").css("height","auto");
         $("#showDesc").css("display","none");
     }
+
+    $("#book-now-btn").on("click",function () {
+        $("#booking-modal").modal();
+    });
+    $(".visit-time").on("click",function () {
+        var attr = $(this).attr("name");
+        if (typeof attr !== typeof undefined && attr !== false) {
+            //if element's already been selected
+            $(this).removeAttr("name");
+            $(this).css("background-color","white");
+        }else{
+            $(this).attr("name","visit-time[]");
+            $(this).css("background-color","lightgray");
+
+        }
+    });
+
 </script>
 
 

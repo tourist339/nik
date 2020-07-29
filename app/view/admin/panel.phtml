@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin</title>
+    <script src="/js/jquery-3.5.1.js"></script>
+</head>
+<body>
+
+<form id="getuser" action="/<?php echo ADMIN_URL ?>/getUser" method="post">
+<input type="text" placeholder="ID" name="userid" id="userid">
+    <input type="submit" value="Submit">
+</form>
+<form id="search_props" action="/<?php echo ADMIN_URL ?>/showUnapprovedProps">
+    <input type="text" placeholder="Type city name or click search for all props" name="loc_name" id="loc_name">
+    <input type="submit" value="Search">
+</form>
+<form id="logout_admin" action="/<?php echo ADMIN_URL ?>/logout" method="post">
+    <input type="submit" value="Logout">
+</form>
+
+</body>
+<script>
+
+    $("#getuser").submit(function (e) {
+        e.preventDefault();
+        var url=$(this).attr("action");
+        var data=$(this).serialize();
+        $.post(url,data,function (data) {
+            alert(data);
+
+        });
+    });
+</script>
+</html>

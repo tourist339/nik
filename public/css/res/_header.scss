@@ -1,10 +1,58 @@
 @import "variables";
+$navbar_fontsize:1.2rem;
+$searchbar_opacity:0;
 nav{
   position: fixed;
   width: 100%;
   padding: 0.7vw 0;
   display: flex;
-  z-index: 100;
+  z-index: 1;
+}
+nav .search-prop-input{
+opacity: 0;
+  transition: all 0.3s ease-in;
+}
+.search-prop-input{
+  margin: 0 auto;
+  width: 30vw;
+  .searchInp{
+    font-family: 'Alegreya', serif;
+    font-size: $navbar_fontsize;
+    letter-spacing: 0.2rem;
+    border-width: 0;
+    border-color: black;
+    border-top-width: 2px;
+    border-bottom-width: 2px;
+    outline: none;
+    width: 80%;
+    padding: 0.5rem;
+    float: left;
+  }
+  $border-radius:12px;
+  button{
+    @extend .searchInp;
+    width: 10%;
+    background-color: white;
+    transition: all 0.1s ease-in;
+    &:hover{
+      cursor: pointer;
+      color: white;
+      background-color: black;
+    }
+  }
+  #search-go-btn{
+    border-right-width: 2px;
+    border-top-right-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+
+  }
+  #search-location-btn{
+    border-left-width: 2px;
+    border-top-left-radius: $border-radius;
+    border-bottom-left-radius: $border-radius;
+
+
+  }
 }
 nav div{
   display: flex;
@@ -14,12 +62,9 @@ nav div:first-child{
   display: flex;
   flex-direction: row;
 }
-nav div:nth-child(2){
-  flex: 1 1 0px;
 
-}
 nav a{
-  font-size: 1.2rem;
+  font-size: $navbar_fontsize;
   text-align: center;
   margin: 0 8px;
   padding: 8px;

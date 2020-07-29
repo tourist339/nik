@@ -28,14 +28,27 @@ class prop_controller extends Controller
     }
 
 
-    public function v($propname, $id)
+    public function v($propname, $propid)
     {
-
         $propname=str_replace('-',' ',$propname);
         $propname=$this->removeSPandTrim($propname);
-        $id=$this->removeSPandTrim($id);
-        $data = $this->model->getData([], ["title"=>$propname, "id"=>$id]);
+        $propid=$this->removeSPandTrim($propid);
         $usermodel=new user_model();
+
+        $data = $this->model->getData([], ["title"=>$propname, "id"=>$propid]);
+
+        //true if prop is wishlisted by user false if not wishlisted or no user is logged in
+        $inWishlist="false";
+
+        session_start();
+        if(isset($_SESSION["id"])) {
+            if($usermodel->checkPropInWishlist($propid,$_SESSION["id"])){
+                $inWishlist="true";
+            }else{
+                $inWishlist="false";
+
+            }
+        }
         $ownerdata=$usermodel->getUserDataByID(["first_name","last_name","email","phone_num"],$data[0]["ownerid"]);
 
         if ($data == null) {
@@ -46,10 +59,31 @@ class prop_controller extends Controller
                     "stylesheets" => [MAIN_CSS,"homepage.css","prop.css"],
                     "navbar" => MAIN_NAVBAR,
                     "data" => $data,
-                "ownerdata"=>$ownerdata]
+                    "wishlisted"=>$inWishlist,
+                    "ownerdata"=>$ownerdata]
             )->render();
         }
             $this->model->closeDb();
-
+            $usermodel->closeDb();
+    }
+    public function add_to_wishlist(){
+        if(isset($_POST["prop_id"])){
+            session_start();
+            if($_SESSION["id"]){
+                $um=new user_model();
+                $um->updateWishlist($_POST["prop_id"],$_SESSION["id"]);
+                $um->closeDb();
+            }
+        }
+    }
+    public function remove_from_wishlist(){
+        if(isset($_POST["prop_id"])){
+            session_start();
+            if($_SESSION["id"]){
+                $um=new user_model();
+                $um->removePropFromWishlist($_POST["prop_id"],$_SESSION["id"]);
+                $um->closeDb();
+            }
+        }
     }
 }

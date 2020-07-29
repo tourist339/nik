@@ -1,0 +1,93 @@
+<?php
+
+
+class admin_model extends Model
+{
+
+    public function __construct($dbname = DB_NAME)
+    {
+        parent::__construct($dbname);
+    }
+
+    public function checkCredentials($username,$password){
+        try {
+            $db = $this->getDb();
+            $q = "SELECT password FROM admins WHERE username=:user";
+            $stmt = $db->prepare($q);
+            $stmt->execute(array(":user" => $username));
+            $hashed_password= $stmt->fetchColumn();
+            if(password_verify($password,$hashed_password)){
+                return true;
+            }else{
+                return false;
+            }
+        }
+        catch (Exception $e){
+            echo $e;
+        }
+    }
+
+    public function getUser($userid){
+        try {
+            $db = $this->getDb();
+            $q = "SELECT * FROM users WHERE id=:id";
+            $stmt = $db->prepare($q);
+            $stmt->execute(array(":id" => $userid));
+            var_dump($stmt->fetchAll());
+        }
+        catch (Exception $e){
+            echo $e;
+        }
+    }
+
+    public function createPropRow($data){
+        $db=$this->getDb();
+        if(isset($db) && isset($data)){
+            //left ownerid and utilities to insert, will do that later
+
+            try{
+                $query=$db->prepare("INSERT INTO temp_properties( ownerid,title, description, city, state,aptno,
+                                                                    proptype, sharingtype, guests, bedrooms, bathrooms,
+                                                                    kitchen, bathroomshared, address, rent, amenities,images)
+                                                                     VALUES
+                                                                (:ownerid,:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
+                                                                :pNoBathrooms,:pKitchenAvailable,:pBathroomShared,:pAddress,
+                                                                :pRent,:amenities,:images)"
+                );
+                $query->execute($data);
+                return $db->lastInsertId();
+
+
+            }catch (PDOException $e){
+                if(ERROR_DEBUG_MODE){
+                    echo "Error".$e; // For debugging
+                }
+            }
+        }
+    }
+
+    public function getUnapproveProps($cityname,$params=[]){
+        $db=$this->getDb();
+        if(!empty($params)){
+            $parameters=implode(",",$params);
+        }else{
+            $parameters="*";
+        }
+        $whereclause="";
+       if(!empty($cityname)){
+           $whereclause="WHERE city = '".$cityname."' OR state='".$cityname."'";
+       }
+
+        $q="SELECT ".$parameters." FROM temp_properties ".$whereclause;
+        try {
+            $stmt = $db->prepare($q);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            if(ERROR_DEBUG_MODE){
+                print "ERROR  ".$e;
+            }
+            return null;
+        }
+    }
+}

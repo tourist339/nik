@@ -11,9 +11,26 @@ $vdata=$this->view_data;
 
     <title><?php echo $vdata["title"]?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+    <script>
+        function start() {
+            gapi.load('auth2', function() {
+                auth2 = gapi.auth2.init({
+                    client_id: '316686701656-1cs0k0pc8kpfihuirpetvltlrlp0nb9j.apps.googleusercontent.com',
+                });
+            });
+            gapi.signin2.render("signin-button",{
+                'longtitle': true,
+                'theme': 'dark'
+            });
+
+        }
+    </script>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     <?php
+
+    //    Dynamically loaded scripts from viewdata
     if(isset($vdata["scripts"])) {
         foreach ($vdata["scripts"] as $script) {
             if(is_array($script)){
@@ -32,6 +49,8 @@ $vdata=$this->view_data;
                 }}
         }
     }
+
+//    Dynamically loaded stylesheets from viewdata
     if(isset($vdata["stylesheets"])) {
         foreach ($vdata["stylesheets"] as $stylesheet) {
             if(is_array($stylesheet)) {
@@ -54,24 +73,12 @@ $vdata=$this->view_data;
         }
     }
 
+
     ?>
-    <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" />
-    <script>
-        function start() {
-            gapi.load('auth2', function() {
-                auth2 = gapi.auth2.init({
-                    client_id: '316686701656-1cs0k0pc8kpfihuirpetvltlrlp0nb9j.apps.googleusercontent.com',
-                });
-            });
-            gapi.signin2.render("signin-button",{
-                'longtitle': true,
-                'theme': 'dark'
-            });
 
-        }
-    </script>
+
 </head>
 <body>
 <?php
