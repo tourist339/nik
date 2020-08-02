@@ -1,0 +1,14 @@
+@import "../res/variables";
+.admin-props-item{
+  background-color: $seagreen;
+  color: white;
+  border: 2px solid white;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  &:hover{
+    cursor: pointer;
+  }
+  h1{
+    text-align: center;
+  }
+}

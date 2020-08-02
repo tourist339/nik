@@ -1,0 +1,24 @@
+<?php
+
+$props= $this->view_data["data"];
+$redirect_city=$this->view_data["redirect_city"]
+?>
+
+<?php foreach ($props as $prop): ?>
+<div class="admin-props-list">
+<form class="admin-props-item" action="/<?php echo ADMIN_URL ?>/listSingleProp">
+    <h1><?php echo $prop["title"] ?></h1>
+    <h3><?php echo $prop["address"]." , ".$prop["city"]." , ".$prop["state"] ?></h3>
+    <h3>Property ID: <span id="propid"><?php echo $prop["id"] ?>&nbsp; &nbsp; &nbsp;Owner ID:<?php echo $prop["ownerid"] ?></h3>
+    <input type="hidden" value="<?php echo $prop["id"] ?>" name="prop_id">
+    <input type="hidden" value="<?php echo $redirect_city ?>" name="redirect_city">
+
+</form>
+</div>
+<?php endforeach; ?>
+
+<script>
+    $(".admin-props-item").on("click",function () {
+        $(this).submit();
+    });
+</script>

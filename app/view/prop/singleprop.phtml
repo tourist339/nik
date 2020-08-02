@@ -3,12 +3,26 @@ $propdata=$this->view_data["data"][0];
 $ownerdata=$this->view_data["ownerdata"][0];
 $images=explode(",",$propdata["images"]);
 $amenities=explode(",",$propdata["amenities"]);
-$wishlisted=$this->view_data["wishlisted"];
+$admin=false;
+if(isset($this->view_data["admin"])) {
+    $redirect_city = $this->view_data["redirect_city"];
+    $admin = true;
+}
+if(isset($this->view_data["wishlisted"]))
+    $wishlisted=$this->view_data["wishlisted"];
 ?>
 <div id="prop-main-box">
     <div id="prop-heading" class="rowflex">
         <h1 class="prop-title"><?php echo ucfirst($propdata["title"]);?></h1>
-        <button class="add-to-wishlist-btn" wishlist="<?php echo $wishlisted ?>" for="<?php echo $propdata['id'];?>"><i class="fa fa-heart"></i> </button>
+        <?php if($admin ==false):?>
+            <button class="add-to-wishlist-btn" wishlist="<?php echo $wishlisted ?>" for="<?php echo $propdata['id'];?>"><i class="fa fa-heart"></i> </button>
+        <?php else:?>
+        <form method="post" action="/<?php echo ADMIN_URL ?>/approveProp" id="approve-prop-form">
+            <input type="hidden" value="<?php echo $redirect_city ?>" name="redirect_city">
+            <input type="hidden" value="<?php echo $propdata['id']; ?>" name="prop_id">
+            <input type="submit" id="approve-prop-btn" value="Approve Property" for="<?php echo $propdata['id']; ?>">
+        </form>
+        <?php endif ?>
     </div>
     <div id="images-box">
         <div class="first-img"><img src='<?php echo "/uploads/".$images[0] ?>'></div>
@@ -67,14 +81,19 @@ $wishlisted=$this->view_data["wishlisted"];
                 <br>
                 <?php echo $ownerdata["email"]?>
                </p>
+                <?php if($admin ==false):?>
                 <input type="button" id="book-now-btn" value="Book Now">
+                <?php endif;?>
             </div>
         </div>
 
     </div>
 </div>
 
-<?php include TEMPLATE."prop".DIRECTORY_SEPARATOR."booking_modal.html" ?>
+<?php
+    if(!$admin)
+    include TEMPLATE."prop".DIRECTORY_SEPARATOR."booking_modal.html"
+?>
 
 
 <!--Map Loading Scripts-->
@@ -147,7 +166,9 @@ $wishlisted=$this->view_data["wishlisted"];
     }
 
     $("#book-now-btn").on("click",function () {
-        $("#booking-modal").modal();
+        if(lyfly.checkLoggedIN())
+            $("#booking-modal").modal();
+
     });
     $(".visit-time").on("click",function () {
         var attr = $(this).attr("name");

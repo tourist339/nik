@@ -64,6 +64,21 @@ nav {
   color: red;
   cursor: pointer;
 }
+#prop-heading input {
+  margin: auto 0 auto auto;
+  font-size: 1.2rem;
+  height: 2.4rem;
+  padding: 0 5px 0 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+  line-height: 10px;
+  background-color: aliceblue;
+  outline: 0;
+}
+#prop-heading input:hover {
+  cursor: pointer;
+  background-color: lightblue;
+}
 
 .visit-time, #images-box #imgs-showall {
   font-size: 1.3vw;

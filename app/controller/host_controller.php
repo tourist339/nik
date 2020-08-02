@@ -31,7 +31,7 @@ class host_controller extends Controller
 
     }
 
-    public function add_property(){
+    public function add_temp_property(){
         //handling ajax request from setup.phtml page for creating property\
         if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) == 'xmlhttprequest') {
 
@@ -47,6 +47,8 @@ class host_controller extends Controller
 
             $keys = [":pType", ":pSharingType", ":pNoGuests", ":pNoBeds", ":pNoBathrooms", ":pBathroomShared", ":pKitchenAvailable", ":pTitle"
                 , ":pDesc", ":pAddress", ":pApt", ":pCity", ":pState", ":pRent", ":amenities"];
+
+            //required inputs that have to be submitted via form
             $required = ["pNoGuests", "pNoBathrooms", "pBathroomShared", "pAddress", "pCity", "pState", "pRent"];
             if (SETUP_DEBUG_MODE) {
                 foreach ($required as $req) {
@@ -77,7 +79,7 @@ class host_controller extends Controller
                 if (isset($_SESSION["id"])) {
                     $imgs=$this->upload_images($_FILES["images"],$_SESSION["id"]);
                     $imgs_string=implode(",",$imgs);
-                   // var_dump($imgs_string);
+
                     array_push($keys, ":images");
                     array_push($values, $imgs_string);
 
@@ -85,12 +87,19 @@ class host_controller extends Controller
                     array_push($values, $_SESSION["id"]);
                     $data = array_combine($keys, $values);
                     print_r($data);
-                    $hostmodel = new host_model();
-                    $prop_id=$hostmodel->createPropRow($data);
-                    $usermodel=new user_model();
-                    $usermodel->updateProperty($prop_id,$_SESSION["id"]);
-                    $usermodel->closeDb();
-                    $hostmodel->closeDb();
+                    $adminmodel = new admin_model();
+                    $prop_id=$adminmodel->createPropRow($data);
+                    if($prop_id!=DB_ERROR_CODE){
+                        $usermodel=new user_model();
+                        if($usermodel->updateUnApprovedProperties($prop_id,$_SESSION["id"])!=DB_ERROR_CODE){
+                            echo "true";
+                        }else{
+                            echo "false";
+                        }
+                        $usermodel->closeDb();
+                    }
+
+                    $adminmodel->closeDb();
                 } else {
                     new e404_controller("Not logged in");
                 }

@@ -1,3 +1,4 @@
+@import "res/variables";
 $afterline_margin:2rem;
 $heading_fontsize:1.8rem;
 $mid_fontsize:1.5rem;
@@ -67,8 +68,21 @@ nav{
 
         }
     }
-
-
+    input{
+        margin: auto 0 auto auto;
+        font-size: $body_fontsize;
+        height: $title_fontsize;
+        padding:0 5px 0 5px ;
+        border:1px solid black;
+        border-radius: 10px;
+        line-height: 10px;
+        background-color:aliceblue;
+        outline: 0;
+        &:hover{
+            cursor: pointer;
+            background-color: lightblue;
+        }
+    }
 }
 %typical-button {
 

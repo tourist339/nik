@@ -15,7 +15,7 @@ class admin_controller extends Controller
         if(isset($_SESSION["admin"])){
             header("Location:/".ADMIN_URL."/panel");
         }else {
-            $cview = $this->createView('/admin/login');
+            $cview = $this->createView('/'.ADMIN_URL.'/login');
             $cview->render(false, false);
         }
     }
@@ -25,23 +25,20 @@ class admin_controller extends Controller
                 session_start();
                 session_regenerate_id(true);
                 $_SESSION["admin"]=$_POST["admin_username"];
-                header("Location: /admin/panel");
+                header("Location: /".ADMIN_URL."/panel");
             }else{
-                header("Location: /admin/login");
+                header("Location: /".ADMIN_URL."/login");
             }
             $this->model->closeDb();
         }
     }
 
     public function panel(){
-        session_start();
-        if(isset($_SESSION["admin"])) {
-            $cview = $this->createView('/admin/panel'
-            );
-            $cview->render(false, false);
-        }else{
-            header("Location: /admin/login");
-        }
+        $this->checkAdminLoggedIn();
+        $cview = $this->createView('/admin/panel'
+        );
+        $cview->render(false, false);
+
     }
     public function logout(){
         session_start();
@@ -56,119 +53,99 @@ class admin_controller extends Controller
     }
 
 
-    public function add_property(){
-        //handling ajax request from setup.phtml page for creating property\
-        if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) == 'xmlhttprequest') {
 
-            if(!empty($_FILES["images"]["name"][0])){
-                if(SETUP_DEBUG_MODE) {
-                    if (count($_FILES["images"]["name"]) < 5) {
-                        new e404_controller("Must upload atleast 5 images");
-                    }
-                }
-            }else{
-                new e404_controller("No image uploaded");
-            }
-
-            $keys = [":pType", ":pSharingType", ":pNoGuests", ":pNoBeds", ":pNoBathrooms", ":pBathroomShared", ":pKitchenAvailable", ":pTitle"
-                , ":pDesc", ":pAddress", ":pApt", ":pCity", ":pState", ":pRent", ":amenities"];
-            $required = ["pNoGuests", "pNoBathrooms", "pBathroomShared", "pAddress", "pCity", "pState", "pRent"];
-            if (SETUP_DEBUG_MODE) {
-                foreach ($required as $req) {
-                    if (!isset($_POST[$req]))
-                        new e404_controller("Invalid Data");
-                }
-            }
-            $values = array();
-            if (isset($_POST)) {
-                foreach ($keys as $key) {
-                    if (!isset($_POST[ltrim($key, ":")]) || empty($_POST[ltrim($key, ":")])) {
-                        $val = null;
-                    } else {
-                        $posted_data = $_POST[ltrim($key, ":")];
-                        if (is_array($posted_data)) {
-                            for ($i = 0; $i < count($posted_data); $i++) {
-                                $posted_data[$i] = $this->removeSPandTrim($posted_data[$i]);
-                            }
-                            $val = implode(",", $posted_data);
-                        } else {
-                            $val = $this->removeSPandTrim($posted_data);
-                        }
-                    }
-                    array_push($values, $val);;
-                }
-                session_start();
-
-                if (isset($_SESSION["id"])) {
-                    $imgs=$this->upload_images($_FILES["images"],$_SESSION["id"]);
-                    $imgs_string=implode(",",$imgs);
-                    // var_dump($imgs_string);
-                    array_push($keys, ":images");
-                    array_push($values, $imgs_string);
-
-                    array_push($keys, ":ownerid");
-                    array_push($values, $_SESSION["id"]);
-                    $data = array_combine($keys, $values);
-                    print_r($data);
-                    $adminmodel = new host_model();
-                    $prop_id=$adminmodel->createPropRow($data);
-                    $usermodel=new user_model();
-                    $usermodel->updateProperty($prop_id,$_SESSION["id"]);
-                    $usermodel->closeDb();
-                    $adminmodel->closeDb();
-                } else {
-                    new e404_controller("Not logged in");
-                }
-
-            }
-        }
-
-
-
-    }
-
-    private function upload_images($data,$id)
-    {
-        if(!is_dir(UPLOAD.$id)) {
-            mkdir(UPLOAD . $id);
-        }
-
-        $imgs=[];
-        $valid_extensions = array('jpeg', 'jpg', 'png', 'gif', 'bmp', 'pdf', 'doc', 'ppt'); // valid extensions
-
-        $no_of_images = count($data["name"]);
-
-        for ($i = 0; $i < $no_of_images; $i++) {
-            $storepath=$id.DIRECTORY_SEPARATOR;
-            $path=UPLOAD.$storepath;
-
-            $name = $data["name"][$i];
-            $tmp_name = $data["tmp_name"][$i];
-            $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-            $final_image = rand(1000,1000000).$name;
-
-            if (in_array($ext, $valid_extensions)) {
-                $path.=strtolower($final_image);
-                $storepath.=strtolower($final_image);
-                if (move_uploaded_file($tmp_name, $path)) {
-                    array_push($imgs,$storepath);
-                }
-            }
-        }
-        return $imgs;
-    }
 
     public function showUnapprovedProps(){
-        session_start();
         $cityname="";
-        if(isset($_SESSION["admin"])){
-            if(isset($_POST["loc_name"])){
-                $cityname=$_POST["loc_name"];
+        $this->checkAdminLoggedIn();
+
+        if(isset($_GET["loc_name"])){
+                $cityname=$_GET["loc_name"];
             }
-            $props=$this->model->getUnapproveProps($cityname);
-            var_dump($props);
+            $props=$this->model->getUnapproveProps($cityname,["id","ownerid","title","city","address","state"]);
+            if(empty($props)){
+                echo "No property found";
+            }else{
+                $cview = $this->createView('/'.ADMIN_URL.'/listprops',array(
+                    "title"=>"Properties",
+                    "scripts"=>["jquery-3.5.1.js"],
+                    "stylesheets" => ["admin/listprops.css"],
+                    "redirect_city"=>$cityname,
+                    "data"=>$props));
+                $cview->render(HEADER_SCRIPTS_AND_CSS,FOOTER_NONE);
+            }
             $this->model->closeDb();;
+
+    }
+
+
+    public function listSingleProp(){
+        $this->checkAdminLoggedIn();
+        if(isset($_GET["prop_id"])){
+            $data=$this->model->getPropertyById($_GET["prop_id"]);
+            $usermodel=new user_model();
+            $ownerdata=$usermodel->getUserDataByID(["first_name","last_name","email","phone_num"],$data[0]["ownerid"]);
+
+            $this->createView('prop/singleprop', ["title" => "LyfLy",
+                    "scripts" => [MAIN_SCRIPTS,"admin/singleprop.js"],
+                    "stylesheets" => [MAIN_CSS,"homepage.css","prop.css"],
+                    "data" => $data,
+                    "admin"=>true,
+                    "redirect_city"=>$_GET["redirect_city"],
+                    "ownerdata"=>$ownerdata]
+            )->render(HEADER_SCRIPTS_AND_CSS,FOOTER_NONE);
+            $this->model->closeDb();
+            $usermodel->closeDb();
         }
     }
 
+    public function approveProp(){
+        $this->checkAdminLoggedIn();
+        if(isset($_POST["prop_id"])){
+            $prop_id=$_POST["prop_id"];
+            $admin=$_SESSION["admin"];
+            $data=$this->model->getPropertyById($prop_id)[0];
+            $keys = array_keys($data);
+            $new_data=[];
+            foreach ($keys as $key){
+                $new_data[":".$key]=$data[$key];
+            }
+            $new_data[":admin"]=$admin;
+            $ownerid=$new_data[":ownerid"];
+            //delete the id key from data array coz we dont need to post the unapproved prop's id
+            $unapprovedprop_id=$new_data[":id"];
+            unset($new_data[":id"]);
+
+
+            $usermodel=new user_model();
+            $approved_prop_id=$this->model->addPropToMainTable($new_data);
+            var_dump($approved_prop_id);
+            if($approved_prop_id != DB_ERROR_CODE){
+                //remove the property from unpproved_props column in the owner's row
+                $usermodel->removeUnapprovedProp($unapprovedprop_id,$ownerid);
+
+                //remove the already approved property from temp_properties table
+                if($this->model->deleteTempRow($unapprovedprop_id) !=DB_ERROR_CODE){
+                    echo $approved_prop_id;
+                    //add the approved property id to the approved_properties column in the owner's row
+                    $usermodel->updateApprovedProperties($approved_prop_id,$ownerid);
+                    header("Location: /".ADMIN_URL."/showUnapprovedProps?loc_name=".$_POST["redirect_city"]);
+                }else{
+                    echo "Something went wrong while deleting temperory row . Contact Admin";
+                }
+            }else{
+                echo "Something went wrong while adding property to main table. Contact ADmin";
+
+            }
+
+            $this->model->closeDb();
+        }
+
+    }
+    private function checkAdminLoggedIn(){
+        session_start();
+        if(!isset($_SESSION["admin"])){
+            header("Location: /".ADMIN_URL."/login");
+        }
+    }
 }

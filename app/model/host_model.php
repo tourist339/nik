@@ -17,14 +17,14 @@ class host_model extends Model
             try{
                 $query=$db->prepare("INSERT INTO Properties( ownerid,title, description, city, state,aptno,
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
-                                                                    kitchen, bathroomshared, address, rent, amenities,images)
+                                                                    kitchen, bathroomshared, address, rent, amenities,utilities,images,admin)
                                                                      VALUES
-                                                                (:ownerid,:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
-                                                                :pNoBathrooms,:pKitchenAvailable,:pBathroomShared,:pAddress,
-                                                                :pRent,:amenities,:images)"
+                                                                (:ownerid,:title, :description, :city, :state,:aptno,
+                                                                    :proptype, :sharingtype, :guests, :bedrooms, :bathrooms,
+                                                                   :kitchen, :bathroomshared, :address, :rent, :amenities,:utilities,:images, :admin)"
                                                                                         );
                 $query->execute($data);
-                return $db->lastInsertId();
+                var_dump($db->lastInsertId());
 
 
             }catch (PDOException $e){

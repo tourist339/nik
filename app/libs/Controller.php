@@ -16,5 +16,11 @@ class Controller
         return trim(preg_replace("/[^a-zA-Z0-9\s]/", "", $string));
     }
 
+    public function checkLoggedIN(){
+        session_start();
+        if(!isset($_SESSION["id"])){
+            new e404_controller("Not logged in");
+        }
+    }
 
 }

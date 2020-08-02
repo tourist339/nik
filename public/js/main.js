@@ -17,4 +17,21 @@ $(document).ready(function() {
             }
         }
     });
+
+
 });
+
+//helper function for checking logged in
+var lyfly=(function(){
+   var publicFuncs={};
+
+   publicFuncs.checkLoggedIN = function(){
+        if (!login_params.signed) {
+            openLogin();
+            return false;
+        }else{
+            return true;
+        }
+    }
+    return publicFuncs;
+})();

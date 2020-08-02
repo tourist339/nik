@@ -43,7 +43,6 @@ class admin_model extends Model
     public function createPropRow($data){
         $db=$this->getDb();
         if(isset($db) && isset($data)){
-            //left ownerid and utilities to insert, will do that later
 
             try{
                 $query=$db->prepare("INSERT INTO temp_properties( ownerid,title, description, city, state,aptno,
@@ -75,19 +74,88 @@ class admin_model extends Model
         }
         $whereclause="";
        if(!empty($cityname)){
-           $whereclause="WHERE city = '".$cityname."' OR state='".$cityname."'";
+           $whereclause="WHERE city = :cityname OR state= :statename";
        }
 
         $q="SELECT ".$parameters." FROM temp_properties ".$whereclause;
         try {
             $stmt = $db->prepare($q);
-            $stmt->execute();
+            if(!empty($cityname))
+                $stmt->execute(array(":cityname"=>$cityname,":statename"=>$cityname));
+            else
+                $stmt->execute();
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
             if(ERROR_DEBUG_MODE){
                 print "ERROR  ".$e;
             }
             return null;
+        }
+    }
+
+    public function getPropertyById($propid,$params=[]){
+        $db=$this->getDb();
+        if(!empty($params)){
+            $parameters=implode(",",$params);
+        }else{
+            $parameters="*";
+        }
+        $q="SELECT ".$parameters." FROM temp_properties WHERE id=:id";
+
+        try {
+            $stmt = $db->prepare($q);
+            $stmt->execute(array(":id"=>$propid));
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            if(ERROR_DEBUG_MODE){
+                print "ERROR  ".$e;
+            }
+            return null;
+        }
+
+    }
+
+    public function addPropToMainTable($data){
+        $db=$this->getDb();
+        if(isset($db) && isset($data)) {
+
+            try {
+                $query = $db->prepare("INSERT INTO Properties( ownerid,title, description, city, state,aptno,
+                                                                    proptype, sharingtype, guests, bedrooms, bathrooms,
+                                                                    kitchen, bathroomshared, address, rent, amenities,utilities,images,admin)
+                                                                     VALUES
+                                                                (:ownerid,:title, :description, :city, :state,:aptno,
+                                                                    :proptype, :sharingtype, :guests, :bedrooms, :bathrooms,
+                                                                    :kitchen, :bathroomshared, :address, :rent, :amenities,:utilities,:images, :admin)"
+                );
+                $query->execute($data);
+                $lastid = $db->lastInsertId();
+
+                return $lastid;
+            } catch (PDOException $e) {
+                if (ERROR_DEBUG_MODE) {
+                    echo "Error" . $e; // For debugging
+                }
+                return DB_ERROR_CODE;
+
+            }
+        }
+    }
+
+    public function deleteTempRow($propid){
+        $db=$this->getDb();
+
+        try{
+            $query=$db->prepare("DELETE FROM temp_properties WHERE id=:id");
+            $query->execute(array(":id"=>$propid));
+
+        }catch (PDOException $e){
+            if(ERROR_DEBUG_MODE){
+                echo "Error".$e; // For debugging
+            }
+            return DB_ERROR_CODE;
+
         }
     }
 }
