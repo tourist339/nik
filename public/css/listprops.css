@@ -1,7 +1,20 @@
-.listprops-grid{
-    display: grid;
-    flex: 80 1 0px;
-    grid-template-columns: repeat(3,minmax(200px,1fr));
-    padding: 1rem;
-    grid-gap: 1rem;
+nav {
+  position: relative;
 }
+nav .search-prop-input {
+  opacity: 1;
+}
+
+body {
+  padding: 0 5vw;
+}
+
+.listprops-grid {
+  display: grid;
+  flex: 80 1 0px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  padding: 1rem;
+  grid-gap: 1rem;
+}
+
+/*# sourceMappingURL=listprops.css.map */

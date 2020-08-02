@@ -40,13 +40,13 @@ opacity: 0;
       background-color: black;
     }
   }
-  #search-go-btn{
+  .search-go-btn{
     border-right-width: 2px;
     border-top-right-radius: $border-radius;
     border-bottom-right-radius: $border-radius;
 
   }
-  #search-location-btn{
+  .search-location-btn{
     border-left-width: 2px;
     border-top-left-radius: $border-radius;
     border-bottom-left-radius: $border-radius;

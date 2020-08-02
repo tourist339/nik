@@ -92,14 +92,17 @@ class prop_controller extends Controller
         }
     }
 
+    /*
+     * More to be worked on
+     */
     public function booking(){
        // $this->checkLoggedIN();
         $to="dreamtips3390@gmail.com";
         $subject="New booking request";
-        session_start();
-        $headers = "From: " . strip_tags($_SESSION['email']) . "\r\n";
-        $headers .= "Reply-To: ". strip_tags($_SESSION['email']) . "\r\n";
-        $headers .= "Return-Path: strip_tags".($_SESSION['email'])."\r\n";
+//        session_start();
+//        $headers = "From: " . strip_tags($_SESSION['email']) . "\r\n";
+//        $headers .= "Reply-To: ". strip_tags($_SESSION['email']) . "\r\n";
+//        $headers .= "Return-Path: strip_tags".($_SESSION['email'])."\r\n";
 
         $headers .= "Organization: LYFLY\r\n";
 

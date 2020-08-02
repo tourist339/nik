@@ -2,7 +2,7 @@
 @import "res/variables";
 
 /******** GlobalClasses *******/
-
+$body_padding:0vw;
 html{
     font-size: 1vw;
     height: 100%;
@@ -11,7 +11,7 @@ html{
 body{
     height: 100%;
     margin: 0;
-
+    padding: 0 $body_padding;
 }
 *{
     box-sizing: border-box;

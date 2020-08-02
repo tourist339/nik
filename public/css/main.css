@@ -38,12 +38,12 @@ nav .search-prop-input {
   color: white;
   background-color: black;
 }
-.search-prop-input #search-go-btn {
+.search-prop-input .search-go-btn {
   border-right-width: 2px;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
 }
-.search-prop-input #search-location-btn {
+.search-prop-input .search-location-btn {
   border-left-width: 2px;
   border-top-left-radius: 12px;
   border-bottom-left-radius: 12px;
@@ -86,6 +86,7 @@ html {
 body {
   height: 100%;
   margin: 0;
+  padding: 0 0vw;
 }
 
 * {

@@ -2,10 +2,10 @@ $(document).ready(function(){
     function listProperties(location){
         window.location.href = "/prop/l/"+location;
     }
-    $("#search-go-btn").on("click",function () {
-        listProperties($("#searchInput").val());
+    $(".search-go-btn").on("click",function () {
+        listProperties($(".searchInput").val());
     })
-    $("#searchInput").keyup(function (e) {
+    $(".searchInput").keyup(function (e) {
         if(e.keyCode==13) {
             listProperties($(this).val());
         }
@@ -29,9 +29,12 @@ $(document).ready(function(){
         }else{
             searchScroll=alpha;
         }
+
         if(searchScroll>=1){
             $("nav .search-prop-input").css("opacity",1);
+
         }else{
+
             $("nav .search-prop-input").css("opacity",0);
 
         }
