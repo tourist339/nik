@@ -12,14 +12,15 @@ class prop_controller extends Controller
     {
 
             $location=$this->removeSPandTrim($location);
-            $data = $this->model->getData(["id","title", "description", "rent", "address"], ["location"=>$location]);
+            $data = $this->model->getData(["id","title", "description", "rent", "address","images"], ["location"=>$location]);
             if ($data == null) {
                 new e404_controller("No Property Found in this city");
             } else {
                 $this->createView('prop/listprops', ["title" => "LyfLy",
-                                                            "scripts" => [MAIN_SCRIPTS],
+                                                            "scripts" => [MAIN_SCRIPTS,"listprops.js"],
                                                             "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css","listprops.css"],
                                                             "navbar" => MAIN_NAVBAR,
+                                                            "location"=>ucfirst($location),
                                                             "data" => $data]
                                     )->render();
             }

@@ -7,7 +7,7 @@ class user_controller extends Controller
 
         $currView= $this->createView("user/index", ["title" => "User",
             "scripts" => [MAIN_SCRIPTS],
-            "stylesheets" => [MAIN_CSS,"user/main.css","single-listing.css","listprops.css"]
+            "stylesheets" => [MAIN_CSS,"user/main.css","single-listing.scss","listprops.css"]
             ]
         );
         $currView->render(true,false);

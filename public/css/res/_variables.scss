@@ -1,9 +1,40 @@
 $headerColor:black;
 $headerText:white;
+
 $greenblue:#5297BF;
 $seagreen:#358597;
+
+
+$headingFont:"Ubuntu";
+$bodyFont:"Alegreya";
+
+$iconFontSize:1.2rem;
+
+$headingFontSize:2rem;
 
 $opaque_bg:rgba(1,1,1,0);
 @mixin largeHeading($fontSize,$src){
 
+}
+
+@mixin fontAwesomeBtn($bgColor:rgba(1,1,1,0),$color:black,$fontSize:$iconFontSize){
+
+  background-color: $bgColor;
+  color:$color;
+  outline: none;
+  font-size: $fontSize;
+  border:0;
+  padding: 0;
+  transition: background-color 4s ease-in;
+  i{
+    padding: 0.3rem;
+    border-radius: 0.3rem;
+  }
+  &:hover{
+    i {
+      cursor: pointer;
+      background-color: black;
+      color: white;
+    }
+  }
 }

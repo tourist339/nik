@@ -1,56 +1,96 @@
 <?php
 $allprops=$this->view_data["data"];
+
+$location=$this->view_data["location"];
 ?>
+<div class="rowflex" id="listprops-heading-bar">
+    <button class="fontAwesomeBTN" id="show-prop-filters"><i class="fa fa-bars" ></i></button>
+    <h1 class="heading">Properties in <?php echo $location?></h1>
+</div>
+
 <div class="rowflex">
-<div class="filter-searched-props" hidden>
-    <h1>Filter</h1>
-    <div id="priceFilter">
-        <h3>Price</h3>
-        <input type="range">
+
+<!--    Div for filter box-->
+    <div id="filter-searched-props" class="animationMenu" status="close">
+<!--        Div for padding-->
+        <div>
+            <h1>Filter</h1>
+            <div id="priceFilter">
+                <h3>Price</h3>
+                <input type="range">
+            </div>
+            <div id="ratingFilter">
+                <h3>Rating</h3>
+                <input type="range">
+
+            </div>
+            <div id="genderFilter">
+                <h3>Gender</h3>
+                <input type="radio" name="gender" value="Male" id="male">
+                <label for="male">Male</label><br>
+                <input type="radio" name="gender" value="Female" id="female">
+                <label for="male">Female</label><br>
+                <input type="radio" name="gender" value="Other" id="other">
+                <label for="male">Other</label><br>
+
+            </div>
+        </div>
     </div>
-    <div id="ratingFilter">
-        <h3>Rating</h3>
-        <input type="range">
 
-    </div>
-    <div id="genderFilter">
-        <h3>Gender</h3>
-        <input type="radio" name="gender" value="Male" id="male">
-        <label for="male">Male</label><br>
-        <input type="radio" name="gender" value="Female" id="female">
-        <label for="male">Female</label><br>
-        <input type="radio" name="gender" value="Other" id="other">
-        <label for="male">Other</label><br>
+<!--    Div showing all properties in a grid-->
+    <div class="listprops-grid">
+        <?php foreach ($allprops as $prop):
+            $prop_title="/prop/v/".str_replace(' ','-',$prop["title"])."/".$prop["id"];
+            $images=explode(",",$prop["images"]);
+            $i=1;
+        ?>
+    <!--            echo "<a href='/prop/v/".$prop_title ."/".$prop["id"]."'>".$prop["title"]."</a><br>";-->
+                <div class="listprops-item" src=<?php echo $prop_title; ?>>
+                    <div class="img-overlay initial">
+                        <button class="fontAwesomeBTN img-prev"><i class="fa fa-chevron-left "></i></button>
+                        <button class="fontAwesomeBTN img-next"><i class="fa fa-chevron-right"></i></button>
 
-    </div>
+                        <?php foreach ($images as $img): ?>
+                        <img num="<?php echo $i?>" src="<?php echo "/uploads/".$img ?>">
+                        <?php $i++; endforeach; ?>
+                        <input type="hidden" class="numOfImgs" value="<?php echo count($images) ?>">
 
-</div>
-<div class="listprops-grid">
-    <?php foreach ($allprops as $prop):
-            $prop_title="/prop/v/".str_replace(' ','-',$prop["title"])."/".$prop["id"] ?>
-<!--            echo "<a href='/prop/v/".$prop_title ."/".$prop["id"]."'>".$prop["title"]."</a><br>";-->
-            <div class="listprops-item" src=<?php echo $prop_title; ?>>
-            <figure>
-                <div>
-                <img src="/imgs/img1.jpeg" alt="Photo of a room"></div>
-                <figcaption><?php echo $prop["title"];?><br><span><?php echo $prop["address"];?></span><br></figcaption>
-                <figcaption id="description">Description<br><span>
-                    <?php echo $prop["description"];?></span></figcaption>
-                <figcaption>Rent start at<br><span><?php echo $prop["rent"];?> /month</span></figcaption>
-            </figure>
-
-
+                    </div>
+                    <div id="prop-title-box" >
+                        <p id="prop-title"><?php echo $prop["title"] ?></p>
+                        <p id="prop-address"><?php echo $prop["address"] ?></p>
+                    </div>
+                    <div>
+                    <div class="star-rating-box">
+                        <div class="back-stars">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                            <div class="front-stars" stars="4.1" total="5">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <p>4.1(30)</p>
+                    </div>
+                    </div>
                 </div>
-     <?php endforeach;?>
+         <?php endforeach;?>
 
-</div>
+    </div>
 </div>
 <script>
     $(document).ready(function() {
-        console.log("Read");
         $(".listprops-item").click(function () {
-            window.location.href=$(this).attr("src");
-        }
-        );
+        //    window.location.href = $(this).attr("src");
+        });
+
+        $(".img-overlay img[num='1']").addClass("active");
+
     });
 </script>

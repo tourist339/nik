@@ -1,1 +1,1 @@
-{"version":3,"sourceRoot":"","sources":["listprops.scss"],"names":[],"mappings":"AACA;EACI;;AACA;EACI;;;AAIR;EACI;;;AAEJ;EACI;EACA;EACA;EACA;EACA","file":"listprops.css"}
+{"version":3,"sourceRoot":"","sources":["listprops.scss","res/_variables.scss"],"names":[],"mappings":"AAEA;EACI;;AAEA;EACI;;;AAIR;EACI;;;AAEJ;EACI;;;AAIJ;EACI,WCPa;;;ADWjB;EACI;;AAEA;EACI;;AACA;EACI;;AAGR;EACI;;;AAIR;EACI;;;AAGA;EACI;;;AAMR;EACI;EACA;EACA;EACA;EACA","file":"listprops.css"}

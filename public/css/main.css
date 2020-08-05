@@ -77,6 +77,11 @@ nav a:hover {
   cursor: pointer;
 }
 
+#logoicon {
+  margin-left: 0;
+  padding-left: 0;
+}
+
 /******** GlobalClasses *******/
 html {
   font-size: 1vw;
@@ -98,13 +103,14 @@ body {
   color: red;
 }
 
+/* Default texts with size and font families */
 .largesize {
   font-size: 3.8vw;
 }
 
 .heading {
-  font-size: 2.8vw;
-  font-family: regbold;
+  font-size: 2rem;
+  font-family: "Ubuntu";
 }
 
 .midsize {
@@ -120,6 +126,26 @@ body {
 .smparasize {
   font-size: 0.9vw;
   font-family: reg;
+}
+
+/* Font awesome icon classes */
+.fontAwesomeBTN {
+  background-color: rgba(1, 1, 1, 0);
+  color: black;
+  outline: none;
+  font-size: 1.2rem;
+  border: 0;
+  padding: 0;
+  transition: background-color 4s ease-in;
+}
+.fontAwesomeBTN i {
+  padding: 0.3rem;
+  border-radius: 0.3rem;
+}
+.fontAwesomeBTN:hover i {
+  cursor: pointer;
+  background-color: black;
+  color: white;
 }
 
 .notypelist {
@@ -212,6 +238,32 @@ footer {
   outline-color: red;
   border-color: red !important;
   -webkit-animation: shake 0.5s linear;
+}
+
+.animationMenu {
+  width: 0;
+  transition: 0.3s width linear;
+}
+
+.animationMenu[status=close] {
+  width: 0;
+}
+
+.star-rating-box {
+  display: flex;
+}
+.star-rating-box div {
+  overflow: hidden;
+  display: flex;
+}
+.star-rating-box .back-stars {
+  position: relative;
+  color: grey;
+}
+.star-rating-box .front-stars {
+  position: absolute;
+  color: red;
+  top: 0;
 }
 
 @-webkit-keyframes shake {
