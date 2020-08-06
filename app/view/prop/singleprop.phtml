@@ -3,10 +3,14 @@ $propdata=$this->view_data["data"][0];
 $ownerdata=$this->view_data["ownerdata"][0];
 $images=explode(",",$propdata["images"]);
 $amenities=explode(",",$propdata["amenities"]);
+if(isset($propdata["houseRules"]))
+    $houserules=explode(",",$propdata["houseRules"]);
+
 $admin=false;
 if(isset($this->view_data["admin"])) {
     $redirect_city = $this->view_data["redirect_city"];
     $admin = true;
+    var_dump($propdata);
 }
 
 if(isset($this->view_data["wishlisted"]))
@@ -66,6 +70,23 @@ if(isset($this->view_data["wishlisted"]))
                 </div>
             </div>
 
+            <div>
+                <p class="midsize headprop">House Rules</p>
+                <div class="" id="houserules-box">
+                    <?php foreach ($houserules as $hrule):
+                        $allowed=substr($hrule,-3);
+                        $hrule=substr($hrule,0,-3);
+                        if($allowed=="Noo"){
+                            $allowed="<i class='fa fa-check'></i>";
+                        }elseif ($allowed=="Yes"){
+                            $allowed="<i class='fa fa-times'></i>";
+
+                        }
+                        ?>
+                        <p><?php echo $hrule ." ".$allowed?></p>
+                    <?php endforeach ?>
+                </div>
+            </div>
 
 
         </div>

@@ -47,11 +47,11 @@ class admin_model extends Model
             try{
                 $query=$db->prepare("INSERT INTO temp_properties( ownerid,title, description, city, state,aptno,
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
-                                                                    kitchen, bathroomshared, address, rent, amenities,images)
+                                                                    kitchen, bathroomshared, address, rent, amenities,images,gender,houseRules)
                                                                      VALUES
                                                                 (:ownerid,:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
                                                                 :pNoBathrooms,:pKitchenAvailable,:pBathroomShared,:pAddress,
-                                                                :pRent,:amenities,:images)"
+                                                                :pRent,:amenities,:images,:pGender,:hRules)"
                 );
                 $query->execute($data);
                 return $db->lastInsertId();
@@ -123,11 +123,11 @@ class admin_model extends Model
             try {
                 $query = $db->prepare("INSERT INTO Properties( ownerid,title, description, city, state,aptno,
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
-                                                                    kitchen, bathroomshared, address, rent, amenities,utilities,images,admin)
+                                                                    kitchen, bathroomshared, address, rent, amenities,utilities,gender,houseRules,images,admin)
                                                                      VALUES
                                                                 (:ownerid,:title, :description, :city, :state,:aptno,
                                                                     :proptype, :sharingtype, :guests, :bedrooms, :bathrooms,
-                                                                    :kitchen, :bathroomshared, :address, :rent, :amenities,:utilities,:images, :admin)"
+                                                                    :kitchen, :bathroomshared, :address, :rent, :amenities,:utilities,:gender,:houseRules,:images, :admin)"
                 );
                 $query->execute($data);
                 $lastid = $db->lastInsertId();

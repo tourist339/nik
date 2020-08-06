@@ -189,14 +189,27 @@ nav{
     
 }
 
+//Style for amenities box
 #amenities-box{
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-    grid-gap: 0.4rem;
+    grid-gap: 1.5rem;
     p{
         background-color: lightgray;
         font-size: $mid_fontsize;
         border-radius: 0.3em;
+    }
+
+}
+
+//Style for House RUles BOX
+#houserules-box{
+    @extend #amenities-box;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    p{
+        i{
+            color: red;
+        }
     }
 
 }

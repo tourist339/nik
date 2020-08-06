@@ -180,15 +180,22 @@ nav {
   outline: none;
 }
 
-#amenities-box {
+#amenities-box, #houserules-box {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  grid-gap: 0.4rem;
+  grid-gap: 1.5rem;
 }
-#amenities-box p {
+#amenities-box p, #houserules-box p {
   background-color: lightgray;
   font-size: 1.5rem;
   border-radius: 0.3em;
+}
+
+#houserules-box {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+#houserules-box p i {
+  color: red;
 }
 
 #map {
