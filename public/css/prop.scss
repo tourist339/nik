@@ -49,25 +49,7 @@ nav{
         outline: 0;
 
     }
-    button[wishlist=true] i{
-            color: red;
-            text-shadow: 0 0 5px white;
-            &:hover{
-                color: white;
-                cursor: pointer;
-                text-shadow: 0 0 5px red;
 
-            }
-    }
-    button[wishlist=false] i{
-        color: white;
-        text-shadow: 0 0 5px red;
-        &:hover{
-            color: red;
-            cursor: pointer;
-
-        }
-    }
     input{
         margin: auto 0 auto auto;
         font-size: $body_fontsize;

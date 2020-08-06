@@ -46,13 +46,13 @@ class host_controller extends Controller
             }
 
             $keys = [":pType", ":pSharingType", ":pNoGuests", ":pNoBeds", ":pNoBathrooms", ":pBathroomShared", ":pKitchenAvailable", ":pTitle"
-                , ":pDesc", ":pAddress", ":pApt", ":pCity", ":pState", ":pRent", ":amenities"];
+                , ":pDesc", ":pAddress", ":pApt", ":pCity", ":pState", ":pRent", ":amenities",":pGender",":hRules"];
 
             //required inputs that have to be submitted via form
-            $required = ["pNoGuests", "pNoBathrooms", "pBathroomShared", "pAddress", "pCity", "pState", "pRent"];
+            $required = ["pNoGuests", "pNoBathrooms", "pBathroomShared", "pAddress", "pCity", "pState","pGender", "pRent"];
             if (SETUP_DEBUG_MODE) {
                 foreach ($required as $req) {
-                    if (!isset($_POST[$req]))
+                    if (!isset($_POST[$req]) && empty($_POST[$req]) )
                         new e404_controller("Invalid Data");
                 }
             }
@@ -87,19 +87,19 @@ class host_controller extends Controller
                     array_push($values, $_SESSION["id"]);
                     $data = array_combine($keys, $values);
                     print_r($data);
-                    $adminmodel = new admin_model();
-                    $prop_id=$adminmodel->createPropRow($data);
-                    if($prop_id!=DB_ERROR_CODE){
-                        $usermodel=new user_model();
-                        if($usermodel->updateUnApprovedProperties($prop_id,$_SESSION["id"])!=DB_ERROR_CODE){
-                            echo "true";
-                        }else{
-                            echo "false";
-                        }
-                        $usermodel->closeDb();
-                    }
+//                    $adminmodel = new admin_model();
+//                    $prop_id=$adminmodel->createPropRow($data);
+//                    if($prop_id!=DB_ERROR_CODE){
+//                        $usermodel=new user_model();
+//                        if($usermodel->updateUnApprovedProperties($prop_id,$_SESSION["id"])!=DB_ERROR_CODE){
+//                            echo "true";
+//                        }else{
+//                            echo "false";
+//                        }
+//                        $usermodel->closeDb();
+                   // }
 
-                    $adminmodel->closeDb();
+//                    $adminmodel->closeDb();
                 } else {
                     new e404_controller("Not logged in");
                 }

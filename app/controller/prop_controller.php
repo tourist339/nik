@@ -12,12 +12,26 @@ class prop_controller extends Controller
     {
 
             $location=$this->removeSPandTrim($location);
-            $data = $this->model->getData(["id","title", "description", "rent", "address","images"], ["location"=>$location]);
+            $data = $this->model->getData(["id","title", "description", "rent", "address","city","images"], ["location"=>$location]);
+            $usermodel=new user_model();
+            session_start();
+            if(isset($_SESSION["id"])) {
+                foreach ($data as &$prop){
+                    $propid=$prop["id"];
+                    if($usermodel->checkPropInWishlist($propid,$_SESSION["id"])){
+                        $prop["wishlisted"]="true";
+                    }else{
+                        $prop["wishlisted"]="false";
+
+                    }
+                }
+
+            }
             if ($data == null) {
                 new e404_controller("No Property Found in this city");
             } else {
                 $this->createView('prop/listprops', ["title" => "LyfLy",
-                                                            "scripts" => [MAIN_SCRIPTS,"listprops.js"],
+                                                            "scripts" => [MAIN_SCRIPTS,"listprops.js","imageslider.js"],
                                                             "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css","listprops.css"],
                                                             "navbar" => MAIN_NAVBAR,
                                                             "location"=>ucfirst($location),
@@ -25,6 +39,7 @@ class prop_controller extends Controller
                                     )->render();
             }
             $this->model->closeDb();
+            $usermodel->closeDb();
 
     }
 
@@ -41,26 +56,27 @@ class prop_controller extends Controller
         $propname=$this->removeSPandTrim($propname);
         $propid=$this->removeSPandTrim($propid);
         $usermodel=new user_model();
+        $inWishlist="false";
 
         $data = $this->model->getData([], ["title"=>$propname, "id"=>$propid]);
 
         //true if prop is wishlisted by user false if not wishlisted or no user is logged in
-        $inWishlist="false";
 
-        session_start();
-        if(isset($_SESSION["id"])) {
-            if($usermodel->checkPropInWishlist($propid,$_SESSION["id"])){
-                $inWishlist="true";
-            }else{
-                $inWishlist="false";
-
-            }
-        }
-        $ownerdata=$usermodel->getUserDataByID(["first_name","last_name","email","phone_num"],$data[0]["ownerid"]);
 
         if ($data == null) {
-            new e404_controller();
+            new e404_controller("PROPERTY NOT FOUND");
         } else {
+            session_start();
+            if(isset($_SESSION["id"])) {
+                if($usermodel->checkPropInWishlist($propid,$_SESSION["id"])){
+                    $inWishlist="true";
+                }else{
+                    $inWishlist="false";
+
+                }
+            }
+            $ownerdata=$usermodel->getUserDataByID(["first_name","last_name","email","phone_num"],$data[0]["ownerid"]);
+
             $this->createView('prop/singleprop', ["title" => "LyfLy",
                     "scripts" => [MAIN_SCRIPTS],
                     "stylesheets" => [MAIN_CSS,"homepage.css","prop.css"],

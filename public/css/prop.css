@@ -47,23 +47,6 @@ nav {
   border: none;
   outline: 0;
 }
-#prop-heading button[wishlist=true] i {
-  color: red;
-  text-shadow: 0 0 5px white;
-}
-#prop-heading button[wishlist=true] i:hover {
-  color: white;
-  cursor: pointer;
-  text-shadow: 0 0 5px red;
-}
-#prop-heading button[wishlist=false] i {
-  color: white;
-  text-shadow: 0 0 5px red;
-}
-#prop-heading button[wishlist=false] i:hover {
-  color: red;
-  cursor: pointer;
-}
 #prop-heading input {
   margin: auto 0 auto auto;
   font-size: 1.2rem;

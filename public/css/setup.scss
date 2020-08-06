@@ -48,12 +48,15 @@ nav{
     height: 100%;
     background-color: white;
     border-radius: 1rem;
-    min-width: 25vw;
+    min-width: 40vw;
     position: relative;
     display: flex;
     flex-direction: column;
     overflow-y: scroll;
     
+}
+option[disabled]{
+    //color: lightgray;
 }
 
 #image-preview-box{
@@ -119,8 +122,9 @@ nav{
 #setup-box input,select{
     display: block;
     margin: 1.3vw 0vw;
-    font-size: 1.4vw;
+    font-size: 1.3rem;
     max-width: 100%;
+    outline: none;
     font-family: reg;
     padding: 0.4em;
     border: solid 1.8px lightblue;

@@ -1,5 +1,5 @@
 @import "res/variables";
-
+@import "image_overlay";
 $reviewFontSize:20px;
 $addressFontSize:15px;
 $titleFontSize:25px;
@@ -19,8 +19,10 @@ $titleFontSize:25px;
 
     transform: scale(1.01);
 }
+
+//for all the direct divs under img box
 .listprops-item>div:not(.img-overlay){
-    margin: 15px 5px;
+    margin: 18px 5px;
     height: 10%;
     display: flex;
     flex-direction: column;
@@ -28,50 +30,11 @@ $titleFontSize:25px;
     justify-content: center;
 }
 
-.img-overlay{
-    overflow: hidden;
-    width: 100%;
-    height: 65%;
-    position: relative;
 
-    img{
-        z-index: -10;
-        width: 100%;
-        height: 100%;
-    }
-    img:not(.nextImg){
-        transition: transform 0.4s linear;
-
-    }
-    .nextImg{
-        transition: none;
-    }
-    button{
-        position: absolute;
-        font-size: $titleFontSize;
-        top: 50%;
-        background-color: grey;
-        border-radius: 50%;
-        &:hover{
-            i{
-                color: lightgray;
-                border-radius: 50%;
-
-            }
-        }
-    }
-
-    .img-prev{
-        left: 2px;
-    }
-    .img-next{
-        right: 2px;
-    }
-}
 
 .star-rating-box{
     font-size: $reviewFontSize;
-    font-family: $bodyFont;
+    font-family: $fontBody;
     letter-spacing: 0.2em;
     p{
         margin: auto 0.3em;
@@ -90,8 +53,10 @@ $titleFontSize:25px;
     #prop-title{
         font-size: $titleFontSize;
         letter-spacing: 2px;
+        font-family: $fontHeading;
     }
     #prop-address{
         font-size: $addressFontSize;
+        font-family: $fontBody;
     }
 }

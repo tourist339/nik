@@ -11,35 +11,42 @@
                 <div class="gridbox setup-gridbox">
                     <div class="input-item">
                         <label for="pType">Property Type</label>
-                        <input type=text placeholder="" name="pType" id="pType">
+                        <select   name="pType" id="pType">
+                            <option value="" disabled selected>Choose </option>
+                            <option value="Apartment">Apartment</option>
+                            <option  value="House">House</option>
+                            <option  value="Floor">Floor</option>
+                            <option  value="Office Space">Office Space</option>
+
+                        </select>
+
                     </div>
 
                     <div class="input-item">
                     <label for="pSharingType">Sharing Type</label>
-                    <input list="sharingtype"  placeholder="Sharing Type" name="pSharingType" id="pSharingType">
+                    <select    name="pSharingType" id="pSharingType">
+                        <option value="" disabled selected>Select your option </option>
+                        <option  value="Entire Place">Entire Place</option>
+                            <option value="Private Room">Private Room</option>
+                            <option value="Shared Room">Shared Room</option>
+                    </select>
                     </div>
-
-                    <datalist id="sharingtype">
-                        <option  value="Entire Place" selected>Entire Place</option>
-                        <option value="Private Room">Private Room</option>
-                        <option value="Shared Room">Shared Room</option>
-                    </datalist>
 
                     <div class="input-item">
                     <label for="pNoGuests" >No. Of Guests</label>
-                    <input type=number class="required-input numinp" min="0" placeholder="" name="pNoGuests" id="pNoGuests" >
+                    <input type=number class="required-input numinp" min="0" max="12" placeholder="" name="pNoGuests" id="pNoGuests" >
                     </div>
 
 
 
                 <div class="input-item ">
-                    <label for="pNoBeds" >No. Of Beds:</label>
-                    <input type=number class="numinp required-input" min="0" name="pNoBeds" id="" >
+                    <label for="pNoBeds" >No. Of Bedrooms:</label>
+                    <input type=number class="numinp required-input" min="0" max="8" name="pNoBeds" id="" >
                 </div>
 
                 <div class="input-item">
                     <label for="pNoBathrooms">No. Of Bathrooms:</label>
-                    <input type=number class="numinp required-input" min="0" name="pNoBathrooms"  id="pNoBathrooms" >
+                    <input type=number class="numinp required-input" min="0" max="6" name="pNoBathrooms"  id="pNoBathrooms" >
                 </div>
 
                 <!--            prdiv is shown only when room is private or shared-->
@@ -97,45 +104,53 @@
             </div>
 
 
-            <!--        FIfth Page box (HOUSE RULES AND IMAGES)-->
+            <!--        FIfth Page box (HOUSE RULES AND GENDER)-->
             <div class="setup-fader" id="phase5" >
                 <h1 class="midsize" style="text-align:start;">Setup house rules</h1>
-                <div id="hrules-box">
-                    <div class="rowflex">
-                        <p class="phase-text" >Only for girls</p>
-                        <input type="button" name="pGirls" class="rules-btns rb1" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
-                        <input type="button" class="rules-btns rb1" value="X">
-                    </div>
+                <div id="hrules-box" rules="3">
                     <div class="rowflex">
                         <p class="phase-text">Smoking Allowed</p>
-                        <input type="button" class="rules-btns rb2" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
-                        <input type="button" class="rules-btns rb2" value="X">
+                        <input type="button" class="rules-btns rb1" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
+                        <input type="button" class="rules-btns rb1" value="X">
+
+                        <input type="hidden" class="rules-yes"  value="Smoking Allowed:Yes">
+                        <input type="hidden" class="rules-no"  value="Smoking Allowed:No">
+
                     </div>
                     <div class="rowflex">
                         <p class="phase-text">Parties allowed</p>
-                        <input type="button" class="rules-btns rb3" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
-                        <input type="button" class="rules-btns rb3" value="X">
+                        <input type="button" class="rules-btns rb2" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
+                        <input type="button" class="rules-btns rb2" value="X">
+                        <input type="hidden" class="rules-yes"  value="Parties Allowed:Yes">
+                        <input type="hidden" class="rules-no"  value="Parties Allowed:No">
                     </div>
                     <div class="rowflex">
                         <p class="phase-text">Pet Friendly</p>
-                        <input type="button" class="rules-btns rb4" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
-                        <input type="button" class="rules-btns rb4" value="X">
-                    </div>
-                    <div class="rowflex">
-                        <p class="phase-text">Only for girls</p>
-                        <input type="button" class="rules-btns rb5" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
-                        <input type="button" class="rules-btns rb5" value="X">
-                    </div>
-                    <p class="phase-text-label">Additional Rules</p>
-                    <div class="rowflex" class="notopmargin">
-                        <input type=text autocomplete="nope" placeholder="Setup Queit hours? " style="max-width:100%;flex:1 1 auto;"  class="notopmargin" id="prop-city">
-                        <input type="button" value="Add" class="notopmargin" id="add-rules">
+                        <input type="button" class="rules-btns rb3" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
+                        <input type="button" class="rules-btns rb3" value="X">
+                        <input type="hidden" class="rules-yes"  value="Pet Friendly:Yes">
+                        <input type="hidden" class="rules-no"  value="Pet Friendly:No">
                     </div>
                 </div>
+                <div>
+                <p class="phase-text-label">Additional Rules</p>
+                <div class="rowflex" class="notopmargin">
+                    <input type=text autocomplete="nope" placeholder="Setup Queit hours? " style="max-width:100%;flex:1 1 auto;"  class="notopmargin" id="house-rules-new">
+                    <input type="button" value="Add" class="notopmargin" id="add-house-rules">
+                </div>
+                </div>
 
-                <h1 class="midsize" style="text-align:start;margin-top:1vw;">Upload images of the property(Not working yet)</h1>
-                <input type="file" id="imgInp" name="images[]" accept="image/* " class="notopmargin" multiple><br><br>
-                <img id="blah" src="#" alt="your image" />
+                <div >
+                    <p class="phase-text-label">Gender Allowed</p>
+                    <select  class="notopmargin required-input"  name="pGender" id="pGender">
+                        <option value="" disabled selected>Choose </option>
+                        <option value="males">Only Male</option>
+                        <option  value="females">Only Female</option>
+                        <option  value="Both">Both</option>
+
+                    </select>
+                </div>
+
 
             </div>
 
@@ -152,6 +167,9 @@
                     <input type="checkbox" value="Water" class="rent-utils" id="water">
                     <label for="water" class="phase-text">Water</label>
                 </div>
+                <h1 class="midsize" style="text-align:start;margin-top:1vw;">Upload images of the property</h1>
+                <input type="file" id="imgInp" name="images[]" accept="image/* " class="notopmargin" multiple><br><br>
+                <img id="blah" src="#" alt="your image" />
                 <div class="rowflex" id="agr-div">
                     <p class="phase-text-inline" >Agreement Type</p>
                     <select id="agreement-type">
@@ -290,6 +308,18 @@
     }
 </script>
 
+<script>
+
+function  addHouseRules(houserule,newCount) {
+$("#hrules-box").append("<div class=\"rowflex\">\n" +
+    "                        <p class=\"phase-text\">"+houserule+"</p>\n" +
+    "                        <input type=\"button\" class=\"rules-btns rb"+newCount+"\" value=\"&#10003;\" style=\"margin-left:auto;margin-right:1vw;\">\n" +
+    "                        <input type=\"button\" class=\"rules-btns rb"+newCount+"\" value=\"X\">\n" +
+    "                        <input type=\"hidden\" class=\"rules-yes\"  value=\""+houserule+":Yes\">\n" +
+    "                        <input type=\"hidden\" class=\"rules-no\"  value=\""+houserule+":No\">\n" +
+    "                    </div>");
+}
+</script>
 
 <!--    Main event functions script-->
 <script>
@@ -300,23 +330,52 @@
     $("#getLocation").click(function(){
         getLocation();
     });
-    //        House rules button event
-    $(".rules-btns").click(function(){
-        if($(this).hasClass("activeBtn")){
-            $(this).removeClass("activeBtn");
-        }else{
-            var sClass=$(this).attr("class").split(' ')[1];
-            if(!$("."+sClass).hasClass("activeBtn")){
-                $(this).addClass("activeBtn");
-            }
-        }
-    });
 
+    // Add Amenity button event
     $("#add-amenity").on("click",function () {
         var amenity=$("#prop-add-amenity").val();
         addAmenity(amenity);
         $("#prop-add-amenity").val("");
 
+    });
+
+    //        House rules button event
+    $("#hrules-box").on("click",".rules-btns",function(){
+        var value=$(this).val();
+        if($(this).hasClass("activeBtn")){
+            $(this).removeClass("activeBtn");
+            if(value=="X"){
+                $(this).siblings(".rules-no").removeAttr("name");
+            }else{
+                $(this).siblings(".rules-yes").removeAttr("name");
+            }
+        }else{
+            var sClass=$(this).attr("class").split(' ')[1];
+            $("."+sClass).removeClass("activeBtn");
+            $(this).addClass("activeBtn");
+            if(value=="X"){
+                $(this).siblings(".rules-no").attr("name","hRules[]");
+                $(this).siblings(".rules-yes").removeAttr("name");
+
+            }else{
+                $(this).siblings(".rules-yes").attr("name","hRules[]");
+                $(this).siblings(".rules-no").removeAttr("name");
+
+            }
+        }
+    });
+
+
+
+
+    // Add House rules button event
+    $("#add-house-rules").on("click",function () {
+        var rule=$("#house-rules-new").val();
+        $("#house-rules-new").val("");
+        var newCount=parseInt($("#hrules-box").attr("rules")) +1;
+        $("#hrules-box").attr("rules",newCount);
+        console.log(newCount);
+        addHouseRules(rule,newCount);
     });
 
     $("#setup-container").submit(function(e){

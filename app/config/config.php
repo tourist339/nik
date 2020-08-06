@@ -1,6 +1,6 @@
 <?php
-define("ERROR_DEBUG_MODE",true); // true -> will show database errors to user , false->otherwise (set it while deployment)
-define("SETUP_DEBUG_MODE",true); // true -> will force user to enter required data (set it while deployment) , false->otherwise
+define("ERROR_DEBUG_MODE",true); // true -> will show database errors to user , false->otherwise (set it false while deployment)
+define("SETUP_DEBUG_MODE",true); // true -> will force user to enter required data (set it true while deployment) , false->otherwise
 define("ADMIN_URL","admin");
 
 //main styling constants

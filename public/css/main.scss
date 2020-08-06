@@ -3,6 +3,7 @@
 
 /******** GlobalClasses *******/
 $body_padding:0vw;
+$title_fontsize:2.4rem;
 html{
     font-size: 1vw;
     height: 100%;
@@ -13,6 +14,14 @@ body{
     margin: 0;
     padding: 0 $body_padding;
 }
+.modal{
+    z-index: 11 !important;
+}
+.blocker{
+    z-index: 10 !important;
+
+}
+
 *{
     box-sizing: border-box;
 }
@@ -30,7 +39,7 @@ body{
 }
 .heading{
     font-size: $headingFontSize;
-    font-family: $headingFont;
+    font-family: $fontHeading;
 }
 .midsize{
     font-size: 1.8vw;
@@ -47,7 +56,9 @@ body{
     font-family: reg;
     
 }
-
+.hidden{
+    display: none;
+}
 /* Font awesome icon classes */
 
 .fontAwesomeBTN{
@@ -139,7 +150,7 @@ footer{
 //class for animating menu opener
 .animationMenu{
     width: 0;
-    transition: 0.3s width linear;
+    transition:  width 0.3s linear;
 }
 .animationMenu[status="close"]{
     width: 0;
@@ -162,6 +173,33 @@ footer{
     }
 }
 
+.add-to-wishlist-btn{
+    margin-left: auto;
+    font-size: $title_fontsize;
+    background-color: rgba(1,1,1,0);
+    border: none;
+    outline: 0;
+
+}
+.add-to-wishlist-btn[wishlist=true] i{
+    color: red;
+    text-shadow: 0 0 5px white;
+    &:hover{
+        color: white;
+        cursor: pointer;
+        text-shadow: 0 0 5px red;
+
+    }
+}
+.add-to-wishlist-btn[wishlist=false] i{
+    color: white;
+    text-shadow: 0 0 5px red;
+    &:hover{
+        color: red;
+        cursor: pointer;
+
+    }
+}
 
 
 @-webkit-keyframes shake {
