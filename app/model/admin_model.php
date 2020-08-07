@@ -119,15 +119,15 @@ class admin_model extends Model
     public function addPropToMainTable($data){
         $db=$this->getDb();
         if(isset($db) && isset($data)) {
-
+        var_dump($data);
             try {
                 $query = $db->prepare("INSERT INTO Properties( ownerid,title, description, city, state,aptno,
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
-                                                                    kitchen, bathroomshared, address, rent, amenities,utilities,gender,houseRules,images,admin)
+                                                                    kitchen, bathroomshared, address, rent, amenities,utilities,agreementType,dateAdded,gender,houseRules,images,admin)
                                                                      VALUES
                                                                 (:ownerid,:title, :description, :city, :state,:aptno,
                                                                     :proptype, :sharingtype, :guests, :bedrooms, :bathrooms,
-                                                                    :kitchen, :bathroomshared, :address, :rent, :amenities,:utilities,:gender,:houseRules,:images, :admin)"
+                                                                    :kitchen, :bathroomshared, :address, :rent, :amenities,:utilities,:agreementType,:dateAdded,:gender,:houseRules,:images, :admin)"
                 );
                 $query->execute($data);
                 $lastid = $db->lastInsertId();

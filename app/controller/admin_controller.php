@@ -119,14 +119,12 @@ class admin_controller extends Controller
 
             $usermodel=new user_model();
             $approved_prop_id=$this->model->addPropToMainTable($new_data);
-            var_dump($approved_prop_id);
             if($approved_prop_id != DB_ERROR_CODE){
                 //remove the property from unpproved_props column in the owner's row
                 $usermodel->removeUnapprovedProp($unapprovedprop_id,$ownerid);
 
                 //remove the already approved property from temp_properties table
                 if($this->model->deleteTempRow($unapprovedprop_id) !=DB_ERROR_CODE){
-                    echo $approved_prop_id;
                     //add the approved property id to the approved_properties column in the owner's row
                     $usermodel->updateApprovedProperties($approved_prop_id,$ownerid);
                     header("Location: /".ADMIN_URL."/showUnapprovedProps?loc_name=".$_POST["redirect_city"]);

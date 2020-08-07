@@ -35,30 +35,50 @@ body{
 /* Default texts with size and font families */
 
 .largesize{
-    font-size: 3.8vw;
+    font-size: 3.8rem;
 }
 .heading{
     font-size: $headingFontSize;
     font-family: $fontHeading;
 }
 .midsize{
-    font-size: 1.8vw;
-    font-family: reg;
+    font-size: 1.8rem;
+    font-family: $fontMidHeading;
     
 }
 .parasize{
-    font-size: 1.1vw;
-    font-family: reg;
-    
+    font-size: 1.1rem;
+    font-family: $fontBody;
+    color: #222222;
 }
 .smparasize{
-    font-size: 0.9vw;
-    font-family: reg;
+    font-size: 0.9rem;
+    font-family: $fontBody;
     
 }
+
+//hidden ui elements
 .hidden{
-    display: none;
+    display: none !important;
 }
+
+//for toggling between visible and invisible using transition
+.toggleVisible{
+    transition: all 0.6s linear;
+
+    visibility: hidden;
+    &[visible="false"]{
+        opacity: 0;
+        visibility: hidden;
+
+    }
+    &[visible="true"]{
+        opacity: 1;
+        visibility: visible;
+
+    }
+}
+
 /* Font awesome icon classes */
 
 .fontAwesomeBTN{
@@ -173,6 +193,7 @@ footer{
     }
 }
 
+//Wishlist button styles
 .add-to-wishlist-btn{
     margin-left: auto;
     font-size: $title_fontsize;
@@ -200,6 +221,14 @@ footer{
 
     }
 }
+
+
+//Raised box style
+.raised-box{
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+}
+
+
 
 
 @-webkit-keyframes shake {

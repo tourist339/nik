@@ -78,7 +78,7 @@ class prop_controller extends Controller
             $ownerdata=$usermodel->getUserDataByID(["first_name","last_name","email","phone_num"],$data[0]["ownerid"]);
 
             $this->createView('prop/singleprop', ["title" => "LyfLy",
-                    "scripts" => [MAIN_SCRIPTS],
+                    "scripts" => [MAIN_SCRIPTS,"singleprop.js"],
                     "stylesheets" => [MAIN_CSS,"homepage.css","prop.css"],
                     "navbar" => MAIN_NAVBAR,
                     "data" => $data,

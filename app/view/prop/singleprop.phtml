@@ -10,15 +10,20 @@ $admin=false;
 if(isset($this->view_data["admin"])) {
     $redirect_city = $this->view_data["redirect_city"];
     $admin = true;
-    var_dump($propdata);
 }
 
 if(isset($this->view_data["wishlisted"]))
     $wishlisted=$this->view_data["wishlisted"];
 ?>
+
+<div id="prop-navbar" class="hidden midsize">
+    <a  for="#images-box">Photos</a>
+    <a for="#amenities-div">Amenities</a>
+    <a for="#houserules-div">House rules</a>
+</div>
 <div id="prop-main-box">
     <div id="prop-heading" class="rowflex">
-        <h1 class="prop-title"><?php echo ucfirst($propdata["title"]);?></h1>
+        <h1 class="prop-title heading"><?php echo ucfirst($propdata["title"]);?></h1>
         <?php if($admin ==false):?>
             <button class="add-to-wishlist-btn" wishlist="<?php echo $wishlisted ?>" for="<?php echo $propdata['id'];?>"><i class="fa fa-heart"></i> </button>
         <?php else:?>
@@ -61,7 +66,7 @@ if(isset($this->view_data["wishlisted"]))
                 <div class="rowflex" id="showDesc"><input type="button" value="Continue" onclick="showFull()"></div>
             </div>
 
-            <div>
+            <div class="afterline" id="amenities-div">
                 <p class="midsize headprop">Amenities</p>
                 <div class="" id="amenities-box">
                     <?php foreach ($amenities as $amenity): ?>
@@ -70,16 +75,16 @@ if(isset($this->view_data["wishlisted"]))
                 </div>
             </div>
 
-            <div>
+            <div id="houserules-div">
                 <p class="midsize headprop">House Rules</p>
                 <div class="" id="houserules-box">
                     <?php foreach ($houserules as $hrule):
                         $allowed=substr($hrule,-3);
                         $hrule=substr($hrule,0,-3);
                         if($allowed=="Noo"){
-                            $allowed="<i class='fa fa-check'></i>";
-                        }elseif ($allowed=="Yes"){
                             $allowed="<i class='fa fa-times'></i>";
+                        }elseif ($allowed=="Yes"){
+                            $allowed="<i class='fa fa-check'></i>";
 
                         }
                         ?>
@@ -96,7 +101,8 @@ if(isset($this->view_data["wishlisted"]))
         <div id="right-prop-content">
             <div id="address-box"><div id="map"></div><p><?php
                     echo getProperAddress($propdata["address"],$propdata["city"],$propdata["state"]) ?></p></div>
-            <div id="contact-box">
+            <div class="rel">
+            <div id="contact-box" class="raised-box">
                <p> <?php echo $ownerdata["first_name"]." ".$ownerdata["last_name"]?>
                 <br>
                 <?php echo $ownerdata["phone_num"]?>
@@ -106,6 +112,7 @@ if(isset($this->view_data["wishlisted"]))
                 <?php if($admin ==false):?>
                 <input type="button" id="book-now-btn" value="Book Now">
                 <?php endif;?>
+            </div>
             </div>
         </div>
 
@@ -160,52 +167,7 @@ if(isset($this->view_data["wishlisted"]))
 
 
 <!--Styling Scripts-->
-<script>
-    //Sticky Contact Info
-    $(document).ready(function(){
-        if($("#propDesc")[0].clientHeight < $("#propDesc")[0].scrollHeight){
 
-        }else{
-            $("#showDesc").css("display","none");
-
-        }
-        var contactTop=$("#contact-box").offset().top;
-        $(window).scroll(function(){
-            var windowTop =$(window).scrollTop();
-            if(windowTop+10>=contactTop){
-                $("#contact-box").addClass("sticky");
-                $("#contact-box").width($("#right-prop-content").width());
-            }else{
-                $("#contact-box").removeClass("sticky");
-                $("#contact-box").width("100%");
-
-            }
-        })});
-
-    function showFull(){
-        $("#propDesc").css("height","auto");
-        $("#showDesc").css("display","none");
-    }
-
-    $("#book-now-btn").on("click",function () {
-        if(lyfly.checkLoggedIN())
-            $("#booking-modal").modal();
-
-    });
-    $(".visit-time").on("click",function () {
-        var attr = $(this).attr("name");
-        if (typeof attr !== typeof undefined && attr !== false) {
-            //if element's already been selected
-            $(this).removeAttr("name");
-            $(this).css("background-color","white");
-        }else{
-            $(this).attr("name","visit-time[]");
-            $(this).css("background-color","lightgray");
-
-        }
-    });
-
-</script>
 
 
 <!--                Amenities and other info box-->

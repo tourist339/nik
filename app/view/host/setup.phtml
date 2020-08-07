@@ -6,7 +6,7 @@
         <div  id="setup-box-content" style="justify-content:center;">
 
             <!--        First page box For props information-->
-            <div class="fortrans setup-fader activePhase" id="phase1" >
+            <div class="fortrans setup-fader" id="phase1" >
                 <h1 class="midsize">Property's information</h1>
                 <div class="gridbox setup-gridbox">
                     <div class="input-item">
@@ -155,8 +155,17 @@
             </div>
 
             <!--            Sixth PAGE BOX-->
-            <div class="setup-fader" id="phase6">
-                <h1 class="midsize" >Rent Information</h1>
+            <div class="setup-fader activePhase" id="phase6">
+                <h1 class="midsize" >Property Management</h1>
+                <div class="label-input">
+                <p>Do you want lyfly to manage the property?</p>
+                <select  class="required-input"  name="pLyfly" id="pLyfly">
+                    <option value="" disabled selected>Choose </option>
+                    <option value="1">Yes</option>
+                    <option  value="0">No</option>
+                </select>
+                </div>
+                <div class="toggleVisible" visible="false" id="not-lyfly">
                 <input type=text placeholder="Rent in Rs." style="width:16vw;" name="pRent" id="prop-rent" />
                 <p class="phase-text" style="font-size:1.6vw;">What does the rent include?</p>
                 <div>
@@ -169,7 +178,6 @@
                 </div>
                 <h1 class="midsize" style="text-align:start;margin-top:1vw;">Upload images of the property</h1>
                 <input type="file" id="imgInp" name="images[]" accept="image/* " class="notopmargin" multiple><br><br>
-                <img id="blah" src="#" alt="your image" />
                 <div class="rowflex" id="agr-div">
                     <p class="phase-text-inline" >Agreement Type</p>
                     <select id="agreement-type">
@@ -179,6 +187,20 @@
                         <option value="custom">Custom</option>
                     </select>
                     <input type=text  style='max-width:10vw' id="custom-agrtype" placeholder='2 months?' class="hidden">
+
+                </div>
+
+                    <div class="rowflex" id="agr-div">
+                        <p class="phase-text-inline" >Agreement Type</p>
+                        <select id="agreement-type">
+                            <option value="monthly">Monthly</option>
+                            <option value="halfyear">6 months</option>
+                            <option value="yearly">1 year</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                        <input type=text  style='max-width:10vw' id="custom-agrtype" placeholder='2 months?' class="hidden">
+
+                    </div>
                 </div>
             </div>
 
@@ -196,7 +218,6 @@
             <input type="button" for="phase7" class="switch-btns hidden" value="" id="p7-switch">
 
             <input type="button" value="Next" class="" id="setup-box-next">
-            <input type="submit" value="Submit" id="submitForm">
 
         </div>
     </div>
@@ -206,11 +227,6 @@
     </div>
 </form>
 
-<!--    Yes no option list-->
-<datalist id="yesno">
-    <option  value="Yes" selected>Yes</option>
-    <option value="No">No</option>
-</datalist>
 
 </body>
 
@@ -331,6 +347,8 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
         getLocation();
     });
 
+
+
     // Add Amenity button event
     $("#add-amenity").on("click",function () {
         var amenity=$("#prop-add-amenity").val();
@@ -378,6 +396,20 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
         addHouseRules(rule,newCount);
     });
 
+
+    //lyfly option change event
+    $("#pLyfly").on("change",function () {
+        let isLyfly=$(this).val();
+        if(isLyfly==0){
+            $("#not-lyfly").attr("visible","true");
+        }else{
+            $("#not-lyfly").attr("visible","false");
+
+        }
+    });
+
+
+    //form submit event
     $("#setup-container").submit(function(e){
         e.preventDefault();
         var form=$(this);
@@ -402,6 +434,7 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
 
     });
 
+
     //        Agreement dropdown change event
     $("#agreement-type").change(function(){
         if($(this).val()=="custom"){
@@ -414,7 +447,8 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
         }
     });
 
-    //    Bottom next phase button events
+
+    //    Bottom next phase button event
     $("#setup-box-next").click(function() {
         var gonext=true;
 
@@ -527,40 +561,3 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
 
 
 
-<!--
-
-*PROPERTY ADDRESS
-*TITLE
-#Introduction
-*DESCRIPTION
-*NO OF GUESTS
-# GUESTS ALREADY PRESENT
-*ENTIRE PLACE/PRIVATE/SHARED
-*PROPERTY TYPE
-*OWNERSHIP
-*NO OF BEDS GUEST CAN USE
-#SLEEPING ARRANGEMENTS
-*BATHROOMS
-*BEDROOMS
-#VACANT
-*FIRSTNAME
-*LASTNAME
-*PHONE NUMBER/OTP
-*YOUR ADDRESS
-*CITY
-*STATE
-*Rent
-amenities
-Images
-HOUSE RULES
-AMenities->
-Wifi
-Heat
-Air Conditioning
-TV
-Refrigerator
-Breakfast or Coffee/tea
-Lunch
-Dinner
-
--->

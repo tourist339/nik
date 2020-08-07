@@ -1,3 +1,5 @@
+@import "res/variables";
+
 html{
     height: 100%;
 }
@@ -9,26 +11,22 @@ body{
 nav{
     position: relative ;
 }
-.hidden{
-/*    //display: none !important;*/
-/*   // opacity: 0;*/
-    display: none !important;
-    opacity: 0;
-}
+
+
 
 .fortrans{
         transition: all ease 1s;
-
 }
+
+
 #setup-container{
     opacity: 0.9;
-    background-size: cover;
     background-color: rgba(22,195,155,0.5);
    // border:3px solid orange;
+    flex: 1;
+    //for  this to shrink inside, min height has to be 0
+    min-height: 0;
     border-radius: 1rem;
-    height: 100%;
-    margin-top: 0.5vw;
-    max-height: 100%;
     display: grid;
     grid-template-columns: repeat(3,minmax(auto,1fr));
 }
@@ -41,11 +39,11 @@ nav{
 
 }
 #setup-box{
-    padding: 1vw 3vw 0vw 3vw;
+    padding: 0 1rem;
     grid-column-start: 2;
-    width: 100%;
-    margin: auto;
+    margin:0 auto;
     height: 100%;
+    max-height: 100%;
     background-color: white;
     border-radius: 1rem;
     min-width: 40vw;
@@ -78,14 +76,17 @@ option[disabled]{
 #setup-box-content{
     overflow-y: scroll;
     position: relative;
+    flex: 1;
 }
 .setup-footer{
     margin-top: auto;
+    padding: 1rem 0;
 }
 .setup-fader{
    display: none;
     opacity: 0;
     max-width: 100%;
+    max-height: 100%;
 }
 
 /*General style for top headings on each phase page*/
@@ -175,7 +176,7 @@ option[disabled]{
     background-color: lightgray;
     background-color: #315B73;
     border-color: #315B73;
-    margin: 0;
+    margin: 0 !important;
     color: white;
     outline: none;
     margin-left: auto !important;
@@ -303,6 +304,18 @@ label{
     padding: 1rem;
 
 }
-.input-item{
 
+.label-input{
+    p{
+        @extend .phase-text-label;
+        font-size: $bodyFontSize;
+        font-family: $fontHeading;
+    }
+    select{
+        margin-top: 0 !important;
+    }
+    input{
+        margin-top: 0 !important;
+
+    }
 }
