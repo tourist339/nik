@@ -1,15 +1,5 @@
 $(document).ready(function(){
-    function listProperties(location){
-        window.location.href = "/prop/l/"+location;
-    }
-    $(".search-go-btn").on("click",function () {
-        listProperties($(".searchInput").val());
-    })
-    $(".searchInput").keyup(function (e) {
-        if(e.keyCode==13) {
-            listProperties($(this).val());
-        }
-    });
+
 
     //navbar color change on scroll
 

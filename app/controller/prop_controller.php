@@ -8,11 +8,14 @@ class prop_controller extends Controller
         $this->model = new prop_model("system_d");
     }
 
-    public function l($location)
+    public function l($location,$search="")
     {
 
             $location=$this->removeSPandTrim($location);
-            $data = $this->model->getData(["id","title", "description", "rent", "address","city","images"], ["location"=>$location]);
+            $search=str_replace('-',' ',$search);
+            var_dump($search);
+            $search=$this->removeSPandTrim($search);
+            $data = $this->model->getAllProps(["id","title", "description", "rent", "address","city","images"], ["location"=>$location,"search"=>$search]);
             $usermodel=new user_model();
             session_start();
             if(isset($_SESSION["id"])) {
@@ -58,7 +61,7 @@ class prop_controller extends Controller
         $usermodel=new user_model();
         $inWishlist="false";
 
-        $data = $this->model->getData([], ["title"=>$propname, "id"=>$propid]);
+        $data = $this->model->getSingleProp([], ["title"=>$propname, "id"=>$propid]);
 
         //true if prop is wishlisted by user false if not wishlisted or no user is logged in
 

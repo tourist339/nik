@@ -8,19 +8,20 @@ $(document).ready(function(){
     }
     var contactTop=$("#contact-box").offset().top;
     var bottomImagePos=$("#images-box").offset().top+$("#images-box").outerHeight();
-    var navbarHeight=$("#prop-navbar").outerHeight();
     let padding =10;
-    console.log(navbarHeight);
+    var navbarHeight=0;
     $(window).scroll(function () {
         var windowTop =$(window).scrollTop();
 
-        //for fixing contact box on the right side
 
 
         //For showing property navbar
         if ($(window).scrollTop()>=bottomImagePos){
             $("#prop-navbar").removeClass("hidden");
             $("#prop-navbar").addClass("rowflex");
+            if(navbarHeight==0)
+                navbarHeight=$("#prop-navbar").outerHeight();
+
         }else{
             if(!$("#prop-navbar").hasClass("hidden")) {
                 $("#prop-navbar").addClass("hidden");
@@ -29,6 +30,8 @@ $(document).ready(function(){
             }
 
         }
+
+        //for fixing contact box on the right side
         var toSitck=$("#contact-box").position().top;
         if(windowTop+navbarHeight+padding>=contactTop){
             $("#contact-box").addClass("sticky");
@@ -64,7 +67,6 @@ $(document).ready(function(){
     $("#prop-navbar").on("click","a",function () {
         var toScrollElement=$(this).attr("for");
         var padding=10;
-        console.log(navbarHeight);
         var finalToScroll=$(toScrollElement).offset().top-padding-navbarHeight;
         $('html,body').animate({scrollTop: finalToScroll},'slow');
     });

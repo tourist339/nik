@@ -107,6 +107,7 @@ $focusFontSize:28px;
     display: flex;
     align-items: center;
   overflow-y: scroll;
+    overscroll-behavior: contain;
     justify-content: center;
     z-index: 1;
     p{

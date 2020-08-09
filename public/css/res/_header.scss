@@ -28,6 +28,10 @@ opacity: 0;
     padding: 0.5rem;
     float: left;
   }
+  .locationInput{
+    width: 30%;
+    border-right-width: 1px;
+  }
   $border-radius:12px;
   button{
     @extend .searchInp;

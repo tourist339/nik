@@ -28,6 +28,10 @@ nav .search-prop-input {
   padding: 0.5rem;
   float: left;
 }
+.search-prop-input .locationInput {
+  width: 30%;
+  border-right-width: 1px;
+}
 .search-prop-input button {
   width: 10%;
   background-color: white;
