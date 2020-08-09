@@ -6,6 +6,7 @@ body {
   display: flex;
   flex-flow: column;
   max-height: 100vh;
+  overflow-x: hidden;
 }
 
 nav {
@@ -70,8 +71,7 @@ nav {
 }
 
 .setup-footer {
-  margin-top: auto;
-  padding: 1rem 0;
+  padding: 2rem 0;
 }
 
 .setup-fader {

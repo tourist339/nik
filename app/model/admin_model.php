@@ -43,15 +43,14 @@ class admin_model extends Model
     public function createPropRow($data){
         $db=$this->getDb();
         if(isset($db) && isset($data)){
-
             try{
                 $query=$db->prepare("INSERT INTO temp_properties( ownerid,title, description, city, state,aptno,
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
-                                                                    kitchen, bathroomshared, address, rent, amenities,images,gender,houseRules)
+                                                                    kitchen, address, rent, amenities,images,gender,houseRules,lyfly,agreementType)
                                                                      VALUES
                                                                 (:ownerid,:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
-                                                                :pNoBathrooms,:pKitchenAvailable,:pBathroomShared,:pAddress,
-                                                                :pRent,:amenities,:images,:pGender,:hRules)"
+                                                                :pNoBathrooms,:pKitchenAvailable,:pAddress,
+                                                                :pRent,:amenities,:images,:pGender,:hRules,:pLyfly,:pAgreement)"
                 );
                 $query->execute($data);
                 return $db->lastInsertId();
@@ -119,15 +118,16 @@ class admin_model extends Model
     public function addPropToMainTable($data){
         $db=$this->getDb();
         if(isset($db) && isset($data)) {
-        var_dump($data);
+//            $l=$data[":lyfly"];
+            var_dump($data);
             try {
                 $query = $db->prepare("INSERT INTO Properties( ownerid,title, description, city, state,aptno,
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
-                                                                    kitchen, bathroomshared, address, rent, amenities,utilities,agreementType,dateAdded,gender,houseRules,images,admin)
+                                                                    kitchen, address, rent, amenities,utilities,agreementType,dateAdded,gender,houseRules,images,admin,lyfly)
                                                                      VALUES
                                                                 (:ownerid,:title, :description, :city, :state,:aptno,
                                                                     :proptype, :sharingtype, :guests, :bedrooms, :bathrooms,
-                                                                    :kitchen, :bathroomshared, :address, :rent, :amenities,:utilities,:agreementType,:dateAdded,:gender,:houseRules,:images, :admin)"
+                                                                    :kitchen, :address, :rent, :amenities,:utilities,:agreementType,:dateAdded,:gender,:houseRules,:images, :admin,:lyfly)"
                 );
                 $query->execute($data);
                 $lastid = $db->lastInsertId();

@@ -61,9 +61,13 @@ if(isset($this->view_data["wishlisted"]))
             <!--            Description box-->
             <div class="afterline rel" >
                 <p class="midsize headprop" >Description</p>
-                <p class="parasize" id="propDesc"><?php echo   $propdata["description"] ?>
-                </p>
-                <div class="rowflex" id="showDesc"><input type="button" value="Continue" onclick="showFull()"></div>
+                <?php if($admin ==false):?>
+                    <p class="parasize" id="propDesc"><?php echo   $propdata["description"] ?></p>
+                    <div class="rowflex" id="showDesc"><input type="button" value="Continue" onclick="showFull()"></div>
+                <?php else: ?>
+                    <p class="parasize" id="propDesc" style="max-height:max-content !important"><?php echo   $propdata["description"] ?></p>
+
+                <?php endif ?>
             </div>
 
             <div class="afterline" id="amenities-div">

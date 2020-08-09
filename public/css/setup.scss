@@ -7,6 +7,7 @@ body{
     display: flex;
     flex-flow: column;
     max-height: 100vh;
+    overflow-x: hidden;
 }
 nav{
     position: relative ;
@@ -76,11 +77,11 @@ option[disabled]{
 #setup-box-content{
     overflow-y: scroll;
     position: relative;
+
     flex: 1;
 }
 .setup-footer{
-    margin-top: auto;
-    padding: 1rem 0;
+    padding: 2rem 0;
 }
 .setup-fader{
    display: none;

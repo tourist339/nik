@@ -62,7 +62,7 @@ class admin_controller extends Controller
         if(isset($_GET["loc_name"])){
                 $cityname=$_GET["loc_name"];
             }
-            $props=$this->model->getUnapproveProps($cityname,["id","ownerid","title","city","address","state"]);
+            $props=$this->model->getUnapproveProps($cityname,["id","ownerid","title","city","address","state","lyfly"]);
             if(empty($props)){
                 echo "No property found";
             }else{

@@ -35,31 +35,56 @@ class host_controller extends Controller
         //handling ajax request from setup.phtml page for creating property\
         if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) == 'xmlhttprequest') {
 
-            if(!empty($_FILES["images"]["name"][0])){
-                if(SETUP_DEBUG_MODE) {
-                    if (count($_FILES["images"]["name"]) < 5) {
-                        new e404_controller("Must upload atleast 5 images");
-                    }
-                }
-            }else{
-                new e404_controller("No image uploaded");
-            }
+            $lyfly=false;
 
-            $keys = [":pType", ":pSharingType", ":pNoGuests", ":pNoBeds", ":pNoBathrooms", ":pBathroomShared", ":pKitchenAvailable", ":pTitle"
-                , ":pDesc", ":pAddress", ":pApt", ":pCity", ":pState", ":pRent", ":amenities",":pGender",":hRules"];
+            //all the possible inputs to be submitted from setup.phtml
+            $keys = [":pType", ":pSharingType", ":pNoGuests", ":pNoBeds", ":pNoBathrooms",
+                ":pKitchenAvailable", ":pTitle", ":pDesc", ":pAddress", ":pApt", ":pCity", ":pState", ":pRent",
+                ":amenities",":pGender",":hRules",":pAgreement",":pLyfly"];
 
             //required inputs that have to be submitted via form
-            $required = ["pNoGuests", "pNoBathrooms", "pAddress", "pCity", "pState","pGender", "pRent"];
+            $required = ["pNoGuests", "pNoBathrooms", "pAddress", "pCity", "pState","pGender"];
+
+            //check if not in dev stage
             if (SETUP_DEBUG_MODE) {
+
+                if(isset($_POST["pLyfly"]) && !strlen($_POST["pLyfly"])==0){
+
+                    //if property is not managed by lyfly add rent , agreement type and images to required check
+                    // change $lyfly to true otherwise
+                    if($_POST["pLyfly"]=="0"){
+                        array_push($required,"pAgreement");
+                        array_push($required,"pRent");
+
+                        //check so that image number is more than or equal to 5
+                        if(!empty($_FILES["images"]["name"][0])){
+                            if(SETUP_DEBUG_MODE) {
+                                if (count($_FILES["images"]["name"]) < 5) {
+                                    new e404_controller("Must upload atleast 5 images");
+                                }
+                            }
+                        }else{
+                            new e404_controller("No image uploaded");
+                        }
+                    }else{
+                        $lyfly=true;
+                    }
+                }else{
+                    echo empty($_POST["pLyfly"]);
+                    new e404_controller("<br>Invalid Data lylf");
+                }
                 foreach ($required as $req) {
                     if (!isset($_POST[$req]) || empty($_POST[$req]) )
                         new e404_controller("Invalid Data ".$req);
                 }
             }
+
+
+            //get data from $_POST array with indexes taken from the $keys
             $values = array();
             if (isset($_POST)) {
                 foreach ($keys as $key) {
-                    if (!isset($_POST[ltrim($key, ":")]) || empty($_POST[ltrim($key, ":")])) {
+                    if (!isset($_POST[ltrim($key, ":")]) ) {
                         $val = null;
                     } else {
                         $posted_data = $_POST[ltrim($key, ":")];
@@ -77,11 +102,19 @@ class host_controller extends Controller
                 session_start();
 
                 if (isset($_SESSION["id"])) {
-                    $imgs=$this->upload_images($_FILES["images"],$_SESSION["id"]);
-                    $imgs_string=implode(",",$imgs);
 
                     array_push($keys, ":images");
-                    array_push($values, $imgs_string);
+
+                    //if prop is not managed by lyfly only then upload user images
+                    if(!$lyfly) {
+                        $imgs = $this->upload_images($_FILES["images"], $_SESSION["id"]);
+                        $imgs_string = implode(",", $imgs);
+                        array_push($values, $imgs_string);
+                    }else{
+                        array_push($values, "");
+
+                    }
+
 
                     array_push($keys, ":ownerid");
                     array_push($values, $_SESSION["id"]);
