@@ -220,7 +220,7 @@ input[type=submit] {
   width: 80%;
   height: 1px;
   position: absolute;
-  margin-top: 25px;
+  bottom: -1rem;
   background: #717171;
 }
 

@@ -2,7 +2,13 @@
 $allprops=$this->view_data["data"];
 
 $location=$this->view_data["location"];
+
 ?>
+<script>
+    <?php
+    echo "var props = ".json_encode($allprops) . ";\n";
+    ?>
+</script>
 <div class="rowflex" id="listprops-heading-bar">
     <button class="fontAwesomeBTN" id="show-prop-filters"><i class="fa fa-bars" ></i></button>
     <h1 class="heading">Properties in <?php echo $location?></h1>
@@ -11,13 +17,14 @@ $location=$this->view_data["location"];
 <div class="rowflex">
 
 <!--    Div for filter box-->
+    <div id="toInsert"></div>
     <div id="filter-searched-props" class="animationMenu" status="close">
 <!--        Div for padding-->
-        <div>
+        <form >
             <h1>Filter</h1>
             <div id="priceFilter">
                 <h3>Price</h3>
-                <input type="range">
+                <input type="number" name="minPrice">
             </div>
             <div id="ratingFilter">
                 <h3>Rating</h3>
@@ -32,9 +39,8 @@ $location=$this->view_data["location"];
                 <label for="male">Female</label><br>
                 <input type="radio" name="gender" value="Other" id="other">
                 <label for="male">Other</label><br>
-
             </div>
-        </div>
+        </form>
     </div>
 
 <!--    Div showing all properties in a grid-->
@@ -48,73 +54,14 @@ $location=$this->view_data["location"];
                 $wishlisted=$prop["wishlisted"];
             }
         ?>
-    <!--            echo "<a href='/prop/v/".$prop_title ."/".$prop["id"]."'>".$prop["title"]."</a><br>";-->
-                <div class="listprops-item" src=<?php echo $prop_title; ?>>
-                    <div class="img-overlay initial">
-
-<!--                        Description button with bars at top left-->
-                        <button class="fontAwesomeBTN show-desc-btn" ><i class="fa fa-bars"></i> </button>
-
-<!--                        Prev img nav button-->
-                        <button class="fontAwesomeBTN img-prev"><i class="fa fa-chevron-left "></i></button>
-
-<!--                        Next img nav button-->
-
-                        <button class="fontAwesomeBTN img-next" yo="fds"><i class="fa fa-chevron-right"></i></button>
-
-<!--                        Add to wishlist button-->
-                        <button class="add-to-wishlist-btn" wishlist="<?php echo $wishlisted ?>" for="<?php echo $prop['id'];?>"><i class="fa fa-heart"></i> </button>
-
-<!--                       Area to show description , initially hidden-->
-                        <div class="show-desc-area" style="display: none">
-                            <p><?php echo $prop["description"] ?></p>
-                        </div>
-
-
-
-                        <?php foreach ($images as $img): ?>
-                        <img num="<?php echo $i?>" src="<?php echo "/uploads/".$img ?>">
-                        <?php $i++; endforeach; ?>
-                        <input type="hidden" class="numOfImgs" value="<?php echo count($images) ?>">
-                        <div class="bottom-circles">
-                            <?php for($i=0;$i<count($images);$i++): ?>
-                                <button class="fontAwesomeBTN img-circles"><i class="fa fa-circle"></i></button>
-
-                            <?php endfor;?>
-
-                        </div>
-
-                    </div>
-                    <div id="prop-title-box" >
-                        <p id="prop-title"><?php echo $prop["title"] ?></p>
-                        <p id="prop-address"><?php echo $prop["address"] ." , " .$prop["city"] ?></p>
-                    </div>
-                    <div>
-                    <div class="star-rating-box">
-                        <div class="back-stars">
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                        <i class="fa fa-star"></i>
-                            <div class="front-stars" stars="4.1" total="5">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                        <p>4.1(30)</p>
-                    </div>
-                    </div>
-                </div>
+                <?php require TEMPLATE."listing".DIRECTORY_SEPARATOR."single-listing.phtml"?>
          <?php endforeach;?>
 
     </div>
 </div>
 <script>
     $(document).ready(function() {
+
         $(".listprops-item").click(function () {
             // check if img prev and next buttons are not clicked
             var check1=$(this).find(".img-next").prop("disabled");

@@ -47,11 +47,17 @@ if(isset($this->view_data["wishlisted"]))
 
         <div id="left-prop-content">
             <!--            Sharing type heading-->
-            <div class="afterline">
+            <div class="afterline rowflex">
+                <div>
                 <p class="midsize headprop" id="sharingType">Entire place</p>
                 <div class="parasize rowflex" id="roomsInfo">
                     <span class="prop-icon">🛏️</span><p>bedrooms: <?php echo $propdata["bedrooms"] ?>  |&nbsp;</p>
                         <span class="prop-icon">🛀</span> <p>bathrooms: <?php echo $propdata["bathrooms"] ?></p>
+
+                </div>
+                </div>
+                <div style="margin-left: auto">
+                    <p class="midsize headprop" >&#8377; <?php echo$propdata["rent"] ?></p>
 
                 </div>
             </div>

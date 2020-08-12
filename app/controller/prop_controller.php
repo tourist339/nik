@@ -13,7 +13,6 @@ class prop_controller extends Controller
 
             $location=$this->removeSPandTrim($location);
             $search=str_replace('-',' ',$search);
-            var_dump($search);
             $search=$this->removeSPandTrim($search);
             $data = $this->model->getAllProps(["id","title", "description", "rent", "address","city","images"], ["location"=>$location,"search"=>$search]);
             $usermodel=new user_model();

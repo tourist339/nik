@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     $("#show-prop-filters").on("click",function () {
