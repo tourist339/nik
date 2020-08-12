@@ -1,203 +1,137 @@
 <?php
 $propdata=$this->view_data["data"][0];
 $ownerdata=$this->view_data["ownerdata"][0];
+$images=explode(",",$propdata["images"]);
+$amenities=explode(",",$propdata["amenities"]);
+if(isset($propdata["houseRules"]))
+    $houserules=explode(",",$propdata["houseRules"]);
 
+$admin=false;
+if(isset($this->view_data["admin"])) {
+    $redirect_city = $this->view_data["redirect_city"];
+    $admin = true;
+}
+
+if(isset($this->view_data["wishlisted"]))
+    $wishlisted=$this->view_data["wishlisted"];
 ?>
-<h1 class="prop-title"><?php echo ucfirst($propdata["title"]);?></h1>
 
-<div id="images-box">
-    <div class="rowflex rel">
-        <div id="first-img" class="imgs nomb"></div>
-        <div class="colflex">
-            <div class="rowflex">
-                <div id="second-img" class="imgs"></div>
-                <div id="third-img" class="imgs"></div>
+<div id="prop-navbar" class="hidden midsize">
+    <a  for="#images-box">Photos</a>
+    <a for="#amenities-div">Amenities</a>
+    <a for="#houserules-div">House rules</a>
+</div>
+<div id="prop-main-box">
+    <div id="prop-heading" class="rowflex">
+        <h1 class="prop-title heading"><?php echo ucfirst($propdata["title"]);?></h1>
+        <?php if($admin ==false):?>
+            <button class="add-to-wishlist-btn" wishlist="<?php echo $wishlisted ?>" for="<?php echo $propdata['id'];?>"><i class="fa fa-heart"></i> </button>
+        <?php else:?>
+        <form method="post" action="/<?php echo ADMIN_URL ?>/approveProp" id="approve-prop-form">
+            <input type="hidden" value="<?php echo $redirect_city ?>" name="redirect_city">
+            <input type="hidden" value="<?php echo $propdata['id']; ?>" name="prop_id">
+            <input type="submit" id="approve-prop-btn" value="Approve Property" for="<?php echo $propdata['id']; ?>">
+        </form>
+        <?php endif ?>
+    </div>
+    <div id="images-box">
+        <div class="first-img"><img src='<?php echo "/uploads/".$images[0] ?>'></div>
+        <div class="second-img"><img src='<?php echo "/uploads/".$images[1] ?>'></div>
+        <div class="third-img"><img src='<?php echo "/uploads/".$images[2] ?>'></div>
+        <div class="fourth-img"><img src='<?php echo "/uploads/".$images[3] ?>'></div>
+        <div class="fifth-img"><img src='<?php echo "/uploads/".$images[4] ?>'></div>
+        <input type="button" id="imgs-showall" value="Show All">
+    </div>
+
+    <div class="rowflex" id="prop-content">
+
+        <div id="left-prop-content">
+            <!--            Sharing type heading-->
+            <div class="afterline rowflex">
+                <div>
+                <p class="midsize headprop" id="sharingType">Entire place</p>
+                <div class="parasize rowflex" id="roomsInfo">
+                    <span class="prop-icon">🛏️</span><p>bedrooms: <?php echo $propdata["bedrooms"] ?>  |&nbsp;</p>
+                        <span class="prop-icon">🛀</span> <p>bathrooms: <?php echo $propdata["bathrooms"] ?></p>
+
+                </div>
+                </div>
+                <div style="margin-left: auto">
+                    <p class="midsize headprop" >&#8377; <?php echo$propdata["rent"] ?></p>
+
+                </div>
             </div>
-            <div class="rowflex">
-                <div id="fourth-img" class="imgs nomb"></div>
-                <div id="fifth-img" class="imgs nomb"></div>
+
+
+
+            <!--            Description box-->
+            <div class="afterline rel" >
+                <p class="midsize headprop" >Description</p>
+                <?php if($admin ==false):?>
+                    <p class="parasize" id="propDesc"><?php echo   $propdata["description"] ?></p>
+                    <div class="rowflex" id="showDesc"><input type="button" value="Continue" onclick="showFull()"></div>
+                <?php else: ?>
+                    <p class="parasize" id="propDesc" style="max-height:max-content !important"><?php echo   $propdata["description"] ?></p>
+                <?php endif ?>
+            </div>
+
+            <div class="afterline" id="amenities-div">
+                <p class="midsize headprop">Amenities</p>
+                <div class="" id="amenities-box">
+                    <?php foreach ($amenities as $amenity): ?>
+                    <p><?php echo $amenity?></p>
+                    <?php endforeach ?>
+                </div>
+            </div>
+
+            <div id="houserules-div">
+                <p class="midsize headprop">House Rules</p>
+                <div class="" id="houserules-box">
+                    <?php foreach ($houserules as $hrule):
+                        $allowed=substr($hrule,-3);
+                        $hrule=substr($hrule,0,-3);
+                        if($allowed=="Noo"){
+                            $allowed="<i class='fa fa-times'></i>";
+                        }elseif ($allowed=="Yes"){
+                            $allowed="<i class='fa fa-check'></i>";
+
+                        }
+                        ?>
+                        <p><?php echo $hrule ." ".$allowed?></p>
+                    <?php endforeach ?>
+                </div>
+            </div>
+
+
+        </div>
+
+
+
+        <div id="right-prop-content">
+            <div id="address-box"><div id="map"></div><p><?php
+                    echo getProperAddress($propdata["address"],$propdata["city"],$propdata["state"]) ?></p></div>
+            <div class="rel">
+            <div id="contact-box" class="raised-box">
+               <p> <?php echo $ownerdata["first_name"]." ".$ownerdata["last_name"]?>
+                <br>
+                <?php echo $ownerdata["phone_num"]?>
+                <br>
+                <?php echo $ownerdata["email"]?>
+               </p>
+                <?php if($admin ==false):?>
+                <input type="button" id="book-now-btn" value="Book Now">
+                <?php endif;?>
+            </div>
             </div>
         </div>
 
     </div>
-
-    <input type="button" id="imgs-showall" value="Show All">
 </div>
 
-<div class="rowflex" id="prop-content">
-
-
-    <div id="left-prop-content">
-        <!--            Sharing type heading-->
-        <div class="afterline">
-            <p class="midsize headprop" id="sharingType">Entire place</p>
-            <div class="parasize rowflex" id="roomsInfo">
-                <span class="prop-icon">🛏️</span><p>bedrooms: <?php echo $propdata["bedrooms"] ?>  |&nbsp;</p>
-                    <span class="prop-icon">🛀</span> <p>bathrooms: <?php echo $propdata["bathrooms"] ?></p>
-
-            </div>
-        </div>
-
-
-
-        <!--            Description box-->
-        <div class="afterline rel" >
-            <p class="midsize headprop" >Description</p>
-            <p class="parasize" id="propDesc"><?php echo   $propdata["description"] ?>
-            </p>
-            <div class="rowflex" id="showDesc"><input type="button" value="Continue" onclick="showFull()"></div>
-        </div>
-
-
-
-        <!--                Amenities and other info box-->
-        <div class="rowflex" id="prop-info-box">
-            <div id="prop-overview" class="prop-info">
-                <div class="afterline"><p class="prop-heading midsize">Overview</p></div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">&#127968;</span>
-                    <div>
-                        <p class="parasize">Propery Type</p>
-                        <p class="smparasize"> Apartment</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">🛏️</span>
-                    <div>
-                        <p class="parasize">Bedrooms</p>
-                        <p class="smparasize"> 1</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">🛀</span>
-                    <div>
-                        <p class="parasize">Bathrooms</p>
-                        <p class="smparasize"> 1</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">&#127859;</span>
-                    <div>
-                        <p class="parasize">Kitchen</p>
-                        <p class="smparasize"> Yes</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">&#128467;</span>
-                    <div>
-                        <p class="parasize">Agreement Period</p>
-                        <p class="smparasize"> 1 year</p>
-                    </div>
-                </div>
-
-            </div>
-            <div id="prop-rules" class="prop-info">
-                <div class="afterline"><p class="prop-heading midsize">Unit</p></div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">&#127968;</span>
-                    <div>
-                        <p class="parasize">Pet Friendly</p>
-                        <p class="smparasize"> No</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">🛏️</span>
-                    <div>
-                        <p class="parasize">Parties Allowed</p>
-                        <p class="smparasize"> Yes</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">🛀</span>
-                    <div>
-                        <p class="parasize">Smoking allowed</p>
-                        <p class="smparasize"> No</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">&#127859;</span>
-                    <div>
-                        <p class="parasize">Air Conditioner</p>
-                        <p class="smparasize"> Yes</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">&#128467;</span>
-                    <div>
-                        <p class="parasize">WIFI</p>
-                        <p class="smparasize"> Yes</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">&#128467;</span>
-                    <div>
-                        <p class="parasize">TV</p>
-                        <p class="smparasize"> Yes</p>
-                    </div>
-                </div>
-            </div>
-            <div id="prop-amenities" class="prop-info">
-                <div class="afterline"><p class="prop-heading midsize">Building</p></div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">&#127968;</span>
-                    <div>
-                        <p class="parasize">Propery Type</p>
-                        <p class="smparasize"> Apartment</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">🛏️</span>
-                    <div>
-                        <p class="parasize">Bedrooms</p>
-                        <p class="smparasize"> 1</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">🛀</span>
-                    <div>
-                        <p class="parasize">Bathrooms</p>
-                        <p class="smparasize"> 1</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">&#127859;</span>
-                    <div>
-                        <p class="parasize">Kitchen</p>
-                        <p class="smparasize"> Yes</p>
-                    </div>
-                </div>
-                <div class="prop-unit rowflex">
-                    <span class="prop-icon">&#128467;</span>
-                    <div>
-                        <p class="parasize">Agreement Period</p>
-                        <p class="smparasize"> 1 year</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-
-
-    <div id="right-prop-content">
-        <div id="address-box"><div id="map"></div><p><?php
-                echo getProperAddress($propdata["address"],$propdata["city"],$propdata["state"]) ?></p></div>
-        <div id="contact-box">
-           <p> <?php echo $ownerdata["first_name"]." ".$ownerdata["last_name"]?>
-            <br>
-            <?php echo $ownerdata["phone_num"]?>
-            <br>
-            <?php echo $ownerdata["email"]?>
-           </p>
-
-        </div>
-    </div>
-
-</div>
-
-
-
+<?php
+    if(!$admin)
+    include TEMPLATE."prop".DIRECTORY_SEPARATOR."booking_modal.html"
+?>
 
 
 <!--Map Loading Scripts-->
@@ -242,30 +176,132 @@ $ownerdata=$this->view_data["ownerdata"][0];
 
 
 <!--Styling Scripts-->
-<script>
-    //Sticky Contact Info
-    $(document).ready(function(){
-        if($("#propDesc")[0].clientHeight < $("#propDesc")[0].scrollHeight){
 
-        }else{
-            $("#showDesc").css("display","none");
 
-        }
-        var contactTop=$("#contact-box").offset().top;
-        $(window).scroll(function(){
-            var windowTop =$(window).scrollTop();
-            if(windowTop+10>=contactTop){
-                $("#contact-box").addClass("sticky");
-                $("#contact-box").width($("#right-prop-content").width());
-            }else{
-                $("#contact-box").removeClass("sticky");
-                $("#contact-box").width("100%");
 
-            }
-        })});
-
-    function showFull(){
-        $("#propDesc").css("height","auto");
-        $("#showDesc").css("display","none");
-    }
-</script>
+<!--                Amenities and other info box-->
+<!--        <div class="rowflex" id="prop-info-box">-->
+<!--            <div id="prop-overview" class="prop-info">-->
+<!--                <div class="afterline"><p class="prop-heading midsize">Overview</p></div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">&#127968;</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Propery Type</p>-->
+<!--                        <p class="smparasize"> Apartment</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">🛏️</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Bedrooms</p>-->
+<!--                        <p class="smparasize"> 1</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">🛀</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Bathrooms</p>-->
+<!--                        <p class="smparasize"> 1</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">&#127859;</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Kitchen</p>-->
+<!--                        <p class="smparasize"> Yes</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">&#128467;</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Agreement Period</p>-->
+<!--                        <p class="smparasize"> 1 year</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!---->
+<!--            </div>-->
+<!--            <div id="prop-rules" class="prop-info">-->
+<!--                <div class="afterline"><p class="prop-heading midsize">Unit</p></div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">&#127968;</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Pet Friendly</p>-->
+<!--                        <p class="smparasize"> No</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">🛏️</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Parties Allowed</p>-->
+<!--                        <p class="smparasize"> Yes</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">🛀</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Smoking allowed</p>-->
+<!--                        <p class="smparasize"> No</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">&#127859;</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Air Conditioner</p>-->
+<!--                        <p class="smparasize"> Yes</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">&#128467;</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">WIFI</p>-->
+<!--                        <p class="smparasize"> Yes</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">&#128467;</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">TV</p>-->
+<!--                        <p class="smparasize"> Yes</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div id="prop-amenities" class="prop-info">-->
+<!--                <div class="afterline"><p class="prop-heading midsize">Building</p></div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">&#127968;</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Propery Type</p>-->
+<!--                        <p class="smparasize"> Apartment</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">🛏️</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Bedrooms</p>-->
+<!--                        <p class="smparasize"> 1</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">🛀</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Bathrooms</p>-->
+<!--                        <p class="smparasize"> 1</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">&#127859;</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Kitchen</p>-->
+<!--                        <p class="smparasize"> Yes</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="prop-unit rowflex">-->
+<!--                    <span class="prop-icon">&#128467;</span>-->
+<!--                    <div>-->
+<!--                        <p class="parasize">Agreement Period</p>-->
+<!--                        <p class="smparasize"> 1 year</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!---->
+<!--            </div>-->
+<!--        </div>-->

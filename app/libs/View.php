@@ -12,12 +12,20 @@ class View
         $this->view_data=$view_data;
         $this->view_type=$view_type;
     }
-    public function render($inc_header=true,$inc_footer=true){
+    public function render($inc_header=HEADER_NORMAL,$inc_footer=FOOTER_NORMAL){
 
 
         if($this->view_type=="file") {
-            if($inc_header)
-                require VIEW.'header.phtml';
+            switch ($inc_header){
+                case HEADER_NORMAL:
+                    require VIEW.'header.phtml';
+                    break;
+                case HEADER_SCRIPTS_AND_CSS:
+                    require VIEW.'headeronlyscripts.phtml';
+                    break;
+                case HEADER_NONE:
+                    break;
+            }
             $full_path = VIEW . $this->view_path . ".phtml";
             $this->require_path($full_path);
             if($inc_footer)

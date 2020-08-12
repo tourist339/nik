@@ -1,207 +1,274 @@
-#images-box{
-    width: 100%;
+.midsize {
+  font-size: 1.8rem;
 }
 
-body{   
-    padding: 0 10vw;
-    background-color: white;
-}
-.prop-title{
-    font-size: 2.5rem;
-    font-family: reg;
-}
-#images-box{
-    position: relative;
-}
-#images-box>div{
-
-    width: 100%;
-    height: 26.67vw; /*this would be 100-(body padding *2) / 3 */
-        overflow: hidden;
-
-}
-.imgs{
-    margin: 0.2vw;
-    background-color: whitesmoke;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    border-radius: 10px;
-    width: 100%;
-    flex: 1 1 0px;
-}
-#images-box .rowflex,.colflex{
-    flex: 1 1 0px;
-    
-}
-#imgs-showall{
-    position: absolute;
-    right: 3vw;
-    bottom: 2vw;
-    font-size: 1.3vw;
-    margin: 1vw;
-    border-radius: 10px;
-    background-color: orange;
-    border-color: orange;
-    padding: 7px;
-    color: white;
-    outline: none;
+.bodysize {
+  font-size: 1.2rem;
 }
 
-#imgs-showall:hover{
-    cursor: pointer;
-    background-color: #FF8C00;
-    outline: none;
-    
+.afterline:after {
+  width: 100%;
+  margin-top: 2rem;
 }
 
-#first-img{
-    background-image: url(../imgs/img2.jpeg);
-}
-#second-img{
-    background-image: url(../imgs/img1.jpeg);
+html {
+  padding: 0 10vw;
 }
 
-#third-img{
-    background-image: url(../imgs/img4.jpeg);
-    
-}
-#fourth-img{
-    background-image: url(../imgs/img5.jpeg);
-    
-}
-#fifth-img{
-    background-image: url(../imgs/img6.jpeg);
-    
+body {
+  background-color: white;
+  max-width: 100%;
 }
 
-#prop-content{
-    margin: 3vw 0;
-    position: relative;
-
+nav {
+  background-color: white;
+  position: relative;
+  top: 0;
 }
 
-#left-prop-content{
-    margin: 0vw 0.5vw 0vw 0.2vw;
-    flex: 2.5 1 0px;
-    height: 100vw;
+#prop-navbar {
+  position: fixed;
+  top: 0;
+  background-color: #f4f4f4;
+  width: 80vw;
+  z-index: 10;
+  border-radius: 5px;
+  justify-content: center;
 }
-#left-prop-content>div:first-child{
-    margin: 0vw 0 3vw 0;
+#prop-navbar a {
+  text-decoration: none;
+  color: #222222;
+  margin: 0 1em;
+  font-size: 1.2rem;
+  padding: 1.2em 0;
+  display: inline-block;
+  border-bottom: 2px solid #f4f4f4;
 }
-#left-prop-content>div:first-child p{
+#prop-navbar a:hover {
+  cursor: pointer;
+  border-bottom: 2px solid black;
+}
+#prop-navbar a:first-child {
+  margin: 0em !important;
+}
+
+#left-prop-content > div {
+  margin-top: 4rem;
+}
+
+#prop-main-box {
+  /*/margin-top: 5vw;*/
+}
+
+#prop-heading {
+  margin-top: 0.4rem;
+  margin-bottom: 0.4rem;
+}
+#prop-heading h1 {
+  font-size: 2.4rem;
+}
+#prop-heading button {
+  margin-left: auto;
+  font-size: 2.4rem;
+  background-color: rgba(1, 1, 1, 0);
+  border: none;
+  outline: 0;
+}
+#prop-heading input {
+  margin: auto 0 auto auto;
+  font-size: 1.2rem;
+  height: 2.4rem;
+  padding: 0 5px 0 5px;
+  border: 1px solid black;
+  border-radius: 10px;
+  line-height: 10px;
+  background-color: aliceblue;
+  outline: 0;
+}
+#prop-heading input:hover {
+  cursor: pointer;
+  background-color: lightblue;
+}
+
+.visit-time, #images-box #imgs-showall {
+  font-size: 1.3vw;
+  border-radius: 10px;
+  background-color: orange;
+  border-color: orange;
+  padding: 7px;
+  color: white;
+  outline: none;
+}
+.visit-time:hover, #images-box #imgs-showall:hover {
+  cursor: pointer;
+  background-color: #FF8C00;
+  outline: none;
+}
+
+#images-box {
+  width: 100%;
+  display: grid;
+  position: relative;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, minmax(auto, calc( 10vh + 10vw )));
+  grid-gap: 0.3rem;
+}
+#images-box div:nth-child(1) {
+  grid-column: 1/span 2;
+  grid-row: 1/span 2;
+}
+#images-box div:nth-child(2) {
+  grid-column-start: 3;
+}
+#images-box img {
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+}
+#images-box #imgs-showall {
+  position: absolute;
+  right: 3vw;
+  bottom: 2vw;
+  margin: 1vw;
+}
+
+.imgs {
+  margin: 0.2vw;
+  background-color: whitesmoke;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-radius: 10px;
+  width: 100%;
+  flex: 1 1 0px;
+}
+
+#prop-content {
+  margin: 3vw 0;
+  position: relative;
+}
+
+#left-prop-content {
+  margin: 0vw 2vw 0vw 0.2vw;
+  flex: 2.5 1 0px;
+  height: 100vw;
+}
+
+#left-prop-content > div:first-child {
+  margin: 0vw 0 3vw 0;
+}
+
+#left-prop-content > div:first-child p {
   margin: 0;
 }
-#right-prop-content{
-    margin: 0vw 0.2vw 0vw 0.5vw;
-    position: relative;
-    flex: 1 1 0px;  
+
+#right-prop-content {
+  margin: 0vw 0.2vw 0vw 2vw;
+  position: relative;
+  flex: 1 1 0px;
 }
 
-
-.sticky{
-    top: 10px;
-    
-}
-#propDesc{
-    height: auto;
-    max-height: 20vw;
-    overflow: hidden;
-    position: relative;
-    z-index: 0;
-    /* can use some break word property here*/
-}
-#showDesc{
-    position: absolute;
-    bottom: calc( -2.3vw - 12px);
-    width: 100%;
-    justify-content: center;
-    background-color: rgba(255,255,255,0.7);
-    z-index: 100;
-}
-#showDesc input{
-    margin: 1vw;
-    font-size: 1.3vw;
-    border-radius: 10px;
-    background-color: orange;
-    border-color: orange;
-    padding: 6px;
-    color: white;
-    outline: none;
-}
-#showDesc input:hover{
-    cursor: pointer;
-    background-color: #FF8C00;
-    outline: none;
-    
+.sticky {
+  top: 10px;
 }
 
-#prop-info-box{
-    min-height: 30vw;
-    margin-top: 10vw;
-    width: 100%;
+#propDesc {
+  height: auto;
+  max-height: 20vw;
+  overflow: hidden;
+  position: relative;
+  white-space: pre-line;
+  z-index: 0;
+  margin-bottom: 0;
+  /* can use some break word property here */
 }
 
-.prop-info{
-    background-color:  #FBFBF8;
-    margin-right: 0.5vw;
-    flex: 1 1 0px;
-    border-radius: 14px;
-    box-shadow: 2px 2px #dcdcdc;
-}
-.prop-unit{
-    margin: 1.6vw 1vw 1.6vw 1vw;
-}
-.prop-unit p:first-child{
-    margin: 0;
-    font-size: 1.05vw;
-}
-.prop-unit p:nth-child(2){
-    margin: 4px 0px;
-    font-size: 0.85vw;
-    
-}
-.prop-icon{
-    margin-right: 0.6vw;
-    font-size: 1.1vw;
-    vertical-align: middle;
-}
-.prop-heading{
-    font-size: 1.3vw;
-    margin: 1vw 1vw 0 1vw;
-}
-.prop-info .afterline:after{
-    margin-top: 0 !important;
-    margin-left: 1vw;
-    width: 60%;
+#showDesc {
+  position: absolute;
+  bottom: calc( -2.3vw - 12px);
+  width: 100%;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  z-index: 1;
 }
 
-#map{
-    width: 100%;
-    height: 17vw;
-    border-radius: 10px;
-    /*(100vw - (body padding *2))/3.5 -4 can include the left right prop margin too*/
+#showDesc input {
+  margin: 1vw;
+  font-size: 1.3vw;
+  border-radius: 10px;
+  background-color: orange;
+  border-color: orange;
+  padding: 6px;
+  color: white;
+  outline: none;
 }
 
-#address-box p{
-    background-color: #f4f4f4;
-    text-align: center;
-    padding: 0.9rem;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-    margin-top: 3px;
-    font-size: 1.2rem;
+#showDesc input:hover {
+  cursor: pointer;
+  background-color: #FF8C00;
+  outline: none;
 }
-#contact-box{
-    
-    max-width: 100%;
-    max-height: 20vw;
-    border-radius: 10px;
-    text-align: center;
-    vertical-align: middle;
-    font-size: 1.4vw;
-    background-color: lightblue;
+
+#amenities-box, #houserules-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-gap: 0 1.5rem;
 }
-#contact-box p{
-    padding: 2vw;
+#amenities-box p, #houserules-box p {
+  font-size: 1.2rem;
+  font-family: "Montserrat";
+  color: #222222;
+  font-weight: 400;
+  border-radius: 0.3em;
 }
+
+#houserules-box {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+#houserules-box p .fa-times {
+  color: red;
+}
+#houserules-box p .fa-check {
+  color: Orange;
+}
+
+#map {
+  width: 100%;
+  height: 17vw;
+  border-radius: 10px;
+  /*(100vw - (body padding *2))/3.5 -4 can include the left right prop margin too*/
+}
+
+#address-box p {
+  background-color: #f4f4f4;
+  text-align: center;
+  padding: 0.9rem;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  margin-top: 3px;
+  font-size: 1.2rem;
+}
+
+#contact-box {
+  max-width: 100%;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1.4vw;
+  background-color: lightblue;
+}
+#contact-box p {
+  padding: 2vw;
+}
+.visit-time {
+  background-color: white;
+  color: black;
+  border-color: white;
+  padding: 0.4em;
+  margin: 0.4em;
+}
+.visit-time:hover {
+  background-color: lightgray;
+}
+
+/*# sourceMappingURL=prop.css.map */

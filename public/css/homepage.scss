@@ -1,0 +1,142 @@
+
+
+
+.search-box{
+    background: url("/imgs/homepage-bg1.jpg");
+    background-size: cover;
+    height: 100%;
+    display: flex;
+
+    div{
+        width: 35vw;
+        margin: auto;
+        h1{
+            color: black;
+            font-family: 'Ubuntu', serif;
+            text-align: center;
+            letter-spacing: 0.1rem;
+            font-size: 25px;
+        }
+
+    }
+
+}
+
+#searchInpDiv{
+    display: flex;
+    justify-content: center;
+}
+
+
+
+.featured-props{
+    display: flex;
+    flex-direction: row;
+}
+.featured-props-f{
+    display: flex;
+    flex-direction: column;
+    
+}
+.featured-props-cont{
+    margin: 1.8vw 2vw 1.8vw 2vw;
+        padding: 4vw 2vw 2vw 2vw;
+        display: flex;
+    flex-direction: row;
+    background-color: rgba(127, 179, 213,0.01);
+}
+.common-h1{
+    font-family: reg;
+    color: #4D8DB3;
+        font-size: 2.5vw;
+
+}
+.featured-props-f h1{
+    
+    margin: 1vw 14vw 3vw 14vw;
+}
+
+.featured-props-s h1{
+    
+    margin: 3vw 7vw;
+    flex: 1 1 0px;
+}
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  border-radius: 5px;
+    
+  margin:1vw 1vw 1vw 1vw; 
+}
+
+
+.card:hover {
+  box-shadow: 0 16px 32px 0 rgba(0,0,0,0.2);
+}
+
+.featured-props-cont .card img {
+        height: 22vw;
+
+}
+
+.container {
+  padding: 2px 16px;
+}
+
+.searched-props-box{
+    display: flex;
+    flex-direction: row;
+    margin: 1vw 0vw;
+}
+.filter-searched-props{
+    flex: 20 1 0px;
+    margin: 0vw 1vw;
+}
+.searched-props-list{
+    margin: 0vw 1vw;
+    
+    flex: 80 1 0px;  
+}
+
+.upcoming-exp{
+    padding: 2vw;
+    margin: 2vw; 
+}
+.upcoming-exp h1{
+    margin: 2vw 1vw; 
+}
+.upcoming-exp-cont{
+    display: flex;
+    flex-direction: row;
+}
+.upcoming-exp-f{
+
+    flex: 1 1 0px;
+}
+.upcoming-exp-f .card {
+    height: 44vw;
+}
+.upcoming-exp-sf .card {
+    height: 21vw;
+}
+.upcoming-exp-ss .card {
+    height: 21vw;
+}
+.upcoming-exp-f .card img{
+    height: 40vw;
+}
+.upcoming-exp-sf .card img{
+    height: 17vw;
+}
+.upcoming-exp-ss .card img{
+    height: 17vw;
+}
+.upcoming-exp-s{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0px;
+}
+.upcoming-exp-sf{
+    display: flex;
+    flex-direction: row;
+}

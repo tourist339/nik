@@ -1,0 +1,152 @@
+$titleFontSize:25px;
+$focusFontSize:28px;
+.img-overlay{
+  overflow: hidden;
+  width: 100%;
+  height: 65%;
+  position: relative;
+
+
+  img{
+    z-index: -10;
+    width: 100%;
+    height: 100%;
+  }
+  .nextImg{
+    position: absolute;
+    left: 100%;
+    top: 0;
+  }
+  .prevImg{
+    position: absolute;
+    left: -100%;
+    top: 0;
+  }
+  .active{
+    z-index: 0;
+  }
+  .back{
+    animation: goback 0.6s forwards;
+  }
+  .front{
+
+    animation: gofront 0.6s forwards;
+
+  }
+  .stay{
+    position: absolute;
+    left:0;
+    top: 0;
+  }
+
+  @keyframes goback {
+    100%{
+      transform: translateX(-100%);
+    }
+  }
+  @keyframes gofront {
+    100%{
+      transform: translateX(100%);
+    }
+  }
+  button:not(.add-to-wishlist-btn):not(.img-circles){
+    position: absolute;
+    font-size: $titleFontSize;
+    background-color: grey;
+    border-radius: 50%;
+    z-index: 2;
+    &:hover{
+      i{
+        color: lightgray;
+
+      }
+    }
+  }
+
+  .img-prev{
+    top: 50%;
+    left: 2px;
+  }
+  .img-next{
+    top: 50%;
+    right: 2px;
+  }
+  .add-to-wishlist-btn{
+    position: absolute;
+    font-size: $titleFontSize;
+    z-index: 2;
+    right: 2px;
+    top: 2px;
+  }
+  .add-to-wishlist-btn, add-to-wishlist-btn[wishlist=false] i{
+  color: lightgray;
+    text-shadow: 0 0 5px gray;
+
+    &:hover{
+      color: red;
+      cursor: pointer;
+
+    }
+  }
+
+  .show-desc-btn{
+    top: 2px;
+    left: 2px;
+    font-size: $titleFontSize - 4px !important;
+    border-radius: 5px !important;
+
+  }
+
+  .show-desc-area{
+    position: absolute;
+    background-color: rgba(10,10,10,0.7);
+    font-size: $titleFontSize - 6px;
+    width: 100%;
+    height: 100%;
+    padding: 10%;
+    display: flex;
+    align-items: center;
+  overflow-y: scroll;
+    overscroll-behavior: contain;
+    justify-content: center;
+    z-index: 1;
+    p{
+      color:white;
+      width:100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+
+      font-family: $fontBody;
+
+      line-height: $titleFontSize;
+    }
+  }
+
+  .bottom-circles{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    bottom: 5px;
+    z-index:0;
+
+  }
+  .img-circles{
+    position: relative;
+    color: gray;
+    font-size: 13px;
+    bottom: 3px;
+    margin-left: 3px;
+    i{
+      transition: font-size 0.1s ease-in;
+    }
+    &:hover i{
+      font-size: 24px;
+      color: gray !important;
+      background-color: $opaque_bg !important;
+    }
+  }
+
+}

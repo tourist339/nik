@@ -1,9 +1,11 @@
 <nav>
 <div>
-    <a style="margin-left: 0;" id='logoicon' href="/" >LOGO</a>
-    <div id="searchInpDiv">
-    <input placeholder="Location" type="text" id="searchInputNavbar" class="searchInp">
-    </div>
+    <a id='logoicon' href="/" >LOGO</a>
+        <div class="rowflex search-prop-input">
+            <button type="button"  class="search-btn search-location-btn"><i class="fa fa-map-marker fa-lg"></i></button>
+            <input placeholder="Location" type="text"  class="searchInp searchInput">
+            <button type="button"  class="search-bt search-go-btn"><i class="fa fa-search"></i></button>
+        </div>
 </div>
 <div>
     <a href="/host">Host your home</a>
@@ -11,6 +13,6 @@
     <a href="/user/">My Account</a>
     <a onclick="openLogin()" id="nav-signin" style="display: none">Sign in</a>
 
-    <a style="margin-right: 0; display: none" id="nav-signout">Sign out</a>
+    <a style=" display: none" id="nav-signout">Sign out</a>
 </div>
 </nav>

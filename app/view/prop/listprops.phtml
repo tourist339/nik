@@ -1,56 +1,96 @@
 <?php
 $allprops=$this->view_data["data"];
+
+$location=$this->view_data["location"];
+
 ?>
+<script>
+    <?php
+    echo "var props = ".json_encode($allprops) . ";\n";
+    ?>
+</script>
+<div class="rowflex" id="listprops-heading-bar">
+    <button class="fontAwesomeBTN" id="show-prop-filters"><i class="fa fa-bars" ></i></button>
+    <h1 class="heading">Properties in <?php echo $location?></h1>
+</div>
+
 <div class="rowflex">
-<div class="filter-searched-props">
-    <h1>Filter</h1>
-    <div id="priceFilter">
-        <h3>Price</h3>
-        <input type="range">
+
+<!--    Div for filter box-->
+    <div id="toInsert"></div>
+    <div id="filter-searched-props" class="animationMenu" status="close">
+<!--        Div for padding-->
+        <form >
+            <h1>Filter</h1>
+            <div id="priceFilter">
+                <h3>Price</h3>
+                <input type="number" name="minPrice">
+            </div>
+            <div id="ratingFilter">
+                <h3>Rating</h3>
+                <input type="range">
+
+            </div>
+            <div id="genderFilter">
+                <h3>Gender</h3>
+                <input type="radio" name="gender" value="Male" id="male">
+                <label for="male">Male</label><br>
+                <input type="radio" name="gender" value="Female" id="female">
+                <label for="male">Female</label><br>
+                <input type="radio" name="gender" value="Other" id="other">
+                <label for="male">Other</label><br>
+            </div>
+        </form>
     </div>
-    <div id="ratingFilter">
-        <h3>Rating</h3>
-        <input type="range">
+
+<!--    Div showing all properties in a grid-->
+    <div class="listprops-grid">
+        <?php foreach ($allprops as $prop):
+            $prop_title="/prop/v/".str_replace(' ','-',$prop["title"])."/".$prop["id"];
+            $images=explode(",",$prop["images"]);
+            $i=1;
+            $wishlisted=false;
+            if(isset($prop["wishlisted"])){
+                $wishlisted=$prop["wishlisted"];
+            }
+        ?>
+                <?php require TEMPLATE."listing".DIRECTORY_SEPARATOR."single-listing.phtml"?>
+         <?php endforeach;?>
 
     </div>
-    <div id="genderFilter">
-        <h3>Gender</h3>
-        <input type="radio" name="gender" value="Male" id="male">
-        <label for="male">Male</label><br>
-        <input type="radio" name="gender" value="Female" id="female">
-        <label for="male">Female</label><br>
-        <input type="radio" name="gender" value="Other" id="other">
-        <label for="male">Other</label><br>
-
-    </div>
-
-</div>
-<div class="listprops-grid">
-    <?php foreach ($allprops as $prop):
-            $prop_title="/prop/v/".str_replace(' ','-',$prop["title"])."/".$prop["id"] ?>
-<!--            echo "<a href='/prop/v/".$prop_title ."/".$prop["id"]."'>".$prop["title"]."</a><br>";-->
-            <div class="listprops-item" src=<?php echo $prop_title; ?>>
-            <figure>
-                <div>
-                <img src="/imgs/img1.jpeg" alt="Photo of a room"></div>
-                <figcaption><?php echo $prop["title"];?><br><span><?php echo $prop["address"];?></span><br></figcaption>
-                <figcaption id="description">Description<br><span>
-                    <?php echo $prop["description"];?></span></figcaption>
-                <figcaption>Rent start at<br><span><?php echo $prop["rent"];?> /month</span></figcaption>
-            </figure>
-
-
-                </div>
-     <?php endforeach;?>
-
-</div>
 </div>
 <script>
     $(document).ready(function() {
-        console.log("Read");
+
         $(".listprops-item").click(function () {
-            window.location.href=$(this).attr("src");
-        }
-        );
+            // check if img prev and next buttons are not clicked
+            var check1=$(this).find(".img-next").prop("disabled");
+            var check2=$(this).find(".img-prev").prop("disabled");
+
+           if(check1==false && check2==false)
+                window.location.href = $(this).attr("src");
+        });
+
+        // // to prevent window to scroll when div is scrolling
+        // $( '.show-desc-area' ).on( 'mousewheel DOMMouseScroll', function ( e ) {
+        //     var e0 = e.originalEvent,
+        //         delta = e0.wheelDelta || -e0.detail;
+        //
+        //     this.scrollTop += ( delta < 0 ? 1 : -0.2 ) * 7;
+        //     e.preventDefault();
+        // });
+
+        $(".show-desc-btn").on("click",function (e) {
+            var descArea=$(this).siblings(".show-desc-area");
+            if(descArea.css("display") == "none") {
+                descArea.fadeIn(300);
+            }else{
+                descArea.fadeOut(300);
+
+            }
+            e.stopPropagation();
+        });
+        $(".img-overlay img[num='1']").addClass("active");
+
     });
 </script>

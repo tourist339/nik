@@ -26,6 +26,8 @@ class user_model extends Model
             if(ERROR_DEBUG_MODE){
                 echo "Error".$e; // For debugging
             }
+            return DB_ERROR_CODE;
+
         }
 
     }
@@ -43,6 +45,8 @@ class user_model extends Model
             if(ERROR_DEBUG_MODE){
                 echo "Error".$e; // For debugging
             }
+            return DB_ERROR_CODE;
+
         }
 
     }
@@ -57,6 +61,8 @@ class user_model extends Model
             if(ERROR_DEBUG_MODE){
                 echo "Error".$e; // For debugging
             }
+            return DB_ERROR_CODE;
+
         }
 
     }
@@ -71,6 +77,8 @@ class user_model extends Model
             if(ERROR_DEBUG_MODE){
                 echo "Error".$e; // For debugging
             }
+            return DB_ERROR_CODE;
+
         }
 
     }
@@ -85,6 +93,8 @@ class user_model extends Model
             if(ERROR_DEBUG_MODE){
                 echo "Error".$e; // For debugging
             }
+            return DB_ERROR_CODE;
+
         }
 
     }
@@ -98,27 +108,125 @@ class user_model extends Model
             if(ERROR_DEBUG_MODE){
                 echo "Error".$e; // For debugging
             }
+            return DB_ERROR_CODE;
+
         }
     }
 
-    public function updateProperty($propid,$id){
+
+    public function updateUnApprovedProperties($propid,$userid){
+        $this->updateWishOrProp("unapproved_properties",$propid,$userid);
+    }
+    public function updateApprovedProperties($propid,$userid){
+        $this->updateWishOrProp("approved_properties",$propid,$userid);
+    }
+
+    public function updateWishlist($propid,$userid){
+        $this->updateWishOrProp("wishlist",$propid,$userid);
+    }
+    private function updateWishOrProp($toUpdate,$propid,$userid){
         try {
-            $q = "SELECT properties FROM users WHERE id= :id ";
-            $stmt = $this->getDb()->prepare($q);
-            $stmt->execute(array(":id" => $id));
-            $current_properties=$stmt->fetchColumn();
-            if (!empty(trim($current_properties)))
-                $current_properties.=(",".$propid); //add a comma seperated prop id to list of properties
+            $lists=$this->getWishlistOrProp($toUpdate,$propid,$userid);
+            $current_list=$lists[0];
+            $current_list_array=$lists[1];
+            if (!empty(trim($current_list))) {
+                if(!in_array($propid,$current_list_array)) {
+                    $current_list .= ("," . $propid); //add a comma seperated prop id to list of properties
+                }else{
+                    var_dump($current_list_array);
+                    var_dump($propid);
+                    var_dump($toUpdate);
+                    echo "Prop already in the ".$toUpdate;
+                }
+            }
             else
-                $current_properties=$propid;
-            $this->updateUser("properties",$current_properties,$id);
+                $current_list=$propid;
+            $this->updateUser($toUpdate,$current_list,$userid);
         }catch (PDOException $e){
             if(ERROR_DEBUG_MODE){
                 echo "Error".$e; // For debugging
             }
+            return DB_ERROR_CODE;
         }
-
-
     }
 
+    private function getWishlistOrProp($toget,$propid,$userid){
+        $q = "SELECT ".$toget." FROM users WHERE id= :id ";
+        $stmt = $this->getDb()->prepare($q);
+        $stmt->execute(array(":id" => $userid));
+        $current_list = $stmt->fetchColumn();
+        $current_list_array = explode(",", $current_list);
+        return array($current_list,$current_list_array);
+    }
+
+    public function checkPropInWishlist($propid,$userid){
+        try {
+            $wishlist_data=$this->getWishlistOrProp("wishlist",$propid,$userid);
+            $current_list=$wishlist_data[0];
+            $current_list_array=$wishlist_data[1];
+            if (!empty(trim($current_list))) {
+                if (!in_array($propid, $current_list_array)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+        catch (PDOException $e){
+            if(ERROR_DEBUG_MODE){
+                echo "Error".$e; // For debugging
+            }
+            return DB_ERROR_CODE;
+
+        }
+    }
+
+
+    public function removePropFromWishlist($propid,$userid){
+        try {
+            $wishlist_data=$this->getWishlistOrProp("wishlist",$propid,$userid);
+            $current_list_array=$wishlist_data[1];
+            if (!empty($current_list_array)) {
+                if (($key = array_search($propid, $current_list_array)) !== false) {
+                    unset($current_list_array[$key]);
+                }
+                $current_list=implode(",",$current_list_array);
+            }else{
+                $current_list="";
+            }
+            $this->updateUser("wishlist",$current_list,$userid);
+
+        }
+        catch (PDOException $e){
+            if(ERROR_DEBUG_MODE){
+                echo "Error".$e; // For debugging
+            }
+            return DB_ERROR_CODE;
+
+        }
+    }
+
+    public function removeUnapprovedProp($propid,$userid){
+        try {
+            $wishlist_data=$this->getWishlistOrProp("unapproved_properties",$propid,$userid);
+            $current_list_array=$wishlist_data[1];
+            if (!empty($current_list_array)) {
+                if (($key = array_search($propid, $current_list_array)) !== false) {
+                    unset($current_list_array[$key]);
+                }
+                $current_list=implode(",",$current_list_array);
+            }else{
+                $current_list="";
+            }
+            $this->updateUser("unapproved_properties",$current_list,$userid);
+
+        }
+        catch (PDOException $e){
+            if(ERROR_DEBUG_MODE){
+                echo "Error".$e; // For debugging
+            }
+            return DB_ERROR_CODE;
+
+        }
+    }
 }
