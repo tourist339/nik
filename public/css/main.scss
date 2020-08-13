@@ -14,6 +14,10 @@ body{
     margin: 0;
     padding: 0 $body_padding;
 }
+
+.template{
+    display: none;
+}
 .modal{
     z-index: 11 !important;
 }

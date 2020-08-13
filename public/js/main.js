@@ -5,6 +5,7 @@ $(document).ready(function() {
         //replace one or more whitespace characters with dash
         searchKey=searchKey.replace(/\s+/g , "-" );
         window.location.href = "/prop/l/"+location+"/"+searchKey;
+
     }
 
     function checkSearchInputs(location,searchKey){

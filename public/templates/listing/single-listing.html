@@ -1,5 +1,5 @@
-<div class="listprops-item" src=<?php echo $prop_title; ?>>
-    <div class="img-overlay initial">
+<div class="listprops-item">
+    <div class="img-overlay initial" >
 
         <!--                        Description button with bars at top left-->
         <button class="fontAwesomeBTN show-desc-btn" ><i class="fa fa-bars"></i> </button>
@@ -12,31 +12,21 @@
         <button class="fontAwesomeBTN img-next" yo="fds"><i class="fa fa-chevron-right"></i></button>
 
         <!--                        Add to wishlist button-->
-        <button class="add-to-wishlist-btn" wishlist="<?php echo $wishlisted ?>" for="<?php echo $prop['id'];?>"><i class="fa fa-heart"></i> </button>
+<!--        <button class="add-to-wishlist-btn" wishlist="<?php echo $wishlisted ?>" for="<?php echo $prop['id'];?>"><i class="fa fa-heart"></i> </button>-->
 
         <!--                       Area to show description , initially hidden-->
         <div class="show-desc-area" style="display: none">
-            <p><?php echo $prop["description"] ?></p>
         </div>
 
 
 
-        <?php foreach ($images as $img): ?>
-        <img num="<?php echo $i?>" src="<?php echo "/uploads/".$img ?>">
-        <?php $i++; endforeach; ?>
-        <input type="hidden" class="numOfImgs" value="<?php echo count($images) ?>">
-        <div class="bottom-circles">
-            <?php for($i=0;$i<count($images);$i++): ?>
-            <button class="fontAwesomeBTN img-circles"><i class="fa fa-circle"></i></button>
 
-            <?php endfor;?>
-
-        </div>
-
+        <input type="hidden" class="numOfImgs" >
     </div>
-    <div id="prop-title-box" >
-        <p id="prop-title"><?php echo $prop["title"] ?></p>
-        <p id="prop-address"><?php echo $prop["address"] ." , " .$prop["city"] ?></p>
+
+    <div class="prop-title-box" >
+        <p class="prop-title"></p>
+        <p class="prop-address"></p>
     </div>
     <div>
         <div class="star-rating-box">

@@ -41,7 +41,7 @@ $titleFontSize:25px;
     }
 }
 
-#prop-title-box{
+.prop-title-box{
     width: 100%;
 
     div{
@@ -50,12 +50,12 @@ $titleFontSize:25px;
     p{
         margin: 5px 0;
     }
-    #prop-title{
+    .prop-title{
         font-size: $titleFontSize;
         letter-spacing: 2px;
         font-family: $fontHeading;
     }
-    #prop-address{
+    .prop-address{
         font-size: $addressFontSize;
         font-family: $fontBody;
     }

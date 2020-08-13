@@ -38,7 +38,7 @@ body > div {
   margin-right: 1rem;
 }
 
-.listprops-grid {
+#listprops-grid {
   display: grid;
   flex: 80 1 0px;
   grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));

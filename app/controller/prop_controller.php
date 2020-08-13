@@ -91,6 +91,21 @@ class prop_controller extends Controller
             $this->model->closeDb();
             $usermodel->closeDb();
     }
+
+    public function applyFilters(){
+        var_dump($_GET);
+        if(isset($_GET)){
+            $filters=["minRent","maxRent","gender","pType"];
+            $filterToApply=[];
+            foreach ($filters as $filter){
+                if(isset($_GET[$filter])){
+                    $filterToApply[$filter]=$this->removeSPandTrim($_GET[$filter]);
+                }
+            }
+            var_dump($filterToApply);
+        }
+    }
+
     public function add_to_wishlist(){
         if(isset($_POST["prop_id"])){
             session_start();

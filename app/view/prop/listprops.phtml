@@ -4,6 +4,9 @@ $allprops=$this->view_data["data"];
 $location=$this->view_data["location"];
 
 ?>
+<div id="single-listing" class="template">
+    <?php require TEMPLATE . "listing" . DIRECTORY_SEPARATOR . "single-listing.html" ?>
+</div>
 <script>
     <?php
     echo "var props = ".json_encode($allprops) . ";\n";
@@ -20,7 +23,7 @@ $location=$this->view_data["location"];
     <div id="toInsert"></div>
     <div id="filter-searched-props" class="animationMenu" status="close">
 <!--        Div for padding-->
-        <form >
+        <form action="/prop/applyfilters" method="get" id="filter-props-form">
             <h1>Filter</h1>
             <div id="priceFilter">
                 <h3>Price</h3>
@@ -40,22 +43,12 @@ $location=$this->view_data["location"];
                 <input type="radio" name="gender" value="Other" id="other">
                 <label for="male">Other</label><br>
             </div>
+            <input type="submit" value="Apply">
         </form>
     </div>
 
 <!--    Div showing all properties in a grid-->
-    <div class="listprops-grid">
-        <?php foreach ($allprops as $prop):
-            $prop_title="/prop/v/".str_replace(' ','-',$prop["title"])."/".$prop["id"];
-            $images=explode(",",$prop["images"]);
-            $i=1;
-            $wishlisted=false;
-            if(isset($prop["wishlisted"])){
-                $wishlisted=$prop["wishlisted"];
-            }
-        ?>
-                <?php require TEMPLATE."listing".DIRECTORY_SEPARATOR."single-listing.phtml"?>
-         <?php endforeach;?>
+    <div id="listprops-grid">
 
     </div>
 </div>

@@ -98,6 +98,10 @@ body {
   padding: 0 0vw;
 }
 
+.template {
+  display: none;
+}
+
 .modal {
   z-index: 11 !important;
 }
