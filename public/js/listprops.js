@@ -1,13 +1,11 @@
-function propsConfig(parent,template,selector){
+function propsConfig(parent,template,selector,props){
     self={
         num:1,
         parent:$(parent),
         template:$(template),
         newElement:()=>{
             var newEl=self.template.children().clone(false,false);
-            console.log(newEl);
             newEl[0].setAttribute("num",self.num);
-            console.log(newEl[0].outerHTML);
             return newEl;
         },
         currentElement:()=>{return $(selector+"[num='"+self.num+"']");},
@@ -36,22 +34,30 @@ function propsConfig(parent,template,selector){
         self.propTitleBox().children(".prop-address").html(address);
 
         },
+        setWishlist:(wishlisted,id=0)=>{
+            var wishlistBtn=self.imageOverlay().children(".add-to-wishlist-btn");
+                wishlistBtn.attr("wishlist",wishlisted);
+            if(wishlisted==true) {
+                wishlistBtn.attr("for", id);
+            }
+
+        },
         loadProps:function () {
             let totalProps=props.length;
             var i=0;
+            this.parent.html("");
             for (prop of props){
 
                 this.parent.append(this.newElement());
 
                     let prop_title = "/prop/v/" + prop["title"].replace(/\s+/g, "-") + "/" + prop["id"];
-                    console.log(prop_title);
                     let address = prop["address"] + " , " + prop["city"];
                     var wishlisted = false;
                     if (!typeof prop["wishlisted"] == undefined) {
                         wishlisted = prop["wishlisted"];
                     }
+                    this.setWishlist(wishlisted,prop["id"]);
                     let images = prop["images"].split(",");
-                    console.log(images);
                     this.setSrc(prop_title);
                     this.setImages(images);
                     this.setDescription(prop["description"]);
@@ -82,13 +88,21 @@ $(document).ready(function () {
 
     $("#filter-props-form").on("submit",function (e) {
         $url=$(this).attr("action");
-        $method=$(this).attr("method");
         e.preventDefault();
-        $.get($url,function (data) {
-            console.log(data);
+        $.ajax({
+            url:$url,
+            data:$(this).serialize(),
+            dataType:'json',
+            success:function(data){
+                if (data=="" || typeof data == undefined){
+                    $("#listprops-grid").html("<h2>No property matches your criteria</h2>");
+                }else {
+                    propsConfig("#listprops-grid", "#single-listing", ".listprops-item", data).loadProps();
+                }
+            }
         });
     });
 
-
-    propsConfig("#listprops-grid","#single-listing",".listprops-item").loadProps();
+    console.log(props);
+    propsConfig("#listprops-grid","#single-listing",".listprops-item", props).loadProps();
 });

@@ -2,6 +2,7 @@
 $allprops=$this->view_data["data"];
 
 $location=$this->view_data["location"];
+$search=$this->view_data["search"];
 
 ?>
 <div id="single-listing" class="template">
@@ -23,11 +24,11 @@ $location=$this->view_data["location"];
     <div id="toInsert"></div>
     <div id="filter-searched-props" class="animationMenu" status="close">
 <!--        Div for padding-->
-        <form action="/prop/applyfilters" method="get" id="filter-props-form">
+        <form action="/prop/applyFilters/<?php echo $location ?>/<?php echo $search ?>" method="get" id="filter-props-form">
             <h1>Filter</h1>
             <div id="priceFilter">
                 <h3>Price</h3>
-                <input type="number" name="minPrice">
+                <input type="number" id="minPrice" name="minPrice">
             </div>
             <div id="ratingFilter">
                 <h3>Rating</h3>
@@ -36,9 +37,9 @@ $location=$this->view_data["location"];
             </div>
             <div id="genderFilter">
                 <h3>Gender</h3>
-                <input type="radio" name="gender" value="Male" id="male">
+                <input type="radio" name="gender" value="males" id="male">
                 <label for="male">Male</label><br>
-                <input type="radio" name="gender" value="Female" id="female">
+                <input type="radio" name="gender" value="females" id="female">
                 <label for="male">Female</label><br>
                 <input type="radio" name="gender" value="Other" id="other">
                 <label for="male">Other</label><br>
@@ -55,13 +56,15 @@ $location=$this->view_data["location"];
 <script>
     $(document).ready(function() {
 
-        $(".listprops-item").click(function () {
-            // check if img prev and next buttons are not clicked
+        $("#listprops-grid").on("click",".listprops-item",function(){
             var check1=$(this).find(".img-next").prop("disabled");
             var check2=$(this).find(".img-prev").prop("disabled");
 
-           if(check1==false && check2==false)
+            if(check1==false && check2==false)
                 window.location.href = $(this).attr("src");
+        });
+        $("#listprops-grid").on("click",".add-to-wishlist-btn",function (e) {
+            lyfly.setWishlist(e,$(this));
         });
 
         // // to prevent window to scroll when div is scrolling
