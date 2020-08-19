@@ -1,0 +1,50 @@
+//Filter box
+//@import "../res/variables";
+$headingFontSize:20px;
+$bodyFontSize:16px;
+#filter-searched-props{
+  overflow: hidden;
+  margin-right: 20px;
+  //to provide bottom margin to every input row
+  div>div{
+    margin-bottom: 14px;
+  }
+
+  h3{
+    font-size: $headingFontSize;
+  }
+
+  input{
+    width: 100%;
+    font-size: $bodyFontSize;
+  }
+
+
+  //style for raido and checkbox inputs
+  input[type="radio"],input[type="checkbox"]{
+    width: auto;
+    margin-top: 0;
+    align-self: center;
+    &+label{
+      align-self: center;
+      font-size: $bodyFontSize;
+    }
+    &:hover{
+      cursor: pointer;
+    }
+  }
+
+
+}
+
+#priceFilter{
+  input{
+    margin-right: 1rem;
+    margin-left: 1rem;
+  }
+}
+
+//width of filter box to open it till
+.animationMenu[status="open"]{
+  width: 25%;
+}

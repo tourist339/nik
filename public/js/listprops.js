@@ -74,6 +74,17 @@ function propsConfig(parent,template,selector,props){
     }
     return self;
 };
+
+// $(window).scroll(function () {
+//     let headingTop=$("#listprops-heading-bar").offset().top;
+//     console.log($(window).scrollTop());
+//
+//     if($(window).scrollTop()>=headingTop){
+//        // $("#listprops-heading-bar").css("position","fixed");
+//         $("#listprops-main-box").css("position","fixed");
+//     }
+// });
+
 $(document).ready(function () {
 
     $("#show-prop-filters").on("click",function () {
@@ -87,10 +98,10 @@ $(document).ready(function () {
     });
 
     $("#filter-props-form").on("submit",function (e) {
-        $url=$(this).attr("action");
+        let url=$(this).attr("action");
         e.preventDefault();
         $.ajax({
-            url:$url,
+            url:url,
             data:$(this).serialize(),
             dataType:'json',
             success:function(data){
