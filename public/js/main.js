@@ -5,6 +5,7 @@ $(document).ready(function() {
         //replace one or more whitespace characters with dash
         searchKey=searchKey.replace(/\s+/g , "-" );
         window.location.href = "/prop/l/"+location+"/"+searchKey;
+
     }
 
     function checkSearchInputs(location,searchKey){
@@ -93,6 +94,26 @@ var lyfly=(function(){
         }else{
             return true;
         }
+    }
+
+    publicFuncs.setWishlist=function(e,btn){
+
+        if (publicFuncs.checkLoggedIN()) {
+            var prop_id = btn.attr("for");
+            var wishlisted=btn.attr("wishlist");
+            if(wishlisted=="true"){
+                $.post("/prop/remove_from_wishlist", {"prop_id": prop_id}, (data) =>{
+                    btn.attr("wishlist","false");
+                });
+            }
+            else {
+                $.post("/prop/add_to_wishlist", {"prop_id": prop_id},(data)=> {
+                    btn.attr("wishlist","true");
+                });
+            }
+        }
+        e.stopPropagation();
+
     }
     return publicFuncs;
 })();

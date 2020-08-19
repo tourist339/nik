@@ -37,6 +37,7 @@ class prop_controller extends Controller
                                                             "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css","listprops.css"],
                                                             "navbar" => MAIN_NAVBAR,
                                                             "location"=>ucfirst($location),
+                                                            "search"=>$search,
                                                             "data" => $data]
                                     )->render();
             }
@@ -91,6 +92,29 @@ class prop_controller extends Controller
             $this->model->closeDb();
             $usermodel->closeDb();
     }
+
+    public function applyFilters($location,$search=""){
+        if(isset($_GET)){
+            $filters=["minPrice","maxPrice","gender","pType"];
+            $filterToApply=[];
+            foreach ($filters as $filter) {
+                if (isset($_GET[$filter])) {
+                    $filterToApply[":" . $filter] = $this->removeSPandTrim($_GET[$filter]);
+                }
+            }
+                    $data = $this->model->getAllProps(
+                        ["id","title", "description", "rent", "address","city","images"],
+                        ["location"=>$location,"search"=>$search],$filterToApply);
+                    if ($data == null) {
+                        echo json_encode("");
+                    }else{
+                        echo json_encode($data);
+                    }
+
+            }
+
+    }
+
     public function add_to_wishlist(){
         if(isset($_POST["prop_id"])){
             session_start();

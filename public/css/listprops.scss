@@ -1,4 +1,5 @@
 @import "res/variables";
+@import "prop/filterbox";
 $body_padding:5vw;
 nav{
     position: relative;
@@ -20,25 +21,11 @@ body>div{
     font-size: $headingFontSize;
 }
 
-//Filter box
-#filter-searched-props{
-    overflow: hidden;
 
-    div{
-        padding:0 1rem;
-        h1{
-            margin-top: 0;
-        }
-    }
-    input{
-        width: 100%;
-    }
-}
 
-.animationMenu[status="open"]{
-    width: 25%;
-}
 #listprops-heading-bar{
+    background-color: white;
+    top: 0;
     button{
         margin-right: 1rem;
 
@@ -46,7 +33,7 @@ body>div{
 }
 
 
-.listprops-grid{
+#listprops-grid{
     display: grid;
     flex: 80 1 0px;
     grid-template-columns: repeat(auto-fill,minmax(310px,1fr));

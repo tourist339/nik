@@ -9,7 +9,7 @@ class prop_model extends Model
 
     }
 
-    public function getAllProps($cols,$params){
+    public function getAllProps($cols,$params,$filters=[]){
         $db=$this->getDb();
         if(!empty($cols)){
            $columns=implode(",",$cols);
@@ -21,9 +21,25 @@ class prop_model extends Model
                 $selectors .= "(city='" . $params["location"] . "' OR state='" . $params["location"]  . "')";
 
         }
-        if(isset($params["search"])){
+        $search="";
+        if(isset($params["search"]) and $params["search"]!=""){
             $search=$params["search"];
-            $selectors.=" AND title LIKE ?";
+            $selectors.=" AND title LIKE :search";
+        }
+        if (!empty($filters)){
+            foreach ($filters as $filter=>$val){
+                switch ($filter){
+                    case ":maxPrice":
+                        $selectors.=" AND rent <= :maxPrice";
+                        break;
+                    case ":minPrice":
+                        $selectors.=" AND rent >= :minPrice";
+                        break;
+                    case ":gender":
+                        $selectors.=" AND gender = :gender";
+                        break;
+                }
+            }
         }
 
 
@@ -31,7 +47,17 @@ class prop_model extends Model
        $q="SELECT ".$columns." FROM Properties WHERE ".$selectors;
         try {
             $stmt = $db->prepare($q);
-            $stmt->execute(array("%$search%"));
+            if(!empty($filters)) {
+                if(isset($params["search"]) and $search!="")
+                    $filters[":search"] = "%$search%";
+                $stmt->execute($filters);
+            }else {
+                if(isset($params["search"]) and $search!="")
+                    $stmt->execute(array(":search"=>"%$search%"));
+                else
+                    $stmt->execute();
+
+            }
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }catch(PDOException $e){
             if(ERROR_DEBUG_MODE){

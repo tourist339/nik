@@ -98,12 +98,17 @@ body {
   padding: 0 0vw;
 }
 
+.template {
+  display: none;
+}
+
 .modal {
   z-index: 11 !important;
 }
 
 .blocker {
   z-index: 10 !important;
+  margin: 0 !important;
 }
 
 * {
@@ -121,7 +126,7 @@ body {
 }
 
 .heading {
-  font-size: 2rem;
+  font-size: 28.8px;
   font-family: "Ubuntu";
 }
 
@@ -163,7 +168,7 @@ body {
   background-color: rgba(1, 1, 1, 0);
   color: black;
   outline: none;
-  font-size: 1.2rem;
+  font-size: 17.28px;
   border: 0;
   padding: 0;
   transition: background-color 4s ease-in;

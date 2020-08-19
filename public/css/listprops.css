@@ -1,3 +1,39 @@
+#filter-searched-props {
+  overflow: hidden;
+  margin-right: 20px;
+}
+#filter-searched-props div > div {
+  margin-bottom: 14px;
+}
+#filter-searched-props h3 {
+  font-size: 20px;
+}
+#filter-searched-props input {
+  width: 100%;
+  font-size: 16px;
+}
+#filter-searched-props input[type=radio], #filter-searched-props input[type=checkbox] {
+  width: auto;
+  margin-top: 0;
+  align-self: center;
+}
+#filter-searched-props input[type=radio] + label, #filter-searched-props input[type=checkbox] + label {
+  align-self: center;
+  font-size: 16px;
+}
+#filter-searched-props input[type=radio]:hover, #filter-searched-props input[type=checkbox]:hover {
+  cursor: pointer;
+}
+
+#priceFilter input {
+  margin-right: 1rem;
+  margin-left: 1rem;
+}
+
+.animationMenu[status=open] {
+  width: 25%;
+}
+
 nav {
   position: relative;
 }
@@ -14,31 +50,18 @@ body > div {
 }
 
 #show-prop-filters {
-  font-size: 2rem;
+  font-size: 20px;
 }
 
-#filter-searched-props {
-  overflow: hidden;
+#listprops-heading-bar {
+  background-color: white;
+  top: 0;
 }
-#filter-searched-props div {
-  padding: 0 1rem;
-}
-#filter-searched-props div h1 {
-  margin-top: 0;
-}
-#filter-searched-props input {
-  width: 100%;
-}
-
-.animationMenu[status=open] {
-  width: 25%;
-}
-
 #listprops-heading-bar button {
   margin-right: 1rem;
 }
 
-.listprops-grid {
+#listprops-grid {
   display: grid;
   flex: 80 1 0px;
   grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));

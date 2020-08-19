@@ -165,21 +165,21 @@
   margin: auto 0.3em;
 }
 
-#prop-title-box {
+.prop-title-box {
   width: 100%;
 }
-#prop-title-box div {
+.prop-title-box div {
   margin: auto;
 }
-#prop-title-box p {
+.prop-title-box p {
   margin: 5px 0;
 }
-#prop-title-box #prop-title {
+.prop-title-box .prop-title {
   font-size: 25px;
   letter-spacing: 2px;
   font-family: "Ubuntu";
 }
-#prop-title-box #prop-address {
+.prop-title-box .prop-address {
   font-size: 15px;
   font-family: "Montserrat";
 }
