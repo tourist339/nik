@@ -4,22 +4,39 @@ $headerText:white;
 $greenblue:#5297BF;
 $seagreen:#358597;
 
+$breakpoints:(phone:480px,tablet:768px,laptop:1024px,desktop:2000px);
 
 $fontHeading:"Ubuntu";
 $fontMidHeading:"Alegreya";
 $fontBody:"Montserrat";
 
-$iconFontSize:17.28px;
-$bodyFontSize:21.6px;
-$headingFontSize:28.8px;
-$largeHeadingFontSize:42px;
+//laptop font sizes
+$fontsize_icon:16.28px;
+$fontsize_body:21.6px;
+$fontsize_midheading:28.8px;
+$fontsize_largeheading:42px;
+
+//tablet font sizes
+$fontsize_tablet_largeheading:$fontsize_largeheading - 5px;
+$fontsize_tablet_midheading:$fontsize_midheading - 3px;
+$fontsize_tablet_body:$fontsize_body - 2px;
+$fontsize_tablet_icon:$fontsize_icon - 2px;
+
+//mobile font sizes
+$fontsize_mobile_largeheading:$fontsize_largeheading - 10px;
+$fontsize_mobile_midheading:$fontsize_midheading - 7px;
+$fontsize_mobile_body:$fontsize_body - 4px;
+$fontsize_mobile_icon:$fontsize_icon - 3px;
+
+
+
 
 $opaque_bg:rgba(1,1,1,0);
 @mixin largeHeading($fontSize,$src){
 
 }
 
-@mixin fontAwesomeBtn($bgColor:rgba(1,1,1,0),$color:black,$fontSize:$iconFontSize){
+@mixin fontAwesomeBtn($bgColor:rgba(1,1,1,0),$color:black,$fontSize:$fontsize_icon){
 
   background-color: $bgColor;
   color:$color;

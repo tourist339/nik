@@ -29,4 +29,15 @@ $(document).ready(function(){
 
         }
     });
+
+    $("#hp-prop-right").on("click",function () {
+        let card_width=$("#hp-cityprops-scroller").children(".card").outerWidth();
+        let already_scrolled=$("#hp-cityprops-scroller").scrollLeft();
+        $("#hp-cityprops-scroller").animate({scrollLeft:card_width+already_scrolled},"slow");
+    });
+    $("#hp-prop-left").on("click",function () {
+        let card_width=$("#hp-cityprops-scroller").children(".card").outerWidth();
+        let already_scrolled=$("#hp-cityprops-scroller").scrollLeft();
+        $("#hp-cityprops-scroller").animate({scrollLeft:-card_width+already_scrolled},"slow");
+    });
 });

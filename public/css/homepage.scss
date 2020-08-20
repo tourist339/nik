@@ -1,5 +1,7 @@
 
 @import "res/variables";
+@import "include-media";
+@import "main";
 
 .search-box{
     background: url("/imgs/homepage-bg1.jpg");
@@ -12,10 +14,8 @@
         margin: auto;
         h1{
             color: black;
-            font-family: 'Ubuntu', serif;
             text-align: center;
             letter-spacing: 0.1rem;
-            font-size: 25px;
         }
 
     }
@@ -36,6 +36,7 @@
     #hpf-img{
         overflow:hidden;
         margin-top: 7.5%;
+        border-radius: 20px;
     }
     #hpf-box{
         display: flex;
@@ -44,8 +45,6 @@
         padding: 3em;
         margin: 0 5em;
         h3{
-            font-size: $largeHeadingFontSize;
-            font-family: $fontHeading;
             text-align: center;
 
         }
@@ -59,7 +58,7 @@
             justify-content: center;
 
             button{
-                font-size: $iconFontSize;
+                font-size: $fontsize_icon;
                 margin: 0 1em;
                 padding: 0.5em 2em;
                 color: white;
@@ -80,13 +79,11 @@
 }
 
 #hp-perks{
-    background-color: bisque;
+    background-color: rgba(255,228,196,0.2);
     padding:8rem 3em 5rem 3rem;
     margin-top: -12%;
     h3{
         text-align: center;
-        font-size: $largeHeadingFontSize;
-        font-family: $fontHeading;
     }
     div[class="gridbox"]{
         padding: 2rem 5rem;
@@ -96,13 +93,12 @@
         div[perk]{
             text-align: center;
             i{
+                font-size: $fontsize_body;
                 display: inline-block;
                 width: 100%;
-                font-size: $bodyFontSize;
             }
             h4{
-                font-size: $bodyFontSize;
-                font-family: $fontMidHeading;
+
                 margin-top: 4px;
                 margin-bottom: 4px;
             }
@@ -111,11 +107,115 @@
                 color:orangered;
             }
             p{
-                font-size: $iconFontSize;
-                font-family: $fontBody;
                 margin-top: 0;
             }
 
         }
     }
+}
+
+
+#hp-cityprops{
+    height: 80%;
+    margin-top: 5%;
+    position: relative;
+    div{
+        height: 100%;
+        .card{
+            height: 100%;
+            width: 40%;
+            min-width: 300px;
+            background-color: red;
+            margin-right: -1%;
+            border-radius: 10px;
+            background-size: cover;
+
+
+            &:hover{
+                transform: translateZ(100px) !important;
+                cursor: pointer;
+
+            }
+        }
+        .card:nth-child(1){
+            background-color: yellow;
+
+        }
+    }
+
+    
+    button{
+        position: absolute;
+        height: 20%;
+        background-color: rgba(0,0,0,0.3);
+        font-size: $fontsize_body;
+        padding: 0 1em;
+        outline: none;
+        border-width: 0;
+
+        color: white;
+        &:hover{
+            cursor: pointer;
+            background-color: rgba(0,0,0,1);
+
+        }
+    }
+    #hp-prop-right{
+        top: 40%;
+        right: 0;
+        border-top-left-radius: 50%;
+        border-bottom-left-radius: 50%;
+    }
+    #hp-prop-left{
+        top: 40%;
+        left: 0;
+        border-top-right-radius: 50%;
+        border-bottom-right-radius: 50%;
+    }
+}
+
+#hp-quote{
+    background-color: rgba(255,228,196,0.2);
+
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    margin: 5% 0 ;
+    justify-content: center;
+    text-align: center;
+    div{
+        margin: 0 auto;
+        width: 50%;
+
+    }
+    p{
+        color: orangered;
+        font-size: $fontsize_icon - 3px;
+        font-family: $fontBody;
+    }
+
+    p[rel="author"]{
+        font-family: $fontMidHeading;
+        color: black;
+
+    }
+
+    @include media("<tablet"){
+         div{
+             width: 70%;
+         }
+     }
+    @include media(">phone","<tablet"){
+
+        p{
+            font-size: $fontsize_icon - 4px;
+        }
+    }
+    @include media("<phone"){
+
+        p{
+            font-size: $fontsize_icon - 6px;
+        }
+    }
+
 }
