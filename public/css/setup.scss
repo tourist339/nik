@@ -309,7 +309,7 @@ label{
 .label-input{
     p{
         @extend .phase-text-label;
-        font-size: $bodyFontSize;
+        font-size: $fontsize_body;
         font-family: $fontHeading;
     }
     select{

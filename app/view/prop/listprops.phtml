@@ -19,7 +19,7 @@ $search=$this->view_data["search"];
     <h1 class="heading">Properties in <?php echo $location?></h1>
 </div>
 
-<div class="rowflex" >
+<div  >
 
 <!--    Div for filter box-->
     <div id="toInsert"></div>
@@ -28,7 +28,7 @@ $search=$this->view_data["search"];
         <form action="/prop/applyFilters/<?php echo $location ?>/<?php echo $search ?>" method="get" id="filter-props-form">
             <h1>Filter</h1>
             <div id="priceFilter">
-                <h3>Price Range</h3>
+                <button id="price-filter-button">Price Range</button>
                 <div class="rowflex" >
                 <input type="number" id="minPrice" name="minPrice">
                     <i class="fa fa-minus" style="align-self: center"></i>
