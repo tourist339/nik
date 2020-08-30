@@ -18,22 +18,21 @@ class prop_controller extends Controller
      */
     public function l($location,$search="")
     {
-
-
         $location=$this->removeSPandTrim($location);
         $search=str_replace('-',' ',$search);
         $search=$this->removeSPandTrim($search);
 
-        //check if filters are set then get the data from applyFilters function
-        $data=$this->applyFilters($location,$search);
-        $filters=null;
-        //if $data is null that means filters are not set , so get data from the model
-        if($data==null){
+        //get the filters from applyFilters function
+        $filters=$this->applyFilters($location,$search);
+
+        //if $filters are null that means filters are not set , so get data from the model
+        if($filters==null){
             $data = $this->model->getAllProps(["id","title", "description", "rent", "address","city","images"], ["location"=>$location,"search"=>$search]);
         }else{
-            //this means filters are set so get the filters array from the instance variable
-            // set by applyFilters function
-            $filters=$this->prop_filters;
+            //add $filters parameter to getAllProps function
+            $data = $this->model->getAllProps(
+                ["id","title", "description", "rent", "address","city","images"],
+                ["location"=>$location,"search"=>$search],$filters);
         }
         $usermodel=new user_model();
         session_start();
@@ -50,7 +49,7 @@ class prop_controller extends Controller
 
         }
         if ($data == null) {
-            new e404_controller("No Property Found in this city");
+            new e404_controller("Sorry! no matched property Found in this city");
         } else {
             $this->createView('prop/listprops', ["title" => "LyfLy",
                                                         "scripts" => [MAIN_SCRIPTS,"listprops.js","imageslider.js","jquery-ui.min.js"],
@@ -68,11 +67,14 @@ class prop_controller extends Controller
     }
 
 
+
+
+
     /**
-     * @param $propname TITLE of the property to opened
-     * @param $propid ID of the property to be opened
      * Displays the specfic property by getting all the data about it from prop model
      * and creates the view prop/singleprop
+     * @param $propname TITLE of the property to opened
+     * @param $propid ID of the property to be opened
      */
     public function v($propname, $propid)
     {
@@ -114,6 +116,12 @@ class prop_controller extends Controller
             $usermodel->closeDb();
     }
 
+
+    /**
+     * @param $location
+     * @param string $search
+     * @return array|null
+     */
     private function applyFilters($location,$search=""){
         if(isset($_GET)){
             $filters=["minPrice","maxPrice","gender","pType"];
@@ -123,21 +131,17 @@ class prop_controller extends Controller
                     $filterToApply[":" . $filter] = $this->removeSPandTrim($_GET[$filter]);
                 }
             }
-            $this->prop_filters=$filterToApply;
-                    $data = $this->model->getAllProps(
-                        ["id","title", "description", "rent", "address","city","images"],
-                        ["location"=>$location,"search"=>$search],$filterToApply);
-                    if ($data == null) {
-                        return null;
-                    }else{
-                        return $data;
-                    }
+            return $filterToApply;
+
         }else{
             return null;
         }
 
     }
 
+    /**
+     *
+     */
     public function add_to_wishlist(){
         if(isset($_POST["prop_id"])){
             session_start();
@@ -148,6 +152,10 @@ class prop_controller extends Controller
             }
         }
     }
+
+    /**
+     *
+     */
     public function remove_from_wishlist(){
         if(isset($_POST["prop_id"])){
             $this->checkLoggedIN();

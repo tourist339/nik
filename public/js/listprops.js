@@ -86,84 +86,71 @@ function propsConfig(parent,template,selector,props){
                 i++;
 
             }
+            return self;
         }
     }
     return self;
 };
 
 
-function loadFilters(filters_,data){
+function loadFilters(filters_,default_data){
     var self={
-        min_rent:10000000,
-        max_rent:0,
+        filters_dict:{
+            ":minPrice":"text",
+            ":maxPrice":"text"
+        },
+        initialisePriceSlider:()=>{
+            //price filter slider jquery ui initialisation
+            $("#price-filter-slider").slider({
+            range:true,
+            min:0,
+            max:default_data.max_rent,
+            values:[$("#minPrice").val(),$("#maxPrice").val()],
+            slide:(event,ui)=>{
+                $( "#minPrice" ).val( ui.values[ 0 ] );
+                $( "#maxPrice" ).val( ui.values[ 1 ] );
+        }
+
+        });
+
+        },
+        setMinMaxPrice:(minPrice,maxPrice)=>{
+            $("#minPrice").val(minPrice);
+            $("#maxPrice").val(maxPrice);
+        },
+        loadDefaultData:()=>{
+            self.setMinMaxPrice(default_data.min_rent,default_data.max_rent);
+        },
+        loadData:()=>{
+            //if  no filters are set , load the default values
+            if(filters.length==0){
+                self.loadDefaultData();
+            }else{
+                console.log("not null");
+                for (var filter_key in filters){
+
+                    if(filters.hasOwnProperty(filter_key)) {
+
+                        if (self.filters_dict[filter_key] == "text") {
+                            console.log(filter_key);
+
+                            $("#"+filter_key.substring(1)).val(filters[filter_key]);
+                        }
+                    }
+                }
+            }
+            self.initialisePriceSlider();
+        }
     }
     return self;
 }
-// $(window).scroll(function () {
-//     let headingTop=$("#listprops-heading-bar").offset().top;
-//     console.log($(window).scrollTop());
-//
-//     if($(window).scrollTop()>=headingTop){
-//        // $("#listprops-heading-bar").css("position","fixed");
-//         $("#listprops-main-box").css("position","fixed");
-//     }
-// });
+
+
+
+
+
 
 $(document).ready(function () {
-
-    // $("#filter-props-form").on("submit",function (e) {
-    //     let url=$(this).attr("action");
-    //     e.preventDefault();
-    //     $.ajax({
-    //         url:url,
-    //         data:$(this).serialize(),
-    //         dataType:'json',
-    //         success:function(data){
-    //             if (data=="" || typeof data == undefined){
-    //                 $("#listprops-grid").html("<h2>No property matches your criteria</h2>");
-    //             }else {
-    //                 propsConfig("#listprops-grid", "#single-listing", ".listprops-item", data).loadProps();
-    //             }
-    //         }
-    //     });
-    // });
-
-
-    //price filter slider jquery ui initialisation
-    $("#price-filter-slider").slider({
-        range:true,
-        min:0,
-        max:500,
-        values:[],
-        slide:(event,ui)=>{
-            $( "#minPrice" ).val( ui.values[ 0 ] );
-            $( "#maxPrice" ).val( ui.values[ 1 ] );
-        }
-    });
-
-
-    /**
-     * Set initial min max input values by getting data from price slider
-     * @param minPrice
-     * @param maxPrice
-     */
-    function setMinMaxFilterPrice(minPrice,maxPrice){
-        $("#minPrice").val(minPrice);
-        $("#maxPrice").val(maxPrice);
-    }
-    //calling above function with values taken from slider
-    setMinMaxFilterPrice($("#price-filter-slider").slider("values",0),$("#price-filter-slider").slider("values",1));
-
-
-    // function changeSliderPrice(priceToChange){
-    //     if (priceToChange=="min"){
-    //         alert("fds");
-    //     }
-    // }
-    //
-    // $("#minPrice").on("change",function(){
-    //     changeSliderPrice("min");
-    // });
 
 
     $(".filter-btn").on("click",function () {
@@ -181,6 +168,13 @@ $(document).ready(function () {
         if (show)
             filterbox.attr("visible","true");
     });
-    var min_price=propsConfig("#listprops-grid","#single-listing",".listprops-item", props).loadProps();
+
+    //loadProps fills all the properties and then returns the self object from
+    // where we can get the updated min and max rents
+    var rents=propsConfig("#listprops-grid","#single-listing",".listprops-item", props).loadProps();
+    var default_rents=new Object();
+    default_rents.min_rent=rents.min_rent;
+    default_rents.max_rent=rents.max_rent;
+    loadFilters(filters,default_rents).loadData();
 
 });
