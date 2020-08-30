@@ -1,16 +1,17 @@
-#filter-searched-props {
-  overflow: hidden;
-  margin-right: 20px;
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
-#filter-searched-props div > div {
-  margin-bottom: 14px;
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
+
 #filter-searched-props h3 {
   font-size: 20px;
-}
-#filter-searched-props input {
-  width: 100%;
-  font-size: 16px;
 }
 #filter-searched-props input[type=radio], #filter-searched-props input[type=checkbox] {
   width: auto;
@@ -25,13 +26,132 @@
   cursor: pointer;
 }
 
-#priceFilter input {
-  margin-right: 1rem;
-  margin-left: 1rem;
+#filter-props-form > div {
+  position: relative;
 }
 
-.animationMenu[status=open] {
-  width: 25%;
+.filter-btn {
+  padding: 0.1em 1em;
+  border-radius: 1em;
+  margin: 1em 0.4em;
+  background-color: white;
+  font-family: "Alegreya";
+  width: 100%;
+  white-space: nowrap;
+}
+.filter-btn:hover {
+  cursor: pointer;
+  background-color: lightgray;
+}
+
+.filter-box {
+  position: absolute;
+  top: 90%;
+  width: 25vw;
+  left: 2px;
+  z-index: 4;
+  background-color: whitesmoke;
+  padding: 1em;
+  border-radius: 10px;
+  border: 2px lightgray solid;
+}
+@media (min-width: 1025px) {
+  .filter-box {
+    width: 28vw;
+  }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+  .filter-box {
+    width: 35vw;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .filter-box {
+    width: 50vw;
+  }
+}
+@media (max-width: 480px) {
+  .filter-box {
+    width: 70vw;
+  }
+}
+
+#price-filter-slider {
+  width: 100%;
+}
+
+.ui-slider-horizontal {
+  height: 6px !important;
+}
+
+.ui-slider-handle {
+  top: -8px !important;
+  background: url("/imgs/menu-icon.png") !important;
+  background-size: contain !important;
+  border-radius: 50% !important;
+  border-width: 0 !important;
+  outline: none !important;
+  width: 22px !important;
+  height: 22px !important;
+  padding: 0 !important;
+}
+.ui-slider-handle:hover {
+  cursor: pointer !important;
+}
+
+#priceFilter > .filter-box > .rowflex {
+  padding: 0.5em;
+  margin-top: 10px !important;
+}
+
+.price-inputs {
+  background-color: white;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  white-space: nowrap;
+  outline: black;
+  /* Chrome, Safari, Edge, Opera */
+  /* Firefox */
+}
+.price-inputs input::-webkit-outer-spin-button,
+.price-inputs input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.price-inputs input[type=number] {
+  -moz-appearance: textfield;
+}
+.price-inputs label {
+  font-size: 14px;
+}
+.price-inputs input {
+  width: 90%;
+  outline: none;
+  border-width: 0;
+}
+
+#price-filter-submitbtns {
+  margin-top: 0.7em;
+}
+#price-filter-submitbtns input {
+  font-size: 14px;
+  border-width: 1px;
+  background-color: black;
+  color: white;
+  border-radius: 0.5em;
+  padding: 0.3em;
+}
+#price-filter-submitbtns input:hover {
+  cursor: pointer;
+  background-color: rgba(1, 1, 1, 0.7);
+}
+@media (max-width: 480px) {
+  #price-filter-submitbtns input {
+    font-size: 12px;
+  }
+}
+#price-filter-submitbtns input:nth-child(2) {
+  float: right;
 }
 
 nav {

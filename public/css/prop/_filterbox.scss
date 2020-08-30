@@ -1,23 +1,30 @@
-//Filter box
-//@import "../res/variables";
+@import "../res/variables";
 $headingFontSize:20px;
 $bodyFontSize:16px;
+
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+//filter box containing all filter inputs and stuff
 #filter-searched-props{
-  overflow: hidden;
-  margin-right: 20px;
-  //to provide bottom margin to every input row
-  div>div{
-    margin-bottom: 14px;
-  }
+
 
   h3{
     font-size: $headingFontSize;
   }
 
-  input{
-    width: 100%;
-    font-size: $bodyFontSize;
-  }
+
 
 
   //style for raido and checkbox inputs
@@ -34,17 +41,134 @@ $bodyFontSize:16px;
     }
   }
 
-
 }
 
-#priceFilter{
-  input{
-    margin-right: 1rem;
-    margin-left: 1rem;
+
+//divs containing the top main filters and their boxes
+#filter-props-form>div{
+  position: relative;
+}
+
+//buttons at the top representing main filters like price
+.filter-btn{
+  padding: 0.1em 1em;
+  border-radius: 1em;
+  margin:1em 0.4em;
+  background-color: white;
+  font-family: $fontMidHeading;
+  width: 100%;
+  white-space: nowrap; //prevent text to wrap inside the button
+  &:hover{
+    cursor: pointer;
+    background-color: lightgray;
+
   }
 }
 
-//width of filter box to open it till
-.animationMenu[status="open"]{
-  width: 25%;
+//boxes that appear on clicking the main filters
+.filter-box{
+  position: absolute;
+  top: 90%;
+  width: 25vw;
+  left: 2px;
+  z-index: 4;
+  background-color: whitesmoke;
+  padding: 1em;
+  border-radius: 10px;
+  border: 2px lightgray solid;
+
+  @include media(">laptop"){
+    width: 28vw;
+  }
+  @include media(">tablet","<=laptop"){
+    width: 35vw;
+  }
+  @include media(">phone","<=tablet"){
+    width: 50vw;
+  }
+  @include media("<=phone"){
+    width: 70vw;
+  }
+
+}
+
+//price slider
+#price-filter-slider{
+  width: 100%;
+}
+
+//price slider bar ,editing from jquery ui css
+.ui-slider-horizontal{
+  height: 6px !important;
+}
+
+//price slider handle ,editing from jquery ui css
+.ui-slider-handle{
+  top: -8px !important;
+  background:url("/imgs/menu-icon.png") !important;
+  background-size: contain !important;
+  border-radius: 50% !important;
+  border-width: 0 !important;
+  outline: none !important;
+  width: 22px !important;
+  height: 22px !important;
+  padding: 0 !important;
+  &:hover{
+    cursor: pointer !important;
+  }
+}
+
+
+//div containing both min and max price filters
+#priceFilter>.filter-box>.rowflex{
+  padding: 0.5em;
+  margin-top: 10px !important;
+
+}
+
+//box containing a single price filter inputs and it's labels
+.price-inputs{
+  background-color: white;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  white-space: nowrap; //to make currency sign and input to remain on the same line
+  outline: black;
+  @include noArrowsInput;
+
+
+  label{
+    font-size: 14px;
+  }
+  input{
+    width: 90%;
+    outline: none;
+    border-width: 0;
+  }
+}
+
+
+//div containing clear and apply button of price filter
+#price-filter-submitbtns{
+  margin-top: 0.7em;
+
+  //actual buttons
+  input{
+    font-size: 14px;
+    border-width: 1px;
+    background-color: black;
+    color: white;
+    border-radius: 0.5em;
+    padding: 0.3em;
+    &:hover{
+      cursor: pointer;
+      background-color: rgba(1,1,1,0.7);
+    }
+    @include media("<=phone"){
+      font-size: 12px;
+    }
+  }
+  //right side button
+  input:nth-child(2){
+    float: right;
+  }
 }

@@ -3,7 +3,7 @@ $allprops=$this->view_data["data"];
 
 $location=$this->view_data["location"];
 $search=$this->view_data["search"];
-
+$filters=$this->view_data["filters"];
 ?>
 <div id="single-listing" class="template">
     <?php require TEMPLATE . "listing" . DIRECTORY_SEPARATOR . "single-listing.html" ?>
@@ -11,93 +11,111 @@ $search=$this->view_data["search"];
 <script>
     <?php
     echo "var props = ".json_encode($allprops) . ";\n";
+    echo "var filters= ".json_encode($filters).";\n";
     ?>
+    console.log(filters);
+
 </script>
 <div id="listprops-main-box">
-<div class="rowflex" id="listprops-heading-bar">
-    <button class="fontAwesomeBTN" id="show-prop-filters"><i class="fa fa-bars" ></i></button>
-    <h1 class="heading">Properties in <?php echo $location?></h1>
-</div>
-
-<div  >
-
-<!--    Div for filter box-->
-    <div id="toInsert"></div>
-    <div id="filter-searched-props" class="animationMenu" status="open">
-<!--        Div for padding-->
-        <form action="/prop/applyFilters/<?php echo $location ?>/<?php echo $search ?>" method="get" id="filter-props-form">
-            <h1>Filter</h1>
-            <div id="priceFilter">
-                <button id="price-filter-button">Price Range</button>
-                <div class="rowflex" >
-                <input type="number" id="minPrice" name="minPrice">
-                    <i class="fa fa-minus" style="align-self: center"></i>
-                <input type="number" id="maxPrice" name="maxPrice">
-                </div>
-            </div>
-            <div id="ratingFilter">
-                <h3>Rating</h3>
-                <input type="range">
-            </div>
-            <div id="propTypeFilter">
-                <h3>Property Type</h3>
-                <div class="rowflex">
-                    <input type="checkbox" name="pType" value="apartment" id="ptype_apartment">
-                    <label for="ptype_apartment">Apartment</label><br>
-                </div>
-                <div class="rowflex">
-                    <input type="checkbox" name="pType" value="house" id="ptype_house">
-                    <label for="ptype_house">House</label><br>
-                </div>
-                <div class="rowflex">
-                    <input type="checkbox" name="pType" value="Floor" id="ptype_floor">
-                    <label for="ptype_floor">Floor</label><br>
-                </div>
-
-            </div>
-
-            <div id="amenitiesFilter">
-                <h3>Amenities</h3>
-                <div class="rowflex">
-                    <input type="checkbox" name="amenities[]" value="wifi" id="amenity_wifi">
-                    <label for="male">WiFi</label><br>
-                </div>
-                <div class="rowflex">
-                    <input type="checkbox" name="amenities[]" value="AC" id="amenity_">
-                    <label for="male">Air Conditioner</label><br>
-                </div>
-                <div class="rowflex">
-                    <input type="checkbox" name="amenities[]" value="bld" id="other">
-                    <label for="male">Breakfast/Lunch/Dinner</label><br>
-                </div>
-            </div>
-
-            <div id="genderFilter">
-                <h3>Gender</h3>
-                <div class="rowflex">
-                <input type="radio" name="gender" value="males" id="male">
-                <label for="male">Only Men</label><br>
-                </div>
-                <div class="rowflex">
-                <input type="radio" name="gender" value="females" id="female">
-                <label for="male">Only Women</label><br>
-                </div>
-                <div class="rowflex">
-                <input type="radio" name="gender" value="both" id="other">
-                <label for="male">Unisex</label><br>
-                </div>
-            </div>
-
-
-            <input type="submit" value="Apply">
-        </form>
+    <div class="rowflex" id="listprops-heading-bar">
+        <button class="fontAwesomeBTN" id="show-prop-filters"><i class="fa fa-bars" ></i></button>
+        <h1 class="heading">Properties in <?php echo $location?></h1>
     </div>
 
-<!--    Div showing all properties in a grid-->
-    <div id="listprops-grid">
+    <div  >
 
+    <!--    Div for filter box-->
+        <div id="filter-searched-props" class="animationMenu" status="open">
+<?php
+$filter_action="/prop/l/".$location;
+if($search!="")
+    $filter_action.=("/".$search)
+  ?>
+            <form action="<?php echo $filter_action ?>" method="get" id="filter-props-form" class="rowflex">
+                <div id="priceFilter">
+                    <button type="button" style="margin-left: 0px" class="text-icon filter-btn" id="filter-price-btn">Price Range</button>
+                    <div class="filter-box raised-box toggleVisible " visible="false">
+                        <p class="text-icon">Apply price filter</p>
+                        <div id="price-filter-slider"></div>
+                        <div class="rowflex" style="margin-top: 1em">
+                            <div class="price-inputs">
+                                <label for="minPrice">min price</label><br>
+                                <span>&#8377;</span>
+                                <input type="number" class="price-inputs" value="0" id="minPrice" name="minPrice">
+                            </div>
+                            <i class="fa fa-minus" style="align-self: center"></i>
+                            <div class="price-inputs">
+                                <label for="minPrice">max price</label><br>
+                                <span>&#8377;</span>
+                                <input type="number" class="price-inputs" value="0" id="maxPrice" name="maxPrice">
+                            </div>
+                            </div>
+                        <div id="price-filter-submitbtns">
+                            <input class="text-icon" type="button" value="Clear">
+                            <input class="text-icon" class="main-filters-submit" for="priceFilter" type="submit" value="Apply">
+                        </div>
+                        </div>
+                    </div>
+                <div id="propTypeFilter">
+                    <button type="button" class="text-icon filter-btn" id="filter-type-btn">Property Type</button>
+                    <div class="filter-box raised-box toggleVisible" visible="false">
+                        <div class="rowflex">
+                            <input type="checkbox" name="pType" value="apartment" id="ptype_apartment">
+                            <label for="ptype_apartment">Apartment</label><br>
+                        </div>
+                        <div class="rowflex">
+                            <input type="checkbox" name="pType" value="house" id="ptype_house">
+                            <label for="ptype_house">House</label><br>
+                        </div>
+                        <div class="rowflex">
+                            <input type="checkbox" name="pType" value="Floor" id="ptype_floor">
+                            <label for="ptype_floor">Floor</label><br>
+                        </div>
+                    </div>
+
+                </div>
+
+    <!--            <div id="amenitiesFilter">-->
+    <!--                <h3>Amenities</h3>-->
+    <!--                <div class="rowflex">-->
+    <!--                    <input type="checkbox" name="amenities[]" value="wifi" id="amenity_wifi">-->
+    <!--                    <label for="male">WiFi</label><br>-->
+    <!--                </div>-->
+    <!--                <div class="rowflex">-->
+    <!--                    <input type="checkbox" name="amenities[]" value="AC" id="amenity_">-->
+    <!--                    <label for="male">Air Conditioner</label><br>-->
+    <!--                </div>-->
+    <!--                <div class="rowflex">-->
+    <!--                    <input type="checkbox" name="amenities[]" value="bld" id="other">-->
+    <!--                    <label for="male">Breakfast/Lunch/Dinner</label><br>-->
+    <!--                </div>-->
+    <!--            </div>-->
+    <!---->
+    <!--            <div id="genderFilter">-->
+    <!--                <h3>Gender</h3>-->
+    <!--                <div class="rowflex">-->
+    <!--                <input type="radio" name="gender" value="males" id="male">-->
+    <!--                <label for="male">Only Men</label><br>-->
+    <!--                </div>-->
+    <!--                <div class="rowflex">-->
+    <!--                <input type="radio" name="gender" value="females" id="female">-->
+    <!--                <label for="male">Only Women</label><br>-->
+    <!--                </div>-->
+    <!--                <div class="rowflex">-->
+    <!--                <input type="radio" name="gender" value="both" id="other">-->
+    <!--                <label for="male">Unisex</label><br>-->
+    <!--                </div>-->
+    <!--            </div>-->
+
+
+            </form>
+        </div>
+
+    <!--    Div showing all properties in a grid-->
+        <div id="listprops-grid">
+
+        </div>
     </div>
-</div>
 </div>
 <script>
     $(document).ready(function() {

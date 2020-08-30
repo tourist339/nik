@@ -3,46 +3,67 @@
 
 class prop_controller extends Controller
 {
+    private $prop_filters;
     public function __construct()
     {
         $this->model = new prop_model("system_d");
+        $this->prop_filters=null;
     }
 
+    /**
+     * Creates view from prop/listprops.phtml and gives the data of all the matched properties as
+     * well as other required information
+     * @param $location name of city or state from where the properties are to be listed
+     * @param string $search query string that matches the title of the properties using (SQL LIKE)
+     */
     public function l($location,$search="")
     {
 
-            $location=$this->removeSPandTrim($location);
-            $search=str_replace('-',' ',$search);
-            $search=$this->removeSPandTrim($search);
+
+        $location=$this->removeSPandTrim($location);
+        $search=str_replace('-',' ',$search);
+        $search=$this->removeSPandTrim($search);
+
+        //check if filters are set then get the data from applyFilters function
+        $data=$this->applyFilters($location,$search);
+        $filters=null;
+        //if $data is null that means filters are not set , so get data from the model
+        if($data==null){
             $data = $this->model->getAllProps(["id","title", "description", "rent", "address","city","images"], ["location"=>$location,"search"=>$search]);
-            $usermodel=new user_model();
-            session_start();
-            if(isset($_SESSION["id"])) {
-                foreach ($data as &$prop){
-                    $propid=$prop["id"];
-                    if($usermodel->checkPropInWishlist($propid,$_SESSION["id"])){
-                        $prop["wishlisted"]="true";
-                    }else{
-                        $prop["wishlisted"]="false";
+        }else{
+            //this means filters are set so get the filters array from the instance variable
+            // set by applyFilters function
+            $filters=$this->prop_filters;
+        }
+        $usermodel=new user_model();
+        session_start();
+        if(isset($_SESSION["id"])) {
+            foreach ($data as &$prop){
+                $propid=$prop["id"];
+                if($usermodel->checkPropInWishlist($propid,$_SESSION["id"])){
+                    $prop["wishlisted"]="true";
+                }else{
+                    $prop["wishlisted"]="false";
 
-                    }
                 }
+            }
 
-            }
-            if ($data == null) {
-                new e404_controller("No Property Found in this city");
-            } else {
-                $this->createView('prop/listprops', ["title" => "LyfLy",
-                                                            "scripts" => [MAIN_SCRIPTS,"listprops.js","imageslider.js"],
-                                                            "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css","listprops.css"],
-                                                            "navbar" => MAIN_NAVBAR,
-                                                            "location"=>ucfirst($location),
-                                                            "search"=>$search,
-                                                            "data" => $data]
-                                    )->render();
-            }
-            $this->model->closeDb();
-            $usermodel->closeDb();
+        }
+        if ($data == null) {
+            new e404_controller("No Property Found in this city");
+        } else {
+            $this->createView('prop/listprops', ["title" => "LyfLy",
+                                                        "scripts" => [MAIN_SCRIPTS,"listprops.js","imageslider.js","jquery-ui.min.js"],
+                                                        "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css","listprops.css","jquery-ui.min.css"],
+                                                        "navbar" => MAIN_NAVBAR,
+                                                        "location"=>ucfirst($location),
+                                                        "search"=>$search,
+                                                        "filters"=>$filters,
+                                                        "data" => $data]
+                                )->render();
+        }
+        $this->model->closeDb();
+        $usermodel->closeDb();
 
     }
 
@@ -93,7 +114,7 @@ class prop_controller extends Controller
             $usermodel->closeDb();
     }
 
-    public function applyFilters($location,$search=""){
+    private function applyFilters($location,$search=""){
         if(isset($_GET)){
             $filters=["minPrice","maxPrice","gender","pType"];
             $filterToApply=[];
@@ -102,16 +123,18 @@ class prop_controller extends Controller
                     $filterToApply[":" . $filter] = $this->removeSPandTrim($_GET[$filter]);
                 }
             }
+            $this->prop_filters=$filterToApply;
                     $data = $this->model->getAllProps(
                         ["id","title", "description", "rent", "address","city","images"],
                         ["location"=>$location,"search"=>$search],$filterToApply);
                     if ($data == null) {
-                        echo json_encode("");
+                        return null;
                     }else{
-                        echo json_encode($data);
+                        return $data;
                     }
-
-            }
+        }else{
+            return null;
+        }
 
     }
 

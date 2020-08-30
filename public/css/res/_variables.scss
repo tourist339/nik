@@ -36,6 +36,21 @@ $opaque_bg:rgba(1,1,1,0);
 
 }
 
+@mixin noArrowsInput{
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+}
+
+
 @mixin fontAwesomeBtn($bgColor:rgba(1,1,1,0),$color:black,$fontSize:$fontsize_icon){
 
   background-color: $bgColor;

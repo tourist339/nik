@@ -116,6 +116,10 @@ body {
   margin: 0 !important;
 }
 
+button {
+  outline: none;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -222,7 +226,7 @@ body {
 }
 
 .toggleVisible {
-  transition: all 0.6s linear;
+  transition: all 0.3s linear;
   visibility: hidden;
 }
 .toggleVisible[visible=false] {
