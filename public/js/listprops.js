@@ -193,17 +193,25 @@ $(document).ready(function () {
 
 
 
+    //event attached to plus and minus buttons of more filters box or any
+    // inputbox element with type small number
     $("inputbox[type='smallnumber']").on("click","button",function () {
         let sibling_input=$(this).siblings("input");
         var current_val=sibling_input.val();
         if($(this).hasClass("minus")){
             if(current_val>0)
                 sibling_input.val(--current_val);
+
         }else if($(this).hasClass("plus")){
             if(current_val<16)
                 sibling_input.val(++current_val);
 
         }
+
+        if (current_val<=0)
+            sibling_input.removeAttr("name");
+        else
+            sibling_input.attr("name",sibling_input.attr("for"));
     });
 
     //loadProps fills all the properties and then returns the self object from

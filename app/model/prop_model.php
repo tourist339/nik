@@ -38,6 +38,28 @@ class prop_model extends Model
                     case ":gender":
                         $selectors.=" AND gender = :gender";
                         break;
+                    case ":pType":
+                        $selectors.=" AND gender = :gender";
+                        break;
+                    case ":bedrooms":
+                        $selectors.=" AND bedrooms = :bedrooms";
+                        break;
+                    case ":bathrooms":
+                        $selectors.=" AND bathrooms = :bathrooms";
+                        break;
+                    case ":kitchen":
+                        $selectors.=" AND kitchen = :kitchen";
+                        break;
+                    case ":lyfly-managed":
+                        $selectors.=" AND lyfly = :lyfly-managed";
+                        break;
+                    case ":amenities":
+                        $selectors.=" AND gender = :gender";
+                        break;
+                    case ":hourserules":
+                        $selectors.=" AND gender = :gender";
+                        break;
+
                 }
             }
         }

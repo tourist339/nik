@@ -120,11 +120,12 @@ class prop_controller extends Controller
     /**
      * @param $location
      * @param string $search
-     * @return array|null
+     * @return array containing all the filters || null
      */
     private function applyFilters($location,$search=""){
         if(isset($_GET)){
-            $filters=["minPrice","maxPrice","gender","pType"];
+            $filters=["minPrice","maxPrice","gender","pType","bedrooms","bathrooms",
+                "kitchen","lyfly-managed","amenities","houserules"];
             $filterToApply=[];
             foreach ($filters as $filter) {
                 if (isset($_GET[$filter])) {
