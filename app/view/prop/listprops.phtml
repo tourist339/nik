@@ -13,7 +13,6 @@ $filters=$this->view_data["filters"];
     echo "var props = ".json_encode($allprops) . ";\n";
     echo "var filters= ".json_encode($filters).";\n";
     ?>
-
 </script>
 <div id="listprops-main-box">
     <div class="rowflex" id="listprops-heading-bar">
@@ -29,9 +28,14 @@ $filters=$this->view_data["filters"];
 $filter_action="/prop/l/".$location;
 if($search!="")
     $filter_action.=("/".$search)
+
+
   ?>
             <form action="<?php echo $filter_action ?>" method="get" id="filter-props-form" class="rowflex">
-                <div id="priceFilter">
+
+        <!--               PRICE FILTER SECTION-->
+                <div id="priceFilter" class="filter-divs">
+<!--                    filter-btn class for every filter button-->
                     <button type="button" style="margin-left: 0px" class="text-icon filter-btn" id="filter-price-btn">Price Range</button>
                     <div class="filter-box raised-box toggleVisible " visible="false">
                         <p class="text-icon">Apply price filter</p>
@@ -49,13 +53,15 @@ if($search!="")
                                 <input type="number" class="price-inputs" value="0" id="maxPrice" name="maxPrice">
                             </div>
                             </div>
-                        <div id="price-filter-submitbtns">
-                            <input class="text-icon" type="button" value="Clear">
-                            <input class="text-icon" class="main-filters-submit" for="priceFilter" type="submit" value="Apply">
+                        <div id="price-filter-submitbtns" class="filter-submit-btns">
+                            <input class="text-small-icon" type="button" value="Clear">
+                            <input class="text-small-icon" type="submit" value="Apply">
                         </div>
                         </div>
                     </div>
-                <div id="propTypeFilter">
+
+                <!--               PROP TYPE FILTER SECTION-->
+                <div id="propTypeFilter" class="filter-divs">
                     <button type="button" class="text-icon filter-btn" id="filter-type-btn">Property Type</button>
                     <div class="filter-box raised-box toggleVisible" visible="false">
                         <div class="rowflex">
@@ -74,40 +80,144 @@ if($search!="")
 
                 </div>
 
-    <!--            <div id="amenitiesFilter">-->
-    <!--                <h3>Amenities</h3>-->
-    <!--                <div class="rowflex">-->
-    <!--                    <input type="checkbox" name="amenities[]" value="wifi" id="amenity_wifi">-->
-    <!--                    <label for="male">WiFi</label><br>-->
-    <!--                </div>-->
-    <!--                <div class="rowflex">-->
-    <!--                    <input type="checkbox" name="amenities[]" value="AC" id="amenity_">-->
-    <!--                    <label for="male">Air Conditioner</label><br>-->
-    <!--                </div>-->
-    <!--                <div class="rowflex">-->
-    <!--                    <input type="checkbox" name="amenities[]" value="bld" id="other">-->
-    <!--                    <label for="male">Breakfast/Lunch/Dinner</label><br>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!---->
-    <!--            <div id="genderFilter">-->
-    <!--                <h3>Gender</h3>-->
-    <!--                <div class="rowflex">-->
-    <!--                <input type="radio" name="gender" value="males" id="male">-->
-    <!--                <label for="male">Only Men</label><br>-->
-    <!--                </div>-->
-    <!--                <div class="rowflex">-->
-    <!--                <input type="radio" name="gender" value="females" id="female">-->
-    <!--                <label for="male">Only Women</label><br>-->
-    <!--                </div>-->
-    <!--                <div class="rowflex">-->
-    <!--                <input type="radio" name="gender" value="both" id="other">-->
-    <!--                <label for="male">Unisex</label><br>-->
-    <!--                </div>-->
-    <!--            </div>-->
+                <!--               MORE FILTERS SECTION-->
+                <div id="moreFilters" class="filter-divs">
 
+                    <button type="button" class="text-icon filter-btn" id="filter-more-btn">More Filters</button>
+
+                </div>
 
             </form>
+            <!--                    modal box that contains all the more filters -->
+            <div class="modal raised-box" id="more-filters-modal">
+                <!--            form just for more filters, it's action is loaded via JS in listprops.js -->
+                <form id="more-filters-form" action="" method="get">
+                <!--                        header div for more filter box-->
+                <div id="more-filters-header" class="afterline">
+                    <h1 class="text-midheading">More Filters</h1>
+                </div>
+
+                <!--                        body div for more filter box-->
+                <div id="more-filters-body" >
+                    <!--
+                     mfb-divs represent each filter section for example rooms, amenities,rules
+                     etc.-->
+                    <!-- LYFLY FILTER SECTION INSIDE MORE FILTERS -->
+                    <div class="mfb-divs afterline">
+                        <!--     multiline-div class contains a small heading with a
+                                description underneath and a input on the right side -->
+                        <div class="multiline-div">
+                            <div>
+                                <h2 class="text-icon">Managed by lyfly</h2>
+                                <p class="text-small-icon">These properties are managed by the employes of lyfly personally</p>
+                            </div>
+                            <inputbox type="toggle">
+                                <toggle-switch value="lyfly-managed" name="lyfly-managed"></toggle-switch>
+                            </inputbox>
+                        </div>
+                    </div>
+
+                    <!-- ROOMS FILTER SECTIOn INSIDE MORE FILTERS -->
+                    <div class="mfb-divs afterline">
+                        <div class="mfb-box">
+                            <h2 class="text-body font-midheading">Rooms</h2>
+                            <!--     single-line-input class contains a description
+                            on the left and the input on right-->
+                            <div class="single-line-input">
+                                <p class="text-icon">Bedrooms</p>
+                                <inputbox type="smallnumber">
+                                    <button class="circular-btn fontAwesomeBTN"><i class="text-body"> - </i> </button>
+                                    <p class="text-icon font-largeheading" >0
+                                    </p>
+                                    <button class="circular-btn fontAwesomeBTN"><i class="text-body" >+</i> </button>
+
+                                </inputbox>
+                            </div>
+
+                            <div class="single-line-input">
+                                <p class="text-icon">Bathrooms</p>
+                                <inputbox type="smallnumber">
+                                    <button class="circular-btn fontAwesomeBTN"><i class="text-body"> - </i> </button>
+                                    <input class="text-icon font-largeheading" type="number" value="0" name="nBathrooms">
+                                    <button class="circular-btn fontAwesomeBTN"><i class="text-body" >+</i> </button>
+
+                                </inputbox>
+                            </div>
+                            <div class="single-line-input">
+                                <p class="text-icon">Kitchen included</p>
+                                <inputbox type="toggle">
+                                    <input type="checkbox" name="kitchen" values="kitchen">
+
+                                </inputbox>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AMENITY FILTER SECTION INSIDE MORE FILTERS -->
+                    <div class="mfb-divs afterline">
+                        <h2 class="text-body font-midheading">Amenities</h2>
+                        <div class="gridbox" id="amenities-filter-grid">
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <label class="text-icon" for="wifi-amenity">WIFI </i> </label>
+                            </div>
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <label class="text-icon" for="wifi-amenity">Laundry </i> </label>
+                            </div>
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <label class="text-icon" for="wifi-amenity">Air Conditioner </i> </label>
+                            </div>
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <label class="text-icon" for="wifi-amenity">TV </i> </label>
+                            </div>
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <label class="text-icon" for="wifi-amenity">BreakFast </i> </label>
+                            </div>
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <label class="text-icon" for="wifi-amenity">Lunch </i> </label>
+                            </div>
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <label class="text-icon" for="wifi-amenity">Dinner </i> </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- HOUSE RULES FILTER SECTION INSIDE MORE FILTERS -->
+                    <div class="mfb-divs">
+                        <h2 class="text-body font-midheading">House Rules</h2>
+                        <div class="gridbox" id="rules-filter-grid">
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" id="party-rules">
+                                <label class="text-icon" for="wifi-amenity">Party Allowed </i> </label>
+                            </div>
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" id="party-rules">
+                                <label class="text-icon" for="wifi-amenity">Smoking Allowed </i> </label>
+                            </div>
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" id="party-rules">
+                                <label class="text-icon" for="wifi-amenity">Pet Friendly </i> </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div id="more-filters-footer" class="beforeline">
+                    <div class="filter-submit-btns">
+                        <input class="text-icon" type="button" value="Clear">
+                        <input class="text-icon" type="submit" id="more-filter-apply"  value="Apply">
+                    </div>
+                </div>
+                </form>
+            </div>
+
         </div>
 
     <!--    Div showing all properties in a grid-->

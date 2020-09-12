@@ -10,6 +10,9 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+#filter-searched-props {
+  margin: 2px 0 1.5vw 0;
+}
 #filter-searched-props h3 {
   font-size: 20px;
 }
@@ -26,14 +29,14 @@ input[type=number] {
   cursor: pointer;
 }
 
-#filter-props-form > div {
+.filter-divs {
   position: relative;
+  margin: 0 2px;
 }
 
 .filter-btn {
   padding: 0.1em 1em;
   border-radius: 1em;
-  margin: 1em 0.4em;
   background-color: white;
   font-family: "Alegreya";
   width: 100%;
@@ -46,7 +49,8 @@ input[type=number] {
 
 .filter-box {
   position: absolute;
-  top: 90%;
+  top: 100%;
+  margin-top: 0.5vw;
   width: 25vw;
   left: 2px;
   z-index: 4;
@@ -130,30 +134,94 @@ input[type=number] {
   border-width: 0;
 }
 
-#price-filter-submitbtns {
+.filter-submit-btns {
   margin-top: 0.7em;
 }
-#price-filter-submitbtns input {
-  font-size: 14px;
+.filter-submit-btns input {
   border-width: 1px;
   background-color: black;
   color: white;
   border-radius: 0.5em;
   padding: 0.3em;
+  outline: 0;
 }
-#price-filter-submitbtns input:hover {
+.filter-submit-btns input:hover {
   cursor: pointer;
   background-color: rgba(1, 1, 1, 0.7);
 }
-@media (max-width: 480px) {
-  #price-filter-submitbtns input {
-    font-size: 12px;
-  }
-}
-#price-filter-submitbtns input:nth-child(2) {
+.filter-submit-btns input:nth-child(2) {
   float: right;
 }
 
+#more-filters-modal {
+  max-width: 60vw !important;
+  width: 50vw !important;
+  padding: 1vw 2vw !important;
+}
+#more-filters-modal .afterline::after, #more-filters-modal .beforeline::before {
+  width: calc(100% + 4vw) !important;
+  height: 1px !important;
+  margin: 0 -2vw;
+  background-color: #c5c5c5 !important;
+}
+
+#more-filters-header {
+  width: auto;
+}
+#more-filters-header h1 {
+  text-align: center;
+}
+
+#more-filters-body {
+  max-height: 60vh;
+  overflow-y: scroll;
+  margin: 5px 1.5vw;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+#more-filters-footer {
+  padding: 5px 0;
+}
+
+.mfb-divs {
+  padding-bottom: 15px;
+}
+
+.multiline-div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.single-line-input {
+  display: flex;
+  flex-direction: row;
+}
+
+inputbox {
+  margin: auto 0 auto auto;
+}
+
+inputbox[type=smallnumber] p {
+  display: inline;
+}
+inputbox[type=smallnumber] .circular-btn i {
+  padding: 0 6px !important;
+  font-style: normal !important;
+  border-radius: 50% !important;
+}
+inputbox[type=smallnumber] .circular-btn:nth-child(1) {
+  margin-right: 7px;
+}
+inputbox[type=smallnumber] .circular-btn:nth-child(3) {
+  margin-left: 7px;
+}
+
+.mfb-divs .gridbox {
+  grid-template-columns: repeat(2, minmax(auto, 1fr));
+  grid-row-gap: 2em;
+}
 nav {
   position: relative;
 }

@@ -19,6 +19,7 @@ input[type=number] {
 //filter box containing all filter inputs and stuff
 #filter-searched-props{
 
+  margin:2px 0 1.5vw 0;
 
   h3{
     font-size: $headingFontSize;
@@ -45,15 +46,16 @@ input[type=number] {
 
 
 //divs containing the top main filters and their boxes
-#filter-props-form>div{
+.filter-divs{
   position: relative;
+  margin:0 2px;
 }
+
 
 //buttons at the top representing main filters like price
 .filter-btn{
   padding: 0.1em 1em;
   border-radius: 1em;
-  margin:1em 0.4em;
   background-color: white;
   font-family: $fontMidHeading;
   width: 100%;
@@ -68,7 +70,8 @@ input[type=number] {
 //boxes that appear on clicking the main filters
 .filter-box{
   position: absolute;
-  top: 90%;
+  top: 100%;
+  margin-top: 0.5vw;
   width: 25vw;
   left: 2px;
   z-index: 4;
@@ -148,27 +151,124 @@ input[type=number] {
 
 
 //div containing clear and apply button of price filter
-#price-filter-submitbtns{
+.filter-submit-btns{
   margin-top: 0.7em;
 
   //actual buttons
   input{
-    font-size: 14px;
     border-width: 1px;
     background-color: black;
     color: white;
     border-radius: 0.5em;
     padding: 0.3em;
+    outline: 0;
     &:hover{
       cursor: pointer;
       background-color: rgba(1,1,1,0.7);
     }
-    @include media("<=phone"){
-      font-size: 12px;
-    }
+
   }
   //right side button
   input:nth-child(2){
     float: right;
+  }
+}
+
+
+//more filters modal box
+#more-filters-modal{
+  max-width: 60vw !important;
+  width: 50vw !important;
+  padding: 1vw 2vw !important;
+  .afterline::after , .beforeline::before{
+    width: calc(100% + 4vw) !important;
+    height: 1px !important;
+    margin:0 -2vw;
+    background-color: #c5c5c5 !important;
+  }
+
+}
+
+//more filters box heading div
+#more-filters-header{
+  width: auto;
+
+  h1{
+    text-align: center;
+  }
+}
+
+//more filters box body div
+#more-filters-body{
+  max-height: 60vh;
+  overflow-y: scroll;
+  margin: 5px 1.5vw;
+  max-width: 100%;
+  overflow-x: hidden;
+
+}
+
+//more filters box footer div
+#more-filters-footer{
+  padding: 5px 0;
+}
+
+//style for all different filter  sections in more filters
+.mfb-divs{
+  padding-bottom: 15px;
+}
+
+//divs with a heading,body and a inputbox
+.multiline-div{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+}
+
+//div with a description to the left and an input div to the right
+.single-line-input{
+  display: flex;
+  flex-direction: row;
+
+}
+
+//general style for all input boxes in filter box
+inputbox{
+  margin:auto 0 auto auto;
+}
+
+//style for inputbox associated with small numbers , the style contains
+// a minus and a plus icon with number in middle
+inputbox[type="smallnumber"]{
+  p{
+    display: inline;
+  }
+  .circular-btn{
+    //i here is plus minus sign
+    i{
+      padding: 0 6px !important;
+      font-style: normal !important;
+      border-radius: 50% !important;
+
+    }
+    &:nth-child(1){
+      margin-right: 7px;
+    }
+    //no idea why it's 3 not 2
+    &:nth-child(3){
+      margin-left: 7px;
+
+    }
+
+  }
+
+}
+
+.mfb-divs .gridbox{
+  grid-template-columns: repeat(2,minmax(auto,1fr));
+  grid-row-gap: 2em;
+  &>div{
+
   }
 }

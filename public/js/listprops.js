@@ -90,7 +90,7 @@ function propsConfig(parent,template,selector,props){
         }
     }
     return self;
-};
+}
 
 
 function loadFilters(filters_,default_data){
@@ -104,7 +104,7 @@ function loadFilters(filters_,default_data){
             $("#price-filter-slider").slider({
             range:true,
             min:0,
-            max:default_data.max_rent,
+            max:parseInt($("#maxPrice").val())+1000,
             values:[$("#minPrice").val(),$("#maxPrice").val()],
             slide:(event,ui)=>{
                 $( "#minPrice" ).val( ui.values[ 0 ] );
@@ -119,7 +119,7 @@ function loadFilters(filters_,default_data){
             $("#maxPrice").val(maxPrice);
         },
         loadDefaultData:()=>{
-            self.setMinMaxPrice(default_data.min_rent,default_data.max_rent);
+            self.setMinMaxPrice(0,10000);
         },
         loadData:()=>{
             //if  no filters are set , load the default values
@@ -153,6 +153,8 @@ function loadFilters(filters_,default_data){
 $(document).ready(function () {
 
 
+    $("#more-filters-form").attr("action",window.location.href);
+
     $(".filter-btn").on("click",function () {
         let filterbox=$(this).siblings(".filter-box");
         var show=false;
@@ -169,12 +171,24 @@ $(document).ready(function () {
             filterbox.attr("visible","true");
     });
 
+    $("#filter-more-btn").on("click",function () {
+        console.log("fds");
+        $("#more-filters-modal").modal({
+            fadeDuration: 200,
+            fadeDelay: 0.80
+        });
+    });
+
+
+
+
+
     //loadProps fills all the properties and then returns the self object from
     // where we can get the updated min and max rents
     var rents=propsConfig("#listprops-grid","#single-listing",".listprops-item", props).loadProps();
-    var default_rents=new Object();
-    default_rents.min_rent=rents.min_rent;
-    default_rents.max_rent=rents.max_rent;
-    loadFilters(filters,default_rents).loadData();
+
+    console.log(filters);
+    loadFilters(filters,null).loadData();
+
 
 });

@@ -55,6 +55,11 @@ button{
     font-size: $fontsize_icon ;
 }
 
+.text-small-icon{
+    font-family: $fontBody;
+    font-size: 14px ;
+}
+
 .text-largeheading{
     font-family: $fontHeading;
     font-size: $fontsize_largeheading;
@@ -98,6 +103,9 @@ button{
     .text-icon{
         font-size: $fontsize_tablet_icon;
     }
+    .text-small-icon{
+        font-size: $fontsize_tablet_icon - 2px;
+    }
 
 }
 //end of media query for tablets
@@ -120,6 +128,9 @@ button{
 
     .text-icon{
         font-size: $fontsize_mobile_icon;
+    }
+    .text-small-icon{
+        font-size: $fontsize_mobile_icon - 1.5px;
     }
 }
 //end of media query for mobiles
@@ -216,6 +227,8 @@ input[type="submit"]{
     margin: auto;
     background: gray;
 }
+
+//this will add a horizontal line after div
 .afterline{
     position: relative;
 }
@@ -224,7 +237,20 @@ input[type="submit"]{
     width: 80%;
     height: 1px;
     position: absolute;
-    bottom: -1rem;
+    bottom: 0px;
+    background: #717171;
+}
+
+//this will add a horizontal line before div
+.beforeline{
+    position: relative;
+}
+.beforeline:before{
+    content: "";
+    width: 100%;
+    height: 1px;
+    position: absolute;
+    top: 0px;
     background: #717171;
 }
 
@@ -328,6 +354,16 @@ footer{
     box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
 }
 
+//Circular button style
+.circular-btn{
+
+    border-radius: 50% !important;
+    border:black solid 1px !important;
+    i{
+        border-radius: 50% !important;
+
+    }
+}
 
 .horizontal-scroller{
     white-space: nowrap;
