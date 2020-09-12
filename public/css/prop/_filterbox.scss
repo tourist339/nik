@@ -241,8 +241,15 @@ inputbox{
 //style for inputbox associated with small numbers , the style contains
 // a minus and a plus icon with number in middle
 inputbox[type="smallnumber"]{
-  p{
+  input{
+    border: 0;
+    background-color: white;
+    outline: 0;
+    width: 2.5ch;
     display: inline;
+    &:hover{
+      cursor: default;
+    }
   }
   .circular-btn{
     //i here is plus minus sign

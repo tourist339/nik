@@ -95,10 +95,16 @@ function propsConfig(parent,template,selector,props){
 
 function loadFilters(filters_,default_data){
     var self={
-        filters_dict:{
+        filters_dict_type:{
             ":minPrice":"text",
             ":maxPrice":"text"
         },
+        filters_dict_place:{
+            //give main to the filters that are not in the more filters sectioin
+            ":minPrice":"main",
+            ":maxPrice":"main"
+        },
+        more_filters_form:()=> {return $("#more-filters-form");},
         initialisePriceSlider:()=>{
             //price filter slider jquery ui initialisation
             $("#price-filter-slider").slider({
@@ -131,9 +137,15 @@ function loadFilters(filters_,default_data){
 
                     if(filters.hasOwnProperty(filter_key)) {
 
-                        if (self.filters_dict[filter_key] == "text") {
-                            console.log(filter_key);
+                        //to add the hidden inputs from main form to more filter form and vice versa
+                        switch (self.filters_dict_place[filter_key]) {
+                            case "main":
+                                self.more_filters_form().append("<input type='hidden' name='"+filter_key.substring(1)+"' value='"+filters[filter_key]+"'>")
 
+                        }
+
+                        //to preload the previously set filters using it's appropriate type
+                        if (self.filters_dict_type[filter_key] == "text") {
                             $("#"+filter_key.substring(1)).val(filters[filter_key]);
                         }
                     }
@@ -181,7 +193,18 @@ $(document).ready(function () {
 
 
 
+    $("inputbox[type='smallnumber']").on("click","button",function () {
+        let sibling_input=$(this).siblings("input");
+        var current_val=sibling_input.val();
+        if($(this).hasClass("minus")){
+            if(current_val>0)
+                sibling_input.val(--current_val);
+        }else if($(this).hasClass("plus")){
+            if(current_val<16)
+                sibling_input.val(++current_val);
 
+        }
+    });
 
     //loadProps fills all the properties and then returns the self object from
     // where we can get the updated min and max rents

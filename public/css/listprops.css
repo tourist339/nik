@@ -203,8 +203,15 @@ inputbox {
   margin: auto 0 auto auto;
 }
 
-inputbox[type=smallnumber] p {
+inputbox[type=smallnumber] input {
+  border: 0;
+  background-color: white;
+  outline: 0;
+  width: 2.5ch;
   display: inline;
+}
+inputbox[type=smallnumber] input:hover {
+  cursor: default;
 }
 inputbox[type=smallnumber] .circular-btn i {
   padding: 0 6px !important;

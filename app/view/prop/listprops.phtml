@@ -88,7 +88,10 @@ if($search!="")
                 </div>
 
             </form>
-            <!--                    modal box that contains all the more filters -->
+
+            <!--                    modal box that contains all the more filters and it's own form-->
+            <!--            seperate form was needed because apparently jquery modal remove the modal div from it's
+            <!--            parent and attaches it directly to the body tag , so it can't operate on the parent form-->
             <div class="modal raised-box" id="more-filters-modal">
                 <!--            form just for more filters, it's action is loaded via JS in listprops.js -->
                 <form id="more-filters-form" action="" method="get">
@@ -102,6 +105,7 @@ if($search!="")
                     <!--
                      mfb-divs represent each filter section for example rooms, amenities,rules
                      etc.-->
+
                     <!-- LYFLY FILTER SECTION INSIDE MORE FILTERS -->
                     <div class="mfb-divs afterline">
                         <!--     multiline-div class contains a small heading with a
@@ -109,10 +113,11 @@ if($search!="")
                         <div class="multiline-div">
                             <div>
                                 <h2 class="text-icon">Managed by lyfly</h2>
-                                <p class="text-small-icon">These properties are managed by the employes of lyfly personally</p>
+                                <p class="text-small-icon">These properties are managed by
+                                    the employes of lyfly personally</p>
                             </div>
                             <inputbox type="toggle">
-                                <toggle-switch value="lyfly-managed" name="lyfly-managed"></toggle-switch>
+                                <toggle-switch value="1" name="lyfly-managed"></toggle-switch>
                             </inputbox>
                         </div>
                     </div>
@@ -126,10 +131,10 @@ if($search!="")
                             <div class="single-line-input">
                                 <p class="text-icon">Bedrooms</p>
                                 <inputbox type="smallnumber">
-                                    <button class="circular-btn fontAwesomeBTN"><i class="text-body"> - </i> </button>
-                                    <p class="text-icon font-largeheading" >0
-                                    </p>
-                                    <button class="circular-btn fontAwesomeBTN"><i class="text-body" >+</i> </button>
+                                    <button class="circular-btn fontAwesomeBTN minus" type="button"><i class="text-body"> - </i> </button>
+                                    <input class="text-icon font-largeheading" type="number" value="0" name="bedrooms" readonly="readonly">
+
+                                    <button class="circular-btn fontAwesomeBTN plus" type="button"><i class="text-body" >+</i> </button>
 
                                 </inputbox>
                             </div>
@@ -137,16 +142,16 @@ if($search!="")
                             <div class="single-line-input">
                                 <p class="text-icon">Bathrooms</p>
                                 <inputbox type="smallnumber">
-                                    <button class="circular-btn fontAwesomeBTN"><i class="text-body"> - </i> </button>
-                                    <input class="text-icon font-largeheading" type="number" value="0" name="nBathrooms">
-                                    <button class="circular-btn fontAwesomeBTN"><i class="text-body" >+</i> </button>
+                                    <button class="circular-btn fontAwesomeBTN minus" type="button"><i class="text-body"> - </i> </button>
+                                    <input class="text-icon font-largeheading" type="number" value="0" name="bathrooms" readonly="readonly">
+                                    <button class="circular-btn fontAwesomeBTN plus" type="button"><i class="text-body" >+</i> </button>
 
                                 </inputbox>
                             </div>
                             <div class="single-line-input">
                                 <p class="text-icon">Kitchen included</p>
                                 <inputbox type="toggle">
-                                    <input type="checkbox" name="kitchen" values="kitchen">
+                                    <toggle-switch name="kitchen" value="1"></toggle-switch>
 
                                 </inputbox>
                             </div>
