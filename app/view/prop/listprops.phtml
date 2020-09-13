@@ -132,7 +132,7 @@ if($search!="")
                                 <p class="text-icon">Bedrooms</p>
                                 <inputbox type="smallnumber">
                                     <button class="circular-btn fontAwesomeBTN minus" type="button"><i class="text-body"> - </i> </button>
-                                    <input class="text-icon font-largeheading" type="number" value="0" for="bedrooms" readonly="readonly">
+                                    <input class="text-icon font-largeheading" id="nBedrooms" type="number" value="0" for="bedrooms" readonly="readonly">
 
                                     <button class="circular-btn fontAwesomeBTN plus" type="button"><i class="text-body" >+</i> </button>
 
@@ -143,7 +143,7 @@ if($search!="")
                                 <p class="text-icon">Bathrooms</p>
                                 <inputbox type="smallnumber">
                                     <button class="circular-btn fontAwesomeBTN minus" type="button"><i class="text-body"> - </i> </button>
-                                    <input class="text-icon font-largeheading" type="number" value="0" for="bathrooms" readonly="readonly">
+                                    <input class="text-icon font-largeheading" id="nBathrooms" type="number" value="0" for="bathrooms" readonly="readonly">
                                     <button class="circular-btn fontAwesomeBTN plus" type="button"><i class="text-body" >+</i> </button>
 
                                 </inputbox>
@@ -151,7 +151,7 @@ if($search!="")
                             <div class="single-line-input">
                                 <p class="text-icon">Kitchen included</p>
                                 <inputbox type="toggle">
-                                    <toggle-switch name="kitchen" value="1"></toggle-switch>
+                                    <toggle-switch name="kitchen" id="kitchen-toggle" value="1"></toggle-switch>
 
                                 </inputbox>
                             </div>

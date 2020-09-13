@@ -61,7 +61,9 @@ function propsConfig(parent,template,selector,props){
         }
         },
         loadProps:function () {
-            let totalProps=props.length;
+            if (props==""){
+                this.parent.append("<h2 class='text-body'>Sorry no matched properties in the city.</h2>")
+            }else{
             var i=0;
             this.parent.html("");
             for (prop of props){
@@ -86,6 +88,7 @@ function propsConfig(parent,template,selector,props){
                 i++;
 
             }
+                }
             return self;
         }
     }
@@ -95,18 +98,19 @@ function propsConfig(parent,template,selector,props){
 
 function loadFilters(filters_,default_data){
     var self={
-        filters_dict_type:{
-            ":minPrice":"text",
-            ":maxPrice":"text",
-            ":gender":"rDIO",
+        filters_dict:{
+            ":minPrice":{id:"#minPrice",type:"text",place:"main"},
+            ":maxPrice":{id:"#maxPrice",type:"text",place:"main"},
+            ":gender":{id:"#gender",type:"text",place:"main"},
             ":pType":"checkbox",
-            ":bedrooms":"text",
-            ":bathrooms":"text",
-            ":kitchen":"checkbox",
-            ":lyfly-managed":"checkbox",
+            ":bedrooms":{id:"#nBedrooms",type:"num",place:"more",},
+            ":bathrooms":{id:"#nBathrooms",type:"num",place:"more"},
+            ":kitchen":{id:"#kitchen-toggle",type:"toggle",place:"more"},
+            ":lyfly":{id:"#lyfly-toggle",type:"toggle",place:"more"},
             ":amenities":"array",
             ":rules":"array"
         },
+        addName:(element,name)=>{      element.attr("name",name);},
         main_filters_form:()=> {return $("#main-filters-form");},
         more_filters_form:()=> {return $("#more-filters-form");},
         initialisePriceSlider:()=>{
@@ -136,13 +140,14 @@ function loadFilters(filters_,default_data){
             if(filters.length==0){
                 self.loadDefaultData();
             }else{
-                console.log("not null");
                 for (var filter_key in filters){
 
                     if(filters.hasOwnProperty(filter_key)) {
+                        var attributes=self.filters_dict[filter_key];
+                        var element=$(attributes.id);
 
                         //to add the hidden inputs from main form to more filter form and vice versa
-                        switch (self.filters_dict_place[filter_key]) {
+                        switch (attributes.place) {
                             case "main":
                                 self.more_filters_form().append("<input type='hidden' name='"+filter_key.substring(1)+"' value='"+filters[filter_key]+"'>")
                                 break;
@@ -152,13 +157,19 @@ function loadFilters(filters_,default_data){
                         }
 
                         //to preload the previously set filters using it's appropriate type
-                        switch(self.filters_dict_type[filter_key]){
+                        switch(attributes.type){
                             case "text":
-                                $("#"+filter_key.substring(1)).val(filters[filter_key]);
+                                element.val(filters[filter_key]);
                                 break;
-
-
+                            case "num":
+                                element.val(filters[filter_key]);
+                                self.addName(element,filter_key.substring(1));
+                                break;
+                            case "toggle":
+                                element.attr("checked","");
+                                break;
                         }
+
                     }
                 }
             }
@@ -174,6 +185,7 @@ function loadFilters(filters_,default_data){
 
 
 $(document).ready(function () {
+
 
 
     $("#more-filters-form").attr("action",window.location.href);
@@ -204,7 +216,7 @@ $(document).ready(function () {
 
 
 
-    //event attached to plus and minus buttons of more filters box or any
+    //event attached to plus and minus buttons inside more filters box or any
     // inputbox element with type small number
     $("inputbox[type='smallnumber']").on("click","button",function () {
         let sibling_input=$(this).siblings("input");

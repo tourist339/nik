@@ -50,8 +50,7 @@ class toggleButton extends HTMLElement{
     }
 
     panchod(e){
-         console.log("changed");
-         alert("changed");
+
         if(this.checked==true){
             this.setAttribute("name",e.currentTarget.object_name);
         }else{

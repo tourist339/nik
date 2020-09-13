@@ -48,19 +48,17 @@ class prop_controller extends Controller
             }
 
         }
-        if ($data == null) {
-            new e404_controller("Sorry! no matched property Found in this city");
-        } else {
-            $this->createView('prop/listprops', ["title" => "LyfLy",
-                                                        "scripts" => [MAIN_SCRIPTS,"listprops.js","imageslider.js","jquery-ui.min.js"],
-                                                        "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css","listprops.css","jquery-ui.min.css"],
-                                                        "navbar" => MAIN_NAVBAR,
-                                                        "location"=>ucfirst($location),
-                                                        "search"=>$search,
-                                                        "filters"=>$filters,
-                                                        "data" => $data]
-                                )->render();
-        }
+
+        $this->createView('prop/listprops', ["title" => "LyfLy",
+                                                    "scripts" => [MAIN_SCRIPTS,"listprops.js","imageslider.js","jquery-ui.min.js"],
+                                                    "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css","listprops.css","jquery-ui.min.css"],
+                                                    "navbar" => MAIN_NAVBAR,
+                                                    "location"=>ucfirst($location),
+                                                    "search"=>$search,
+                                                    "filters"=>$filters,
+                                                    "data" => $data]
+                            )->render();
+
         $this->model->closeDb();
         $usermodel->closeDb();
 
