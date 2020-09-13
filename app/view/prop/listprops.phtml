@@ -31,7 +31,7 @@ if($search!="")
 
 
   ?>
-            <form action="<?php echo $filter_action ?>" method="get" id="filter-props-form" class="rowflex">
+            <form action="<?php echo $filter_action ?>" method="get" id="main-filters-form" class="rowflex">
 
         <!--               PRICE FILTER SECTION-->
                 <div id="priceFilter" class="filter-divs">
@@ -117,7 +117,7 @@ if($search!="")
                                     the employes of lyfly personally</p>
                             </div>
                             <inputbox type="toggle">
-                                <toggle-switch value="1" name="lyfly-managed"></toggle-switch>
+                                <toggle-switch value="1" id="lyfly-toggle" name="lyfly"></toggle-switch>
                             </inputbox>
                         </div>
                     </div>
@@ -163,31 +163,31 @@ if($search!="")
                         <h2 class="text-body font-midheading">Amenities</h2>
                         <div class="gridbox" id="amenities-filter-grid">
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <input class="text-icon" type="checkbox" name="amenities[]" value="wifi" id="wifi-amenity">
                                 <label class="text-icon" for="wifi-amenity">WIFI </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" id="wifi-amenity">
-                                <label class="text-icon" for="wifi-amenity">Laundry </i> </label>
+                                <input class="text-icon" type="checkbox" name="amenities[]" value="laundry" id="wifi-amenity">
+                                <label class="text-icon" for="wifi-amenity" >Laundry </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <input class="text-icon" type="checkbox" name="amenities[]" value="ac" id="wifi-amenity">
                                 <label class="text-icon" for="wifi-amenity">Air Conditioner </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <input class="text-icon" type="checkbox" value="tv" name="amenities[]" id="wifi-amenity">
                                 <label class="text-icon" for="wifi-amenity">TV </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <input class="text-icon" type="checkbox" value="breakfast" name="amenities[]" id="wifi-amenity">
                                 <label class="text-icon" for="wifi-amenity">BreakFast </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <input class="text-icon" type="checkbox" value="lunch" name="amenities[]" id="wifi-amenity">
                                 <label class="text-icon" for="wifi-amenity">Lunch </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" id="wifi-amenity">
+                                <input class="text-icon" type="checkbox" value="dinner" name="amenities[]" id="wifi-amenity">
                                 <label class="text-icon" for="wifi-amenity">Dinner </i> </label>
                             </div>
                         </div>
@@ -198,15 +198,15 @@ if($search!="")
                         <h2 class="text-body font-midheading">House Rules</h2>
                         <div class="gridbox" id="rules-filter-grid">
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" id="party-rules">
-                                <label class="text-icon" for="wifi-amenity">Party Allowed </i> </label>
+                                <input class="text-icon" name="rules[]" value="Parties Allowed" type="checkbox" id="party-rules">
+                                <label class="text-icon" for="party-rules">Party Allowed </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" id="party-rules">
+                                <input class="text-icon" name="rules[]" value="Smoking Allowed" type="checkbox" id="party-rules">
                                 <label class="text-icon" for="wifi-amenity">Smoking Allowed </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" id="party-rules">
+                                <input class="text-icon" name="rules[]" value="Pet Friendly" type="checkbox" id="party-rules">
                                 <label class="text-icon" for="wifi-amenity">Pet Friendly </i> </label>
                             </div>
 

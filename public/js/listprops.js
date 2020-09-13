@@ -97,13 +97,17 @@ function loadFilters(filters_,default_data){
     var self={
         filters_dict_type:{
             ":minPrice":"text",
-            ":maxPrice":"text"
+            ":maxPrice":"text",
+            ":gender":"rDIO",
+            ":pType":"checkbox",
+            ":bedrooms":"text",
+            ":bathrooms":"text",
+            ":kitchen":"checkbox",
+            ":lyfly-managed":"checkbox",
+            ":amenities":"array",
+            ":rules":"array"
         },
-        filters_dict_place:{
-            //give main to the filters that are not in the more filters sectioin
-            ":minPrice":"main",
-            ":maxPrice":"main"
-        },
+        main_filters_form:()=> {return $("#main-filters-form");},
         more_filters_form:()=> {return $("#more-filters-form");},
         initialisePriceSlider:()=>{
             //price filter slider jquery ui initialisation
@@ -141,12 +145,19 @@ function loadFilters(filters_,default_data){
                         switch (self.filters_dict_place[filter_key]) {
                             case "main":
                                 self.more_filters_form().append("<input type='hidden' name='"+filter_key.substring(1)+"' value='"+filters[filter_key]+"'>")
+                                break;
+                            case "more":
+                                self.main_filters_form().append("<input type='hidden' name='"+filter_key.substring(1)+"' value='"+filters[filter_key]+"'>")
 
                         }
 
                         //to preload the previously set filters using it's appropriate type
-                        if (self.filters_dict_type[filter_key] == "text") {
-                            $("#"+filter_key.substring(1)).val(filters[filter_key]);
+                        switch(self.filters_dict_type[filter_key]){
+                            case "text":
+                                $("#"+filter_key.substring(1)).val(filters[filter_key]);
+                                break;
+
+
                         }
                     }
                 }

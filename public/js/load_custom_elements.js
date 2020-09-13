@@ -6,6 +6,35 @@ class toggleButton extends HTMLElement{
 
 
     }
+
+    /**
+     * Return the attributes to be observed here
+     * @returns {string[]}
+     */
+    static get observedAttributes() {
+        return ['checked'];
+    }
+
+    /**
+     * Invokes everytime an observedattribute is changed
+     * @param name name of the attribute
+     * @param oldValue
+     * @param newValue
+     */
+    attributeChangedCallback(name, oldValue, newValue) {
+        //if the attribute is removed which means it's new value is null
+
+       if(newValue==null){
+           this.input_checkbox.checked=false;
+           this.input_checkbox.removeAttribute("name");
+
+       }
+       //if the attribute is added
+       else {
+           this.input_checkbox.checked = true;
+           this.input_checkbox.setAttribute("name", this.getAttribute("name"));
+       }
+    }
     connectedCallback(){
         this.appendChild(this.clone);
         this.input_checkbox=this.querySelector("input");
@@ -21,11 +50,12 @@ class toggleButton extends HTMLElement{
     }
 
     panchod(e){
+         console.log("changed");
+         alert("changed");
         if(this.checked==true){
             this.setAttribute("name",e.currentTarget.object_name);
         }else{
             this.removeAttribute("name");
-
         }
     }
 

@@ -125,13 +125,33 @@ class prop_controller extends Controller
     private function applyFilters($location,$search=""){
         if(isset($_GET)){
             $filters=["minPrice","maxPrice","gender","pType","bedrooms","bathrooms",
-                "kitchen","lyfly-managed","amenities","houserules"];
+                "kitchen","lyfly","amenities","rules"];
+            $amenities=["wifi","laundry","breakfast","dinner","tv","ac","lunch"];
+            $houserules=["party","smoking","petfriendly"];
             $filterToApply=[];
             foreach ($filters as $filter) {
                 if (isset($_GET[$filter])) {
-                    $filterToApply[":" . $filter] = $this->removeSPandTrim($_GET[$filter]);
+                    //if filter values are in form of an array for ex in case
+                    // of amenities and houserules
+                    if(is_array($_GET[$filter])) {
+                        $filterToApply[":" . $filter]="%";
+                        foreach ($_GET[$filter] as $f){
+                            $filterToApply[":" . $filter].=$this->removeSPandTrim($f);
+                            if($filter=="rules")
+                                $filterToApply[":" . $filter].="Yes";
+
+                            $filterToApply[":" . $filter].=",";
+                        }
+                        $filterToApply[":" . $filter]= rtrim($filterToApply[":" . $filter],",");
+                        $filterToApply[":" . $filter].="%";
+
+                    }else{
+                        $filterToApply[":" . $filter] = $this->removeSPandTrim($_GET[$filter]);
+
+                    }
                 }
             }
+            print_r($filterToApply);
             return $filterToApply;
 
         }else{

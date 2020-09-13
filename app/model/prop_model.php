@@ -50,14 +50,14 @@ class prop_model extends Model
                     case ":kitchen":
                         $selectors.=" AND kitchen = :kitchen";
                         break;
-                    case ":lyfly-managed":
-                        $selectors.=" AND lyfly = :lyfly-managed";
+                    case ":lyfly":
+                        $selectors.=" AND lyfly = :lyfly";
                         break;
                     case ":amenities":
-                        $selectors.=" AND gender = :gender";
+                        $selectors.=" AND amenities LIKE :amenities";
                         break;
-                    case ":hourserules":
-                        $selectors.=" AND gender = :gender";
+                    case ":rules":
+                        $selectors.=" AND houseRules LIKE :rules";
                         break;
 
                 }
