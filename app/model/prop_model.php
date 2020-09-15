@@ -39,7 +39,7 @@ class prop_model extends Model
                         $selectors.=" AND gender = :gender";
                         break;
                     case ":pType":
-                        $selectors.=" AND gender = :gender";
+                        $selectors.=" AND proptype = :pType";
                         break;
                     case ":bedrooms":
                         $selectors.=" AND bedrooms = :bedrooms";

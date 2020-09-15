@@ -4,7 +4,9 @@ $(document).ready(function() {
     function listProperties(location,searchKey=""){
         //replace one or more whitespace characters with dash
         searchKey=searchKey.replace(/\s+/g , "-" );
-        window.location.href = "/prop/l/"+location+"/"+searchKey;
+        if (searchKey!="")
+            searchKey="/"+searchKey;
+        window.location.href = "/prop/l/"+location+searchKey;
 
     }
 
@@ -83,10 +85,50 @@ $(document).ready(function() {
 
 });
 
-//helper function for checking logged in
+
+/**
+ * Remove specified characters from the start of the string
+ * @param charlist
+ * @return {string}
+ */
+String.prototype.trimLeft = function(charlist) {
+    if (charlist === undefined)
+        charlist = "\s";
+
+    return this.replace(new RegExp("^[" + charlist + "]+"), "");
+};
+
+/**
+ * Remove specified characters from the end of the string
+ * @param charlist
+ * @return {string}
+ */
+String.prototype.trimRight = function(charlist) {
+    if (charlist === undefined)
+        charlist = "\s";
+
+    return this.replace(new RegExp("[" + charlist + "]+$"), "");
+};
+
+/**
+ * Remove specified characters from the both the start and the end  of the string
+ * @param charlist
+ * @return {string}
+ */
+String.prototype.trim = function(charlist) {
+    return this.trimLeft(charlist).trimRight(charlist);
+};
+
+
+
+//helper module for the whole app , contains various functions
 var lyfly=(function(){
    var publicFuncs={};
 
+    var  amenities=["Wifi","Laundry","Air Conditioner","TV","Refrigerator","Breakfast","Lunch","Dinner"];
+
+    publicFuncs.getAmenities=function () {
+        return amenities};
    publicFuncs.checkLoggedIN = function(){
         if (!login_params.signed) {
             openLogin();

@@ -47,9 +47,8 @@ function propsConfig(parent,template,selector,props){
         setWishlist:(wishlisted,id=0)=>{
             var wishlistBtn=self.imageOverlay().children(".add-to-wishlist-btn");
                 wishlistBtn.attr("wishlist",wishlisted);
-            if(wishlisted==true) {
+
                 wishlistBtn.attr("for", id);
-            }
 
         },
         updateRent:(rent)=>{
@@ -61,6 +60,8 @@ function propsConfig(parent,template,selector,props){
         }
         },
         loadProps:function () {
+            console.log(props);
+
             if (props==""){
                 this.parent.append("<h2 class='text-body'>Sorry no matched properties in the city.</h2>")
             }else{
@@ -73,7 +74,7 @@ function propsConfig(parent,template,selector,props){
                 let prop_title = "/prop/v/" + prop["title"].replace(/\s+/g, "-") + "/" + prop["id"];
                 let address = prop["address"] + " , " + prop["city"];
                 var wishlisted = false;
-                if (!typeof prop["wishlisted"] == undefined) {
+                if (!(typeof prop["wishlisted"] == undefined)) {
                     wishlisted = prop["wishlisted"];
                 }
                 this.setWishlist(wishlisted,prop["id"]);
@@ -96,23 +97,37 @@ function propsConfig(parent,template,selector,props){
 }
 
 
+/**
+ *
+ * @param filters_
+ * @param default_data
+ * @return self
+ * */
 function loadFilters(filters_,default_data){
     var self={
+        //helper dict to get ids and types of filter inputs with the keys as names of data submitted
         filters_dict:{
             ":minPrice":{id:"#minPrice",type:"text",place:"main"},
             ":maxPrice":{id:"#maxPrice",type:"text",place:"main"},
             ":gender":{id:"#gender",type:"text",place:"main"},
-            ":pType":"checkbox",
+            ":pType":{id: "#prop-type-checkboxes",type:"checkbox",place:"main"},
             ":bedrooms":{id:"#nBedrooms",type:"num",place:"more",},
             ":bathrooms":{id:"#nBathrooms",type:"num",place:"more"},
             ":kitchen":{id:"#kitchen-toggle",type:"toggle",place:"more"},
             ":lyfly":{id:"#lyfly-toggle",type:"toggle",place:"more"},
-            ":amenities":"array",
-            ":rules":"array"
+            ":amenities":{id: "#amenities-filter-grid",type:"checkbox",place:"more"},
+            ":rules":{id: "#rules-filter-grid",type:"checkbox",place:"more"}
         },
+
+        //adds the name to the element , used in input type with nums
         addName:(element,name)=>{      element.attr("name",name);},
+
+        //get the main filter form element where price and prop type are currently
         main_filters_form:()=> {return $("#main-filters-form");},
+        //get the more filter form element where all the extra filters like no of bathrooms , bedrooms are
         more_filters_form:()=> {return $("#more-filters-form");},
+
+
         initialisePriceSlider:()=>{
             //price filter slider jquery ui initialisation
             $("#price-filter-slider").slider({
@@ -149,11 +164,33 @@ function loadFilters(filters_,default_data){
                         //to add the hidden inputs from main form to more filter form and vice versa
                         switch (attributes.place) {
                             case "main":
-                                self.more_filters_form().append("<input type='hidden' name='"+filter_key.substring(1)+"' value='"+filters[filter_key]+"'>")
+                                if(attributes.type=="checkbox"){
+                                    //in case of amenities , house rules or property type with multiples values under same name
+                                    var arr_values=filters[filter_key].trim("%").split("%");
+                                    attributes.arr_values=arr_values;
+                                    for (val of arr_values){
+                                        self.more_filters_form().append("<input type='hidden' name='"+filter_key.substring(1)+"[]' value='"+val+"'>")
+
+                                    }
+
+                                }else {
+                                    self.more_filters_form().append("<input type='hidden' name='" + filter_key.substring(1) + "' value='" + filters[filter_key] + "'>")
+                                }
                                 break;
                             case "more":
-                                self.main_filters_form().append("<input type='hidden' name='"+filter_key.substring(1)+"' value='"+filters[filter_key]+"'>")
 
+                                if(attributes.type=="checkbox"){
+                                    //in case of amenities , house rules or property type with multiples values under same name
+                                    var arr_values=filters[filter_key].trim("%").split("%");
+                                    attributes.arr_values=arr_values;
+                                    for (val of arr_values){
+                                        self.main_filters_form().append("<input type='hidden' name='"+filter_key.substring(1)+"[]' value='"+val+"'>")
+
+                                    }
+
+                                }else {
+                                    self.main_filters_form().append("<input type='hidden' name='" + filter_key.substring(1) + "' value='" + filters[filter_key] + "'>")
+                                }
                         }
 
                         //to preload the previously set filters using it's appropriate type
@@ -168,6 +205,10 @@ function loadFilters(filters_,default_data){
                             case "toggle":
                                 element.attr("checked","");
                                 break;
+                            case "checkbox":
+                                for(val of attributes.arr_values) {
+                                    element.find("input[value='" + val + "']").prop("checked",true);
+                                }
                         }
 
                     }
@@ -214,6 +255,10 @@ $(document).ready(function () {
         });
     });
 
+    $("#clear-filter-btn").on("click",function () {
+        window.location.assign(url_without_filters);
+    });
+
 
 
     //event attached to plus and minus buttons inside more filters box or any
@@ -240,7 +285,6 @@ $(document).ready(function () {
     //loadProps fills all the properties and then returns the self object from
     // where we can get the updated min and max rents
     var rents=propsConfig("#listprops-grid","#single-listing",".listprops-item", props).loadProps();
-
     console.log(filters);
     loadFilters(filters,null).loadData();
 

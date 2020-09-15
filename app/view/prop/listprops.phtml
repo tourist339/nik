@@ -1,6 +1,5 @@
 <?php
 $allprops=$this->view_data["data"];
-
 $location=$this->view_data["location"];
 $search=$this->view_data["search"];
 $filters=$this->view_data["filters"];
@@ -11,6 +10,7 @@ $filters=$this->view_data["filters"];
 <script>
     <?php
     echo "var props = ".json_encode($allprops) . ";\n";
+
     echo "var filters= ".json_encode($filters).";\n";
     ?>
 </script>
@@ -31,6 +31,7 @@ if($search!="")
 
 
   ?>
+
             <form action="<?php echo $filter_action ?>" method="get" id="main-filters-form" class="rowflex">
 
         <!--               PRICE FILTER SECTION-->
@@ -64,21 +65,30 @@ if($search!="")
                 <div id="propTypeFilter" class="filter-divs">
                     <button type="button" class="text-icon filter-btn" id="filter-type-btn">Property Type</button>
                     <div class="filter-box raised-box toggleVisible" visible="false">
-                        <div class="rowflex">
-                            <input type="checkbox" name="pType" value="apartment" id="ptype_apartment">
-                            <label for="ptype_apartment">Apartment</label><br>
+                        <p class="text-icon">Property Type filter</p>
+                        <div id="prop-type-checkboxes" >
+                        <div class="checkbox-input">
+                            <input class="text-icon" type="checkbox" autocomplete="off" name="pType[]" value="apartment" id="ptype_apartment">
+                            <label class="text-icon" for="ptype_apartment">Apartment</label><br>
                         </div>
-                        <div class="rowflex">
-                            <input type="checkbox" name="pType" value="house" id="ptype_house">
-                            <label for="ptype_house">House</label><br>
+                        <div class="checkbox-input">
+                            <input class="text-icon" type="checkbox"  autocomplete="off" name="pType[]" value="house" id="ptype_house">
+                            <label class="text-icon" for="ptype_house">House</label><br>
                         </div>
-                        <div class="rowflex">
-                            <input type="checkbox" name="pType" value="Floor" id="ptype_floor">
-                            <label for="ptype_floor">Floor</label><br>
+                        <div class="checkbox-input">
+                            <input class="text-icon" type="checkbox"  autocomplete="off" name="pType[]" value="Floor" id="ptype_floor">
+                            <label class="text-icon" for="ptype_floor">Floor</label><br>
+                        </div>
+                        </div>
+                        <div id="price-filter-submitbtns" class="filter-submit-btns">
+                            <input class="text-small-icon" type="button" value="Clear">
+                            <input class="text-small-icon" type="submit" value="Apply">
+                        </div>
+
                         </div>
                     </div>
 
-                </div>
+
 
                 <!--               MORE FILTERS SECTION-->
                 <div id="moreFilters" class="filter-divs">
@@ -87,7 +97,16 @@ if($search!="")
 
                 </div>
 
+                <!-- CLear filter section, show only when we have filters applied -->
+                <?php if (count($filters)>0): ?>
+                <div id="clearFilters" class="filter-divs">
+
+                    <button type="button" class="text-icon" id="clear-filter-btn">Clear Filters</button>
+
+                </div>
+                <?php endif;?>
             </form>
+
 
             <!--                    modal box that contains all the more filters and it's own form-->
             <!--            seperate form was needed because apparently jquery modal remove the modal div from it's
@@ -159,55 +178,64 @@ if($search!="")
                     </div>
 
                     <!-- AMENITY FILTER SECTION INSIDE MORE FILTERS -->
+                    <!-- Make sure the order of amenities and it's values are  the same  as in setup.phtml -->
+
                     <div class="mfb-divs afterline">
                         <h2 class="text-body font-midheading">Amenities</h2>
                         <div class="gridbox" id="amenities-filter-grid">
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" name="amenities[]" value="wifi" id="wifi-amenity">
+                                <input class="text-icon" type="checkbox" autocomplete="off" name="amenities[]" value="wifi" id="wifi-amenity">
                                 <label class="text-icon" for="wifi-amenity">WIFI </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" name="amenities[]" value="laundry" id="wifi-amenity">
-                                <label class="text-icon" for="wifi-amenity" >Laundry </i> </label>
+                                <input class="text-icon" type="checkbox" autocomplete="off" name="amenities[]" value="Laundry" id="laundry-amenity">
+                                <label class="text-icon" for="laundry-amenity" >Laundry </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" name="amenities[]" value="ac" id="wifi-amenity">
-                                <label class="text-icon" for="wifi-amenity">Air Conditioner </i> </label>
+                                <input class="text-icon" type="checkbox" autocomplete="off" name="amenities[]" value="Air Conditioning" id="ac-amenity">
+                                <label class="text-icon" for="ac-amenity">Air Conditioner </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" value="tv" name="amenities[]" id="wifi-amenity">
-                                <label class="text-icon" for="wifi-amenity">TV </i> </label>
+                                <input class="text-icon" type="checkbox" autocomplete="off" value="Refrigerator" name="amenities[]" id="rfg-amenity">
+                                <label class="text-icon" for="rfg-amenity">Refrigerator </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" value="breakfast" name="amenities[]" id="wifi-amenity">
-                                <label class="text-icon" for="wifi-amenity">BreakFast </i> </label>
+                                <input class="text-icon" type="checkbox" autocomplete="off" value="tv" name="amenities[]" id="tv-amenity">
+                                <label class="text-icon" for="tv-amenity">TV </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" value="lunch" name="amenities[]" id="wifi-amenity">
-                                <label class="text-icon" for="wifi-amenity">Lunch </i> </label>
+                                <input class="text-icon" type="checkbox" autocomplete="off" value="breakfast" name="amenities[]" id="breakfast-amenity">
+                                <label class="text-icon" for="breakfast-amenity">BreakFast </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" type="checkbox" value="dinner" name="amenities[]" id="wifi-amenity">
-                                <label class="text-icon" for="wifi-amenity">Dinner </i> </label>
+                                <input class="text-icon" type="checkbox" autocomplete="off" value="lunch" name="amenities[]" id="lunch-amenity">
+                                <label class="text-icon" for="lunch-amenity">Lunch </i> </label>
+                            </div>
+                            <div class="checkbox-input">
+                                <input class="text-icon" type="checkbox" autocomplete="off" value="dinner" name="amenities[]" id="dinner-amenity">
+                                <label class="text-icon" for="dinner-amenity">Dinner </i> </label>
                             </div>
                         </div>
                     </div>
 
                     <!-- HOUSE RULES FILTER SECTION INSIDE MORE FILTERS -->
+                    <!-- Make sure the order of house rules and it's values are  the same as in setup.phtml -->
+
                     <div class="mfb-divs">
                         <h2 class="text-body font-midheading">House Rules</h2>
                         <div class="gridbox" id="rules-filter-grid">
                             <div class="checkbox-input">
-                                <input class="text-icon" name="rules[]" value="Parties Allowed" type="checkbox" id="party-rules">
-                                <label class="text-icon" for="party-rules">Party Allowed </i> </label>
+                                <input class="text-icon" name="rules[]" autocomplete="off" value="Smoking AllowedYes" type="checkbox" id="smoking-rule">
+                                <label class="text-icon" for="smoking-rule">Smoking Allowed </i> </label>
                             </div>
                             <div class="checkbox-input">
-                                <input class="text-icon" name="rules[]" value="Smoking Allowed" type="checkbox" id="party-rules">
-                                <label class="text-icon" for="wifi-amenity">Smoking Allowed </i> </label>
+                                <input class="text-icon" name="rules[]" autocomplete="off" value="Parties AllowedYes" type="checkbox" id="party-rule">
+                                <label class="text-icon" for="party-rule">Party Allowed </i> </label>
                             </div>
+
                             <div class="checkbox-input">
-                                <input class="text-icon" name="rules[]" value="Pet Friendly" type="checkbox" id="party-rules">
-                                <label class="text-icon" for="wifi-amenity">Pet Friendly </i> </label>
+                                <input class="text-icon" name="rules[]" autocomplete="off" value="Pet FriendlyYes" type="checkbox" id="pet-rule">
+                                <label class="text-icon" for="pet-rule">Pet Friendly </i> </label>
                             </div>
 
                         </div>
@@ -232,6 +260,10 @@ if($search!="")
     </div>
 </div>
 <script>
+    <?php
+    echo "var url_without_filters = ".json_encode($filter_action). ";\n";
+
+    ?>
     $(document).ready(function() {
 
         $("#listprops-grid").on("click",".listprops-item",function(){

@@ -47,6 +47,19 @@ input[type=number] {
   background-color: lightgray;
 }
 
+#clear-filter-btn {
+  background-color: black;
+  padding: 0.1em 0.5em;
+  font-family: "Alegreya";
+  color: white;
+  white-space: nowrap;
+  border-radius: 8px;
+}
+#clear-filter-btn:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+  cursor: pointer;
+}
+
 .filter-box {
   position: absolute;
   top: 100%;
@@ -151,6 +164,17 @@ input[type=number] {
 }
 .filter-submit-btns input:nth-child(2) {
   float: right;
+}
+
+#propTypeFilter #prop-type-checkboxes {
+  display: block;
+  padding: 0.5em 0;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid black;
+}
+#propTypeFilter .checkbox-input {
+  margin: 1em 0.5em;
 }
 
 #more-filters-modal {

@@ -134,22 +134,17 @@ class prop_controller extends Controller
                     if(is_array($_GET[$filter])) {
                         $filterToApply[":" . $filter]="%";
                         foreach ($_GET[$filter] as $f){
+
                             $filterToApply[":" . $filter].=$this->removeSPandTrim($f);
-                            if($filter=="rules")
-                                $filterToApply[":" . $filter].="Yes";
 
-                            $filterToApply[":" . $filter].=",";
+                            $filterToApply[":" . $filter].="%";
                         }
-                        $filterToApply[":" . $filter]= rtrim($filterToApply[":" . $filter],",");
-                        $filterToApply[":" . $filter].="%";
-
                     }else{
                         $filterToApply[":" . $filter] = $this->removeSPandTrim($_GET[$filter]);
 
                     }
                 }
             }
-            print_r($filterToApply);
             return $filterToApply;
 
         }else{

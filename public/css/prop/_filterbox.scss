@@ -67,6 +67,20 @@ input[type=number] {
   }
 }
 
+#clear-filter-btn{
+  background-color: black;
+  padding: 0.1em 0.5em;
+
+  font-family: $fontMidHeading;
+  color: white;
+  white-space: nowrap;
+  border-radius: 8px;
+  &:hover{
+    background-color: rgba(0,0,0,0.7);
+    cursor: pointer;
+  }
+}
+
 //boxes that appear on clicking the main filters
 .filter-box{
   position: absolute;
@@ -174,7 +188,18 @@ input[type=number] {
   }
 }
 
-
+#propTypeFilter {
+  #prop-type-checkboxes{
+    display: block;
+    padding:0.5em 0;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid black;
+  }
+  .checkbox-input {
+    margin: 1em 0.5em;
+  }
+}
 //more filters modal box
 #more-filters-modal{
   max-width: 60vw !important;
