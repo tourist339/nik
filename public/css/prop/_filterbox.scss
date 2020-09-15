@@ -1,23 +1,31 @@
-//Filter box
-//@import "../res/variables";
+@import "../res/variables";
 $headingFontSize:20px;
 $bodyFontSize:16px;
+
+
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+//filter box containing all filter inputs and stuff
 #filter-searched-props{
-  overflow: hidden;
-  margin-right: 20px;
-  //to provide bottom margin to every input row
-  div>div{
-    margin-bottom: 14px;
-  }
+
+  margin:2px 0 1.5vw 0;
 
   h3{
     font-size: $headingFontSize;
   }
 
-  input{
-    width: 100%;
-    font-size: $bodyFontSize;
-  }
+
 
 
   //style for raido and checkbox inputs
@@ -34,17 +42,265 @@ $bodyFontSize:16px;
     }
   }
 
-
 }
 
-#priceFilter{
-  input{
-    margin-right: 1rem;
-    margin-left: 1rem;
+
+//divs containing the top main filters and their boxes
+.filter-divs{
+  position: relative;
+  margin:0 2px;
+}
+
+
+//buttons at the top representing main filters like price
+.filter-btn{
+  padding: 0.1em 1em;
+  border-radius: 1em;
+  background-color: white;
+  font-family: $fontMidHeading;
+  width: 100%;
+  white-space: nowrap; //prevent text to wrap inside the button
+  &:hover{
+    cursor: pointer;
+    background-color: lightgray;
+
   }
 }
 
-//width of filter box to open it till
-.animationMenu[status="open"]{
-  width: 25%;
+#clear-filter-btn{
+  background-color: black;
+  padding: 0.1em 0.5em;
+
+  font-family: $fontMidHeading;
+  color: white;
+  white-space: nowrap;
+  border-radius: 8px;
+  &:hover{
+    background-color: rgba(0,0,0,0.7);
+    cursor: pointer;
+  }
+}
+
+//boxes that appear on clicking the main filters
+.filter-box{
+  position: absolute;
+  top: 100%;
+  margin-top: 0.5vw;
+  width: 25vw;
+  left: 2px;
+  z-index: 4;
+  background-color: whitesmoke;
+  padding: 1em;
+  border-radius: 10px;
+  border: 2px lightgray solid;
+
+  @include media(">laptop"){
+    width: 28vw;
+  }
+  @include media(">tablet","<=laptop"){
+    width: 35vw;
+  }
+  @include media(">phone","<=tablet"){
+    width: 50vw;
+  }
+  @include media("<=phone"){
+    width: 70vw;
+  }
+
+}
+
+//price slider
+#price-filter-slider{
+  width: 100%;
+}
+
+//price slider bar ,editing from jquery ui css
+.ui-slider-horizontal{
+  height: 6px !important;
+}
+
+//price slider handle ,editing from jquery ui css
+.ui-slider-handle{
+  top: -8px !important;
+  background:url("/imgs/menu-icon.png") !important;
+  background-size: contain !important;
+  border-radius: 50% !important;
+  border-width: 0 !important;
+  outline: none !important;
+  width: 22px !important;
+  height: 22px !important;
+  padding: 0 !important;
+  &:hover{
+    cursor: pointer !important;
+  }
+}
+
+
+//div containing both min and max price filters
+#priceFilter>.filter-box>.rowflex{
+  padding: 0.5em;
+  margin-top: 10px !important;
+
+}
+
+//box containing a single price filter inputs and it's labels
+.price-inputs{
+  background-color: white;
+  border-radius: 0.5em;
+  padding: 0.5em;
+  white-space: nowrap; //to make currency sign and input to remain on the same line
+  outline: black;
+  @include noArrowsInput;
+
+
+  label{
+    font-size: 14px;
+  }
+  input{
+    width: 90%;
+    outline: none;
+    border-width: 0;
+  }
+}
+
+
+//div containing clear and apply button of price filter
+.filter-submit-btns{
+  margin-top: 0.7em;
+
+  //actual buttons
+  input{
+    border-width: 1px;
+    background-color: black;
+    color: white;
+    border-radius: 0.5em;
+    padding: 0.3em;
+    outline: 0;
+    &:hover{
+      cursor: pointer;
+      background-color: rgba(1,1,1,0.7);
+    }
+
+  }
+  //right side button
+  input:nth-child(2){
+    float: right;
+  }
+}
+
+#propTypeFilter {
+  #prop-type-checkboxes{
+    display: block;
+    padding:0.5em 0;
+    background-color: white;
+    border-radius: 8px;
+    border: 1px solid black;
+  }
+  .checkbox-input {
+    margin: 1em 0.5em;
+  }
+}
+//more filters modal box
+#more-filters-modal{
+  max-width: 60vw !important;
+  width: 50vw !important;
+  padding: 1vw 2vw !important;
+  .afterline::after , .beforeline::before{
+    width: calc(100% + 4vw) !important;
+    height: 1px !important;
+    margin:0 -2vw;
+    background-color: #c5c5c5 !important;
+  }
+
+}
+
+//more filters box heading div
+#more-filters-header{
+  width: auto;
+
+  h1{
+    text-align: center;
+  }
+}
+
+//more filters box body div
+#more-filters-body{
+  max-height: 60vh;
+  overflow-y: scroll;
+  margin: 5px 1.5vw;
+  max-width: 100%;
+  overflow-x: hidden;
+
+}
+
+//more filters box footer div
+#more-filters-footer{
+  padding: 5px 0;
+}
+
+//style for all different filter  sections in more filters
+.mfb-divs{
+  padding-bottom: 15px;
+}
+
+//divs with a heading,body and a inputbox
+.multiline-div{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+
+}
+
+//div with a description to the left and an input div to the right
+.single-line-input{
+  display: flex;
+  flex-direction: row;
+
+}
+
+//general style for all input boxes in filter box
+inputbox{
+  margin:auto 0 auto auto;
+}
+
+//style for inputbox associated with small numbers , the style contains
+// a minus and a plus icon with number in middle
+inputbox[type="smallnumber"]{
+  input{
+    border: 0;
+    background-color: white;
+    outline: 0;
+    width: 2.5ch;
+    display: inline;
+    &:hover{
+      cursor: default;
+    }
+  }
+  .circular-btn{
+    //i here is plus minus sign
+    i{
+      padding: 0 6px !important;
+      font-style: normal !important;
+      border-radius: 50% !important;
+
+    }
+    &:nth-child(1){
+      margin-right: 7px;
+    }
+    //no idea why it's 3 not 2
+    &:nth-child(3){
+      margin-left: 7px;
+
+    }
+
+  }
+
+}
+
+.mfb-divs .gridbox{
+  grid-template-columns: repeat(2,minmax(auto,1fr));
+  grid-row-gap: 2em;
+  &>div{
+
+  }
 }

@@ -5,12 +5,21 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 $vdata=$this->view_data;
 
+$custom_templates=array("inputs/toggleInput.html");
 ?>
 <html>
 <head>
 
     <title><?php echo $vdata["title"]?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--    loading custom templates-->
+    <?php
+        foreach ($custom_templates as $template){
+            include TEMPLATE.$template;
+        }
+    ?>
+
     <script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
     <script>
         function start() {
@@ -83,9 +92,6 @@ $vdata=$this->view_data;
 
 </head>
 <body>
-<?php
-//var_dump($_SESSION);
-?>
 <div id="login-modal" style="display: none" class="modal">
     <?php include TEMPLATE.DIRECTORY_SEPARATOR.'login'.DIRECTORY_SEPARATOR."loginmodal.html";?>
 </div>

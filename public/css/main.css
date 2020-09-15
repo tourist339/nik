@@ -115,6 +115,59 @@ body {
   box-sizing: border-box;
 }
 
+.text-body {
+  font-family: "Montserrat";
+  font-size: 21.6px;
+}
+
+.text-largeheading {
+  font-family: "Ubuntu";
+  font-size: 42px;
+}
+
+.text-midheading {
+  font-family: "Alegreya";
+  font-size: 28.8px;
+}
+
+.font-body {
+  font-family: "Montserrat" !important;
+}
+
+.font-largeheading {
+  font-family: "Ubuntu" !important;
+}
+
+.font-midheading {
+  font-family: "Alegreya" !important;
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .text-body {
+    font-size: 26.8px;
+  }
+
+  .text-largeheading {
+    font-size: 37px;
+  }
+
+  .text-midheading {
+    font-size: 25.8px;
+  }
+}
+@media (max-width: 480px) {
+  .text-body {
+    font-size: 24.8px;
+  }
+
+  .text-largeheading {
+    font-size: 32px;
+  }
+
+  .text-midheading {
+    font-size: 21.8px;
+  }
+}
 .required-input::after {
   content: "*";
   color: red;
@@ -330,6 +383,16 @@ footer {
 
 .raised-box {
   box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+}
+
+.horizontal-scroller {
+  white-space: nowrap;
+  overflow-y: hidden;
+  overflow-x: hidden;
+}
+.horizontal-scroller .card {
+  display: inline-block;
+  box-shadow: -3px -25px 20px 20px rgba(0, 0, 0, 0.3);
 }
 
 @-webkit-keyframes shake {

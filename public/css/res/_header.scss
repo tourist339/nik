@@ -17,7 +17,7 @@ opacity: 0;
   width: 30vw;
   .searchInp{
     font-family: 'Alegreya', serif;
-    font-size: $navbar_fontsize;
+    font-size: $fontsize_body;
     letter-spacing: 0.2rem;
     border-width: 0;
     border-color: black;
@@ -89,4 +89,12 @@ nav a:hover{
 #logoicon{
   margin-left: 0;
   padding-left: 0;
+}
+
+
+@include media(">phone","<=tablet") {
+
+  .search-prop-input{
+    width: 80%;
+  }
 }
