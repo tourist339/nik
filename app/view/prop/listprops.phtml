@@ -45,17 +45,18 @@ if($search!="")
                             <div class="price-inputs">
                                 <label for="minPrice">min price</label><br>
                                 <span>&#8377;</span>
-                                <input type="number" class="price-inputs" value="0" id="minPrice" name="minPrice">
+                                <input type="number" class="price-inputs filter-input" value="0" id="minPrice" name="minPrice">
                             </div>
                             <i class="fa fa-minus" style="align-self: center"></i>
                             <div class="price-inputs">
                                 <label for="minPrice">max price</label><br>
                                 <span>&#8377;</span>
-                                <input type="number" class="price-inputs" value="0" id="maxPrice" name="maxPrice">
+                                <input type="number" class="price-inputs filter-input" value="0" id="maxPrice" name="maxPrice">
                             </div>
                             </div>
                         <div id="price-filter-submitbtns" class="filter-submit-btns">
-                            <input class="text-small-icon" type="button" value="Clear">
+<!--                            provide id of div  in the for attribute whose filters are to be cleared-->
+                            <input class="text-small-icon" for="priceFilter" type="button" value="Clear">
                             <input class="text-small-icon" type="submit" value="Apply">
                         </div>
                         </div>
@@ -81,7 +82,7 @@ if($search!="")
                         </div>
                         </div>
                         <div id="price-filter-submitbtns" class="filter-submit-btns">
-                            <input class="text-small-icon" type="button" value="Clear">
+                            <input class="text-small-icon" for="ptype_apartment;ptype_house" type="button" value="Clear">
                             <input class="text-small-icon" type="submit" value="Apply">
                         </div>
 
