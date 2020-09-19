@@ -143,6 +143,10 @@ class admin_model extends Model
         }
     }
 
+    private function checkCityExists(){
+
+    }
+
     public function deleteTempRow($propid){
         $db=$this->getDb();
 

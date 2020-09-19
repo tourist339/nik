@@ -4,21 +4,36 @@
 @import "main";
 
 .search-box{
-    background: url("/imgs/homepage-bg1.jpg");
+    background: white;
     background-size: cover;
     height: 100%;
     display: flex;
 
     div{
-        width: 35vw;
+        width: 40vw;
         margin: auto;
         h1{
             color: black;
             text-align: center;
             letter-spacing: 0.1rem;
         }
+        @include media(">tablet","<=laptop"){
+            width: 50vw;
+        }
+        @include media(">phone","<=tablet"){
+            width: 60vw;
+        }
+        @include media("<=phone"){
+            width: 80vw;
+        }
 
     }
+
+    .searchInp{
+        @extend .text-body;
+        @extend .font-midheading;
+    }
+
 
 }
 
@@ -26,6 +41,7 @@
     display: flex;
     justify-content: center;
 }
+
 
 
 //feature box and it's child's props
