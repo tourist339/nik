@@ -11,14 +11,16 @@ nav{
 nav .search-prop-input{
 opacity: 0;
   transition: all 0.3s ease-in;
+  .searchInp{
+    @extend .text-icon;
+    @extend .font-midheading;
+  }
 }
 .search-prop-input{
   margin: 0 auto;
-  width: 30vw;
+  width: 35vw;
   .searchInp{
-    font-family: 'Alegreya', serif;
-    font-size: $fontsize_body;
-    letter-spacing: 0.2rem;
+
     border-width: 0;
     border-color: black;
     border-top-width: 2px;
@@ -68,7 +70,8 @@ nav div:first-child{
 }
 
 nav a{
-  font-size: $navbar_fontsize;
+  @extend .text-icon;
+  @extend .font-largeheading;
   text-align: center;
   margin: 0 8px;
   padding: 8px;

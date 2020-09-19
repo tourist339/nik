@@ -1,6 +1,5 @@
 @import "res/header";
 @import "res/variables";
-@import "include-media";
 /******** GlobalClasses *******/
 $body_padding:0vw;
 $title_fontsize:2.4rem;
@@ -44,96 +43,7 @@ button{
     box-sizing: border-box;
 }
 
-//common texts families and font sizes
-.text-body{
-    font-family: $fontBody;
-    font-size: $fontsize_body ;
-}
 
-.text-icon{
-    font-family: $fontBody;
-    font-size: $fontsize_icon ;
-}
-
-.text-small-icon{
-    font-family: $fontBody;
-    font-size: 14px ;
-}
-
-.text-largeheading{
-    font-family: $fontHeading;
-    font-size: $fontsize_largeheading;
-}
-
-
-.text-midheading{
-    font-family: $fontMidHeading;
-    font-size: $fontsize_midheading;
-}
-
-.font-body{
-    font-family: $fontBody !important;
-
-}
-.font-largeheading{
-    font-family: $fontHeading !important;
-
-}
-.font-midheading{
-    font-family: $fontMidHeading !important;
-
-}
-
-//end
-
-
-// media query for tablet devices
-@include media(">phone","<=tablet"){
-    .text-largeheading{
-        font-size: $fontsize_tablet_largeheading;
-    }
-
-    .text-midheading{
-        font-size: $fontsize_tablet_midheading;
-    }
-    .text-body{
-        font-size: $fontsize_tablet_body;
-    }
-
-    .text-icon{
-        font-size: $fontsize_tablet_icon;
-    }
-    .text-small-icon{
-        font-size: $fontsize_tablet_icon - 2px;
-    }
-
-}
-//end of media query for tablets
-
-
-
-// media query for mobile devices
-@include media("<=phone"){
-    .text-body{
-        font-size: $fontsize_mobile_body;
-    }
-
-    .text-largeheading{
-        font-size: $fontsize_mobile_largeheading;
-    }
-
-    .text-midheading{
-        font-size: $fontsize_mobile_midheading;
-    }
-
-    .text-icon{
-        font-size: $fontsize_mobile_icon;
-    }
-    .text-small-icon{
-        font-size: $fontsize_mobile_icon - 1.5px;
-    }
-}
-//end of media query for mobiles
 
 
 

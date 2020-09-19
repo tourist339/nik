@@ -1,3 +1,171 @@
+.text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+  font-family: "Montserrat";
+  font-size: 21.6px;
+}
+
+.text-small-body {
+  font-family: "Montserrat";
+  font-size: 19.6px;
+}
+
+.text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+  font-family: "Montserrat";
+  font-size: 16.28px;
+}
+
+.text-small-icon {
+  font-family: "Montserrat";
+  font-size: 14px;
+}
+
+.text-largeheading {
+  font-family: "Ubuntu";
+  font-size: 42px;
+}
+
+.text-midheading {
+  font-family: "Alegreya";
+  font-size: 28.8px;
+}
+
+.font-body {
+  font-family: "Montserrat" !important;
+}
+
+.font-largeheading, nav a {
+  font-family: "Ubuntu" !important;
+}
+
+.font-midheading, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button, nav .search-prop-input .searchInp, nav .search-prop-input button {
+  font-family: "Alegreya" !important;
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .text-largeheading {
+    font-size: 37px;
+  }
+
+  .text-midheading {
+    font-size: 25.8px;
+  }
+
+  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+    font-size: 19.6px;
+  }
+
+  .text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+    font-size: 14.28px;
+  }
+
+  .text-small-icon {
+    font-size: 12.28px;
+  }
+}
+@media (max-width: 480px) {
+  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+    font-size: 17.6px;
+  }
+
+  .text-largeheading {
+    font-size: 32px;
+  }
+
+  .text-midheading {
+    font-size: 21.8px;
+  }
+
+  .text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+    font-size: 13.28px;
+  }
+
+  .text-small-icon {
+    font-size: 11.78px;
+  }
+}
+.text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+  font-family: "Montserrat";
+  font-size: 21.6px;
+}
+
+.text-small-body {
+  font-family: "Montserrat";
+  font-size: 19.6px;
+}
+
+.text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+  font-family: "Montserrat";
+  font-size: 16.28px;
+}
+
+.text-small-icon {
+  font-family: "Montserrat";
+  font-size: 14px;
+}
+
+.text-largeheading {
+  font-family: "Ubuntu";
+  font-size: 42px;
+}
+
+.text-midheading {
+  font-family: "Alegreya";
+  font-size: 28.8px;
+}
+
+.font-body {
+  font-family: "Montserrat" !important;
+}
+
+.font-largeheading, nav a {
+  font-family: "Ubuntu" !important;
+}
+
+.font-midheading, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button, nav .search-prop-input .searchInp, nav .search-prop-input button {
+  font-family: "Alegreya" !important;
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .text-largeheading {
+    font-size: 37px;
+  }
+
+  .text-midheading {
+    font-size: 25.8px;
+  }
+
+  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+    font-size: 19.6px;
+  }
+
+  .text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+    font-size: 14.28px;
+  }
+
+  .text-small-icon {
+    font-size: 12.28px;
+  }
+}
+@media (max-width: 480px) {
+  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+    font-size: 17.6px;
+  }
+
+  .text-largeheading {
+    font-size: 32px;
+  }
+
+  .text-midheading {
+    font-size: 21.8px;
+  }
+
+  .text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+    font-size: 13.28px;
+  }
+
+  .text-small-icon {
+    font-size: 11.78px;
+  }
+}
 nav {
   position: fixed;
   width: 100%;
@@ -10,15 +178,11 @@ nav .search-prop-input {
   opacity: 0;
   transition: all 0.3s ease-in;
 }
-
 .search-prop-input {
   margin: 0 auto;
-  width: 30vw;
+  width: 35vw;
 }
 .search-prop-input .searchInp, .search-prop-input button {
-  font-family: "Alegreya", serif;
-  font-size: 21.6px;
-  letter-spacing: 0.2rem;
   border-width: 0;
   border-color: black;
   border-top-width: 2px;
@@ -64,7 +228,6 @@ nav div:first-child {
 }
 
 nav a {
-  font-size: 1.2rem;
   text-align: center;
   margin: 0 8px;
   padding: 8px;
@@ -89,6 +252,90 @@ nav a:hover {
 @media (min-width: 481px) and (max-width: 768px) {
   .search-prop-input {
     width: 80%;
+  }
+}
+.text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+  font-family: "Montserrat";
+  font-size: 21.6px;
+}
+
+.text-small-body {
+  font-family: "Montserrat";
+  font-size: 19.6px;
+}
+
+.text-icon, nav .search-prop-input .searchInp, nav .search-prop-input button, nav a {
+  font-family: "Montserrat";
+  font-size: 16.28px;
+}
+
+.text-small-icon {
+  font-family: "Montserrat";
+  font-size: 14px;
+}
+
+.text-largeheading {
+  font-family: "Ubuntu";
+  font-size: 42px;
+}
+
+.text-midheading {
+  font-family: "Alegreya";
+  font-size: 28.8px;
+}
+
+.font-body {
+  font-family: "Montserrat" !important;
+}
+
+.font-largeheading, nav a {
+  font-family: "Ubuntu" !important;
+}
+
+.font-midheading, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button, nav .search-prop-input .searchInp, nav .search-prop-input button {
+  font-family: "Alegreya" !important;
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .text-largeheading {
+    font-size: 37px;
+  }
+
+  .text-midheading {
+    font-size: 25.8px;
+  }
+
+  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+    font-size: 19.6px;
+  }
+
+  .text-icon, nav .search-prop-input .searchInp, nav .search-prop-input button, nav a {
+    font-size: 14.28px;
+  }
+
+  .text-small-icon {
+    font-size: 12.28px;
+  }
+}
+@media (max-width: 480px) {
+  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+    font-size: 17.6px;
+  }
+
+  .text-largeheading {
+    font-size: 32px;
+  }
+
+  .text-midheading {
+    font-size: 21.8px;
+  }
+
+  .text-icon, nav .search-prop-input .searchInp, nav .search-prop-input button, nav a {
+    font-size: 13.28px;
+  }
+
+  .text-small-icon {
+    font-size: 11.78px;
   }
 }
 /******** GlobalClasses *******/
@@ -124,85 +371,6 @@ button {
   box-sizing: border-box;
 }
 
-.text-body {
-  font-family: "Montserrat";
-  font-size: 21.6px;
-}
-
-.text-icon {
-  font-family: "Montserrat";
-  font-size: 16.28px;
-}
-
-.text-small-icon {
-  font-family: "Montserrat";
-  font-size: 14px;
-}
-
-.text-largeheading {
-  font-family: "Ubuntu";
-  font-size: 42px;
-}
-
-.text-midheading {
-  font-family: "Alegreya";
-  font-size: 28.8px;
-}
-
-.font-body {
-  font-family: "Montserrat" !important;
-}
-
-.font-largeheading {
-  font-family: "Ubuntu" !important;
-}
-
-.font-midheading {
-  font-family: "Alegreya" !important;
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-  .text-largeheading {
-    font-size: 37px;
-  }
-
-  .text-midheading {
-    font-size: 25.8px;
-  }
-
-  .text-body {
-    font-size: 19.6px;
-  }
-
-  .text-icon {
-    font-size: 14.28px;
-  }
-
-  .text-small-icon {
-    font-size: 12.28px;
-  }
-}
-@media (max-width: 480px) {
-  .text-body {
-    font-size: 17.6px;
-  }
-
-  .text-largeheading {
-    font-size: 32px;
-  }
-
-  .text-midheading {
-    font-size: 21.8px;
-  }
-
-  .text-icon {
-    font-size: 13.28px;
-  }
-
-  .text-small-icon {
-    font-size: 11.78px;
-  }
-}
 .required-input::after {
   content: "*";
   color: red;
@@ -469,13 +637,13 @@ footer {
   }
 }
 .search-box {
-  background: url("/imgs/homepage-bg1.jpg");
+  background: white;
   background-size: cover;
   height: 100%;
   display: flex;
 }
 .search-box div {
-  width: 35vw;
+  width: 40vw;
   margin: auto;
 }
 .search-box div h1 {
@@ -483,7 +651,21 @@ footer {
   text-align: center;
   letter-spacing: 0.1rem;
 }
-
+@media (min-width: 769px) and (max-width: 1024px) {
+  .search-box div {
+    width: 50vw;
+  }
+}
+@media (min-width: 481px) and (max-width: 768px) {
+  .search-box div {
+    width: 60vw;
+  }
+}
+@media (max-width: 480px) {
+  .search-box div {
+    width: 80vw;
+  }
+}
 #searchInpDiv {
   display: flex;
   justify-content: center;
