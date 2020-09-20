@@ -118,8 +118,6 @@ class admin_model extends Model
     public function addPropToMainTable($data){
         $db=$this->getDb();
         if(isset($db) && isset($data)) {
-//            $l=$data[":lyfly"];
-            var_dump($data);
             try {
                 $query = $db->prepare("INSERT INTO Properties( ownerid,title, description, city, state,aptno,
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
@@ -131,7 +129,7 @@ class admin_model extends Model
                 );
                 $query->execute($data);
                 $lastid = $db->lastInsertId();
-
+                $this->checkCityExists($data[":city"],$data[":rent"]);
                 return $lastid;
             } catch (PDOException $e) {
                 if (ERROR_DEBUG_MODE) {
@@ -143,7 +141,69 @@ class admin_model extends Model
         }
     }
 
-    private function checkCityExists(){
+    private function checkCityExists($city,$rent){
+        try{
+            $db=$this->getDb();
+            $query=$db->prepare("SELECT min_rent,max_rent FROM cities WHERE city=:city");
+            $query->execute(array(":city"=>$city));
+
+            if($query->rowCount()>0){ //i.e. city already exists in the cities table then update min and max rent
+                $rents=$query->fetchAll(PDO::FETCH_ASSOC)[0];
+                $min_rent=$rents["min_rent"];
+                $max_rent=$rents["max_rent"];
+                if ($rent<$min_rent){
+                    $this->updateCityRent("min_rent",$rent,$city);
+                }elseif($rent>$max_rent){
+                    $this->updateCityRent("max_rent",$rent,$city);
+                }
+
+            }else{
+                $this->insertNewCity($city,$rent);
+            }
+        }catch (PDOException $e) {
+            if (ERROR_DEBUG_MODE) {
+                echo "Error" . $e; // For debugging
+            }
+            return DB_ERROR_CODE;
+
+        }
+    }
+
+    private function updateCityRent($min_or_max,$rent,$city){
+        try{
+            $db=$this->getDb();
+            $query=$db->prepare("UPDATE cities SET ".$min_or_max." = :rent
+                                                        WHERE city = :city");
+
+            $query->execute(array(":city"=>$city,":rent"=>$rent));
+
+
+        }catch (PDOException $e) {
+            if (ERROR_DEBUG_MODE) {
+                echo "Error" . $e; // For debugging
+            }
+            return DB_ERROR_CODE;
+
+        }
+    }
+
+
+    private  function insertNewCity($city,$rent){
+        try{
+            $db=$this->getDb();
+            $query=$db->prepare("INSERT INTO cities(city,min_rent,max_rent)
+                                                        VALUES(:city,:minrent,:maxrent) ");
+
+            $query->execute(array(":city"=>$city,":minrent"=>$rent,":maxrent"=>$rent));
+
+
+        }catch (PDOException $e) {
+            if (ERROR_DEBUG_MODE) {
+                echo "Error" . $e; // For debugging
+            }
+            return DB_ERROR_CODE;
+
+        }
 
     }
 

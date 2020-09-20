@@ -119,7 +119,12 @@ class host_controller extends Controller
                     array_push($keys, ":ownerid");
                     array_push($values, $_SESSION["id"]);
                     $data = array_combine($keys, $values);
+                    //only uppercase the first letter of city and state
+                    $data[":pCity"]=ucfirst(strtolower($data[":pCity"]));
+                    $data[":pState"]=ucfirst(strtolower($data[":pState"]));
+
                     print_r($data);
+
                     $adminmodel = new admin_model();
                     $prop_id=$adminmodel->createPropRow($data);
                     if($prop_id!=DB_ERROR_CODE){
