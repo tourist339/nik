@@ -2,35 +2,48 @@
 $allprops=$this->view_data["data"];
 $location=$this->view_data["location"];
 $search=$this->view_data["search"];
+$minrent=$this->view_data["minrent"];
+$maxrent=$this->view_data["maxrent"];
 $filters=$this->view_data["filters"];
+$filter_action = "/prop/l/" . $location;
+if ($search != "")
+    $filter_action .= ("/" . $search)
+
 ?>
+<!--Script to convert necessary php variables to javscript variables-->
+<script>
+
+
+    var php_vars=(function(){
+        self={
+            <?php
+
+            echo "props : ".json_encode($allprops) . ",\n";
+            echo "minrent : ".json_encode($minrent) . ",\n";
+            echo "maxrent : ".json_encode($maxrent) . ",\n";
+            echo "filters :".json_encode($filters)."\n";
+            ?>
+
+        }
+        return self;
+    })();
+</script>
+
 <div id="single-listing" class="template">
     <?php require TEMPLATE . "listing" . DIRECTORY_SEPARATOR . "single-listing.html" ?>
 </div>
-<script>
-    <?php
-    echo "var props = ".json_encode($allprops) . ";\n";
 
-    echo "var filters= ".json_encode($filters).";\n";
-    ?>
-</script>
 <div id="listprops-main-box">
     <div class="rowflex" id="listprops-heading-bar">
         <button class="fontAwesomeBTN" id="show-prop-filters"><i class="fa fa-bars" ></i></button>
         <h1 class="heading">Properties in <?php echo $location?></h1>
     </div>
 
-    <div  >
-
+    <div>
+        <?php if($allprops!=null): ?>
     <!--    Div for filter box-->
         <div id="filter-searched-props" class="animationMenu" status="open">
-<?php
-$filter_action="/prop/l/".$location;
-if($search!="")
-    $filter_action.=("/".$search)
 
-
-  ?>
 
             <form action="<?php echo $filter_action ?>" method="get" id="main-filters-form" class="rowflex">
 
@@ -109,9 +122,10 @@ if($search!="")
             </form>
 
 
-            <!--                    modal box that contains all the more filters and it's own form-->
-            <!--            seperate form was needed because apparently jquery modal remove the modal div from it's
-            <!--            parent and attaches it directly to the body tag , so it can't operate on the parent form-->
+            <!--       modal box that contains all the more filters and it's own form.
+            Seperate form was needed because apparently jquery modal library removes the modal div
+             from it's parent and attaches it directly to the body tag ,so it can't operate on
+             the parent form-->
             <div class="modal raised-box" id="more-filters-modal">
                 <!--            form just for more filters, it's action is loaded via JS in listprops.js -->
                 <form id="more-filters-form" action="" method="get">
@@ -253,10 +267,10 @@ if($search!="")
             </div>
 
         </div>
+        <?php  endif; ?>
 
-    <!--    Div showing all properties in a grid-->
+        <!--    Div showing all properties in a grid-->
         <div id="listprops-grid">
-
         </div>
     </div>
 </div>

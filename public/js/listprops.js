@@ -9,8 +9,7 @@
 function propsConfig(parent,template,selector,props){
     self={
         num:1,
-        min_rent:10000000,
-        max_rent:0,
+
         parent:$(parent),
         template:$(template),
         newElement:()=>{
@@ -51,14 +50,7 @@ function propsConfig(parent,template,selector,props){
                 wishlistBtn.attr("for", id);
 
         },
-        updateRent:(rent)=>{
-        if(rent<self.min_rent){
-            self.min_rent=rent;
-        }
-        if(rent>self.max_rent){
-            self.max_rent=rent;
-        }
-        },
+
         loadProps:function () {
             console.log(props);
 
@@ -85,7 +77,6 @@ function propsConfig(parent,template,selector,props){
                 this.setTitle(prop["title"]);
                 this.setAddress(address);
                 this.increaseNum();
-                this.updateRent(prop["rent"]);
                 i++;
 
             }
@@ -103,7 +94,7 @@ function propsConfig(parent,template,selector,props){
  * @param default_data
  * @return self
  * */
-function loadFilters(filters_,default_data){
+function loadFilters(filters,default_data){
     var self={
         //helper dict to get ids and types of filter inputs with the keys as names of data submitted
         filters_dict:{
@@ -126,32 +117,78 @@ function loadFilters(filters_,default_data){
         main_filters_form:()=> {return $("#main-filters-form");},
         //get the more filter form element where all the extra filters like no of bathrooms , bedrooms are
         more_filters_form:()=> {return $("#more-filters-form");},
-
-
-        initialisePriceSlider:()=>{
-            //price filter slider jquery ui initialisation
-            $("#price-filter-slider").slider({
-            range:true,
-            min:0,
-            max:parseInt($("#maxPrice").val())+1000,
-            values:[$("#minPrice").val(),$("#maxPrice").val()],
-            slide:(event,ui)=>{
-                $( "#minPrice" ).val( ui.values[ 0 ] );
-                $( "#maxPrice" ).val( ui.values[ 1 ] );
-        }
-
-        });
-
+        loadDefaultData:()=>{
+            self.setMinMaxPrice(php_vars.minrent,php_vars.maxrent);
         },
         setMinMaxPrice:(minPrice,maxPrice)=>{
             $("#minPrice").val(minPrice);
             $("#maxPrice").val(maxPrice);
         },
-        loadDefaultData:()=>{
-            self.setMinMaxPrice(0,10000);
+
+        initialisePriceSlider:()=>{
+            //price filter slider jquery ui initialisation
+            $("#price-filter-slider").slider({
+                range:true,
+                min:php_vars.minrent,
+                max:php_vars.maxrent,
+                values:[$("#minPrice").val(),$("#maxPrice").val()],
+
+                slide:(event,ui)=>{
+                    $( "#minPrice" ).val( ui.values[ 0 ] );
+                    $( "#maxPrice" ).val( ui.values[ 1 ] );
+        }
+
+        });
+
         },
+        bindPrices:()=>{
+            $("#minPrice").bind("keyup", function () {
+                var newMinPrice=parseInt($(this).val());
+                var currMaxPrice= parseInt($("#maxPrice").val());
+                if(newMinPrice<=currMaxPrice) {
+                    $("#price-filter-slider").slider("values", 0, $(this).val());
+                }else{
+                    $("#price-filter-slider").slider("values", 0, currMaxPrice);
+                }
+            });
+            $("#minPrice").bind("change", function () {
+                var newMinPrice=parseInt($(this).val());
+                var currMaxPrice= parseInt($("#maxPrice").val());
+                if (newMinPrice < php_vars.minrent) {
+                    $(this).val(php_vars.minrent);
+                }
+                if(newMinPrice>=currMaxPrice ){
+                    $(this).val(currMaxPrice.toString());
+                }
+            });
+
+            $("#maxPrice").bind("keyup", function () {
+                var newMaxPrice=parseInt($(this).val());
+                var currMinPrice= parseInt($("#minPrice").val());
+                if(newMaxPrice>=currMinPrice) {
+                    $("#price-filter-slider").slider("values", 1, $(this).val());
+                }else{
+                    $("#price-filter-slider").slider("values", 1, currMinPrice);
+                }
+            });
+            $("#maxPrice").bind("change", function () {
+                var newMaxPrice=parseInt($(this).val());
+                var currMinPrice= parseInt($("#minPrice").val());
+                if (newMaxPrice > php_vars.maxrent) {
+                    $(this).val(php_vars.maxrent);
+                }
+                if(newMaxPrice<currMinPrice ){
+                    $(this).val(currMinPrice.toString());
+                }
+            });
+        }
+
+        ,
         loadData:()=>{
-            //if  no filters are set , load the default values
+            self.bindPrices();
+
+
+            //if  filters are not set , load the default values
             if(filters.length==0){
                 self.loadDefaultData();
             }else{
@@ -284,9 +321,12 @@ $(document).ready(function () {
 
     //loadProps fills all the properties and then returns the self object from
     // where we can get the updated min and max rents
-    var rents=propsConfig("#listprops-grid","#single-listing",".listprops-item", props).loadProps();
-    console.log(filters);
-    loadFilters(filters,null).loadData();
+    propsConfig("#listprops-grid","#single-listing",".listprops-item", php_vars.props).loadProps();
+    console.log(php_vars.filters);
+    //only load filters when props array is not empty
+    if(php_vars.props!="") {
+        loadFilters(php_vars.filters, null).loadData();
+    }
 
 
 });

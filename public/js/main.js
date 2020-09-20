@@ -6,6 +6,8 @@ $(document).ready(function() {
         searchKey=searchKey.replace(/\s+/g , "-" );
         if (searchKey!="")
             searchKey="/"+searchKey;
+
+        location=location.toLowerCase().ucfirst();
         window.location.href = "/prop/l/"+location+searchKey;
 
     }
@@ -119,6 +121,9 @@ String.prototype.trim = function(charlist) {
     return this.trimLeft(charlist).trimRight(charlist);
 };
 
+String.prototype.ucfirst = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+}
 
 
 //helper module for the whole app , contains various functions
