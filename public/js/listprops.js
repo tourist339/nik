@@ -55,7 +55,7 @@ function propsConfig(parent,template,selector,props){
             console.log(props);
 
             if (props==""){
-                this.parent.append("<h2 class='text-body'>Sorry no matched properties in the city.</h2>")
+                this.parent.append("<h2 class='text-body'>Sorry no matched properties in "+php_vars.city+".</h2>")
             }else{
             var i=0;
             this.parent.html("");
@@ -117,7 +117,7 @@ function loadFilters(filters,default_data){
         main_filters_form:()=> {return $("#main-filters-form");},
         //get the more filter form element where all the extra filters like no of bathrooms , bedrooms are
         more_filters_form:()=> {return $("#more-filters-form");},
-        loadDefaultData:()=>{
+        loadDefaultPrices:()=>{
             self.setMinMaxPrice(php_vars.minrent,php_vars.maxrent);
         },
         setMinMaxPrice:(minPrice,maxPrice)=>{
@@ -139,8 +139,8 @@ function loadFilters(filters,default_data){
         }
 
         });
-
         },
+
         bindPrices:()=>{
             $("#minPrice").bind("keyup", function () {
                 var newMinPrice=parseInt($(this).val());
@@ -187,11 +187,13 @@ function loadFilters(filters,default_data){
         loadData:()=>{
             self.bindPrices();
 
+            if(filters.length==0|| (!("minPrice" in filters) ||!("maxPrice" in filters) )){
+                self.loadDefaultPrices();
+            }
 
             //if  filters are not set , load the default values
-            if(filters.length==0){
-                self.loadDefaultData();
-            }else{
+            if(filters.length!=0){
+
                 for (var filter_key in filters){
 
                     if(filters.hasOwnProperty(filter_key)) {
@@ -296,6 +298,14 @@ $(document).ready(function () {
         window.location.assign(url_without_filters);
     });
 
+    $("#main-filters-form").on("submit",function () {
+        if(parseInt($("#minPrice").val())==php_vars.minrent){
+            $("#minPrice").removeAttr("name");
+        }
+        if(parseInt($("#maxPrice").val())==php_vars.maxrent){
+            $("#maxPrice").removeAttr("name");
+        }
+    });
 
 
     //event attached to plus and minus buttons inside more filters box or any
@@ -323,10 +333,8 @@ $(document).ready(function () {
     // where we can get the updated min and max rents
     propsConfig("#listprops-grid","#single-listing",".listprops-item", php_vars.props).loadProps();
     console.log(php_vars.filters);
-    //only load filters when props array is not empty
-    if(php_vars.props!="") {
-        loadFilters(php_vars.filters, null).loadData();
-    }
+    loadFilters(php_vars.filters, null).loadData();
+
 
 
 });

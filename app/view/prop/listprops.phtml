@@ -4,6 +4,7 @@ $location=$this->view_data["location"];
 $search=$this->view_data["search"];
 $minrent=$this->view_data["minrent"];
 $maxrent=$this->view_data["maxrent"];
+
 $filters=$this->view_data["filters"];
 $filter_action = "/prop/l/" . $location;
 if ($search != "")
@@ -19,6 +20,7 @@ if ($search != "")
             <?php
 
             echo "props : ".json_encode($allprops) . ",\n";
+            echo "city : ".json_encode($location). ",\n";
             echo "minrent : ".json_encode($minrent) . ",\n";
             echo "maxrent : ".json_encode($maxrent) . ",\n";
             echo "filters :".json_encode($filters)."\n";
@@ -40,7 +42,6 @@ if ($search != "")
     </div>
 
     <div>
-        <?php if($allprops!=null): ?>
     <!--    Div for filter box-->
         <div id="filter-searched-props" class="animationMenu" status="open">
 
@@ -58,13 +59,13 @@ if ($search != "")
                             <div class="price-inputs">
                                 <label for="minPrice">min price</label><br>
                                 <span>&#8377;</span>
-                                <input type="number" class="price-inputs filter-input" value="0" id="minPrice" name="minPrice">
+                                <input type="number" class="price-inputs filter-input"  id="minPrice" name="minPrice">
                             </div>
                             <i class="fa fa-minus" style="align-self: center"></i>
                             <div class="price-inputs">
                                 <label for="minPrice">max price</label><br>
                                 <span>&#8377;</span>
-                                <input type="number" class="price-inputs filter-input" value="0" id="maxPrice" name="maxPrice">
+                                <input type="number" class="price-inputs filter-input"  id="maxPrice" name="maxPrice">
                             </div>
                             </div>
                         <div id="price-filter-submitbtns" class="filter-submit-btns">
@@ -267,7 +268,6 @@ if ($search != "")
             </div>
 
         </div>
-        <?php  endif; ?>
 
         <!--    Div showing all properties in a grid-->
         <div id="listprops-grid">

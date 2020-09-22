@@ -15,7 +15,11 @@ class city_model extends Model
 
             $query->execute(array(":city"=>$city));
 
-            return $query->fetchAll(2)[0];
+            $result= $query->fetchAll(2);
+            if($result!=null)
+                return $result[0];
+            else
+                return null;
 
 
         }catch (PDOException $e){

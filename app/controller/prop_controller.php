@@ -9,6 +9,13 @@ class prop_controller extends Controller
         $this->model = new prop_model("system_d");
         $this->prop_filters=null;
     }
+    public function __destruct()
+    {
+        // TODO: Implement __destruct() method.
+        //close the modal's database
+       $this->model->closeDb();
+    }
+
 
     /**
      * Creates view from prop/listprops.phtml and gives the data of all the matched properties as
@@ -36,12 +43,23 @@ class prop_controller extends Controller
                 ["location"=>$location,"search"=>$search],$filters);
         }
 
+        //get min and max rents of the city from city_model
+        $citymodel=new city_model();
+        $rents=$citymodel->getMinMaxRent($location);
+        if($rents!=null){
+        $minrent = $rents["min_rent"];
+        $maxrent = $rents["max_rent"];
+        $citymodel->closeDb();
+        }else{
+            $citymodel->closeDb();
+            new e404_controller("There is no property in the city yet");
+        }
+
+
+        //get all the wishlisted properties is user is already signed in
         if($data!=null){
             $usermodel=new user_model();
-            $citymodel=new city_model();
-            $rents=$citymodel->getMinMaxRent($location);
-            $minrent=$rents["min_rent"];
-            $maxrent=$rents["max_rent"];
+
             session_start();
             if(isset($_SESSION["id"])) {
                 foreach ($data as &$prop){
@@ -56,7 +74,6 @@ class prop_controller extends Controller
 
             }
             $usermodel->closeDb();
-            $citymodel->closeDb();
 
         }
 
