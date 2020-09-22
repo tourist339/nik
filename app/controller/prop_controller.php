@@ -9,6 +9,13 @@ class prop_controller extends Controller
         $this->model = new prop_model("system_d");
         $this->prop_filters=null;
     }
+    public function __destruct()
+    {
+        // TODO: Implement __destruct() method.
+        //close the modal's database
+       $this->model->closeDb();
+    }
+
 
     /**
      * Creates view from prop/listprops.phtml and gives the data of all the matched properties as
@@ -19,6 +26,7 @@ class prop_controller extends Controller
     public function l($location,$search="")
     {
         $location=$this->removeSPandTrim($location);
+        $location=ucfirst(strtolower($location));
         $search=str_replace('-',' ',$search);
         $search=$this->removeSPandTrim($search);
 
@@ -34,18 +42,38 @@ class prop_controller extends Controller
                 ["id","title", "description", "rent", "address","city","images"],
                 ["location"=>$location,"search"=>$search],$filters);
         }
-        $usermodel=new user_model();
-        session_start();
-        if(isset($_SESSION["id"])) {
-            foreach ($data as &$prop){
-                $propid=$prop["id"];
-                if($usermodel->checkPropInWishlist($propid,$_SESSION["id"])){
-                    $prop["wishlisted"]="true";
-                }else{
-                    $prop["wishlisted"]="false";
 
+        //get min and max rents of the city from city_model
+        $citymodel=new city_model();
+        $rents=$citymodel->getMinMaxRent($location);
+        if($rents!=null){
+        $minrent = $rents["min_rent"];
+        $maxrent = $rents["max_rent"];
+        $citymodel->closeDb();
+        }else{
+            $citymodel->closeDb();
+            new e404_controller("There is no property in the city yet");
+        }
+
+
+        //get all the wishlisted properties is user is already signed in
+        if($data!=null){
+            $usermodel=new user_model();
+
+            session_start();
+            if(isset($_SESSION["id"])) {
+                foreach ($data as &$prop){
+                    $propid=$prop["id"];
+                    if($usermodel->checkPropInWishlist($propid,$_SESSION["id"])){
+                        $prop["wishlisted"]="true";
+                    }else{
+                        $prop["wishlisted"]="false";
+
+                    }
                 }
+
             }
+            $usermodel->closeDb();
 
         }
 
@@ -53,14 +81,15 @@ class prop_controller extends Controller
                                                     "scripts" => [MAIN_SCRIPTS,"listprops.js","imageslider.js","jquery-ui.min.js"],
                                                     "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css","listprops.css","jquery-ui.min.css"],
                                                     "navbar" => MAIN_NAVBAR,
-                                                    "location"=>ucfirst($location),
+                                                    "location"=>$location,
                                                     "search"=>$search,
+                                                    "minrent"=>$minrent,
+                                                    "maxrent"=>$maxrent,
                                                     "filters"=>$filters,
                                                     "data" => $data]
                             )->render();
 
         $this->model->closeDb();
-        $usermodel->closeDb();
 
     }
 
