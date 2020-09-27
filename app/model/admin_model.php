@@ -9,6 +9,11 @@ class admin_model extends Model
         parent::__construct($dbname);
     }
 
+    /**
+     * @param $username
+     * @param $password
+     * @return bool
+     */
     public function checkCredentials($username,$password){
         try {
             $db = $this->getDb();
@@ -27,6 +32,9 @@ class admin_model extends Model
         }
     }
 
+    /**
+     * @param $userid
+     */
     public function getUser($userid){
         try {
             $db = $this->getDb();
@@ -40,6 +48,10 @@ class admin_model extends Model
         }
     }
 
+    /**
+     * @param $data
+     * @return string
+     */
     public function createPropRow($data){
         $db=$this->getDb();
         if(isset($db) && isset($data)){
@@ -64,6 +76,11 @@ class admin_model extends Model
         }
     }
 
+    /**
+     * @param $cityname
+     * @param array $params
+     * @return array|null
+     */
     public function getUnapproveProps($cityname,$params=[]){
         $db=$this->getDb();
         if(!empty($params)){
@@ -92,6 +109,12 @@ class admin_model extends Model
             return null;
         }
     }
+
+    /**
+     * @param $propid
+     * @param array $params
+     * @return array|null
+     */
 
     public function getPropertyById($propid,$params=[]){
         $db=$this->getDb();

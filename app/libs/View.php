@@ -48,4 +48,37 @@ class View
             echo "NOt exists".$full_path;
         }
     }
+
+    /**
+     * to convert required php vars to js vars and set them as elements in an object named php_vars
+     * @param $php_vars array of php variables to be converted to js vars
+     * @param $js_vars array containing the names(string) that js var will be after being converted
+     */
+    public function convert_php_to_jsvars($php_vars,$js_vars)
+    {
+
+            if (count($php_vars) != count($js_vars)) {
+                if (ERROR_DEBUG_MODE) {
+                    echo "covert_php_to_jsvars functions arguments should have same number of values";
+
+                }else{
+                    exit();
+                }
+            }
+
+            $var_string="";
+
+        for($i=0;$i<count($php_vars);$i++){
+            $var_string.=($js_vars[$i]." : ".json_encode($php_vars[$i]) ." ,");
+        }
+
+        echo "<script>
+                var php_vars=(function(){
+                    self={
+                        ".$var_string."
+                    }
+                    return self;
+                })();
+            </script> ";
+    }
 }

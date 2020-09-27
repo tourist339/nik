@@ -9,7 +9,6 @@ class host_controller extends Controller
                 "scripts" => [MAIN_SCRIPTS,"homepage/homepage.js"],
                 "stylesheets" => [MAIN_CSS,"host.css"],
                 "navbar" => MAIN_NAVBAR]
-
         );
         $cView->render();
     }

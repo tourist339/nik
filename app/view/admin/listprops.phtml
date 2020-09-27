@@ -16,6 +16,8 @@ $redirect_city=$this->view_data["redirect_city"]
     <h3><?php echo $prop["address"]." , ".$prop["city"]." , ".$prop["state"] ?></h3>
     <h3>Property ID: <span id="propid"><?php echo $prop["id"] ?>&nbsp; &nbsp; &nbsp;Owner ID:<?php echo $prop["ownerid"] ?></h3>
 
+    <input type="hidden" value="<?php echo $prop["lyfly"] ?>" name="prop_lyfly">
+
     <input type="hidden" value="<?php echo $prop["id"] ?>" name="prop_id">
     <input type="hidden" value="<?php echo $redirect_city ?>" name="redirect_city">
 

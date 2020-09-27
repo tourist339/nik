@@ -114,4 +114,26 @@ class prop_model extends Model
         }
     }
 
+    public function getPropertyById($propid,$params=[]){
+        $db=$this->getDb();
+        if(!empty($params)){
+            $parameters=implode(",",$params);
+        }else{
+            $parameters="*";
+        }
+        $q="SELECT ".$parameters." FROM temp_properties WHERE id=:id";
+
+        try {
+            $stmt = $db->prepare($q);
+            $stmt->execute(array(":id"=>$propid));
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }catch(PDOException $e){
+            if(ERROR_DEBUG_MODE){
+                print "ERROR  ".$e;
+            }
+            return null;
+        }
+
+    }
+
 }

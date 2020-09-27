@@ -51,6 +51,7 @@ $(document).ready(function() {
 
 
 
+
     $(".add-to-wishlist-btn").on("click", function (e) {
         if (!login_params.signed) {
             openLogin();

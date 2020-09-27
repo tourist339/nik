@@ -8,27 +8,16 @@ $maxrent=$this->view_data["maxrent"];
 $filters=$this->view_data["filters"];
 $filter_action = "/prop/l/" . $location;
 if ($search != "")
-    $filter_action .= ("/" . $search)
+    $filter_action .= ("/" . $search);
+
+//to convert required php vars to js vars , function is in View.php
+$this->convert_php_to_jsvars([$allprops,$location,$minrent,$maxrent,$filters],
+    ["props","city","minrent","maxrent","filters"]);
 
 ?>
 <!--Script to convert necessary php variables to javscript variables-->
 <script>
 
-
-    var php_vars=(function(){
-        self={
-            <?php
-
-            echo "props : ".json_encode($allprops) . ",\n";
-            echo "city : ".json_encode($location). ",\n";
-            echo "minrent : ".json_encode($minrent) . ",\n";
-            echo "maxrent : ".json_encode($maxrent) . ",\n";
-            echo "filters :".json_encode($filters)."\n";
-            ?>
-
-        }
-        return self;
-    })();
 </script>
 
 <div id="single-listing" class="template">
@@ -279,39 +268,3 @@ if ($search != "")
     echo "var url_without_filters = ".json_encode($filter_action). ";\n";
 
     ?>
-    $(document).ready(function() {
-
-        $("#listprops-grid").on("click",".listprops-item",function(){
-            var check1=$(this).find(".img-next").prop("disabled");
-            var check2=$(this).find(".img-prev").prop("disabled");
-
-            if(check1==false && check2==false)
-                window.location.href = $(this).attr("src");
-        });
-        $("#listprops-grid").on("click",".add-to-wishlist-btn",function (e) {
-            lyfly.setWishlist(e,$(this));
-        });
-
-        // // to prevent window to scroll when div is scrolling
-        // $( '.show-desc-area' ).on( 'mousewheel DOMMouseScroll', function ( e ) {
-        //     var e0 = e.originalEvent,
-        //         delta = e0.wheelDelta || -e0.detail;
-        //
-        //     this.scrollTop += ( delta < 0 ? 1 : -0.2 ) * 7;
-        //     e.preventDefault();
-        // });
-
-        $(".show-desc-btn").on("click",function (e) {
-            var descArea=$(this).siblings(".show-desc-area");
-            if(descArea.css("display") == "none") {
-                descArea.fadeIn(300);
-            }else{
-                descArea.fadeOut(300);
-
-            }
-            e.stopPropagation();
-        });
-        $(".img-overlay img[num='1']").addClass("active");
-
-    });
-</script>

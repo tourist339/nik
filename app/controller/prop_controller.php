@@ -78,7 +78,7 @@ class prop_controller extends Controller
         }
 
         $this->createView('prop/listprops', ["title" => "LyfLy",
-                                                    "scripts" => [MAIN_SCRIPTS,"listprops.js","imageslider.js","jquery-ui.min.js"],
+                                                    "scripts" => [MAIN_SCRIPTS,"listprops.js","imageslider.js","jquery-ui.min.js","loadprops.js","filterprops.js"],
                                                     "stylesheets" => [MAIN_CSS,"homepage.css","single-listing.css","listprops.css","jquery-ui.min.css"],
                                                     "navbar" => MAIN_NAVBAR,
                                                     "location"=>$location,
