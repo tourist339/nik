@@ -2,28 +2,21 @@
 $approved_properties=$this->view_data["approved_props"];
 $unapproved_properties=$this->view_data["unapproved_props"];
 
-var_dump($approved_properties);
 $this->convert_php_to_jsvars([$approved_properties,$unapproved_properties],
     ["approved_props","unapproved_props"]);
 ?>
 
-<script>
-    console.log(php_vars.approved_props);
-</script>
 
 
 <div id="listprops-grid">
 
 </div>
-
+<script src="/js/loadprops.js"></script>
+<script src="/js/imageslider.js"></script>
 <script>
-    $(document).ready(function() {
-        console.log("Read");
-        propsConfig("#listprops-grid","#single-listing",".listprops-item", php_vars.approved_props).loadProps();
+        $(document).ready(function () {
+            propsConfig("#listprops-grid","#single-listing",".listprops-item", php_vars.approved_props).loadProps();
 
-        $(".listprops-item").click(function () {
-                window.location.href=$(this).attr("src");
-            }
-        );
-    });
+        });
+
 </script>

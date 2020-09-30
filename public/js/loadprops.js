@@ -101,17 +101,8 @@ $(document).ready(function() {
         lyfly.setWishlist(e,$(this));
     });
 
-    // // to prevent window to scroll when div is scrolling
-    // $( '.show-desc-area' ).on( 'mousewheel DOMMouseScroll', function ( e ) {
-    //     var e0 = e.originalEvent,
-    //         delta = e0.wheelDelta || -e0.detail;
-    //
-    //     this.scrollTop += ( delta < 0 ? 1 : -0.2 ) * 7;
-    //     e.preventDefault();
-    // });
 
-    $(".show-desc-btn").on("click",function (e) {
-        alert("fds");
+    $("#listprops-grid").on("click",".show-desc-btn",function (e) {
         var descArea=$(this).siblings(".show-desc-area");
         if(descArea.css("display") == "none") {
             descArea.fadeIn(300);

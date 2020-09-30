@@ -6,7 +6,7 @@ class user_controller extends Controller
     public function index(){
 
         $currView= $this->createView("user/index", ["title" => "User",
-            "scripts" => [MAIN_SCRIPTS,"loadprops.js"],
+            "scripts" => [MAIN_SCRIPTS],
             "stylesheets" => [MAIN_CSS,"user/main.css","single-listing.css","listprops.css"]
             ]
         );
@@ -38,7 +38,6 @@ class user_controller extends Controller
         if($props_array[0]["approved_properties"]!=null || $props_array[0]["unapproved_properties"]!=null) {
             $approved_props_ids = explode(",", $props_array[0]["approved_properties"]);
             $unapproved_props_ids = explode(",", $props_array[0]["unapproved_properties"]);
-            var_dump($approved_props_ids);
             foreach ($approved_props_ids as $p_id) {
                 $propdata = $propmodel->getSingleProp(["id","title", "description", "rent", "address","city","images"], ["id" => $p_id]);
                 array_push($approved_props, $propdata[0]);
