@@ -15,17 +15,28 @@ nav{
 }
 #host-box{
   width: 100%;
-  height: 70%;
-  background: url("/imgs/img4.jpeg");
+  height: 75%;
+  background: url("/imgs/img1.jpeg");
   background-size: cover;
   position: relative;
   form{
     position: absolute;
     left: 60%;
     top: 30%;
-    background-color: pink;
-    padding: 5px;
-    border-radius: 5px;
+    background-color: rgba(	245, 245, 220,0.7);
+    padding: 1.5em;
+    border-radius: 10px;
+    h1{
+      margin-top: 0;
+    }
+    button{
+      margin-top: 8px;
+      @include basicBtn();
+    }
+    input{
+      padding: 4px 8px;
+      margin: 4px 0;
+    }
   }
 
 }

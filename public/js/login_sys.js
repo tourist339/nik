@@ -47,6 +47,7 @@ $(document).ready(function() {
         }
         if (login_params.signed == true) {
             $("#nav-signout").show();
+            $("#nav-myacc").show();
         } else {
 
             $("#nav-signin").show();
