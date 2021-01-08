@@ -6,10 +6,15 @@ $amenities=explode(",",$propdata["amenities"]);
 if(isset($propdata["houseRules"]))
     $houserules=explode(",",$propdata["houseRules"]);
 
-$admin=false;
+$admin=false; //useful when property is accesed by an admin to approve or disapprove
+$lyfly=false; //useful when property is accesed by an admin to make changes
 if(isset($this->view_data["admin"])) {
     $redirect_city = $this->view_data["redirect_city"];
     $admin = true;
+    if($propdata["lyfly"]==1){
+        $lyfly=true;
+    }
+
 }
 
 if(isset($this->view_data["wishlisted"]))
@@ -175,133 +180,3 @@ if(isset($this->view_data["wishlisted"]))
 </script>
 
 
-<!--Styling Scripts-->
-
-
-
-<!--                Amenities and other info box-->
-<!--        <div class="rowflex" id="prop-info-box">-->
-<!--            <div id="prop-overview" class="prop-info">-->
-<!--                <div class="afterline"><p class="prop-heading midsize">Overview</p></div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">&#127968;</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Propery Type</p>-->
-<!--                        <p class="smparasize"> Apartment</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">🛏️</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Bedrooms</p>-->
-<!--                        <p class="smparasize"> 1</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">🛀</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Bathrooms</p>-->
-<!--                        <p class="smparasize"> 1</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">&#127859;</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Kitchen</p>-->
-<!--                        <p class="smparasize"> Yes</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">&#128467;</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Agreement Period</p>-->
-<!--                        <p class="smparasize"> 1 year</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!---->
-<!--            </div>-->
-<!--            <div id="prop-rules" class="prop-info">-->
-<!--                <div class="afterline"><p class="prop-heading midsize">Unit</p></div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">&#127968;</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Pet Friendly</p>-->
-<!--                        <p class="smparasize"> No</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">🛏️</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Parties Allowed</p>-->
-<!--                        <p class="smparasize"> Yes</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">🛀</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Smoking allowed</p>-->
-<!--                        <p class="smparasize"> No</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">&#127859;</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Air Conditioner</p>-->
-<!--                        <p class="smparasize"> Yes</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">&#128467;</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">WIFI</p>-->
-<!--                        <p class="smparasize"> Yes</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">&#128467;</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">TV</p>-->
-<!--                        <p class="smparasize"> Yes</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div id="prop-amenities" class="prop-info">-->
-<!--                <div class="afterline"><p class="prop-heading midsize">Building</p></div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">&#127968;</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Propery Type</p>-->
-<!--                        <p class="smparasize"> Apartment</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">🛏️</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Bedrooms</p>-->
-<!--                        <p class="smparasize"> 1</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">🛀</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Bathrooms</p>-->
-<!--                        <p class="smparasize"> 1</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">&#127859;</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Kitchen</p>-->
-<!--                        <p class="smparasize"> Yes</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="prop-unit rowflex">-->
-<!--                    <span class="prop-icon">&#128467;</span>-->
-<!--                    <div>-->
-<!--                        <p class="parasize">Agreement Period</p>-->
-<!--                        <p class="smparasize"> 1 year</p>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!---->
-<!--            </div>-->
-<!--        </div>-->

@@ -80,6 +80,22 @@ $opaque_bg:rgba(1,1,1,0);
   }
 }
 
+@mixin basicBtn($bgColor:orangered,$color:white,$hoverbackground:whitesmoke){
+
+  background-color: $bgColor;
+  padding:0.4em;
+  color: $color;
+  border: 1px solid $color;
+  border-radius: 5px;
+
+  &:hover{
+    background-color: $hoverbackground;
+    color: $bgColor;
+    border-color: $bgColor;
+    cursor: pointer;
+  }
+}
+
 
 //common texts families and font sizes
 .text-body{

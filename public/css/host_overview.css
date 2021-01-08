@@ -1,4 +1,4 @@
-.text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+.text-body {
   font-family: "Montserrat";
   font-size: 21.6px;
 }
@@ -36,7 +36,7 @@
   font-family: "Ubuntu" !important;
 }
 
-.font-midheading, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button, nav .search-prop-input .searchInp, nav .search-prop-input button {
+.font-midheading, nav .search-prop-input .searchInp, nav .search-prop-input button {
   font-family: "Alegreya" !important;
 }
 
@@ -49,7 +49,7 @@
     font-size: 25.8px;
   }
 
-  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+  .text-body {
     font-size: 19.6px;
   }
 
@@ -62,7 +62,7 @@
   }
 }
 @media (max-width: 480px) {
-  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+  .text-body {
     font-size: 17.6px;
   }
 
@@ -82,7 +82,7 @@
     font-size: 11.78px;
   }
 }
-.text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+.text-body {
   font-family: "Montserrat";
   font-size: 21.6px;
 }
@@ -120,7 +120,7 @@
   font-family: "Ubuntu" !important;
 }
 
-.font-midheading, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button, nav .search-prop-input .searchInp, nav .search-prop-input button {
+.font-midheading, nav .search-prop-input .searchInp, nav .search-prop-input button {
   font-family: "Alegreya" !important;
 }
 
@@ -133,7 +133,7 @@
     font-size: 25.8px;
   }
 
-  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+  .text-body {
     font-size: 19.6px;
   }
 
@@ -146,7 +146,7 @@
   }
 }
 @media (max-width: 480px) {
-  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+  .text-body {
     font-size: 17.6px;
   }
 
@@ -254,7 +254,7 @@ nav a:hover {
     width: 80%;
   }
 }
-.text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+.text-body {
   font-family: "Montserrat";
   font-size: 21.6px;
 }
@@ -292,7 +292,7 @@ nav a:hover {
   font-family: "Ubuntu" !important;
 }
 
-.font-midheading, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button, nav .search-prop-input .searchInp, nav .search-prop-input button {
+.font-midheading, nav .search-prop-input .searchInp, nav .search-prop-input button {
   font-family: "Alegreya" !important;
 }
 
@@ -305,7 +305,7 @@ nav a:hover {
     font-size: 25.8px;
   }
 
-  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+  .text-body {
     font-size: 19.6px;
   }
 
@@ -318,7 +318,7 @@ nav a:hover {
   }
 }
 @media (max-width: 480px) {
-  .text-body, .search-box .searchInp, .search-box .search-prop-input button, .search-prop-input .search-box button {
+  .text-body {
     font-size: 17.6px;
   }
 
@@ -663,206 +663,131 @@ footer {
     -webkit-transform: translateX(0);
   }
 }
-nav .search-prop-input {
-  opacity: 0;
+body {
+  margin: 0;
 }
 
-.search-box {
-  background: white;
-  background-size: cover;
-  height: 100%;
-  display: flex;
-}
-.search-box div {
-  width: 40vw;
-  margin: auto;
-}
-.search-box div h1 {
-  color: black;
-  text-align: center;
-  letter-spacing: 0.1rem;
-}
-@media (min-width: 769px) and (max-width: 1024px) {
-  .search-box div {
-    width: 50vw;
-  }
-}
-@media (min-width: 481px) and (max-width: 768px) {
-  .search-box div {
-    width: 60vw;
-  }
-}
-@media (max-width: 480px) {
-  .search-box div {
-    width: 80vw;
-  }
-}
-#searchInpDiv {
-  display: flex;
-  justify-content: center;
+nav {
+  margin: 0;
 }
 
-#hp-feature {
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  height: 92.5%;
-  margin: 0 0 7.5% 0;
-}
-#hp-feature #hpf-img {
-  overflow: hidden;
-  margin-top: 7.5%;
-  border-radius: 20px;
-}
-#hp-feature #hpf-box {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 3em;
-  margin: 0 5em;
-}
-#hp-feature #hpf-box h3 {
-  text-align: center;
-}
-#hp-feature #hpf-box p {
-  font-size: 18px;
-  font-family: "Montserrat";
-}
-#hp-feature #hpf-box div[class=rowflex] {
-  justify-content: center;
-}
-#hp-feature #hpf-box div[class=rowflex] button {
-  font-size: 16.28px;
-  margin: 0 1em;
-  padding: 0.5em 2em;
-  color: white;
-  background-color: #e10000;
-  outline: 0;
-  border-width: 0;
-}
-#hp-feature #hpf-box div[class=rowflex] button:hover {
-  background-color: red;
-  cursor: pointer;
+.afterline:after {
+  width: 100% !important;
+  left: 0;
 }
 
-#hp-perks {
-  background-color: rgba(255, 228, 196, 0.2);
-  padding: 8rem 3em 5rem 3rem;
-  margin-top: -12%;
-}
-#hp-perks h3 {
-  text-align: center;
-}
-#hp-perks div[class=gridbox] {
-  padding: 2rem 5rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  grid-gap: 10em;
-}
-#hp-perks div[class=gridbox] div[perk] {
-  text-align: center;
-}
-#hp-perks div[class=gridbox] div[perk] i {
-  font-size: 21.6px;
-  display: inline-block;
+#host-box {
   width: 100%;
-}
-#hp-perks div[class=gridbox] div[perk] h4 {
-  margin-top: 4px;
-  margin-bottom: 4px;
-}
-#hp-perks div[class=gridbox] div[perk] h4, #hp-perks div[class=gridbox] div[perk] i {
-  text-align: center;
-  color: orangered;
-}
-#hp-perks div[class=gridbox] div[perk] p {
-  margin-top: 0;
-}
-
-#hp-cityprops {
-  height: 80%;
-  margin-top: 5%;
+  height: 70%;
+  background: url("/imgs/img4.jpeg");
+  background-size: cover;
   position: relative;
 }
-#hp-cityprops div {
-  height: 100%;
-}
-#hp-cityprops div .card {
-  height: 100%;
-  width: 40%;
-  min-width: 300px;
-  background-color: red;
-  margin-right: -1%;
-  border-radius: 10px;
-  background-size: cover;
-}
-#hp-cityprops div .card:hover {
-  transform: translateZ(100px) !important;
-  cursor: pointer;
-}
-#hp-cityprops div .card:nth-child(1) {
-  background-color: yellow;
-}
-#hp-cityprops button {
+#host-box form {
   position: absolute;
-  height: 20%;
-  background-color: rgba(0, 0, 0, 0.3);
-  font-size: 21.6px;
-  padding: 0 1em;
-  outline: none;
-  border-width: 0;
-  color: white;
-}
-#hp-cityprops button:hover {
-  cursor: pointer;
-  background-color: black;
-}
-#hp-cityprops #hp-prop-right {
-  top: 40%;
-  right: 0;
-  border-top-left-radius: 50%;
-  border-bottom-left-radius: 50%;
-}
-#hp-cityprops #hp-prop-left {
-  top: 40%;
-  left: 0;
-  border-top-right-radius: 50%;
-  border-bottom-right-radius: 50%;
+  left: 60%;
+  top: 30%;
+  background-color: pink;
+  padding: 5px;
+  border-radius: 5px;
 }
 
-#hp-quote {
-  background-color: rgba(255, 228, 196, 0.2);
-  height: 60%;
+#host-works {
+  padding: 5vw 3vw;
+  width: 100%;
+  position: relative;
+}
+#host-works > div {
+  overflow-x: scroll;
+}
+#host-works .hw-card {
+  flex: 1;
+  min-width: 250px;
+  margin: 0 2vw;
+  padding: 8px;
+}
+#host-works .hw-card img {
+  height: 200px;
+  width: 100%;
+  border-radius: 10px;
+}
+
+#host-community {
+  display: grid;
+  grid-template-columns: minmax(350px, 2fr) minmax(175px, 1fr);
+  padding: 7vw 2vw;
+  padding-left: 0;
+  position: relative;
+}
+#host-community #hc-scroller {
+  overflow-x: scroll;
+}
+#host-community #hc-scroller .hc-card {
+  min-width: 300px;
+  margin: 0 2vw;
+}
+#host-community #hc-scroller .hc-card img {
+  width: 100%;
+  height: 400px;
+  border-radius: 10px;
+}
+#host-community #hc-scroller .hc-card:hover {
+  cursor: pointer;
+}
+#host-community #hc-info {
+  position: relative;
+}
+#host-community #hc-info > div:not(.fade-gradient) {
+  padding: 3vw 2vw 3vw 4vw;
   display: flex;
   flex-direction: column;
-  margin: 5% 0;
+  height: 100%;
   justify-content: center;
-  text-align: center;
 }
-#hp-quote div {
+#host-community #hc-info .fade-gradient {
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), gainsboro);
+  width: 100px;
+  right: 100%;
+  height: 100%;
+  position: absolute;
+}
+#host-community #hc-info button {
+  display: block;
   margin: 0 auto;
-  width: 50%;
+  background-color: orangered;
+  padding: 0.4em;
+  color: white;
+  border: 1px solid white;
+  border-radius: 5px;
 }
-#hp-quote p {
+#host-community #hc-info button:hover {
+  background-color: whitesmoke;
   color: orangered;
-  font-size: 13.28px;
-  font-family: "Montserrat";
-}
-#hp-quote p[rel=author] {
-  font-family: "Alegreya";
-  color: black;
-}
-@media (max-width: 767px) {
-  #hp-quote div {
-    width: 70%;
-  }
-}
-@media (min-width: 481px) and (max-width: 767px) {
-  #hp-quote p {
-    font-size: 12.28px;
-  }
-}
-@media (max-width: 479px) {
-  #hp-quote p {
-    font-size: 10.28px;
-  }
+  border-color: orangered;
+  cursor: pointer;
 }
 
-/*# sourceMappingURL=homepage.css.map */
+#hc-help {
+  padding: 4vw 2vw;
+}
+#hc-help > div {
+  flex: 1;
+  padding: 10px;
+}
+#hc-help .l {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#hc-help .hch-features {
+  margin: 2em 0;
+}
+#hc-help .hch-features > p:nth-child(1) {
+  margin-bottom: 0;
+}
+#hc-help .hch-features > p:nth-child(2) {
+  margin: 0;
+}
+
+/*# sourceMappingURL=host_overview.css.map */

@@ -1,6 +1,6 @@
 @import "variables";
 $navbar_fontsize:1.2rem;
-$searchbar_opacity:0;
+$searchbar_opacity:1;
 nav{
   position: fixed;
   width: 100%;
@@ -9,7 +9,7 @@ nav{
   z-index: 1;
 }
 nav .search-prop-input{
-opacity: 0;
+  opacity: 1;
   transition: all 0.3s ease-in;
   .searchInp{
     @extend .text-icon;

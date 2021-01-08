@@ -3,6 +3,10 @@
 @import "include-media";
 @import "main";
 
+nav .search-prop-input{
+    opacity: 0;
+}
+
 .search-box{
     background: white;
     background-size: cover;

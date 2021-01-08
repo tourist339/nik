@@ -1,36 +1,22 @@
 <?php
-$properties=$this->view_data["data"];
-echo "<br>";
-var_dump($properties);
+$approved_properties=$this->view_data["approved_props"];
+$unapproved_properties=$this->view_data["unapproved_props"];
+
+$this->convert_php_to_jsvars([$approved_properties,$unapproved_properties],
+    ["approved_props","unapproved_props"]);
 ?>
 
-<div class="listprops-grid">
-    <?php foreach ($properties as $prop):
-
-        $prop=$prop[0];
-        $prop_title="/prop/v/".str_replace(' ','-',$prop["title"])."/".$prop["id"] ?>
-        <!--            echo "<a href='/prop/v/".$prop_title ."/".$prop["id"]."'>".$prop["title"]."</a><br>";-->
-        <div class="listprops-item" src=<?php echo $prop_title; ?>>
-            <figure>
-                <div>
-                    <img src="/imgs/img1.jpeg" alt="Photo of a room"></div>
-                <figcaption><?php echo $prop["title"];?><br><span><?php echo $prop["address"];?></span><br></figcaption>
-                <figcaption id="description">Description<br><span>
-                    <?php echo $prop["description"];?></span></figcaption>
-                <figcaption>Rent start at<br><span><?php echo $prop["rent"];?> /month</span></figcaption>
-            </figure>
 
 
-        </div>
-    <?php endforeach;?>
+<div id="listprops-grid">
 
 </div>
+<script src="/js/loadprops.js"></script>
+<script src="/js/imageslider.js"></script>
 <script>
-    $(document).ready(function() {
-        console.log("Read");
-        $(".listprops-item").click(function () {
-                window.location.href=$(this).attr("src");
-            }
-        );
-    });
+        $(document).ready(function () {
+            propsConfig("#listprops-grid","#single-listing",".listprops-item", php_vars.approved_props).loadProps();
+
+        });
+
 </script>
