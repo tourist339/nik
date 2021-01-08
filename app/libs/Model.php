@@ -1,13 +1,15 @@
 <?php
 
 
-class Model
+class Model extends Database
 {
-private $db;
-public function __construct($dbname=DB_NAME){
-    $this->db=new Database($dbname);
-    //$this->db
-}
+    private $db;
+
+
+    public function __construct($dbname=DB_NAME){
+        $this->db=new Database($dbname);
+        //$this->db
+    }
 
     /**
      * @return Database

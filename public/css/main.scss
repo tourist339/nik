@@ -151,6 +151,7 @@ input[type="submit"]{
     background: #717171;
 }
 
+
 //this will add a horizontal line before div
 .beforeline{
     position: relative;
@@ -163,6 +164,17 @@ input[type="submit"]{
     top: 0px;
     background: #717171;
 }
+
+//to hide scrollbar but keeps the functionality
+.hidescrollbar::-webkit-scrollbar{ //for chrome , safari , opera
+    display: none;
+}
+
+.hidescrollbar{
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
 
 #logoicon{
     text-align:left;
@@ -286,6 +298,21 @@ footer{
     }
 }
 
+.leftmost{
+    margin-left: 0px !important;
+}
+
+.rightmost{
+    margin-right: 0px !important;
+}
+
+.bold-font{
+    font-weight: bold;
+}
+
+.italic-font{
+    font-style: italic;
+}
 @-webkit-keyframes shake {
     8%, 41% {
         -webkit-transform: translateX(-10px);

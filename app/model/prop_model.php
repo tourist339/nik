@@ -6,7 +6,6 @@ class prop_model extends Model
     public function __construct()
     {
         parent::__construct();
-
     }
 
     public function getAllProps($cols,$params,$filters=[]){

@@ -325,6 +325,8 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
 
 <!--    Main event functions script-->
 <script>
+    AOS.init();
+
     // checking validity dynamically
     <?php if(SETUP_DEBUG_MODE): ?>
     $(".required-input").prop("required",true);

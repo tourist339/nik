@@ -7,7 +7,7 @@ class host_controller extends Controller
     {
         $cView = $this->createView('/host/overview', ["title" => "Hosting OverView",
                 "scripts" => [MAIN_SCRIPTS,"homepage/homepage.js"],
-                "stylesheets" => [MAIN_CSS,"host.css"],
+                "stylesheets" => [MAIN_CSS,"host_overview.css"],
                 "navbar" => MAIN_NAVBAR]
         );
         $cView->render();
@@ -18,7 +18,7 @@ class host_controller extends Controller
         if(isset($_SESSION["id"])) {
             $cView = $this->createView('/host/setup', ["title" => "Setup",
                     "scripts" => [MAIN_SCRIPTS],
-                    "stylesheets" => [MAIN_CSS, "host.css", "setup.css"],
+                    "stylesheets" => [MAIN_CSS, "host_overview.css", "setup.css"],
                     "navbar" => MAIN_NAVBAR]
             );
             $cView->render(true, false);

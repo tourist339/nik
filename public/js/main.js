@@ -163,5 +163,22 @@ var lyfly=(function(){
         e.stopPropagation();
 
     }
+
+    publicFuncs.loadCities=function (element_selector,cities_json="/util/cities/indian_cities.json") {
+        $(element_selector).autocomplete({
+            source:function (request,response){
+                var result=$.ui.autocomplete.filter(cities_json,request.term);
+
+            },
+            select:function(event,ui){
+                $(element_selector).val(ui.item.name)
+            },
+            _renderItem:function (ul,item) {
+                return $("<li>")
+                    .append("<div>"+item.name+"</div>")
+                    .appendTo(ul);
+            }
+        });
+    }
     return publicFuncs;
 })();
