@@ -33,6 +33,7 @@ class prop_controller extends Controller
         //get the filters from applyFilters function
         $filters=$this->applyFilters($location,$search);
 
+
         //if $filters are null that means filters are not set , so get data from the model
         if($filters==null){
             $data = $this->model->getAllProps(["id","title", "description", "rent", "address","city","images"], ["location"=>$location,"search"=>$search]);
@@ -51,6 +52,9 @@ class prop_controller extends Controller
         $maxrent = $rents["max_rent"];
         $citymodel->closeDb();
         }else{
+            var_dump($location);
+            var_dump($location);
+
             $citymodel->closeDb();
             new e404_controller("There is no property in the city yet");
         }
@@ -76,6 +80,7 @@ class prop_controller extends Controller
             $usermodel->closeDb();
 
         }
+
 
         $this->createView('prop/listprops', ["title" => "LyfLy",
                                                     "scripts" => [MAIN_SCRIPTS,"listprops.js","imageslider.js","jquery-ui.min.js","loadprops.js","filterprops.js"],

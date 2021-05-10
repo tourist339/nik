@@ -35,13 +35,16 @@ class user_controller extends Controller
         $props_array=$usermodel->getUserDataByID(["approved_properties","unapproved_properties"],$id);
         $approved_props=[];
         $unapproved_props=[];
-        if($props_array[0]["approved_properties"]!=null || $props_array[0]["unapproved_properties"]!=null) {
+        if($props_array[0]["approved_properties"]!=null ) {
             $approved_props_ids = explode(",", $props_array[0]["approved_properties"]);
-            $unapproved_props_ids = explode(",", $props_array[0]["unapproved_properties"]);
             foreach ($approved_props_ids as $p_id) {
                 $propdata = $propmodel->getSingleProp(["id","title", "description", "rent", "address","city","images"], ["id" => $p_id]);
                 array_push($approved_props, $propdata[0]);
             }
+
+        }
+        if( $props_array[0]["unapproved_properties"]!=null){
+            $unapproved_props_ids = explode(",", $props_array[0]["unapproved_properties"]);
             foreach ($unapproved_props_ids as $p_id) {
                 $propdata = $adminmodel->getPropertyById($p_id,["id","title", "description", "rent", "address","city","images"]);
                 array_push($unapproved_props, $propdata[0]);
@@ -50,5 +53,10 @@ class user_controller extends Controller
         $currView= $this->createView("user/properties",["approved_props"=>$approved_props
             ,"unapproved_props"=>$unapproved_props]);
         $currView->render(false,false);
+
+        $usermodel->closeDb();
+        $propmodel->closeDb();
+        $usermodel->closeDb();
+
     }
 }

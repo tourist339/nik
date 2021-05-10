@@ -49,7 +49,6 @@ class login_controller extends Controller
         public function update_user(){
         session_start();
         if(isset($_SESSION["payload"]) and isset($_SESSION["login_type"])){
-            echo "dsdsa";
             $payload=$_SESSION["payload"];
             $login_type=$_SESSION["login_type"];
             session_unset();

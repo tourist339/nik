@@ -3,6 +3,7 @@ $propdata=$this->view_data["data"][0];
 $ownerdata=$this->view_data["ownerdata"][0];
 $images=explode(",",$propdata["images"]);
 $amenities=explode(",",$propdata["amenities"]);
+$houserules=array();
 if(isset($propdata["houseRules"]))
     $houserules=explode(",",$propdata["houseRules"]);
 

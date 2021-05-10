@@ -1,3 +1,7 @@
+<?php
+    $loggedin=Session::isLoggedIn();
+?>
+
 <nav>
 <div>
     <a id='logoicon' href="/" >LOGO</a>
@@ -11,9 +15,12 @@
 </div>
 <div>
     <a href="/host">Host your home</a>
-    < id="nav-myacc" href="/user/"><?php echo $nav</a>
-    <a onclick="openLogin()" id="nav-signin" style="display: none">Sign in</a>
-
+    <?php if($loggedin):?>
+    <a id="nav-myacc" href="/user/">My Profile</a>
     <a style=" display: none" id="nav-signout">Sign out</a>
+    <?php else: ?>
+    <a onclick="openLogin()" id="nav-signin" style="display: none">Sign in</a>
+    <?php endif; ?>
+
 </div>
 </nav>
