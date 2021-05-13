@@ -72,7 +72,6 @@ $(document).ready(function () {
     //loadProps fills all the properties and then returns the self object from
     // where we can get the updated min and max rents
     propsConfig("#listprops-grid","#single-listing",".listprops-item", php_vars.props).loadProps();
-    console.log(php_vars.filters);
     loadFilters(php_vars.filters, null).loadData();
 
 

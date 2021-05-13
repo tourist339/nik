@@ -4,7 +4,7 @@ $searchbar_opacity:1;
 nav{
   position: fixed;
   width: 100%;
-  padding: 0.7vw 0;
+  padding: 0.7vw 1vw;
   display: flex;
   z-index: 1;
 }
@@ -70,7 +70,7 @@ nav div:first-child{
 }
 
 nav a{
-  @extend .text-icon;
+  @extend .text-small-body;
   @extend .font-largeheading;
   text-align: center;
   margin: 0 8px;

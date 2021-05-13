@@ -2,18 +2,84 @@
 $user_email=$_SESSION["email"];
 $login_type=$_SESSION["login_type"];
 $userInfo=$this->view_data["data"][0];
-?>
-<head>
-    <link href="/css/user/dashboard.css" rel="stylesheet">
-</head>
-<div>
 
-    <input type="text" id="user-fName" name="fName" value="<?php echo $userInfo["first_name"] ?>"><br>
-    <input type="text" id="user-lName" name="lName" value="<?php echo $userInfo["last_name"]  ?>"><br>
-    <input type="email" id="email" value="<?php echo $user_email ?>" disabled><br>
-    <input type="text" pattern="0-9" placeholder="Phone Number" value="<?php echo $userInfo["phone_num"]  ?>" id="user-pNum" name="pNum"><br>
-    <input type="text" id="user-address" placeholder="Address" value="<?php echo $userInfo["address"]  ?>" name="address"><br>
-    <input type="text" id="user-city" placeholder="City" value="<?php echo $userInfo["city"]  ?>" name="city"><br>
-    <input type="text" id="user-state" placeholder="State" value="<?php echo $userInfo["state"]  ?>" name="state"><br>
+require VIEW."user/user_navbar.phtml";
+?>
+<script>
+    $(document).ready(function () {
+
+            $("#dashboard-tab").on("click", ".anchor-btn", function () {
+                $("#dashboard-tab").children(".anchor-btn").attr("status","");
+                $(this).attr("status","active");
+                let tab=$(this).attr("tab");
+                let tabEl = $("#" + tab);
+
+                if(tabEl.hasClass("hidden")) {
+                    $(".dashboard-div").addClass("hidden");
+
+                    console.log(tabEl.attr("id"))
+
+                    tabEl.removeClass("hidden");
+                    tabEl.css("display", "none");
+
+                    tabEl.fadeIn(500);
+                }
+
+
+            });
+        }
+    )
+</script>
+<div id="dashboard-main" class="rowflex ">
+    <div id="dashboard-content">
+        <div id="general" class="dashboard-div">
+            <div class="rowflex">
+
+            <div class="input-label-div">
+                <label>First Name: </label>
+                <input class="form-input" type="text" id="user-fName" name="fName" value="<?php echo $userInfo["first_name"] ?>"><br>
+            </div>
+            <div class="input-label-div">
+                <label>Second Name: </label>
+                <input class="form-input" type="form-input" id="user-lName" name="lName" value="<?php echo $userInfo["last_name"]  ?>"><br>
+            </div>
+            </div>
+            <div class="input-label-div">
+                <label>Email: </label>
+                <input class="form-input" type="form-input" id="email" value="<?php echo $user_email ?>" disabled><br>
+            </div>
+            <div class="input-label-div">
+                <label>Phone Number: </label>
+                <input class="form-input" type="form-input" pattern="0-9" placeholder="Phone Number" value="<?php echo $userInfo["phone_num"]  ?>" id="user-pNum" name="pNum"><br>
+            </div>
+            <div class="rowflex">
+
+            <div class="input-label-div">
+                <label>Address: </label>
+                <input class="form-input" type="form-input" id="user-address" placeholder="Address" value="<?php echo $userInfo["address"]  ?>" name="address"><br>
+            </div>
+            <div class="input-label-div">
+                <label>City: </label>
+
+                <input class="form-input" type="form-input" id="user-city" placeholder="City" value="<?php echo $userInfo["city"]  ?>" name="city"><br>
+            </div>
+            <div class="input-label-div">
+                <label>State: </label>
+
+                <input class="form-input" type="form-input" id="user-state" placeholder="State" value="<?php echo $userInfo["state"]  ?>" name="state"><br>
+            </div>
+            </div>
+        </div>
+
+        <div id="security" class="hidden dashboard-div">
+            <input type="text" id="user-fName" name="fName" value="<?php echo $userInfo["first_name"] ?>"><br>
+            <input type="text" id="user-lName" name="lName" value="<?php echo $userInfo["last_name"]  ?>"><br>
+        </div>
+    </div>
+    <div id="dashboard-tab">
+        <a class="anchor-btn" status="active" tab="general">General Info</a>
+        <a class="anchor-btn" tab="security"> Security</a>
+
+    </div>
 
 </div>

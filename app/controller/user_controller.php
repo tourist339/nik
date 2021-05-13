@@ -3,34 +3,43 @@
 
 class user_controller extends Controller
 {
-    public function index(){
+    public function index()
+    {
+        $this->checkLoggedIN();
+        $model=new user_model();
 
-        $currView= $this->createView("user/index", ["title" => "User",
+        $p=["first_name","last_name","address","city","state","phone_num","pic"];
+
+        $id=$_SESSION["id"];
+        $userInfo=$model->getUserDataByID($p,$id);
+        $currView= $this->createView("user/dashboard",
+            ["title" => "Dashboard",
             "scripts" => [MAIN_SCRIPTS],
-            "stylesheets" => [MAIN_CSS,"user/main.css","single-listing.css","listprops.css"]
+            "navbar"=>MAIN_NAVBAR,
+            "data"=>$userInfo,
+            "stylesheets" => [MAIN_CSS,"user/main.css","user/dashboard.css"]
             ]
         );
         $currView->render(true,false);
-    }
-
-    public function dashboard(){
-        $model=new user_model();
-        $p=["first_name","last_name","address","city","state","phone_num","pic"];
-        session_start();
-        $id=$_SESSION["id"];
-        $userInfo=$model->getUserDataByID($p,$id);
-        $currView= $this->createView("user/dashboard",["data"=>$userInfo]);
-        $currView->render(false,false);
         $model->closeDb();
     }
-    public function events(){
 
+    /**
+     * Just call the index function on dashboard , as they are supposed to load the same content
+     */
+    public function dashboard(){
+        $this->index();
     }
+
+
+    /**
+     *
+     */
     public function properties(){
         $usermodel=new user_model();
         $propmodel=new prop_model();  //for getting approved props
         $adminmodel=new admin_model(); //for getting unapproved props
-        session_start();
+        $this->checkLoggedIN();
         $id=$_SESSION["id"];
         $props_array=$usermodel->getUserDataByID(["approved_properties","unapproved_properties"],$id);
         $approved_props=[];
@@ -50,9 +59,17 @@ class user_controller extends Controller
                 array_push($unapproved_props, $propdata[0]);
             }
         }
-        $currView= $this->createView("user/properties",["approved_props"=>$approved_props
-            ,"unapproved_props"=>$unapproved_props]);
-        $currView->render(false,false);
+        $currView= $this->createView("user/properties",
+            ["title" => "Properties",
+                "scripts" => [MAIN_SCRIPTS],
+                "navbar"=>MAIN_NAVBAR,
+                "approved_props"=>$approved_props,
+                "unapproved_props"=>$unapproved_props,
+                "stylesheets" => ["listprops.css","single-listing.css",MAIN_CSS,"user/main.css","user/properties.css"]
+            ]
+        );
+        $currView->render(true,false);
+
 
         $usermodel->closeDb();
         $propmodel->closeDb();

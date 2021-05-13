@@ -12,7 +12,7 @@ nav{
 }
 
 body{
-    padding: 0 5vw;
+    padding: 0 $body_padding;
 }
 body>div{
     margin: 1rem 0;
@@ -35,7 +35,7 @@ body>div{
 }
 
 
-#listprops-grid{
+.props-grid{
     display: grid;
     flex: 80 1 0px;
     grid-template-columns: repeat(auto-fill,minmax(310px,1fr));

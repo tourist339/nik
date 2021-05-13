@@ -3,12 +3,12 @@
   font-size: 21.6px;
 }
 
-.text-small-body {
+.text-small-body, .form-input, nav a {
   font-family: "Montserrat";
   font-size: 19.6px;
 }
 
-.text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+.text-icon, .anchor-btn, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
   font-family: "Montserrat";
   font-size: 16.28px;
 }
@@ -36,7 +36,7 @@
   font-family: "Ubuntu" !important;
 }
 
-.font-midheading, nav .search-prop-input .searchInp, nav .search-prop-input button {
+.font-midheading, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
   font-family: "Alegreya" !important;
 }
 
@@ -53,7 +53,7 @@
     font-size: 19.6px;
   }
 
-  .text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+  .text-icon, .anchor-btn, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
     font-size: 14.28px;
   }
 
@@ -74,7 +74,7 @@
     font-size: 21.8px;
   }
 
-  .text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+  .text-icon, .anchor-btn, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
     font-size: 13.28px;
   }
 
@@ -87,12 +87,12 @@
   font-size: 21.6px;
 }
 
-.text-small-body {
+.text-small-body, .form-input, nav a {
   font-family: "Montserrat";
   font-size: 19.6px;
 }
 
-.text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+.text-icon, .anchor-btn, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
   font-family: "Montserrat";
   font-size: 16.28px;
 }
@@ -120,7 +120,7 @@
   font-family: "Ubuntu" !important;
 }
 
-.font-midheading, nav .search-prop-input .searchInp, nav .search-prop-input button {
+.font-midheading, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
   font-family: "Alegreya" !important;
 }
 
@@ -137,7 +137,7 @@
     font-size: 19.6px;
   }
 
-  .text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+  .text-icon, .anchor-btn, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
     font-size: 14.28px;
   }
 
@@ -158,7 +158,7 @@
     font-size: 21.8px;
   }
 
-  .text-icon, nav a, nav .search-prop-input .searchInp, nav .search-prop-input button {
+  .text-icon, .anchor-btn, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
     font-size: 13.28px;
   }
 
@@ -169,7 +169,7 @@
 nav {
   position: fixed;
   width: 100%;
-  padding: 0.7vw 0;
+  padding: 0.7vw 1vw;
   display: flex;
   z-index: 1;
 }
@@ -259,12 +259,12 @@ nav a:hover {
   font-size: 21.6px;
 }
 
-.text-small-body {
+.text-small-body, .form-input, nav a {
   font-family: "Montserrat";
   font-size: 19.6px;
 }
 
-.text-icon, nav .search-prop-input .searchInp, nav .search-prop-input button, nav a {
+.text-icon, .anchor-btn, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
   font-family: "Montserrat";
   font-size: 16.28px;
 }
@@ -292,7 +292,7 @@ nav a:hover {
   font-family: "Ubuntu" !important;
 }
 
-.font-midheading, nav .search-prop-input .searchInp, nav .search-prop-input button {
+.font-midheading, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
   font-family: "Alegreya" !important;
 }
 
@@ -309,7 +309,7 @@ nav a:hover {
     font-size: 19.6px;
   }
 
-  .text-icon, nav .search-prop-input .searchInp, nav .search-prop-input button, nav a {
+  .text-icon, .anchor-btn, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
     font-size: 14.28px;
   }
 
@@ -330,7 +330,7 @@ nav a:hover {
     font-size: 21.8px;
   }
 
-  .text-icon, nav .search-prop-input .searchInp, nav .search-prop-input button, nav a {
+  .text-icon, .anchor-btn, .input-label-div label, nav .search-prop-input .searchInp, nav .search-prop-input button {
     font-size: 13.28px;
   }
 
@@ -620,6 +620,20 @@ footer {
   border-radius: 50% !important;
 }
 
+.form-input {
+  padding: 0.2em;
+  border-radius: 0.4em;
+  justify-content: center;
+}
+
+.input-label-div {
+  margin: 0em 0.5em;
+}
+.input-label-div label {
+  display: block;
+  margin-bottom: 0.2em;
+}
+
 .horizontal-scroller {
   white-space: nowrap;
   overflow-y: hidden;
@@ -628,6 +642,21 @@ footer {
 .horizontal-scroller .card {
   display: inline-block;
   box-shadow: -3px -25px 20px 20px rgba(0, 0, 0, 0.3);
+}
+
+.anchor-btn {
+  border-radius: 0.5em;
+  background-color: coral;
+  padding: 0.4em;
+  margin: 0.4em;
+}
+.anchor-btn:hover {
+  background-color: lightcoral;
+  cursor: pointer;
+}
+
+.anchor-btn[status=active] {
+  background-color: lightcoral;
 }
 
 .leftmost {

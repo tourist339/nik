@@ -1,0 +1,17 @@
+
+<div id="user-navbar">
+    <div class="rowflex">
+        <a href="dashboard">Information</a>
+        <a href="properties">Properties</a>
+        <a href="bookings">Bookings</a>
+        <a href="favouries">Favourites</a>
+    </div>
+</div>
+<script>
+    $(document).ready(function (){
+        let activePage=location.href.substring(location.href.lastIndexOf('/') + 1);
+        if (activePage=="")
+            activePage="dashboard"
+        $("a[href='"+activePage+"']").addClass("active");
+    })
+</script>

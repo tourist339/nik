@@ -1,21 +1,42 @@
 <?php
 $approved_properties=$this->view_data["approved_props"];
 $unapproved_properties=$this->view_data["unapproved_props"];
+require VIEW."user/user_navbar.phtml";
 
 $this->convert_php_to_jsvars([$approved_properties,$unapproved_properties],
     ["approved_props","unapproved_props"]);
 ?>
 
+<div id="single-listing" class="template">
+    <?php require TEMPLATE . "listing" . DIRECTORY_SEPARATOR . "single-listing.html" ?>
+</div>
 
+<div id="user-all-props">
+<div id="approved-props">
+    <h1 class="text-midheading">
+        Approved Properties
+    </h1>
+    <div id="approvedprops-grid" class="props-grid">
 
-<div id="listprops-grid">
+    </div>
+</div>
+
+    <div id="approved-props">
+        <h1 class="text-midheading">
+            Unapproved Properties
+        </h1>
+        <div id="unapprovedprops-grid" class="props-grid">
+
+        </div>
+    </div>
 
 </div>
 <script src="/js/loadprops.js"></script>
 <script src="/js/imageslider.js"></script>
 <script>
         $(document).ready(function () {
-            propsConfig("#listprops-grid","#single-listing",".listprops-item", php_vars.approved_props).loadProps();
+            propsConfig("#approvedprops-grid","#single-listing",".listprops-item", php_vars.approved_props).loadProps();
+            propsConfig("#unapprovedprops-grid","#single-listing",".listprops-item", php_vars.unapproved_props).loadProps();
 
         });
 
