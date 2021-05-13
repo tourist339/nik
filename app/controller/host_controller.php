@@ -33,6 +33,7 @@ class host_controller extends Controller
     public function add_temp_property(){
         //handling ajax request from setup.phtml page for creating property\
         if( isset( $_SERVER['HTTP_X_REQUESTED_WITH'] ) && strtolower( $_SERVER['HTTP_X_REQUESTED_WITH'] ) == 'xmlhttprequest') {
+            print_r($_POST);
 
             $lyfly=false;
 
@@ -101,7 +102,7 @@ class host_controller extends Controller
                 session_start();
 
                 if (isset($_SESSION["id"])) {
-
+                    echo "here";
                     array_push($keys, ":images");
 
                     //if prop is not managed by lyfly only then upload user images

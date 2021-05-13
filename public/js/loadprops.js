@@ -55,7 +55,9 @@ function propsConfig(parent,template,selector,props){
             console.log(props);
 
             if (props==""){
-                this.parent.append("<h2 class='text-body'>Sorry no matched properties in "+php_vars.city+".</h2>")
+                let city = (php_vars.city == undefined  ? " in your account " : "in "+php_vars.city)
+                console.log(city)
+                this.parent.append("<h2 class='text-body'>Sorry no matched properties "+city+".</h2>")
             }else{
                 var i=0;
                 this.parent.html("");

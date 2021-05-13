@@ -1,4 +1,3 @@
-$(document).ready(function() {
     function nextImg(e) {
         $(this).prop("disabled", true);
         var btn = this;
@@ -96,8 +95,8 @@ $(document).ready(function() {
         e.stopPropagation();
 
     }
-
+    $(document).ready(function() {
 
     $(".img-overlay .img-next").on("click", nextImg);
     $(".img-overlay .img-prev").on("click", prevImg);
-});
+    });
