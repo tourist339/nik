@@ -11,7 +11,7 @@
                 <div class="gridbox setup-gridbox">
                     <div class="input-item">
                         <label for="pType">Property Type</label>
-                        <select   name="pType" id="pType">
+                        <select   name="pType" id="pType" class="required-input input">
                             <option value="" disabled selected>Choose </option>
                             <option value="Apartment">Apartment</option>
                             <option  value="House">House</option>
@@ -24,7 +24,7 @@
 
                     <div class="input-item">
                     <label for="pSharingType">Sharing Type</label>
-                    <select    name="pSharingType" id="pSharingType">
+                    <select    name="pSharingType" id="pSharingType" class="required-input input">
                         <option value="" disabled selected>Select your option </option>
                         <option  value="Entire Place">Entire Place</option>
                             <option value="Private Room">Private Room</option>
@@ -34,25 +34,25 @@
 
                     <div class="input-item">
                     <label for="pNoGuests" >No. Of Guests</label>
-                    <input type=number class="required-input numinp" min="0" max="12" placeholder="" name="pNoGuests" id="pNoGuests" >
+                    <input type=number class="required-input numinp input" min="0" max="12" placeholder="" name="pNoGuests" id="pNoGuests" >
                     </div>
 
 
 
                 <div class="input-item ">
                     <label for="pNoBeds" >No. Of Bedrooms:</label>
-                    <input type=number class="numinp required-input" min="0" max="8" name="pNoBeds" id="" >
+                    <input type=number class="numinp required-input input" min="0" max="8" name="pNoBeds" id="" >
                 </div>
 
                 <div class="input-item">
                     <label for="pNoBathrooms">No. Of Bathrooms:</label>
-                    <input type=number class="numinp required-input" min="0" max="6" name="pNoBathrooms"  id="pNoBathrooms" >
+                    <input type=number class="numinp required-input input" min="0" max="6" name="pNoBathrooms"  id="pNoBathrooms" >
                 </div>
 
 
                 <div class="input-item">
                     <label for="pKitchenAvailables">Is kitchen available?</label>
-                    <select  class="numinp required-input"  name="pKitchenAvailable" id="pKitchenAvailable">
+                    <select  class="numinp required-input input"  name="pKitchenAvailable" id="pKitchenAvailable">
                         <option value="1">Yes</option>
                         <option selected value="0">No</option>
                     </select>
@@ -73,12 +73,12 @@
                 <h1 class="midsize">Property Address</h1>
                 <button type="button" id="getLocation">Use current location </button>
 
-                <input type=text placeholder="Street Address" class="required-input" name="pAddress" id="prop-straddr"" />
-                <input type=text placeholder="Apt. Number (Optional)" name="pApt" id="prop-aptno">
+                <input type=text placeholder="Street Address" class="required-input input" name="pAddress" id="prop-straddr"" />
+                <input type=text placeholder="Apt. Number (Optional)" class="input" name="pApt" id="prop-aptno">
 
                 <div class="rowflex">
-                    <input type=text placeholder="City" class="required-input" name="pCity" id="prop-city">
-                    <input type=text placeholder="State" class="required-input" name="pState" id="prop-state">
+                    <input type=text placeholder="City" class="required-input input" name="pCity" id="prop-city">
+                    <input type=text placeholder="State" class="required-input input" name="pState" id="prop-state">
                 </div>
                 <p class="phase-text" style="display:none;">You can adjust the marker</p>
                 <div id="map"></div>
@@ -108,36 +108,36 @@
                         <input type="button" class="rules-btns rb1" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
                         <input type="button" class="rules-btns rb1" value="X">
 
-                        <input type="hidden" class="rules-yes"  value="Smoking Allowed:Yes">
-                        <input type="hidden" class="rules-no"  value="Smoking Allowed:Noo">
+                        <input type="hidden" class="rules-yes input"  value="Smoking Allowed:Yes">
+                        <input type="hidden" class="rules-no input"  value="Smoking Allowed:Noo">
 
                     </div>
                     <div class="rowflex">
                         <p class="phase-text">Parties allowed</p>
                         <input type="button" class="rules-btns rb2" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
                         <input type="button" class="rules-btns rb2" value="X">
-                        <input type="hidden" class="rules-yes"  value="Parties Allowed:Yes">
-                        <input type="hidden" class="rules-no"  value="Parties Allowed:Noo">
+                        <input type="hidden" class="rules-yes input"  value="Parties Allowed:Yes">
+                        <input type="hidden" class="rules-no input"  value="Parties Allowed:Noo">
                     </div>
                     <div class="rowflex">
                         <p class="phase-text">Pet Friendly</p>
                         <input type="button" class="rules-btns rb3" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
                         <input type="button" class="rules-btns rb3" value="X">
-                        <input type="hidden" class="rules-yes"  value="Pet Friendly:Yes">
-                        <input type="hidden" class="rules-no"  value="Pet Friendly:Noo">
+                        <input type="hidden" class="rules-yes input"  value="Pet Friendly:Yes">
+                        <input type="hidden" class="rules-no input"  value="Pet Friendly:Noo">
                     </div>
                 </div>
                 <div>
                 <p class="phase-text-label">Additional Rules</p>
                 <div class="rowflex" class="notopmargin">
-                    <input type=text autocomplete="nope" placeholder="Setup Queit hours? " style="max-width:100%;flex:1 1 auto;"  class="notopmargin" id="house-rules-new">
+                    <input type=text autocomplete="nope" placeholder="Setup Quiet hours? " style="max-width:100%;flex:1 1 auto;"  class="notopmargin" id="house-rules-new">
                     <input type="button" value="Add" class="notopmargin" id="add-house-rules">
                 </div>
                 </div>
 
                 <div >
                     <p class="phase-text-label">Gender Allowed</p>
-                    <select  class="notopmargin required-input"  name="pGender" id="pGender">
+                    <select  class="notopmargin required-input input"  name="pGender" id="pGender">
                         <option value="" disabled selected>Choose </option>
                         <option value="males">Only Male</option>
                         <option  value="females">Only Female</option>
@@ -154,7 +154,7 @@
                 <h1 class="midsize" >Property Management</h1>
                 <div class="label-input">
                 <p>Do you want lyfly to manage the property?</p>
-                <select  class="required-input"  name="pLyfly" id="pLyfly">
+                <select  class="required-input input"  name="pLyfly" id="pLyfly">
                     <option value="" disabled selected>Choose </option>
                     <option value="1">Yes</option>
                     <option  value="0">No</option>
@@ -201,7 +201,6 @@
             <input type="button" for="phase4" class="switch-btns hidden" value="" id="p4-switch">
             <input type="button" for="phase5" class="switch-btns hidden" value="" id="p5-switch">
             <input type="button" for="phase6" class="switch-btns hidden" value="" id="p6-switch">
-            <input type="button" for="phase7" class="switch-btns hidden" value="" id="p7-switch">
 
             <input type="button" value="Next" class="" id="setup-box-next">
 
@@ -257,6 +256,11 @@
 
     }
 
+    /**
+     * Initialise the map object and display it with marker on the given coordinates
+     * @param latitude double
+     * @param longitude double
+     */
     function initMap(latitude,longitude) {
         $("#map").css("display","block");
         $(".phase-text").css("display","block");
@@ -280,6 +284,9 @@
         $("#setup-box-next").prop("disabled",false);
     }
 
+    /**
+     * Displays the map with marker based on the address in input fields
+     */
     function displayMap(){
         var geocoder = new google.maps.Geocoder();
         var address = $("#prop-straddr").val()+" , "+$("#prop-city").val()+" , "+$("#prop-state").val();
@@ -326,6 +333,39 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
 <!--    Main event functions script-->
 <script>
     AOS.init();
+
+    // used to save progress
+    function saveProgress() {
+        var formData = new FormData(document.getElementById("setup-container"));
+
+        console.log(formData)
+        $.ajax({
+            url: "/host/store_unfinished",
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+                $("#image-preview-box").append(data);
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+        });
+
+        // $(".activePhase").find("input,select").each(function () {
+        //     if ($(this).attr("type") != "button") {
+        //
+        //         if(typeof $(this).attr("name") !== 'undefined') {
+        //             if ($(this).attr("type") == "checkbox") {
+        //                 if ($(this).is(":checked"))
+        //                     console.log($(this).attr("name") + $(this).val());
+        //
+        //             } else {
+        //                 console.log($(this).attr("name") + $(this).val());
+        //             }
+        //         }
+        //     }
+        // });
+    }
 
     // checking validity dynamically
     <?php if(SETUP_DEBUG_MODE): ?>
@@ -438,7 +478,7 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
 
     //    Bottom next phase button event
     $("#setup-box-next").click(function() {
-        var gonext=true;
+            var gonext=true;
 
 
             var k = $(".activePhase");
@@ -461,12 +501,10 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
 
             if (gonext) {
 
-
+                saveProgress();
 
                 if (id == "phase3" && k.hasClass("nomap")) {
                     //Display the map when users enters address and press next button
-                    console.log("true");
-
                     displayMap();
                     k.removeClass("nomap");
                 } else if (id == "phase6") {
@@ -483,8 +521,11 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
                     currSwitchBtn.removeClass("activeBtn");
                     nextSwitchBtn.removeClass("hidden");
                     nextSwitchBtn.addClass("activeBtn");
-                    k.removeClass("activePhase", 1000, "linear");
+                    k.removeClass("activePhase");
                     $("#phase" + nextid).addClass("activePhase");
+
+                    $("#phase" + nextid).hide().fadeIn(500);
+
                 }
 
 
@@ -500,7 +541,7 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
         $(".switch-btns").removeClass("activeBtn");
         $(this).addClass("activeBtn");
         var switchto=$(this).attr("for");
-        if(switchto=="phase7"){
+        if(switchto=="phase6"){
             $("#setup-box-next").attr("type","submit");
 
             $("#setup-box-next").val("Submit");

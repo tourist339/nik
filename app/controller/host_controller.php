@@ -3,8 +3,12 @@
 
 class host_controller extends Controller
 {
+    private $keys = [":pType", ":pSharingType", ":pNoGuests", ":pNoBeds", ":pNoBathrooms",
+    ":pKitchenAvailable", ":pTitle", ":pDesc", ":pAddress", ":pApt", ":pCity", ":pState", ":pRent",
+    ":amenities",":pGender",":hRules",":pAgreement",":pLyfly"];
     public function index()
     {
+
         $cView = $this->createView('/host/overview', ["title" => "Hosting OverView",
                 "scripts" => [MAIN_SCRIPTS,"homepage/homepage.js"],
                 "stylesheets" => [MAIN_CSS,"host_overview.css"],
@@ -13,9 +17,30 @@ class host_controller extends Controller
         $cView->render();
     }
 
+    public function hasUnfinishedProperties(){
+        Session::startSession();
+        if(Session::isLoggedIn()){
+            $usermodel=new user_model();
+            if($usermodel->hasUnfinishedProperty(Session::getUserId()))
+                header("Location:/host/unfinished");
+            else
+                header("Location:/host/setup");
+        }
+    }
+
+    public function unfinished(){
+        $cView = $this->createView('/host/unfinished', ["title" => "Unfinished Properties",
+                "scripts" => [MAIN_SCRIPTS,"homepage/homepage.js"],
+                "stylesheets" => [MAIN_CSS,"host_overview.css"],
+                "navbar" => MAIN_NAVBAR]
+        );
+        $cView->render();
+    }
+
     public function setup(){
-        session_start();
-        if(isset($_SESSION["id"])) {
+        Session::startSession();
+        if(Session::isLoggedIn()) {
+
             $cView = $this->createView('/host/setup', ["title" => "Setup",
                     "scripts" => [MAIN_SCRIPTS],
                     "stylesheets" => [MAIN_CSS, "host_overview.css", "setup.css"],
@@ -27,8 +52,77 @@ class host_controller extends Controller
 
         }
 
-
     }
+
+    public function store_unfinished(){
+        if(Session::isLoggedIn()){
+            $userid=Session::getUserId();
+
+            $values = array();
+
+            if (isset($_POST)) {
+                foreach ($this->keys as $key) {
+                    if (!isset($_POST[ltrim($key, ":")]) || empty($_POST[ltrim($key, ":")]) ) {
+                        $val = null;
+                    } else {
+                        $posted_data = $_POST[ltrim($key, ":")];
+                        if (is_array($posted_data)) {
+                            for ($i = 0; $i < count($posted_data); $i++) {
+                                $posted_data[$i] = $this->removeSPandTrim($posted_data[$i]);
+                            }
+                            $val = implode(",", $posted_data);
+                        } else {
+                            $val = $this->removeSPandTrim($posted_data);
+                        }
+                    }
+                    array_push($values, $val);;
+                }
+
+
+
+                    array_push($this->keys, ":ownerid");
+                    array_push($values, $userid);
+                    $data = array_combine($this->keys, $values);
+                    //only uppercase the first letter of city and state
+                    $data[":pCity"]=ucfirst(strtolower($data[":pCity"]));
+                    $data[":pState"]=ucfirst(strtolower($data[":pState"]));
+
+
+                    $hostmodel = new host_model();
+                    $usermodel=new user_model();
+
+                    if ($prop_index=Session::getOpenedProperty()!==false){
+                        $prop_id=$usermodel->getUnfinishedPropertyUsingIndex($prop_index,$userid);
+                        $hostmodel->updateUnfinishedPropRow($prop_id,$data);
+
+                    }else {
+                        $prop_id = $hostmodel->createUnfinishedPropRow($data);
+
+                        if ($prop_id != DB_ERROR_CODE) {
+                            var_dump("prop_id" . $prop_id);
+                            if ($usermodel->updateUnfinishedProperties($prop_id, $userid) != DB_ERROR_CODE) {
+                                echo "true";
+                            } else {
+                                echo "false";
+                            }
+                            $usermodel->closeDb();
+                        }
+                    }
+
+                    $hostmodel->closeDb();
+                } else {
+                    new e404_controller("Not logged in");
+                }
+
+            }
+        }
+
+//            foreach ($_POST as $p){
+//                var_dump($p);
+//            }
+
+
+
 
     public function add_temp_property(){
         //handling ajax request from setup.phtml page for creating property\
@@ -38,9 +132,7 @@ class host_controller extends Controller
             $lyfly=false;
 
             //all the possible inputs to be submitted from setup.phtml
-            $keys = [":pType", ":pSharingType", ":pNoGuests", ":pNoBeds", ":pNoBathrooms",
-                ":pKitchenAvailable", ":pTitle", ":pDesc", ":pAddress", ":pApt", ":pCity", ":pState", ":pRent",
-                ":amenities",":pGender",":hRules",":pAgreement",":pLyfly"];
+
 
             //required inputs that have to be submitted via form
             $required = ["pNoGuests", "pNoBathrooms", "pAddress", "pCity", "pState","pGender"];
@@ -71,7 +163,7 @@ class host_controller extends Controller
                     }
                 }else{
                     echo empty($_POST["pLyfly"]);
-                    new e404_controller("<br>Invalid Data lylf");
+                    new e404_controller("<br>Invalid Data lyfly");
                 }
                 foreach ($required as $req) {
                     if (!isset($_POST[$req]) || empty($_POST[$req]) )
@@ -80,10 +172,11 @@ class host_controller extends Controller
             }
 
 
+
             //get data from $_POST array with indexes taken from the $keys
             $values = array();
             if (isset($_POST)) {
-                foreach ($keys as $key) {
+                foreach ($this->keys as $key) {
                     if (!isset($_POST[ltrim($key, ":")]) ) {
                         $val = null;
                     } else {
@@ -103,7 +196,7 @@ class host_controller extends Controller
 
                 if (isset($_SESSION["id"])) {
                     echo "here";
-                    array_push($keys, ":images");
+                    array_push($this->keys, ":images");
 
                     //if prop is not managed by lyfly only then upload user images
                     if(!$lyfly) {
@@ -116,14 +209,13 @@ class host_controller extends Controller
                     }
 
 
-                    array_push($keys, ":ownerid");
+                    array_push($this->keys, ":ownerid");
                     array_push($values, $_SESSION["id"]);
-                    $data = array_combine($keys, $values);
+                    $data = array_combine($this->keys, $values);
                     //only uppercase the first letter of city and state
                     $data[":pCity"]=ucfirst(strtolower($data[":pCity"]));
                     $data[":pState"]=ucfirst(strtolower($data[":pState"]));
 
-                    print_r($data);
 
                     $adminmodel = new admin_model();
                     $prop_id=$adminmodel->createPropRow($data);

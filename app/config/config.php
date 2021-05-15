@@ -1,6 +1,6 @@
 <?php
 define("ERROR_DEBUG_MODE",true); // true -> will show database errors to user , false->otherwise (set it false while deployment)
-define("SETUP_DEBUG_MODE",true); // true -> will force user to enter required data (set it true while deployment) , false->otherwise
+define("SETUP_DEBUG_MODE",false); // true -> will force user to enter required data (set it true while deployment) , false->otherwise
 define("ADMIN_URL","admin");
 
 //main styling constants
@@ -14,6 +14,11 @@ define("MAIN_CSS",array(
     "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
     "https://unpkg.com/aos@2.3.1/dist/aos.css"));
 define("MAIN_NAVBAR","navbar.html");
+
+define("TABLE_UNAPPROVED_PROPS","temp_properties");
+define("TABLE_UNFINISHED_PROPS","unfinished_properties");
+define("TABLE_MAIN_PROPS","Properties");
+
 
 //header footer constants
 define("HEADER_NONE",0);

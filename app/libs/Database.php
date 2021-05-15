@@ -10,6 +10,7 @@ class Database extends PDO {
             $this->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             $this->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+
         }catch (PDOException $e){
             echo "Error".$e;
         }

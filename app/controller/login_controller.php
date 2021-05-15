@@ -40,9 +40,13 @@ class login_controller extends Controller
         session_start();
         session_regenerate_id(true);
         $_SESSION["auth"]=true;
-        $_SESSION["id"]=$id;
-        $_SESSION["email"]=$payload["email"];
-        $_SESSION["login_type"]=$login_type;
+        $_SESSION[Session::ID]=$id;
+        if(isset($_SESSION[Session::ACTIVE_PROP])){
+            unset($_SESSION[Session::ACTIVE_PROP]);
+        }
+
+        $_SESSION[Session::EMAIL]=$payload["email"];
+        $_SESSION[Session::LOGIN_TYPE]=$login_type;
     }
 
 
@@ -71,9 +75,7 @@ class login_controller extends Controller
     }
 
     public function logout(){
-        session_start();
-        session_unset();
-        session_destroy();
+        Session::logout();
     }
 
     public function getSigned(){
