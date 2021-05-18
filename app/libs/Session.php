@@ -27,7 +27,7 @@ class Session{
     public static function storeOpenedProperty($prop_id){
         self::startSession();
 
-        $_SESSION["active_prop"]=prop_id;
+        $_SESSION["active_prop"]=$prop_id;
     }
     public static function getOpenedProperty(){
         self::startSession();

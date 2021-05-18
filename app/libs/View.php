@@ -13,6 +13,20 @@ class View
         $this->view_type=$view_type;
     }
 
+    /**
+     * @param $param param whose value to get from view data
+     * @return false|mixed
+     */
+    public function getViewDataParam($param)
+    {
+        if (isset($this->view_data[$param])){
+            return $this->view_data[$param];
+        }else{
+            return false;
+        }
+    }
+
+
     public function render($inc_header=HEADER_NORMAL,$inc_footer=FOOTER_NORMAL){
 
 

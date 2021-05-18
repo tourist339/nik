@@ -125,7 +125,9 @@ class user_model extends Model
         $this->updateWishOrProp("approved_properties",$propid,$userid);
     }
     public function updateUnfinishedProperties($propid,$userid){
-        $this->updateWishOrProp("unfinished_properties",$propid,$userid);
+        return array($this->updateWishOrProp("unfinished_properties",$propid,$userid),
+            count($this->getWishlistOrProp("unfinished_properties",$userid)[1])-1);
+
     }
 
     public function updateWishlist($propid,$userid){
@@ -169,14 +171,28 @@ class user_model extends Model
         return array($current_list,$current_list_array);
     }
 
+    public function getIndexesUnfinishedUsingProperty($userid){
+        $all_unfinished_props = $this->getWishlistOrProp("unfinished_properties", $userid)[1];
+
+        $indexes=array();
+        $i=0;
+        foreach ($all_unfinished_props as $up){
+            $indexes[$up]=$i;
+        }
+        return $indexes;
+
+    }
+
     public function getUnfinishedPropertyUsingIndex($index,$userid){
         if($index>=0) {
             $all_unfinished_props = $this->getWishlistOrProp("unfinished_properties", $userid)[1];
+
             if ($index < count($all_unfinished_props)) {
                 return $all_unfinished_props[$index];
             }
         }
     }
+
 
     public function checkPropInWishlist($propid,$userid){
         return $this->checkPropInColumn("wishlist",$propid,$userid);
@@ -243,5 +259,22 @@ class user_model extends Model
 
     public function hasUnfinishedProperty($userid){
         return !empty(trim($this->getWishlistOrProp("unfinished_properties",$userid)[0]));
+    }
+
+    public function getUnfinishedProperties($userid)
+    {
+        try{
+            $query="SELECT id,dateAdded,dateUpdated FROM ".TABLE_UNFINISHED_PROPS." WHERE ownerid=:id ORDER BY dateUpdated";
+            $stmt=$this->getDb()->prepare($query);
+            $stmt->execute(array(":id"=>$userid));
+            return $stmt->fetchAll();
+        } catch (PDOException $e){
+            if(ERROR_DEBUG_MODE){
+                echo "Error".$e; // For debugging
+            }
+            return DB_ERROR_CODE;
+
+        }
+
     }
 }

@@ -29,22 +29,44 @@ class host_controller extends Controller
     }
 
     public function unfinished(){
-        $cView = $this->createView('/host/unfinished', ["title" => "Unfinished Properties",
-                "scripts" => [MAIN_SCRIPTS,"homepage/homepage.js"],
-                "stylesheets" => [MAIN_CSS,"host_overview.css"],
-                "navbar" => MAIN_NAVBAR]
-        );
-        $cView->render();
+        Session::startSession();
+        if(Session::isLoggedIn()) {
+            $usermodel = new user_model();
+            $unfinished_props=$usermodel->getUnfinishedProperties(Session::getUserId());
+            $indexes=$usermodel->getIndexesUnfinishedUsingProperty(Session::getUserId());
+            $cView = $this->createView('/host/unfinished', ["title" => "Unfinished Properties",
+                    "scripts" => [MAIN_SCRIPTS, "homepage/homepage.js"],
+                    "stylesheets" => [MAIN_CSS, "host/unfinished.css"],
+                    "properties"=>$unfinished_props,
+                    "indexes"=>$indexes,
+                    "navbar" => MAIN_NAVBAR]
+            );
+            $cView->render();
+        }
     }
 
     public function setup(){
         Session::startSession();
         if(Session::isLoggedIn()) {
+            $user_id=Session::getUserId();
 
+            $usermodel=new user_model();
+            $propmodel=new prop_model();
+
+
+            $prop=null;
+            if(isset($_GET["prop"])){
+                $index=$_GET["prop"];
+                $prop_id=$usermodel->getUnfinishedPropertyUsingIndex($index,$user_id);
+                if ($prop_id!==false) {
+                    $prop = $propmodel->getPropertyById($prop_id, [], Table::UNFINISHED_PROPS);
+                }
+            }
             $cView = $this->createView('/host/setup', ["title" => "Setup",
                     "scripts" => [MAIN_SCRIPTS],
                     "stylesheets" => [MAIN_CSS, "host_overview.css", "setup.css"],
-                    "navbar" => MAIN_NAVBAR]
+                    "navbar" => MAIN_NAVBAR,
+                    "current_prop"=>$prop]
             );
             $cView->render(true, false);
         }else{
@@ -75,7 +97,7 @@ class host_controller extends Controller
                             $val = $this->removeSPandTrim($posted_data);
                         }
                     }
-                    array_push($values, $val);;
+                    array_push($values, $val);
                 }
 
 
@@ -91,7 +113,7 @@ class host_controller extends Controller
                     $hostmodel = new host_model();
                     $usermodel=new user_model();
 
-                    if ($prop_index=Session::getOpenedProperty()!==false){
+                    if (($prop_index=Session::getOpenedProperty())!==false){
                         $prop_id=$usermodel->getUnfinishedPropertyUsingIndex($prop_index,$userid);
                         $hostmodel->updateUnfinishedPropRow($prop_id,$data);
 
@@ -100,7 +122,10 @@ class host_controller extends Controller
 
                         if ($prop_id != DB_ERROR_CODE) {
                             var_dump("prop_id" . $prop_id);
-                            if ($usermodel->updateUnfinishedProperties($prop_id, $userid) != DB_ERROR_CODE) {
+                            $update=$usermodel->updateUnfinishedProperties($prop_id, $userid);
+                            $updated_prop_index=$update[1];
+                            if ($update[0] != DB_ERROR_CODE) {
+                                Session::storeOpenedProperty($updated_prop_index);
                                 echo "true";
                             } else {
                                 echo "false";
@@ -117,9 +142,6 @@ class host_controller extends Controller
             }
         }
 
-//            foreach ($_POST as $p){
-//                var_dump($p);
-//            }
 
 
 

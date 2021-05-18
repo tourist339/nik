@@ -113,14 +113,18 @@ class prop_model extends Model
         }
     }
 
-    public function getPropertyById($propid,$params=[]){
+    public function getPropertyById($propid,$params=[],$prop_type=Table::TEMP_PROPS){
         $db=$this->getDb();
         if(!empty($params)){
             $parameters=implode(",",$params);
         }else{
             $parameters="*";
         }
-        $q="SELECT ".$parameters." FROM temp_properties WHERE id=:id";
+        if (!Table::isValidValue($prop_type)){
+            $prop_type=Table::TEMP_PROPS;
+        }
+        $q="SELECT ".$parameters." FROM ".$prop_type." WHERE id=:id";
+
 
         try {
             $stmt = $db->prepare($q);
