@@ -54,15 +54,17 @@ class admin_model extends Model
      */
     public function createPropRow($data){
         $db=$this->getDb();
+        var_dump(count($data));
         if(isset($db) && isset($data)){
             try{
+                //rearramge
                 $query=$db->prepare("INSERT INTO temp_properties( ownerid,title, description, city, state,aptno,
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
                                                                     kitchen, address, rent, amenities,images,gender,houseRules,lyfly,agreementType)
                                                                      VALUES
-                                                                (:ownerid,:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
-                                                                :pNoBathrooms,:pKitchenAvailable,:pAddress,
-                                                                :pRent,:amenities,:images,:pGender,:hRules,:pLyfly,:pAgreement)"
+                                                                (:ownerid,:title,:sharingtype,:description,:city,:state,:aptno,:proptype,:guests,:bedrooms,
+                                                                :bathrooms,:kitchen,:address,
+                                                                :rent,:amenities,:gender,:houseRules,:images,:lyfly,:agreementType)"
                 );
                 $query->execute($data);
                 return $db->lastInsertId();

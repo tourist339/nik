@@ -39,6 +39,11 @@ class Session{
 
     }
 
+    public static function removeOpenedProperty(){
+        self::startSession();
+        unset($_SESSION["active_prop"]);
+    }
+
     public static function getUser(){
         Session::startSession();
         return $_SESSION["id"];

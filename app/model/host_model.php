@@ -8,7 +8,7 @@ class host_model extends Model
     const UPDATE_PROP="update";
     private $prop_columns=array("ownerid","title","description","city","state","aptno"
     ,"proptype","sharingtype","guests","bedrooms","bathrooms","kitchen","address","rent","amenities",
-    "agreementType","dateAdded","gender","houseRules","lyfly");
+    "agreementType","gender","houseRules","lyfly");
     private $prop_update_string;
     public function __construct()
     {
@@ -31,17 +31,22 @@ class host_model extends Model
 
     private function updatePropRowHelper($data,$table_name,$prop_id){
         try {
+            $update_string="";
+            foreach ($this->prop_columns as $col){
+                $update_string.=$col;
+                $update_string.="=:";
+                $update_string.=$col;
+                $update_string.=",";
+            }
+            $update_string.="dateUpdated=DATE(UTC_TIMESTAMP())";
 
-            $update_string = "UPDATE $table_name SET ownerid=:ownerid , title=:pTitle,description=:pDesc,
-        city=:pCity,state=:pState,aptno=:pApt,proptype=:pType,sharingtype=:pSharingType,guests=:pNoGuests,bedrooms=:pNoBeds,bathrooms=:pNoBathrooms,
-        kitchen=:pKitchenAvailable,address=:pAddress,rent=:pRent,amenities=:amenities,agreementType=:pAgreement,gender=:pGender,dateUpdated=DATE(UTC_TIMESTAMP())
-                 ,houseRules=:hRules,lyfly=:pLyfly WHERE id=:id
-                ";
+            $update_query = "UPDATE $table_name SET ".$update_string." WHERE id=:id";
+
 
 //            (:ownerid,:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
 //                                                                :pNoBathrooms,:pKitchenAvailable,:pAddress,
 //                                                                :pRent,:amenities,:pGender,:hRules,:pLyfly,:pAgreement)
-            $query = $this->getDb()->prepare($update_string);
+            $query = $this->getDb()->prepare($update_query);
             $data[":id"] = $prop_id;
             $query->execute($data);
         }catch (PDOException $e){
@@ -54,7 +59,7 @@ class host_model extends Model
 
     }
 
-    private function createPropRowHelper($data,$table_name,$mode){
+    private function createPropRowHelper($data,$table_name){
         $db=$this->getDb();
 
 
@@ -67,10 +72,11 @@ class host_model extends Model
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
                                                                     kitchen, address, rent, amenities,agreementType,gender,dateAdded,dateUpdated,houseRules,lyfly)
                                                                      VALUES
-                                                                   (:ownerid,:pTitle,:pDesc,:pCity,:pState,:pApt,:pType,:pSharingType,:pNoGuests,:pNoBeds,
-                                                                :pNoBathrooms,:pKitchenAvailable,:pAddress,
-                                                                :pRent,:amenities,:pGender,:hRules,DATE(NOW()),DATE(NOW()),:pLyfly,:pAgreement)"
+                                                                   (:ownerid,:title,:sharingtype,:description,:city,:state,:aptno,:proptype,:guests,:bedrooms,
+                                                                :bathrooms,:kitchen,:address,
+                                                                :rent,:amenities,:gender,:houseRules,DATE(NOW()),DATE(NOW()),:lyfly,:agreementType)"
                 );
+
                 $query->execute($data);
                 return $db->lastInsertId();
 

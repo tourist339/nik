@@ -8,16 +8,15 @@ $indexes=$this->getViewDataParam("indexes");
 <div class="half-window">
     <div class="page-heading"><h1 class="text-midheading">Unfinished Properties</h1> </div>
     <?php foreach ($unfinished as $up): ?>
-<form class="unfinshed-prop rel colflex" action="/host/setup" method="get">
+<form class="unfinshed-prop rel colflex" action="/host/setup/<?php echo $indexes[$up["id"]]?>" method="post" >
     <div class="rowflex">
-        <div class="up-title text-midheading">Hey</div>
-        <div class="up-delete"><button class="text-icon">Delete</button></div>
+        <div class="up-title text-midheading"><?php echo $up["title"] ?></div>
+        <div class="up-delete" "><button type="button" class="up-delete-btn text-icon" for="<?php echo $indexes[$up["id"]]?>">Delete</button></div>
     </div>
     <div class="rowflex bottom-div text-midheading">
-        <div class="up-date"><p>Date Created : 24 march 2021</p></div>
+        <div class="up-date"><p>Date Created : <?php echo $up["dateAdded"] ?></p></div>
         <div class="up-complete"><p>42%</p></div>
     </div>
-    <input type="hidden" name="prop" value="<?php echo $indexes[$up["id"]]?>">
 
 </form>
     <?php endforeach; ?>
@@ -29,5 +28,12 @@ $indexes=$this->getViewDataParam("indexes");
        $(".unfinshed-prop").on("click",function(){
            $(this).submit();
        })
+        $(".up-delete-btn").on("click",function (e){
+            e.stopPropagation();
+            alert("dsa");
+            let url="/host/delete_unfinished/"+$(this).attr("for");
+            location.assign(url);
+        });
+
     });
 </script>

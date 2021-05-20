@@ -8,6 +8,21 @@ class prop_model extends Model
         parent::__construct();
     }
 
+    public  function deleteUnfinishedProperty($propid){
+
+        try{
+            $query=$this->getDb()->prepare("DELETE FROM ".Table::UNFINISHED_PROPS." WHERE id=:id");
+            $query->execute(array(":id"=>$propid));
+
+        }catch (PDOException $e){
+            if(ERROR_DEBUG_MODE){
+                echo "Error".$e; // For debugging
+            }
+            return DB_ERROR_CODE;
+
+        }
+    }
+
     public function getAllProps($cols,$params,$filters=[]){
         $db=$this->getDb();
         if(!empty($cols)){
@@ -115,11 +130,13 @@ class prop_model extends Model
 
     public function getPropertyById($propid,$params=[],$prop_type=Table::TEMP_PROPS){
         $db=$this->getDb();
+
         if(!empty($params)){
             $parameters=implode(",",$params);
         }else{
             $parameters="*";
         }
+
         if (!Table::isValidValue($prop_type)){
             $prop_type=Table::TEMP_PROPS;
         }

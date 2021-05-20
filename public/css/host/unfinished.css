@@ -13,6 +13,7 @@ nav {
   background-color: lightsalmon;
   padding: 1em;
   border-radius: 0.5em;
+  margin-bottom: 1em;
   justify-content: space-between;
 }
 .unfinshed-prop:hover {

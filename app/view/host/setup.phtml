@@ -1,7 +1,27 @@
 <?php
-$cpop=$this->getViewDataParam("current_prop");
+$cprop=$this->getViewDataParam("current_prop");
+$prop_index=$this->getViewDataParam("index");
+var_dump($prop_index);
+$this->convert_php_to_jsvars([$cprop,$prop_index],["cprop","prop_index"]);
 
 ?>
+
+<script>
+    $(document).ready(function(){
+        let cprop=php_vars.cprop;
+        if (cprop.length!=0){
+            cprop=cprop[0];
+            for (let key in cprop){
+                if (cprop.hasOwnProperty(key)){
+                    console.log(cprop[key]);
+                    if (cprop[key] !== null)
+                        $("[name='"+key+"']").val(cprop[key]);
+                }
+            }
+        }
+    });
+</script>
+
 
 <form id="setup-container"  method="post" action="/host/add_temp_property" enctype="multipart/form-data">
 
@@ -28,7 +48,7 @@ $cpop=$this->getViewDataParam("current_prop");
 
                     <div class="input-item">
                     <label for="pSharingType">Sharing Type</label>
-                    <select    name="pSharingType" id="pSharingType" class="required-input input">
+                    <select    name="sharingtype" id="pSharingType" class="required-input input">
                         <option value="" disabled selected>Select your option </option>
                         <option  value="Entire Place">Entire Place</option>
                             <option value="Private Room">Private Room</option>
@@ -38,25 +58,25 @@ $cpop=$this->getViewDataParam("current_prop");
 
                     <div class="input-item">
                     <label for="pNoGuests" >No. Of Guests</label>
-                    <input type=number class="required-input numinp input" min="0" max="12" placeholder="" name="pNoGuests" id="pNoGuests" >
+                    <input type=number class="required-input numinp input" min="0" max="12" placeholder="" name="guests" id="pNoGuests" >
                     </div>
 
 
 
                 <div class="input-item ">
                     <label for="pNoBeds" >No. Of Bedrooms:</label>
-                    <input type=number class="numinp required-input input" min="0" max="8" name="pNoBeds" id="" >
+                    <input type=number class="numinp required-input input" min="0" max="8" name="bedrooms" id="" >
                 </div>
 
                 <div class="input-item">
                     <label for="pNoBathrooms">No. Of Bathrooms:</label>
-                    <input type=number class="numinp required-input input" min="0" max="6" name="pNoBathrooms"  id="pNoBathrooms" >
+                    <input type=number class="numinp required-input input" min="0" max="6" name="bathrooms"  id="pNoBathrooms" >
                 </div>
 
 
                 <div class="input-item">
                     <label for="pKitchenAvailables">Is kitchen available?</label>
-                    <select  class="numinp required-input input"  name="pKitchenAvailable" id="pKitchenAvailable">
+                    <select  class="numinp required-input input"  name="kitchen" id="pKitchenAvailable">
                         <option value="1">Yes</option>
                         <option selected value="0">No</option>
                     </select>
@@ -66,8 +86,8 @@ $cpop=$this->getViewDataParam("current_prop");
 
             <!--        Second page box-->
             <div class="setup-fader" id="phase2" >
-                <textarea id="ta-title"rows="2" maxlength="50" name="pTitle" class="required-input" placeholder="Title"></textarea>
-                <textarea id="ta-desc"  maxlength="2000" name="pDesc" class="required-input" placeholder="Description"></textarea>
+                <textarea id="ta-title"rows="2" maxlength="50" name="title" class="required-input" placeholder="Title"></textarea>
+                <textarea id="ta-desc"  maxlength="2000" name="description" class="required-input" placeholder="Description"></textarea>
 
             </div>
 
@@ -77,12 +97,12 @@ $cpop=$this->getViewDataParam("current_prop");
                 <h1 class="midsize">Property Address</h1>
                 <button type="button" id="getLocation">Use current location </button>
 
-                <input type=text placeholder="Street Address" class="required-input input" name="pAddress" id="prop-straddr"" />
-                <input type=text placeholder="Apt. Number (Optional)" class="input" name="pApt" id="prop-aptno">
+                <input type=text placeholder="Street Address" class="required-input input" name="address" id="prop-straddr"" />
+                <input type=text placeholder="Apt. Number (Optional)" class="input" name="aptno" id="prop-aptno">
 
                 <div class="rowflex">
-                    <input type=text placeholder="City" class="required-input input" name="pCity" id="prop-city">
-                    <input type=text placeholder="State" class="required-input input" name="pState" id="prop-state">
+                    <input type=text placeholder="City" class="required-input input" name="city" id="prop-city">
+                    <input type=text placeholder="State" class="required-input input" name="state" id="prop-state">
                 </div>
                 <p class="phase-text" style="display:none;">You can adjust the marker</p>
                 <div id="map"></div>
@@ -141,7 +161,7 @@ $cpop=$this->getViewDataParam("current_prop");
 
                 <div >
                     <p class="phase-text-label">Gender Allowed</p>
-                    <select  class="notopmargin required-input input"  name="pGender" id="pGender">
+                    <select  class="notopmargin required-input input"  name="gender" id="pGender">
                         <option value="" disabled selected>Choose </option>
                         <option value="males">Only Male</option>
                         <option  value="females">Only Female</option>
@@ -158,14 +178,14 @@ $cpop=$this->getViewDataParam("current_prop");
                 <h1 class="midsize" >Property Management</h1>
                 <div class="label-input">
                 <p>Do you want lyfly to manage the property?</p>
-                <select  class="required-input input"  name="pLyfly" id="pLyfly">
+                <select  class="required-input input"  name="lyfly" id="pLyfly">
                     <option value="" disabled selected>Choose </option>
                     <option value="1">Yes</option>
                     <option  value="0">No</option>
                 </select>
                 </div>
                 <div class="toggleVisible" visible="false" id="not-lyfly">
-                <input type=text placeholder="Rent in Rs." style="width:16vw;" name="pRent" id="prop-rent" />
+                <input type=text placeholder="Rent in Rs." style="width:16vw;" name="rent" id="prop-rent" />
                 <p class="phase-text" style="font-size:1.6vw;">What does the rent include?</p>
                 <div>
                     <input type="checkbox" value="Electricity" class="rent-utils" id="electricity">
@@ -181,7 +201,7 @@ $cpop=$this->getViewDataParam("current_prop");
 
                     <div class="rowflex" id="agr-div">
                         <p class="phase-text-inline" >Agreement Type</p>
-                        <select id="agreement-type" name="pAgreement">
+                        <select id="agreement-type" name="agreementType">
                             <option value="" selected disabled>Choose</option>
                             <option value="monthly">Monthly</option>
                             <option value="halfyear">6 months</option>
@@ -340,11 +360,13 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
 
     // used to save progress
     function saveProgress() {
-        var formData = new FormData(document.getElementById("setup-container"));
-
-        console.log(formData)
+        let formData = new FormData(document.getElementById("setup-container"));
+        var url="/host/store_unfinished/";
+        console.log(php_vars.prop_index)
+        if (php_vars.prop_index !== false)
+            url+=php_vars.prop_index;
         $.ajax({
-            url: "/host/store_unfinished",
+            url: url,
             type: 'POST',
             data: formData,
             success: function (data) {
@@ -404,11 +426,11 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
             $("."+sClass).removeClass("activeBtn");
             $(this).addClass("activeBtn");
             if(value=="X"){
-                $(this).siblings(".rules-no").attr("name","hRules[]");
+                $(this).siblings(".rules-no").attr("name","houseRules[]");
                 $(this).siblings(".rules-yes").removeAttr("name");
 
             }else{
-                $(this).siblings(".rules-yes").attr("name","hRules[]");
+                $(this).siblings(".rules-yes").attr("name","houseRules[]");
                 $(this).siblings(".rules-no").removeAttr("name");
 
             }
@@ -446,6 +468,8 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
         e.preventDefault();
         var form=$(this);
         var url=form.attr("action");
+        if (php_vars.prop_index !== false)
+            url+=('/'+php_vars.prop_index)
         var data=form.serializeArray();
         // var amenities=["ka","fdsafs","Fsd"];
         // data.push({name: 'amenities', value: amenities},{name: 'vw', value: amenities});

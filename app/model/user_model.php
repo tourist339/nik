@@ -101,10 +101,7 @@ class user_model extends Model
     private function updateUser($param,$paramvalue,$id){
 
         try {
-            echo "here we go";
-            var_dump($param);
-            var_dump($paramvalue);
-            echo "here we end";
+
             $q="UPDATE users SET ".$param."=:".$param." WHERE id = :id";
             $stmt = $this->getDb()->prepare($q);
             $stmt->execute(array(":" . $param => $paramvalue, ":id" => $id));
@@ -125,8 +122,8 @@ class user_model extends Model
         $this->updateWishOrProp("approved_properties",$propid,$userid);
     }
     public function updateUnfinishedProperties($propid,$userid){
-        return array($this->updateWishOrProp("unfinished_properties",$propid,$userid),
-            count($this->getWishlistOrProp("unfinished_properties",$userid)[1])-1);
+        return $this->updateWishOrProp("unfinished_properties",$propid,$userid);
+
 
     }
 
@@ -149,8 +146,15 @@ class user_model extends Model
             }
             else
                 $current_list=$propid;
-
             $this->updateUser($column,$current_list,$userid);
+            var_dump($current_list_array);
+            $c=count($current_list_array);
+            if ($c==1){
+                if ($current_list_array[0]=="")
+                    $c=0;
+            }
+            return $c+1; //return number of items in new list
+
         }catch (PDOException $e){
             if(ERROR_DEBUG_MODE){
                 echo "Error".$e; // For debugging
@@ -171,13 +175,14 @@ class user_model extends Model
         return array($current_list,$current_list_array);
     }
 
-    public function getIndexesUnfinishedUsingProperty($userid){
+    public function getIndexesUnfinishedProperty($userid){
         $all_unfinished_props = $this->getWishlistOrProp("unfinished_properties", $userid)[1];
 
         $indexes=array();
         $i=0;
         foreach ($all_unfinished_props as $up){
             $indexes[$up]=$i;
+            $i++;
         }
         return $indexes;
 
@@ -190,7 +195,13 @@ class user_model extends Model
             if ($index < count($all_unfinished_props)) {
                 return $all_unfinished_props[$index];
             }
+        }else if ($index==-1){
+            $all_unfinished_props = $this->getWishlistOrProp("unfinished_properties", $userid)[1];
+
+                return end($all_unfinished_props);
+
         }
+        return -1;
     }
 
 
@@ -231,7 +242,8 @@ class user_model extends Model
             $wishlist_data=$this->getWishlistOrProp($column,$userid);
             $current_list_array=$wishlist_data[1];
             $updated_list=Helper::removeValueFromArray($current_list_array,$value_to_remove);
-            $this->updateUser("unapproved_properties",$updated_list,$userid);
+            $this->updateUser($column,$updated_list,$userid);
+            return $value_to_remove;
 
         }
         catch (PDOException $e){
@@ -256,6 +268,17 @@ class user_model extends Model
         return $this->removeSingleValueFromColumn("unapproved_properties",$propid,$userid);
     }
 
+    public function removeUnfinishedProperty($index,$userid){
+
+        $propid=$this->getUnfinishedPropertyUsingIndex($index,$userid);
+
+        if($propid!=-1){
+            return $this->removeSingleValueFromColumn("unfinished_properties",$propid,$userid);
+        }else{
+            return DB_ERROR_CODE;
+        }
+    }
+
 
     public function hasUnfinishedProperty($userid){
         return !empty(trim($this->getWishlistOrProp("unfinished_properties",$userid)[0]));
@@ -264,7 +287,7 @@ class user_model extends Model
     public function getUnfinishedProperties($userid)
     {
         try{
-            $query="SELECT id,dateAdded,dateUpdated FROM ".TABLE_UNFINISHED_PROPS." WHERE ownerid=:id ORDER BY dateUpdated";
+            $query="SELECT id,title,dateAdded,dateUpdated FROM ".TABLE_UNFINISHED_PROPS." WHERE ownerid=:id ORDER BY dateUpdated";
             $stmt=$this->getDb()->prepare($query);
             $stmt->execute(array(":id"=>$userid));
             return $stmt->fetchAll();

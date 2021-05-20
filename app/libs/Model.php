@@ -11,6 +11,7 @@ class Model extends Database
         //$this->db
     }
 
+
     /**
      * @return Database
      */
