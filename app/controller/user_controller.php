@@ -6,12 +6,11 @@ class user_controller extends Controller
     public function index()
     {
         $this->checkLoggedIN();
-        $model=new user_model();
+        $model=new user_model(Session::getUserId());
 
         $p=["first_name","last_name","address","city","state","phone_num","pic"];
 
-        $id=$_SESSION["id"];
-        $userInfo=$model->getUserDataByID($p,$id);
+        $userInfo=$model->getUserDataByID($p);
         $currView= $this->createView("user/dashboard",
             ["title" => "Dashboard",
             "scripts" => [MAIN_SCRIPTS],
@@ -36,12 +35,12 @@ class user_controller extends Controller
      *
      */
     public function properties(){
-        $usermodel=new user_model();
+
+        $this->checkLoggedIN();
+        $usermodel=new user_model(Session::getUserId());
         $propmodel=new prop_model();  //for getting approved props
         $adminmodel=new admin_model(); //for getting unapproved props
-        $this->checkLoggedIN();
-        $id=$_SESSION["id"];
-        $props_array=$usermodel->getUserDataByID(["approved_properties","unapproved_properties"],$id);
+        $props_array=$usermodel->getUserDataByID(["approved_properties","unapproved_properties"]);
         $approved_props=[];
         $unapproved_props=[];
         if($props_array[0]["approved_properties"]!=null ) {

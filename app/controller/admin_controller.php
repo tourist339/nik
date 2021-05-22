@@ -83,8 +83,8 @@ class admin_controller extends Controller
         $this->checkAdminLoggedIn();
         if(isset($_GET["prop_id"])){
             $data=$this->model->getPropertyById($_GET["prop_id"]);
-            $usermodel=new user_model();
-            $ownerdata=$usermodel->getUserDataByID(["first_name","last_name","email","phone_num"],$data[0]["ownerid"]);
+            $usermodel=new user_model($data[0]["ownerid"]);
+            $ownerdata=$usermodel->getUserDataByID(["first_name","last_name","email","phone_num"]);
 
             $this->createView('prop/singleprop', ["title" => "LyfLy",
                     "scripts" => [MAIN_SCRIPTS,"admin/singleprop.js"],
@@ -117,16 +117,16 @@ class admin_controller extends Controller
             unset($new_data[":id"]);
 
 
-            $usermodel=new user_model();
+            $usermodel=new user_model($ownerid);
             $approved_prop_id=$this->model->addPropToMainTable($new_data);
             if($approved_prop_id != DB_ERROR_CODE){
                 //remove the property from unpproved_props column in the owner's row
-                $usermodel->removeUnapprovedProp($unapprovedprop_id,$ownerid);
+                $usermodel->removeUnapprovedProp($unapprovedprop_id);
 
                 //remove the already approved property from temp_properties table
                 if($this->model->deleteTempRow($unapprovedprop_id) !=DB_ERROR_CODE){
                     //add the approved property id to the approved_properties column in the owner's row
-                    $usermodel->updateApprovedProperties($approved_prop_id,$ownerid);
+                    $usermodel->updateApprovedProperties($approved_prop_id);
                     header("Location: /".ADMIN_URL."/showUnapprovedProps?loc_name=".$_POST["redirect_city"]);
                 }else{
                     echo "Something went wrong while deleting temperory row . Contact Admin";

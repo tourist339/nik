@@ -23,12 +23,14 @@ class host_controller extends Controller
     public function unfinished(){
 
             if(Session::isLoggedIn()) {
-            $usermodel = new user_model();
+            $usermodel = new user_model(Session::getUserId());
 
-            if($usermodel->hasUnfinishedProperty(Session::getUserId())==false)
+            if($usermodel->hasUnfinishedProperty()==false)
                 header("Location:/host/setup");
-            $unfinished_props=$usermodel->getUnfinishedProperties(Session::getUserId());
-            $indexes=$usermodel->getIndexesUnfinishedProperty(Session::getUserId());
+
+            Session::removeOpenedProperty();;
+            $unfinished_props=$usermodel->getUnfinishedProperties();
+            $indexes=$usermodel->getIndexesUnfinishedProperty();
             $cView = $this->createView('/host/unfinished', ["title" => "Unfinished Properties",
                     "scripts" => [MAIN_SCRIPTS, "homepage/homepage.js"],
                     "stylesheets" => [MAIN_CSS, "host/unfinished.css"],
@@ -49,10 +51,10 @@ class host_controller extends Controller
 
             $usermodel=new user_model($user_id);
             $propmodel=new prop_model();
-
-
             $prop=null;
 
+
+            var_dump(isset($_SESSION["previous"]));
 
 
             if($index!==false ){ //when index is given
@@ -68,15 +70,19 @@ class host_controller extends Controller
                     }
                 }
             }else if(($index=Session::getOpenedProperty())!==false){ //when index is not given , check if prop is opened
-                    $prop_id = $usermodel->getUnfinishedPropertyUsingIndex($index);
-                    if ($prop_id !== false) {
-                        $prop = $propmodel->getPropertyById($prop_id, [], Table::UNFINISHED_PROPS);
-                    }
+                $prop_id = $usermodel->getUnfinishedPropertyUsingIndex($index);
+                if ($prop_id !== false) {
+                    $prop = $propmodel->getPropertyById($prop_id, [], Table::UNFINISHED_PROPS);
+                }
             }
 
-            //create a view using (a. prop already opened   b. an un unfinished prop   c. a new fresh prop )
+
+            //create a view using
+            //   a. prop already opened
+            //   b. an un unfinished prop
+            //   c. a new fresh prop )
             $cView = $this->createView('/host/setup', ["title" => "Setup",
-                    "scripts" => [MAIN_SCRIPTS],
+                    "scripts" => [MAIN_SCRIPTS,"host/presetup.js"],
                     "stylesheets" => [MAIN_CSS, "host_overview.css", "setup.css"],
                     "navbar" => MAIN_NAVBAR,
                     "current_prop"=>$prop,
@@ -122,7 +128,9 @@ class host_controller extends Controller
     }
 
     public function store_unfinished($prop_index=null){
+
         if(Session::isLoggedIn()){
+
             $userid=Session::getUserId();
 
             var_dump("prop index".$prop_index);
@@ -133,18 +141,20 @@ class host_controller extends Controller
                 $data=$this->getPropData($_POST,$userid);
 
                 $hostmodel = new host_model();
-                $usermodel=new user_model();
 
+                $usermodel=new user_model($userid);
 
                 if ($prop_index!=null){
-                    $prop_id=$usermodel->getUnfinishedPropertyUsingIndex($prop_index,$userid);
+
+                    $prop_id=$usermodel->getUnfinishedPropertyUsingIndex($prop_index);
+
                     if ($prop_id!=-1)
                         $hostmodel->updateUnfinishedPropRow($prop_id,$data);
                     else
                         new e404_controller("Not a valid property");
 
                 }else if(($prop_index=Session::getOpenedProperty())!==false){
-                    $prop_id=$usermodel->getUnfinishedPropertyUsingIndex($prop_index,$userid);
+                    $prop_id=$usermodel->getUnfinishedPropertyUsingIndex($prop_index);
                     if ($prop_id!=-1)
                         $hostmodel->updateUnfinishedPropRow($prop_id,$data);
                     else
@@ -154,7 +164,7 @@ class host_controller extends Controller
 
                     if ($prop_id != DB_ERROR_CODE) {
                         var_dump("prop_id" . $prop_id);
-                        $updated_prop_index=$usermodel->updateUnfinishedProperties($prop_id, $userid);
+                        $updated_prop_index=$usermodel->updateUnfinishedProperties($prop_id);
 
 
                         Session::storeOpenedProperty($updated_prop_index-1);
@@ -174,16 +184,15 @@ class host_controller extends Controller
 
     public function delete_unfinished($prop_index=null,$redirect=true){
         if ($prop_index!==null&& Session::isLoggedIn()&&is_numeric($prop_index)){
-            var_dump("getting deleted");
 
-            $user_model = new user_model();
-            $propid =$user_model->removeUnfinishedProperty($prop_index,Session::getUserId());
+            $user_model = new user_model(Session::getUserId());
+            $propid =$user_model->removeUnfinishedProperty($prop_index);
             if ($propid!= DB_ERROR_CODE ){
                 var_dump($propid);
                 $prop_model=new prop_model();
                 $prop_model->deleteUnfinishedProperty($propid);
                 if ($redirect) {
-                    if ($user_model->hasUnfinishedProperty(Session::getUserId()))
+                    if ($user_model->hasUnfinishedProperty())
                         header("Location:/host/unfinished");
                     else
                         header("Location:/host");
@@ -269,12 +278,10 @@ class host_controller extends Controller
                 $adminmodel = new admin_model();
                 $prop_id=$adminmodel->createPropRow($data);
                 if($prop_id!=DB_ERROR_CODE){
-                    $usermodel=new user_model();
-                    if($usermodel->updateUnApprovedProperties($prop_id,$userid)!=DB_ERROR_CODE){
+                    $usermodel=new user_model($userid);
+                    if($usermodel->updateUnApprovedProperties($prop_id)!=DB_ERROR_CODE){
                         echo "true";
-                    }else{
-                        echo "false";
-                    }
+
                     Session::removeOpenedProperty();
                     if ($prop_index!==null){
                         if (is_numeric($prop_index)){
@@ -288,6 +295,9 @@ class host_controller extends Controller
                             echo "unfinished prop deleted";
                         else
                             echo "unfinished prop not deleted";
+                    }
+                    }else{
+                        echo "false";
                     }
                     $usermodel->closeDb();
                 }

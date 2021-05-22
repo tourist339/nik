@@ -6,21 +6,7 @@ $this->convert_php_to_jsvars([$cprop,$prop_index],["cprop","prop_index"]);
 
 ?>
 
-<script>
-    $(document).ready(function(){
-        let cprop=php_vars.cprop;
-        if (cprop.length!=0){
-            cprop=cprop[0];
-            for (let key in cprop){
-                if (cprop.hasOwnProperty(key)){
-                    console.log(cprop[key]);
-                    if (cprop[key] !== null)
-                        $("[name='"+key+"']").val(cprop[key]);
-                }
-            }
-        }
-    });
-</script>
+
 
 
 <form id="setup-container"  method="post" action="/host/add_temp_property" enctype="multipart/form-data">
@@ -127,29 +113,7 @@ $this->convert_php_to_jsvars([$cprop,$prop_index],["cprop","prop_index"]);
             <div class="setup-fader" id="phase5" >
                 <h1 class="midsize" style="text-align:start;">Setup house rules</h1>
                 <div id="hrules-box" rules="3">
-                    <div class="rowflex">
-                        <p class="phase-text">Smoking Allowed</p>
-                        <input type="button" class="rules-btns rb1" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
-                        <input type="button" class="rules-btns rb1" value="X">
 
-                        <input type="hidden" class="rules-yes input"  value="Smoking Allowed:Yes">
-                        <input type="hidden" class="rules-no input"  value="Smoking Allowed:Noo">
-
-                    </div>
-                    <div class="rowflex">
-                        <p class="phase-text">Parties allowed</p>
-                        <input type="button" class="rules-btns rb2" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
-                        <input type="button" class="rules-btns rb2" value="X">
-                        <input type="hidden" class="rules-yes input"  value="Parties Allowed:Yes">
-                        <input type="hidden" class="rules-no input"  value="Parties Allowed:Noo">
-                    </div>
-                    <div class="rowflex">
-                        <p class="phase-text">Pet Friendly</p>
-                        <input type="button" class="rules-btns rb3" value="&#10003;" style="margin-left:auto;margin-right:1vw;">
-                        <input type="button" class="rules-btns rb3" value="X">
-                        <input type="hidden" class="rules-yes input"  value="Pet Friendly:Yes">
-                        <input type="hidden" class="rules-no input"  value="Pet Friendly:Noo">
-                    </div>
                 </div>
                 <div>
                 <p class="phase-text-label">Additional Rules</p>
@@ -329,30 +293,11 @@ $this->convert_php_to_jsvars([$cprop,$prop_index],["cprop","prop_index"]);
 </script>
 <!--    Amenities loading script-->
 <script>
-    var  amList=lyfly.getAmenities();
-    for (var amenity of amList){
-        addAmenity(amenity);
-    }
-    function addAmenity(amenity){
-        $("#amenity-box").append("<div class='amenity'>"+
-            "<input type='checkbox'  id='"+amenity+"' name='amenities[]' value='"+amenity+"'>"+
-            "<label for='"+amenity+"' class='phase-text'>"+amenity+"</label><br>"+
-            "</div>");
-    }
+
+
 </script>
 
-<script>
 
-function  addHouseRules(houserule,newCount) {
-$("#hrules-box").append("<div class=\"rowflex\">\n" +
-    "                        <p class=\"phase-text\">"+houserule+"</p>\n" +
-    "                        <input type=\"button\" class=\"rules-btns rb"+newCount+"\" value=\"&#10003;\" style=\"margin-left:auto;margin-right:1vw;\">\n" +
-    "                        <input type=\"button\" class=\"rules-btns rb"+newCount+"\" value=\"X\">\n" +
-    "                        <input type=\"hidden\" class=\"rules-yes\"  value=\""+houserule+":Yes\">\n" +
-    "                        <input type=\"hidden\" class=\"rules-no\"  value=\""+houserule+":Noo\">\n" +
-    "                    </div>");
-}
-</script>
 
 <!--    Main event functions script-->
 <script>
@@ -401,41 +346,6 @@ $("#hrules-box").append("<div class=\"rowflex\">\n" +
         getLocation();
     });
 
-
-
-    // Add Amenity button event
-    $("#add-amenity").on("click",function () {
-        var amenity=$("#prop-add-amenity").val();
-        addAmenity(amenity);
-        $("#prop-add-amenity").val("");
-
-    });
-
-    //        House rules button event
-    $("#hrules-box").on("click",".rules-btns",function(){
-        var value=$(this).val();
-        if($(this).hasClass("activeBtn")){
-            $(this).removeClass("activeBtn");
-            if(value=="X"){
-                $(this).siblings(".rules-no").removeAttr("name");
-            }else{
-                $(this).siblings(".rules-yes").removeAttr("name");
-            }
-        }else{
-            var sClass=$(this).attr("class").split(' ')[1];
-            $("."+sClass).removeClass("activeBtn");
-            $(this).addClass("activeBtn");
-            if(value=="X"){
-                $(this).siblings(".rules-no").attr("name","houseRules[]");
-                $(this).siblings(".rules-yes").removeAttr("name");
-
-            }else{
-                $(this).siblings(".rules-yes").attr("name","houseRules[]");
-                $(this).siblings(".rules-no").removeAttr("name");
-
-            }
-        }
-    });
 
 
 

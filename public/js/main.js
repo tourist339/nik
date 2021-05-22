@@ -132,9 +132,32 @@ var lyfly=(function(){
    var publicFuncs={};
 
     var  amenities=["Wifi","Laundry","Air Conditioner","TV","Refrigerator","Breakfast","Lunch","Dinner"];
+    var  houseRules=["Smoking Allowed","Parties Allowed",""];
 
+    var checkedAmenity={};
     publicFuncs.getAmenities=function () {
-        return amenities};
+        return amenities
+    }
+
+    publicFuncs.addAmenities=function(data){
+        amenities=amenities.concat(data);
+    }
+
+    publicFuncs.addHouseRules(){
+
+    }
+
+    publicFuncs.addCheckedAmenities=function (data){
+        for(let amenity of data){
+            console.log("ament"+amenity)
+            checkedAmenity[amenity]=true
+        }
+        console.log(checkedAmenity)
+    }
+    publicFuncs.isAmenityChecked=function(amenity){
+
+        return checkedAmenity.hasOwnProperty(amenity);
+    }
    publicFuncs.checkLoggedIN = function(){
         if (!login_params.signed) {
             openLogin();

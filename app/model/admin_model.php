@@ -62,9 +62,9 @@ class admin_model extends Model
                                                                     proptype, sharingtype, guests, bedrooms, bathrooms,
                                                                     kitchen, address, rent, amenities,images,gender,houseRules,lyfly,agreementType)
                                                                      VALUES
-                                                                (:ownerid,:title,:sharingtype,:description,:city,:state,:aptno,:proptype,:guests,:bedrooms,
+                                                                (:ownerid,:title,:description,:city,:state,:aptno,:proptype,:sharingtype,:guests,:bedrooms,
                                                                 :bathrooms,:kitchen,:address,
-                                                                :rent,:amenities,:gender,:houseRules,:images,:lyfly,:agreementType)"
+                                                                :rent,:amenities,:images,:gender,:houseRules,:lyfly,:agreementType)"
                 );
                 $query->execute($data);
                 return $db->lastInsertId();

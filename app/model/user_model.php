@@ -84,12 +84,12 @@ class user_model extends Model
         }
 
     }
-    public function getUserDataByID($params,$id){
+    public function getUserDataByID($params){
         try {
             $params = implode(",", $params);
             $q = "SELECT " . $params . " FROM users WHERE id = :id";
             $stmt = $this->getDb()->prepare($q);
-            $stmt->execute(array(":id" => $id));
+            $stmt->execute(array(":id" => $this->userid));
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }catch (PDOException $e){
             if(ERROR_DEBUG_MODE){
@@ -123,7 +123,7 @@ class user_model extends Model
     public function updateApprovedProperties($propid){
         $this->updateWishOrProp("approved_properties",$propid,$this->userid);
     }
-    public function updateUnfinishedProperties($propi){
+    public function updateUnfinishedProperties($propid){
         return $this->updateWishOrProp("unfinished_properties",$propid,$this->userid);
 
 
