@@ -3,11 +3,13 @@
 
 class user_model extends Model
 {
-    public function __construct()
+    private $userid;
+    public function __construct($userid)
     {
+        $this->userid=$userid;
         parent::__construct();
-
     }
+
     public function createUser($data,$login_type){
         try {
             echo $login_type;
@@ -115,24 +117,24 @@ class user_model extends Model
     }
 
 
-    public function updateUnApprovedProperties($propid,$userid){
-        $this->updateWishOrProp("unapproved_properties",$propid,$userid);
+    public function updateUnApprovedProperties($propid){
+        $this->updateWishOrProp("unapproved_properties",$propid,$this->userid);
     }
-    public function updateApprovedProperties($propid,$userid){
-        $this->updateWishOrProp("approved_properties",$propid,$userid);
+    public function updateApprovedProperties($propid){
+        $this->updateWishOrProp("approved_properties",$propid,$this->userid);
     }
-    public function updateUnfinishedProperties($propid,$userid){
-        return $this->updateWishOrProp("unfinished_properties",$propid,$userid);
+    public function updateUnfinishedProperties($propi){
+        return $this->updateWishOrProp("unfinished_properties",$propid,$this->userid);
 
 
     }
 
-    public function updateWishlist($propid,$userid){
-        $this->updateWishOrProp("wishlist",$propid,$userid);
+    public function updateWishlist($propid){
+        $this->updateWishOrProp("wishlist",$propid,$this->userid);
     }
-    private function updateWishOrProp($column,$propid,$userid){
+    private function updateWishOrProp($column,$propid){
         try {
-            $lists=$this->getWishlistOrProp($column,$userid);
+            $lists=$this->getWishlistOrProp($column,$this->userid);
             $current_list=$lists[0];
             $current_list_array=$lists[1];
 
@@ -146,7 +148,7 @@ class user_model extends Model
             }
             else
                 $current_list=$propid;
-            $this->updateUser($column,$current_list,$userid);
+            $this->updateUser($column,$current_list,$this->userid);
             var_dump($current_list_array);
             $c=count($current_list_array);
             if ($c==1){
@@ -163,20 +165,22 @@ class user_model extends Model
         }
     }
 
-    private function getWishlistOrProp($toget,$userid)
+    private function getWishlistOrProp($toget)
     {
         $q = "SELECT ".$toget." FROM users WHERE id= :id ";
         $stmt = $this->getDb()->prepare($q);
-        $stmt->execute(array(":id" => $userid));
+        $stmt->execute(array(":id" => $this->userid));
 
         $current_list = $stmt->fetchColumn();
         $current_list_array = explode(",", $current_list);
+        if (count($current_list_array)==1 && $current_list_array[0]=="")
+            $current_list_array=array();
 
         return array($current_list,$current_list_array);
     }
 
-    public function getIndexesUnfinishedProperty($userid){
-        $all_unfinished_props = $this->getWishlistOrProp("unfinished_properties", $userid)[1];
+    public function getIndexesUnfinishedProperty(){
+        $all_unfinished_props = $this->getWishlistOrProp("unfinished_properties", $this->userid)[1];
 
         $indexes=array();
         $i=0;
@@ -188,16 +192,16 @@ class user_model extends Model
 
     }
 
-    public function getUnfinishedPropertyUsingIndex($index,$userid){
+    public function getUnfinishedPropertyUsingIndex($index){
         if($index>=0) {
-            $all_unfinished_props = $this->getWishlistOrProp("unfinished_properties", $userid)[1];
+            $all_unfinished_props = $this->getWishlistOrProp("unfinished_properties", $this->userid)[1];
 
-            if ($index < count($all_unfinished_props)) {
+            if ($index < count($all_unfinished_props) &&!(count($all_unfinished_props)==1 && $all_unfinished_props[0]=="")) {
                 return $all_unfinished_props[$index];
             }
         }else if ($index==-1){
-            $all_unfinished_props = $this->getWishlistOrProp("unfinished_properties", $userid)[1];
-
+            $all_unfinished_props = $this->getWishlistOrProp("unfinished_properties", $this->userid)[1];
+            if (count($all_unfinished_props)!=0)
                 return end($all_unfinished_props);
 
         }
@@ -205,19 +209,19 @@ class user_model extends Model
     }
 
 
-    public function checkPropInWishlist($propid,$userid){
-        return $this->checkPropInColumn("wishlist",$propid,$userid);
+    public function checkPropInWishlist($propid){
+        return $this->checkPropInColumn("wishlist",$propid,$this->userid);
     }
 
 
 
-    public function checkPropInUnfinishedProperties($propid,$userid){
-        return $this->checkPropInColumn("unfinished_properties",$propid,$userid);
+    public function checkPropInUnfinishedProperties($propid){
+        return $this->checkPropInColumn("unfinished_properties",$propid,$this->userid);
     }
 
-    private function checkPropInColumn($column,$propid,$userid){
+    private function checkPropInColumn($column,$propid){
         try {
-            $wishlist_data=$this->getWishlistOrProp($column,$userid);
+            $wishlist_data=$this->getWishlistOrProp($column,$this->userid);
             $current_list=$wishlist_data[0];
             $current_list_array=$wishlist_data[1];
             if (!empty(trim($current_list))) {
@@ -237,12 +241,12 @@ class user_model extends Model
         }
     }
 
-    private function removeSingleValueFromColumn($column,$value_to_remove,$userid){
+    private function removeSingleValueFromColumn($column,$value_to_remove){
         try {
-            $wishlist_data=$this->getWishlistOrProp($column,$userid);
+            $wishlist_data=$this->getWishlistOrProp($column,$this->userid);
             $current_list_array=$wishlist_data[1];
             $updated_list=Helper::removeValueFromArray($current_list_array,$value_to_remove);
-            $this->updateUser($column,$updated_list,$userid);
+            $this->updateUser($column,$updated_list,$this->userid);
             return $value_to_remove;
 
         }
@@ -256,40 +260,40 @@ class user_model extends Model
     }
 
 
-    public function removePropFromWishlist($propid,$userid){
-        return $this->removeSingleValueFromColumn("wishlist",$propid,$userid);
+    public function removePropFromWishlist($propid){
+        return $this->removeSingleValueFromColumn("wishlist",$propid,$this->userid);
 
     }
 
 
 
-    public function removeUnapprovedProp($propid,$userid){
+    public function removeUnapprovedProp($propid){
 
-        return $this->removeSingleValueFromColumn("unapproved_properties",$propid,$userid);
+        return $this->removeSingleValueFromColumn("unapproved_properties",$propid,$this->userid);
     }
 
-    public function removeUnfinishedProperty($index,$userid){
+    public function removeUnfinishedProperty($index){
 
-        $propid=$this->getUnfinishedPropertyUsingIndex($index,$userid);
+        $propid=$this->getUnfinishedPropertyUsingIndex($index,$this->userid);
 
         if($propid!=-1){
-            return $this->removeSingleValueFromColumn("unfinished_properties",$propid,$userid);
+            return $this->removeSingleValueFromColumn("unfinished_properties",$propid,$this->userid);
         }else{
             return DB_ERROR_CODE;
         }
     }
 
 
-    public function hasUnfinishedProperty($userid){
-        return !empty(trim($this->getWishlistOrProp("unfinished_properties",$userid)[0]));
+    public function hasUnfinishedProperty(){
+        return !empty(trim($this->getWishlistOrProp("unfinished_properties",$this->userid)[0]));
     }
 
-    public function getUnfinishedProperties($userid)
+    public function getUnfinishedProperties()
     {
         try{
             $query="SELECT id,title,dateAdded,dateUpdated FROM ".TABLE_UNFINISHED_PROPS." WHERE ownerid=:id ORDER BY dateUpdated";
             $stmt=$this->getDb()->prepare($query);
-            $stmt->execute(array(":id"=>$userid));
+            $stmt->execute(array(":id"=>$this->userid));
             return $stmt->fetchAll();
         } catch (PDOException $e){
             if(ERROR_DEBUG_MODE){
