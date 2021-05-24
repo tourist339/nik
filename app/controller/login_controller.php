@@ -9,7 +9,7 @@ class login_controller extends Controller
     }
     public function google_post(){
         $login_type="google";
-        $usermodel = new user_model();
+        $usermodel = new user_model(null);
         require_once VENDOR.'autoload.php';
 
         $id_token=$_POST["id_token"];
@@ -63,7 +63,7 @@ class login_controller extends Controller
                 $payload["city"]=$_POST["city"];
                 $payload["state"]=$_POST["state"];
 
-                $model=new user_model();
+                $model=new user_model(null);
                 $model->createUser($payload,$login_type);
                 $id=$model->getUserId($payload["email"],$login_type);
                 $this->login($id,$payload,$login_type);

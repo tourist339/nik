@@ -62,22 +62,22 @@ class prop_controller extends Controller
 
         //get all the wishlisted properties is user is already signed in
         if($data!=null){
-            $usermodel=new user_model();
 
-            session_start();
-            if(isset($_SESSION["id"])) {
+            if(Session::isLoggedIn()) {
+                $usermodel=new user_model(Session::getUserId());
+
                 foreach ($data as &$prop){
                     $propid=$prop["id"];
-                    if($usermodel->checkPropInWishlist($propid,$_SESSION["id"])){
+                    if($usermodel->checkPropInWishlist($propid)){
                         $prop["wishlisted"]="true";
                     }else{
                         $prop["wishlisted"]="false";
 
                     }
                 }
+                $usermodel->closeDb();
 
             }
-            $usermodel->closeDb();
 
         }
 
@@ -113,7 +113,6 @@ class prop_controller extends Controller
         $propname=str_replace('-',' ',$propname);
         $propname=$this->removeSPandTrim($propname);
         $propid=$this->removeSPandTrim($propid);
-        $usermodel=new user_model();
         $inWishlist="false";
 
         $data = $this->model->getSingleProp([], ["title"=>$propname, "id"=>$propid]);
@@ -124,20 +123,25 @@ class prop_controller extends Controller
         if ($data == null) {
             new e404_controller("PROPERTY NOT FOUND");
         } else {
-            session_start();
-            if(isset($_SESSION["id"])) {
-                if($usermodel->checkPropInWishlist($propid,$_SESSION["id"])){
+            if(Session::isLoggedIn()) {
+                $usermodel=new user_model(Session::getUserId());
+
+                if($usermodel->checkPropInWishlist($propid)){
                     $inWishlist="true";
                 }else{
                     $inWishlist="false";
 
                 }
             }
-            $ownerdata=$usermodel->getUserDataByID(["first_name","last_name","email","phone_num"],$data[0]["ownerid"]);
+            $usermodel=new user_model($data[0]["ownerid"]);
+
+
+
+            $ownerdata=$usermodel->getUserDataByID(["first_name","last_name","email","phone_num"]);
 
             $this->createView('prop/singleprop', ["title" => "LyfLy",
-                    "scripts" => [MAIN_SCRIPTS,"singleprop.js"],
-                    "stylesheets" => [MAIN_CSS,"homepage.css","prop.css"],
+                    "scripts" => [MAIN_SCRIPTS,"prop/singleprop.js","prop/singleprop_img.js","splide.min.js"],
+                    "stylesheets" => [MAIN_CSS,"homepage.css","prop.css","splide/splide-sea-green.min.css"],
                     "navbar" => MAIN_NAVBAR,
                     "data" => $data,
                     "wishlisted"=>$inWishlist,
@@ -145,7 +149,7 @@ class prop_controller extends Controller
             )->render();
         }
             $this->model->closeDb();
-            $usermodel->closeDb();
+
     }
 
 
@@ -192,10 +196,9 @@ class prop_controller extends Controller
      */
     public function add_to_wishlist(){
         if(isset($_POST["prop_id"])){
-            session_start();
-            if(isset($_SESSION["id"])){
-                $um=new user_model();
-                $um->updateWishlist($_POST["prop_id"],$_SESSION["id"]);
+            if(Session::isLoggedIn()){
+                $um=new user_model(Session::getUserId());
+                $um->updateWishlist($_POST["prop_id"]);
                 $um->closeDb();
             }
         }
@@ -206,10 +209,11 @@ class prop_controller extends Controller
      */
     public function remove_from_wishlist(){
         if(isset($_POST["prop_id"])){
-            $this->checkLoggedIN();
-                $um=new user_model();
-                $um->removePropFromWishlist($_POST["prop_id"],$_SESSION["id"]);
+            if(Session::isLoggedIn()) {
+                $um = new user_model(Session::getUserId());
+                $um->removePropFromWishlist($_POST["prop_id"]);
                 $um->closeDb();
+            }
 
         }
     }

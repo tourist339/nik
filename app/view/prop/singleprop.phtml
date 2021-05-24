@@ -27,6 +27,40 @@ if(isset($this->view_data["wishlisted"]))
     <a for="#amenities-div">Amenities</a>
     <a for="#houserules-div">House rules</a>
 </div>
+<div class="custom-modal">
+    <div id="img-slideshow" class="modal-content colflex">
+        <div id="primary-slider" class="splide" >
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <?php foreach ($images as $img): ?>
+                        <li class="splide__slide" >
+                            <img src="/uploads/<?php echo $img ?>">
+                        </li>
+
+                    <?php endforeach; ?>
+
+
+                </ul>
+            </div>
+        </div>
+        <div id="secondary-slider" class="splide">
+            <div class="splide__track">
+                <ul class="splide__list">
+                    <?php foreach ($images as $img): ?>
+                        <li class="splide__slide">
+                            <img src="/uploads/<?php echo $img ?>">
+                        </li>
+
+                    <?php endforeach; ?>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <div id="prop-main-box">
     <div id="prop-heading" class="rowflex">
         <h1 class="prop-title heading"><?php echo ucfirst($propdata["title"]);?></h1>
@@ -142,42 +176,5 @@ if(isset($this->view_data["wishlisted"]))
 
 <!--Map Loading Scripts-->
 <script type="text/javascript" src="//maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDTWvYehAfHTElUe6NyRq0KVAuZVoI4RQM&ver=3.exp"></script>
-<script>
-
-    displayMap();
-    function initMap(latitude,longitude) {
-
-        var uluru = {lat: latitude, lng: longitude};
-
-        var map = new google.maps.Map(
-            document.getElementById('map'), {zoom: 18,
-                center: uluru});
-        // The marker, positioned at Uluru
-        var marker = new google.maps.Marker({position: uluru,
-            draggable:true,
-            animation:google.maps.Animation.DROP,
-            map: map});
-    }
-
-    function displayMap(){
-        var geocoder = new google.maps.Geocoder();
-//        address to be changed later
-        var address = "<?php
-            echo getProperAddress($propdata["address"],$propdata["city"],$propdata["state"]);
-            ?>";
-        geocoder.geocode( { 'address': address}, function(results, status) {
-
-            if (status == google.maps.GeocoderStatus.OK) {
-                var latitude = results[0].geometry.location.lat();
-                var longitude = results[0].geometry.location.lng();
-
-
-                initMap(latitude,longitude);
-
-            }
-        });
-    }
-
-</script>
 
 

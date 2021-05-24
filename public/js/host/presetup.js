@@ -28,11 +28,47 @@ function addAmenity(amenity){
 function  addHouseRules(houserule,newCount) {
     $("#hrules-box").append("<div class=\"rowflex\">\n" +
         "                        <p class=\"phase-text\">"+houserule+"</p>\n" +
-        "                        <input type=\"button\" class=\"rules-btns rb"+newCount+"\" value=\"&#10003;\" style=\"margin-left:auto;margin-right:1vw;\">\n" +
-        "                        <input type=\"button\" class=\"rules-btns rb"+newCount+"\" value=\"X\">\n" +
+        "                        <input type=\"button\" class=\"rules-btns rb"+newCount+"\" rep='yes' value=\"&#10003;\" style=\"margin-left:auto;margin-right:1vw;\">\n" +
+        "                        <input type=\"button\" class=\"rules-btns rb"+newCount+"\" rep='no' value=\"X\">\n" +
         "                        <input type=\"hidden\" class=\"rules-yes\"  value=\""+houserule+":Yes\">\n" +
         "                        <input type=\"hidden\" class=\"rules-no\"  value=\""+houserule+":Noo\">\n" +
         "                    </div>");
+
+    var status;
+
+    if ((status=lyfly.getHouseRuleStatus(houserule))!=null){
+        if (status){
+            onHouseRuleClick($(".rb"+newCount+"[rep='yes']"))
+        }else{
+            onHouseRuleClick($(".rb"+newCount+"[rep='no']"))
+
+        }
+    }
+}
+
+function onHouseRuleClick(elem){
+    let value=elem.val()
+    if(elem.hasClass("activeBtn")){
+        elem.removeClass("activeBtn");
+        if(value=="X"){
+            elem.siblings(".rules-no").removeAttr("name");
+        }else{
+            elem.siblings(".rules-yes").removeAttr("name");
+        }
+    }else{
+        var sClass=elem.attr("class").split(' ')[1];
+        $("."+sClass).removeClass("activeBtn");
+        elem.addClass("activeBtn");
+        if(value=="X"){
+            elem.siblings(".rules-no").attr("name","houseRules[]");
+            elem.siblings(".rules-yes").removeAttr("name");
+
+        }else{
+            elem.siblings(".rules-yes").attr("name","houseRules[]");
+            elem.siblings(".rules-no").removeAttr("name");
+
+        }
+    }
 }
 
 
@@ -40,7 +76,6 @@ $(document).ready(function(){
 
     //get data from current opened prop obtained from php
     let cprop=php_vars.cprop
-    console.log(cprop)
     let arrayInputs=["amenities","houseRules"]
 
     //autofill the data from opened prop , if it exists
@@ -57,11 +92,6 @@ $(document).ready(function(){
 
                     let arrayInp=cprop[key].split(",")
 
-                    console.log("job")
-
-
-
-                    console.log(arrayInp)
                     if (key=="amenities") {
                         lyfly.addAmenities(arrayInp)
                         lyfly.addCheckedAmenities(arrayInp)
@@ -69,7 +99,7 @@ $(document).ready(function(){
                     }
 
                     if(key=="houseRules")
-                        lyfly.addHouseRule(arrayInp)
+                        lyfly.addHouseRules(arrayInp)
                 }
 
                 if (cprop[key] !== null)
@@ -81,13 +111,16 @@ $(document).ready(function(){
 
     //add preexisting amenities on lyfly module
     var  amList=lyfly.getAmenities();
+
     for (let amenity of amList){
         addAmenity(amenity);
     }
 
-    var  houseRulesList=lyfly.getHouseRUles();
+    var  houseRulesList=lyfly.getHouseRules()
+    var index=0
     for (let rules of houseRulesList){
-        addHouseRules(rules);
+        addHouseRules(rules,index)
+        index++
     }
     // Add Amenity button event
     $("#add-amenity").on("click",function () {
@@ -99,27 +132,8 @@ $(document).ready(function(){
 
     //        House rules button event
     $("#hrules-box").on("click",".rules-btns",function(){
-        var value=$(this).val();
-        if($(this).hasClass("activeBtn")){
-            $(this).removeClass("activeBtn");
-            if(value=="X"){
-                $(this).siblings(".rules-no").removeAttr("name");
-            }else{
-                $(this).siblings(".rules-yes").removeAttr("name");
-            }
-        }else{
-            var sClass=$(this).attr("class").split(' ')[1];
-            $("."+sClass).removeClass("activeBtn");
-            $(this).addClass("activeBtn");
-            if(value=="X"){
-                $(this).siblings(".rules-no").attr("name","houseRules[]");
-                $(this).siblings(".rules-yes").removeAttr("name");
+        let elem=$(this)
+        onHouseRuleClick(elem)
 
-            }else{
-                $(this).siblings(".rules-yes").attr("name","houseRules[]");
-                $(this).siblings(".rules-no").removeAttr("name");
-
-            }
-        }
     });
 });

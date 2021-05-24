@@ -290,9 +290,6 @@ $this->convert_php_to_jsvars([$cprop,$prop_index],["cprop","prop_index"]);
             }
         });
     }
-</script>
-<!--    Amenities loading script-->
-<script>
 
 
 </script>
@@ -307,7 +304,6 @@ $this->convert_php_to_jsvars([$cprop,$prop_index],["cprop","prop_index"]);
     function saveProgress() {
         let formData = new FormData(document.getElementById("setup-container"));
         var url="/host/store_unfinished/";
-        console.log(php_vars.prop_index)
         if (php_vars.prop_index !== false)
             url+=php_vars.prop_index;
         $.ajax({
@@ -356,7 +352,6 @@ $this->convert_php_to_jsvars([$cprop,$prop_index],["cprop","prop_index"]);
         $("#house-rules-new").val("");
         var newCount=parseInt($("#hrules-box").attr("rules")) +1;
         $("#hrules-box").attr("rules",newCount);
-        console.log(newCount);
         addHouseRules(rule,newCount);
     });
 
