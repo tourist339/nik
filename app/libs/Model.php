@@ -1,23 +1,20 @@
 <?php
 
 
-class Model extends Database
+class Model
 {
-    private $db;
 
 
-    public function __construct($dbname=DB_NAME){
-        $this->db=new Database($dbname);
-        //$this->db
+
+    public function __construct(){
+        $this->db=Database::getDatabase();
     }
 
 
-    /**
-     * @return Database
-     */
-    public function getDb()
+    public  function getDb()
     {
         return $this->db;
+
     }
     public function closeDb()
     {
